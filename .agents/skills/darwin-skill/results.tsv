@@ -67,3 +67,8 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-01T23:02	r1	pm-experiment	92.0	93.0	keep	dim3/5	关联增强OST交叉验证5步具体化+清单差异汇总	dry_run
 2026-07-01T23:02	r1	pm-grill	92.0	93.0	keep	dim5	最便宜测试加4档成本阶梯判定标准	dry_run
 2026-07-01T23:02	r1	pm-handoff	-	90.5	keep	dim3/4	失败模式表2条STOP加显性🔴标记(HL-1杠杆)	dry_run
+2026-07-01T23:41	new	pm-market	-	91.0	baseline	-	新增市场分析(TAM/SAM/SOM双算法+竞品三层+情感分析)	dry_run
+2026-07-01T23:41	new	pm-pricing	-	91.0	baseline	-	新增定价(模型按业务游戏+竞品矩阵+Van Westendorp+弹性+3-5变现方案)	dry_run
+2026-07-01T23:41	new	pm-vision	-	90.5	baseline	-	新增愿景(三要素陈述+10/3/1年阶梯+权力利益网格+沟通计划)	dry_run
+2026-07-01T23:41	new	pm-release	-	90.5	baseline	-	新增发布包(发布说明+测试场景+WWA backlog三性自检)	dry_run
+2026-07-01T23:41	new	pm-align	-	91.5	baseline	-	新增意图对齐审计(intended vs implemented,意图模型+证据file:line+gap分级+修复)	dry_run

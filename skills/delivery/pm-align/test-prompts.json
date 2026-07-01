@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "审计会员续费代码与PRD的意图差距", "expected": "输出意图清单+证据可指file:line+gap分级+修复指文件逻辑+验证可执行"},
+  {"id": 2, "prompt": "/pm-align 只审计边界条件类意图", "expected": "仅审计边界类意图的实现对齐,gap按影响分级,其余意图提示全量"},
+  {"id": 3, "prompt": "我们没有AI PRD能做对齐审计吗", "expected": "🔴 STOP提示先/pm-aiprd,无意图来源无法审计"}
+]

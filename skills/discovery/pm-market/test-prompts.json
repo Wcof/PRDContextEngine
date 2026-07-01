@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员产品做市场分析", "expected": "输出TAM/SAM/SOM双算法交叉验证+竞品三层矩阵+情感分析或无数据标注"},
+  {"id": 2, "prompt": "/pm-market 只算市场规模", "expected": "仅输出双算法规模表+交叉验证差异%,竞品矩阵标[待补]提示全量"},
+  {"id": 3, "prompt": "我们没有竞品数据能出市场分析吗", "expected": "🔴 STOP提示先/pm-collect补竞品扫描,不臆造竞品与TAM"}
+]

@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员产品定愿景和对齐利益相关者", "expected": "输出愿景三要素陈述+10/3/1年阶梯可度量+权力利益网格每象限有策略+沟通计划三要素"},
+  {"id": 2, "prompt": "/pm-vision 只画stakeholder map", "expected": "仅输出权力利益网格+每象限具体人角色+沟通策略,愿景标[待补]"},
+  {"id": 3, "prompt": "PMContext价值验证度量是空能定愿景吗", "expected": "🔴 STOP提示先/pm-refine补价值验证度量,愿景无可实现性依据"}
+]

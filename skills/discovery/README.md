@@ -1,6 +1,6 @@
 # Discovery
 
-需求发现——从模糊想法到清晰的 PMContext。
+需求发现——从模糊想法到清晰的 PMContext，再到发现结构化与战略分析。
 
 ## User-invoked
 
@@ -10,3 +10,10 @@
 
 - **[pm-collect](./pm-collect/SKILL.md)** — 主动深度扫描 URL、项目、知识库和对话上下文，收集材料整理到 collect 目录，不筛选只整理。
 - **[pm-refine](./pm-refine/SKILL.md)** — 对已收集材料自主推断澄清，区分事实/假设/冲突/待确认，沉淀成 PMContext，无需 PM 逐个确认。
+- **[pm-interview](./pm-interview/SKILL.md)** — 从 PMContext 生成结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律，含暖场/核心探索/收尾三段式。
+- **[pm-metrics](./pm-metrics/SKILL.md)** — 从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 指标星座，分类业务游戏 + 七准则校验 + Mermaid 指标树。
+- **[pm-ost](./pm-ost/SKILL.md)** — 从 PMContext 生成机会方案树（OST），四层结构（期望结果→机会→方案→实验）+ 机会优先级评分。
+- **[pm-strategy](./pm-strategy/SKILL.md)** — 从 PMContext 生成战略分析套件——SWOT/Porter 五力/Ansoff 矩阵/Lean Canvas 四阶递进 + 交叉验证。
+- **[pm-market](./pm-market/SKILL.md)** — 从 PMContext 生成市场分析——TAM/SAM/SOM 双算法交叉验证 + 竞品三层矩阵 + 用户反馈情感分析。
+- **[pm-vision](./pm-vision/SKILL.md)** — 从 PMContext 生成产品愿景与利益相关者地图——三要素愿景 + 10/3/1 年阶梯 + 权力/利益网格 + 沟通计划。
+- **[pm-grill](./pm-grill/SKILL.md)** — 对 PMContext 做 relentless 质询压力测试——红队攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口。

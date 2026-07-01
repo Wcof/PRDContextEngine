@@ -88,6 +88,13 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动完成。正常模式 refine 逐维追问 PM；`--auto` 零确认自主推断直达 PRD+原型 |
 | `/pm-collect` | model-invoked | 主动深扫描（代码/git/URL/知识库），4 源去重，**不筛选只整理** |
 | `/pm-refine` | model-invoked | 8 维度推断（P0 用户场景/边界/冲突 → P1 优先级/术语/摩擦力 → P2 技术约束/度量）。正常模式追问 PM；`--auto` 自主推断，标记置信度 |
+| `/pm-interview` | model-invoked | 结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律，暖场/核心探索/收尾三段式 |
+| `/pm-metrics` | model-invoked | 北极星指标 + 3-5 个 Input Metrics 指标星座，分类业务游戏 + 七准则校验 + Mermaid 指标树 |
+| `/pm-ost` | model-invoked | 机会方案树（OST）——四层结构（期望结果→机会→方案→实验）+ 机会优先级评分 |
+| `/pm-strategy` | model-invoked | 战略分析套件——SWOT/Porter 五力/Ansoff 矩阵/Lean Canvas 四阶递进 + 交叉验证 |
+| `/pm-market` | model-invoked | 市场分析——TAM/SAM/SOM 双算法交叉验证 + 竞品三层矩阵 + 用户反馈情感分析 |
+| `/pm-vision` | model-invoked | 产品愿景（三要素陈述 + 10/3/1 年阶梯）+ 利益相关者权力/利益网格 + 沟通计划 |
+| `/pm-grill` | model-invoked | 红队质询——steelman 攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口 |
 
 ### Delivery — 交付
 
@@ -97,6 +104,16 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-aiprd` | model-invoked | 给 AI 的 PRD：可执行规则 + 数据模型 + Agent Context + 验收标准 + 风险项 |
 | `/pm-humanprd` | model-invoked | 给人的 PRD：决策理由 + 自然语言叙事 + 追溯清单，评审友好 |
 | `/pm-premortem` | model-invoked | Pre-Mortem 风险分析：8 域风险覆盖（Value→Team），Tiger/Paper Tiger/Elephant 三分 + 行动计划 + 假设交叉检查 |
+| `/pm-stories` | model-invoked | 用户故事——3C 框架（Card/Conversation/Confirmation）+ INVEST 准则 + 验收标准 |
+| `/pm-gtm` | model-invoked | GTM 策略——Beachhead 四准则 + ICP 画像 + 渠道矩阵 + 信息阶梯 + 发布时间线 |
+| `/pm-experiment` | model-invoked | 假设验证闭环——8 类风险假设 + Impact×Risk 矩阵 + XYZ 假设 + pretotype 含 skin-in-the-game |
+| `/pm-retro` | model-invoked | 回顾——三格式（Start/Stop/Continue/4Ls/Sailboat）+ 主题聚合 + 行动项三要素 + 经验回灌 |
+| `/pm-prioritize` | model-invoked | 优先级排序——6 框架场景推荐（Opportunity Score/ICE/RICE/Kano/MoSCoW/WSJF）+ 四象限，排机会不排功能 |
+| `/pm-pricing` | model-invoked | 定价与变现——模型按业务游戏 + 竞品矩阵 + Van Westendorp WTP + 价格弹性 + 3-5 变现方案 |
+| `/pm-release` | model-invoked | 发布包——用户向发布说明 + 测试场景（每故事≥1）+ WWA backlog 三性自检 |
+| `/pm-align` | model-invoked | 意图-实现对齐审计——intended vs implemented，意图模型 + 证据 file:line + gap 分级 + 修复建议 |
+| `/pm-triage` | model-invoked | 问题分流——分类×状态状态机 + 垂直切片 tracer-bullet issue + agent-ready brief |
+| `/pm-handoff` | model-invoked | 会话交接——把当前会话压缩成交接文档供下一个 Agent 接续 |
 
 ### Visualization — 可视化
 
@@ -107,6 +124,7 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-ia` | model-invoked | 信息架构图：Mermaid graph，实体/页面 + 导航/包含/引用三类边 |
 | `/pm-state` | model-invoked | 状态机图：Mermaid stateDiagram-v2，状态 + 转移条件 + 异常路径 |
 | `/pm-flow` | model-invoked | 流程图：Mermaid flowchart，步骤 + 判断 + 异常，循环配退出条件 |
+| `/pm-journey` | model-invoked | 客户旅程地图：七阶段（认知→拥护）+ 触点/行为/情绪/痛点/机会 + Aha/关键时刻/流失触发点 |
 
 ## Skill 调用规则
 

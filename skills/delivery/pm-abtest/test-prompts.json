@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "我们做了一个 onboarding 改版 A/B 测试，control 5023 用户 617 转化，variant 4987 用户 688 转化，跑了 14 天，PMContext 里 D7 激活率阈值是 +10%。帮我分析该 ship 还是 stop？", "expected": "输出实验设置验证（样本量/SRM/时长）+ 显著性计算（lift/p-value/CI）+ guardrail 检查 + ship/extend/stop 决策，结论追溯 PMContext 阈值"},
+  {"id": 2, "prompt": "这个 A/B 测试 control 1000/variant 1000，跑了 3 天，转化率 control 5% variant 5.5%，能 ship 吗？", "expected": "检测到样本量不足（underpowered）+ 时长不足（< 1 业务周期），标 🔴 不下 ship 结论，建议延长实验"},
+  {"id": 3, "prompt": "实验结果主指标 lift +15% p=0.01 统计显著，但 guardrail 人均收入 -8%，怎么办？", "expected": "guardrail 退化检测到，决策降级为 stop 或 extend，不直接 ship，查退化原因"}
+]

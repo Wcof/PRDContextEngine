@@ -84,3 +84,6 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T00:16	r1	README.md	-	-	keep	dim7	Skill清单补全31个skill(新增12个,分类表完整)	dry_run
 2026-07-02T00:21	r1	pm-collect	-	90.0	keep	dim3/4	失败模式表2条关键条件加显性🔴STOP标记(HL-1杠杆,无输入/材料<3)	dry_run
 2026-07-02T00:27	r1	pm-retro	91.5	92.0	keep	dim3/4	无迭代素材失败条件升🔴STOP(HL-1)	dry_run
+2026-07-02T06:51	r1	pm-abtest	-	91.5	new	dim全	借鉴pm-skills/pm-data-analytics新增(AB测试统计分析+ship/stop决策+guardrail)	dry_run
+2026-07-02T06:51	r1	pm-cohort	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(队列分析+留存曲线+异常队列)	dry_run
+2026-07-02T06:51	r1	pm-sql	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(自然语言→多方言SQL+口径对齐PMContext)	dry_run

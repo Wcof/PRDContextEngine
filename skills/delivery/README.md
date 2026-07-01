@@ -21,3 +21,6 @@
 - **[pm-release](./pm-release/SKILL.md)** — 从 PMContext 与产物生成发布包——发布说明 + 测试场景 + WWA backlog 三性自检。
 - **[pm-align](./pm-align/SKILL.md)** — 审计已实现代码与 PMContext/AI PRD 的意图差距——意图模型 + 实现证据 file:line + gap 分级 + 修复建议。
 - **[pm-triage](./pm-triage/SKILL.md)** — 从 PMContext 与产物把需求/缺陷/PR 分流过状态机 + 垂直切片拆 tracer-bullet issue + 写 agent-ready brief。
+- **[pm-abtest](./pm-abtest/SKILL.md)** — A/B 测试统计分析——样本量/SRM 验证 + 显著性计算（p/CI/lift）+ guardrail 检查 + ship/extend/stop 决策。
+- **[pm-cohort](./pm-cohort/SKILL.md)** — 队列分析——分队列 + 留存/采纳曲线 + 异常队列定位 + 跟进研究建议。
+- **[pm-sql](./pm-sql/SKILL.md)** — 自然语言→多方言 SQL——schema 读取 + 查询逻辑 + 方言适配 + 性能优化 + 验证脚本。

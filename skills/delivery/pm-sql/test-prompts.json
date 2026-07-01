@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "PMContext 里高价值用户定义是月消费≥¥200，留存定义是次月≥1会话，schema 有 payments(user_id,amount,payment_date) 和 sessions(user_id,session_date)，帮我写一个查上个月高价值用户留存率的 PostgreSQL 查询。", "expected": "输出查询逻辑（先讲后写）+ PostgreSQL SQL（含 CTE + 注释 + 口径追溯）+ 性能建议 + 验证脚本"},
+  {"id": 2, "prompt": "帮我写个 SQL 查用户留存，但我没给 schema。", "expected": "🔴 STOP 提示用户提供 schema，不臆造表结构"},
+  {"id": 3, "prompt": "PMContext 说高价值用户是月消费≥¥200，但我自己觉得应该是≥¥500，按哪个写 SQL？", "expected": "标 [冲突] 在注释中标注两版口径，不静默采用任一版，让 PM 裁决"}
+]

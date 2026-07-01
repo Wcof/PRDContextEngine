@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员需求分流拆issue", "expected": "输出分类×状态分流表+垂直切片tracer-bullet端到端+agent brief自包含+wontfix有理由"},
+  {"id": 2, "prompt": "/pm-triage 只拆ready-for-agent的issue", "expected": "仅对ready-for-agent项拆垂直切片+附brief,其余状态项列出但不拆"},
+  {"id": 3, "prompt": "我们没有用户故事也没有缺陷清单能分流吗", "expected": "🔴 STOP提示先/pm-stories或/pm-release,无素材无法分流"}
+]

@@ -20,3 +20,4 @@
 - **[pm-pricing](./pm-pricing/SKILL.md)** — 从 PMContext 生成定价与变现策略——模型按业务游戏 + 竞品矩阵 + Van Westendorp WTP + 弹性 + 3-5 变现方案。
 - **[pm-release](./pm-release/SKILL.md)** — 从 PMContext 与产物生成发布包——发布说明 + 测试场景 + WWA backlog 三性自检。
 - **[pm-align](./pm-align/SKILL.md)** — 审计已实现代码与 PMContext/AI PRD 的意图差距——意图模型 + 实现证据 file:line + gap 分级 + 修复建议。
+- **[pm-triage](./pm-triage/SKILL.md)** — 从 PMContext 与产物把需求/缺陷/PR 分流过状态机 + 垂直切片拆 tracer-bullet issue + 写 agent-ready brief。

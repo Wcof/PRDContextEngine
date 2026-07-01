@@ -96,3 +96,5 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:10	r1	pm-market	91.0	92.5	keep	dim2/5	借鉴user-segmentation增Step4.5用户分层(行为/JTBD/需求聚类≥3层可行动)	dry_run
 2026-07-02T07:10	r1	pm-persona	-	91.0	new	dim全	借鉴pm-skills/user-personas新增(JTBD三性+五维+引言+反对意见+互斥校验)	dry_run
 2026-07-02T07:13	r1	darwin-skill	-	93.0	keep	dim9	借鉴superpowers/writing-skills TDD铁律+systematic-debugging Iron Law增强反例黑名单#9/#10+HL-5/HL-6	dry_run
+2026-07-02T07:15	r1	pm-grill	93.0	94.0	keep	dim5	借鉴skills/grill-me增steelman-then-attack三段式+质量校验(防稻草人)	dry_run
+2026-07-02T07:15	r1	pm-handoff	90.5	92.0	keep	dim3/4	借鉴superpowers/verification-before-completion增Step6.5文档质量7项自检清单	dry_run

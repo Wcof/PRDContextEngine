@@ -1,6 +1,6 @@
 ---
 name: pm-grill
-description: 对 PMContext 做 relentless 质询压力测试——红队攻击承重假设（steelman 后攻击）+ 八维置信度盘问 + 用户/市场/可行性/度量四面逼问，产出致命缺口清单与最便宜证伪测试。Use when the user asks to stress-test or pressure-test PMContext, mentions 质询、压力测试、红队、red team、grill、盘问、挑刺、stress test、challenge assumptions、攻击假设、承重假设、kill criteria、最便宜测试.
+description: 对 PMContext 做 relentless 质询压力测试——红队攻击承重假设（steelman-then-attack 三段式：先述最强版本再攻击）+ 八维置信度盘问 + 用户/市场/可行性/度量四面逼问，产出致命缺口清单与最便宜证伪测试。Use when the user asks to stress-test or pressure-test PMContext, mentions 质询、压力测试、红队、red team、grill、盘问、挑刺、stress test、challenge assumptions、攻击假设、承重假设、kill criteria、最便宜测试、steelman.
 ---
 
 # /pm-grill
@@ -59,13 +59,26 @@ PMContext 是被审对象。本 skill 是 PMContext 的质量门，不产出新 
 
 ### Step 2: steelman 后攻击
 
-对每承重假设：
-1. 先述最强版本"为什么它可能为真"
-2. 再攻击**那个最强版本**（非稻草人）
+对每承重假设，按 **steelman-then-attack 三段式**（借鉴 skills/grill-me relentless 纪律）：
+
+```
+假设: <承重假设>
+Steelman（最强版本，3-5 句为它辩护）:
+  <用计划支持者最强论据重述此假设为何为真——非稻草人，是最难驳的版本>
+Attack（攻击那个最强版本）:
+  <针对 steelman 的论据逐条攻击，指出它在何条件下崩塌>
+Fails if（精确可证伪的失败条件）:
+  <具体可观测的事件/数据，发生即假设死>
+```
 
 每失败模式写"Fails if ___"（具体可证伪）：
 - 好：Fails if 激活率其实不是当前约束
 - 坏：执行风险
+
+**steelman 质量校验**（防稻草人攻击）：
+- steelman 是否用了计划支持者会认可的最强论据？（若支持者说"这不是我的论点"=稻草人）
+- attack 是否针对 steelman 而非原假设的弱版本？（攻击弱版本=无效）
+- Fails if 是否可观测可证伪？（"用户不接受"不可证伪，"D7 留存 < 15%"可证伪）
 
 ### Step 3: 八维置信度盘问
 

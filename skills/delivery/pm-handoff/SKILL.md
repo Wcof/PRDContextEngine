@@ -1,6 +1,6 @@
 ---
 name: pm-handoff
-description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态 + 已完成产物 + 未完成项 + 下一步建议 + 关键决策，供下一个 Agent 接续。Use when the user asks to handoff or continue in another session, mentions 交接、handoff、切换会话、continue later、session handoff、换 agent、接续工作、上下文压缩、compact session.
+description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态 + 已完成产物 + 未完成项 + 下一步建议 + 关键决策 + 7 项质量自检（自包含/下一步具体/未完成精确/决策可追溯/置信度完整/产物状态/待确认盘点），供下一个 Agent 接续。Use when the user asks to handoff or continue in another session, mentions 交接、handoff、切换会话、continue later、session handoff、换 agent、接续工作、上下文压缩、compact session.
 ---
 
 # /pm-handoff
@@ -159,7 +159,26 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 4. 按上方"下一步建议"顺序执行
 ```
 
-**🔴 CHECKPOINT** — 输出交接文档路径 + 已完成产物数 + 未完成项数 + 下一步建议数。
+### Step 6.5: 交接文档质量自检（写入前必过）
+
+借鉴 superpowers/verification-before-completion 纪律——交接文档落盘前必须过以下自检，任一不过标 🟡 需修补：
+
+| # | 自检项 | 通过标准 | 不过处理 |
+|---|--------|---------|---------|
+| 1 | **自包含性** | 接手者不读对话历史能否进入工作？ | 补足缺失上下文 |
+| 2 | **下一步具体性** | 每条下一步是否具体到 skill 调用（如`/pm-prd --auto`）？ | 改为具体 skill 调用 |
+| 3 | **未完成项精确性** | 每未完成项是否精确到"停在哪一步"？ | 补 Step 编号或标"进度不明" |
+| 4 | **关键决策可追溯** | 每决策是否标注来源（对话/PMContext/项目扫描）？ | 补来源标注 |
+| 5 | **置信度分布完整** | 事实/[假设]/[待确认]/[冲突] 四态占比是否齐全？ | 从 PMContext 手动统计 |
+| 6 | **产物状态盘点** | 每产物是否标 ✓/✗ + 路径？ | 补状态标注 |
+| 7 | **`[待确认]` 项盘点** | PMContext 待确认项是否全列出？ | 补全待确认项清单 |
+
+**自检纪律**（借鉴 verification-before-completion）：
+- 不得声称"交接文档已完成"而不跑自检——evidence before assertions
+- 自检不过的文档标 🟡 不落盘，先修补再落盘
+- 落盘后再次跑自检确认通过
+
+**🔴 CHECKPOINT** — 输出交接文档路径 + 已完成产物数 + 未完成项数 + 下一步建议数 + 自检结果（7 项全过/🟡 N 项需修补）。
 
 ## 流程链落盘
 

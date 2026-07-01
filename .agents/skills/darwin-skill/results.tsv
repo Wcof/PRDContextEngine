@@ -109,3 +109,4 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:37	r2	pm-skillauthor	-	91.0	new	dim全	借鉴superpowers/writing-skills+skills/write-a-skill新增(TDD RED-GREEN-REFACTOR+Anthropic规范)	dry_run
 2026-07-02T07:37	r2	evals	-	-	keep	dim8	7个新增skill evals JSON+dry-run全PASS(21场景全绿)	dry_run
 2026-07-02T07:37	r2	README/CONTEXT	-	-	keep	dim7	登记7新增skill+skill数40→47+discovery README+evals README清单	dry_run
+2026-07-02T07:45	r3	references-batch	-	-	keep	dim7	7个R2新skill references示例文件补全(bm/positioning/assumption/northstar/ideation/parallel/skillauthor)	dry_run

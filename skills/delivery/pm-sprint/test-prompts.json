@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "团队 5 人 80% 可用，历史速率 40 点/迭代，pm-stories 有 12 个故事，帮我规划 2 周迭代。", "expected": "输出容量 128 点（公式计算）+ 按 pm-prioritize 优先级选取 + DoR 校验 + 依赖映射 + 风险 + 单句 Sprint Goal"},
+  {"id": 2, "prompt": "我们没有历史速率数据，怎么估容量？", "expected": "标 [假设] 用 PM 估算，提示收集 3 迭代后校准，不拍脑袋"},
+  {"id": 3, "prompt": "Sprint Goal 写'完成 5 个故事'行吗？", "expected": "检测到 todo list 式 goal，提示改为价值描述（如'让用户在 X 内完成 Y'），禁写完成 N 个故事"}
+]

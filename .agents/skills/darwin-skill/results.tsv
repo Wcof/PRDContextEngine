@@ -88,3 +88,8 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T06:51	r1	pm-cohort	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(队列分析+留存曲线+异常队列)	dry_run
 2026-07-02T06:51	r1	pm-sql	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(自然语言→多方言SQL+口径对齐PMContext)	dry_run
 2026-07-02T06:52	r1	pm-gtm	93.0	94.0	keep	dim2/5	借鉴growth-loops增Step6.5增长循环五型+闭环图+失败模式+反例	dry_run
+2026-07-02T07:00	r1	pm-okr	-	91.5	new	dim全	借鉴pm-skills/pm-execution/brainstorm-okrs新增(三套候选+KR/KPI/NSM关系)	dry_run
+2026-07-02T07:00	r1	pm-sprint	-	91.0	new	dim全	借鉴pm-skills/pm-execution/sprint-plan新增(容量公式+DoR+依赖+风险+Sprint Goal)	dry_run
+2026-07-02T07:00	r1	pm-meeting	-	90.5	new	dim全	借鉴pm-skills/pm-execution/summarize-meeting新增(结构化纪要+行动项三要素)	dry_run
+2026-07-02T07:00	r1	pm-roadmap	-	91.0	new	dim全	借鉴pm-skills/pm-execution/outcome-roadmap新增(Enable/so that转换+替代方案)	dry_run
+2026-07-02T07:00	r1	pm-battlecard	-	91.0	new	dim全	借鉴pm-skills/pm-go-to-market/competitive-battlecard新增(对比+反制+异议+地雷)	dry_run

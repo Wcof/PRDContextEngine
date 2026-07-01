@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "我 Q2 roadmap 是'搜索筛选、AI 推荐、仪表盘改版'，帮我转成 outcome 导向。", "expected": "输出每 initiative 转 Enable/so that 格式 + 关键度量（追溯 PMContext）+ 替代方案考量 + 战略对齐"},
+  {"id": 2, "prompt": "我没给原始 roadmap，帮我做。", "expected": "🔴 STOP 提示提供原始 roadmap（功能清单），不臆造功能"},
+  {"id": 3, "prompt": "搜索筛选和 AI 推荐都转成'让用户找到素材'，行吗？", "expected": "检测到重复 outcome，建议合并或区分客户细分，标 [冲突] 让 PM 裁决"}
+]

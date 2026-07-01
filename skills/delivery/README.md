@@ -24,3 +24,8 @@
 - **[pm-abtest](./pm-abtest/SKILL.md)** — A/B 测试统计分析——样本量/SRM 验证 + 显著性计算（p/CI/lift）+ guardrail 检查 + ship/extend/stop 决策。
 - **[pm-cohort](./pm-cohort/SKILL.md)** — 队列分析——分队列 + 留存/采纳曲线 + 异常队列定位 + 跟进研究建议。
 - **[pm-sql](./pm-sql/SKILL.md)** — 自然语言→多方言 SQL——schema 读取 + 查询逻辑 + 方言适配 + 性能优化 + 验证脚本。
+- **[pm-okr](./pm-okr/SKILL.md)** — OKR 拆解——定性 Objective + 3 定量 KR（60-70% 信心）+ 三套候选 + KR/KPI/NSM 关系澄清。
+- **[pm-sprint](./pm-sprint/SKILL.md)** — 迭代规划——容量估算（公式）+ 故事选取（DoR 校验）+ 依赖映射 + 风险 + Sprint Goal。
+- **[pm-meeting](./pm-meeting/SKILL.md)** — 会议纪要结构化——日期/参与者/决策/行动项（owner+截止）/未决问题。
+- **[pm-roadmap](./pm-roadmap/SKILL.md)** — output→outcome roadmap 转换——Enable/so that 格式 + 度量 + 替代方案考量。
+- **[pm-battlecard](./pm-battlecard/SKILL.md)** — 竞品作战卡——对比表+优势+反制+异议话术+地雷问题+赢/输模式。

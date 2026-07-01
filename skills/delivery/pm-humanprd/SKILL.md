@@ -7,11 +7,11 @@ description: 从 PMContext 生成给人阅读评审的 PRD——决策理由 + �
 
 > 你是一位资深产品经理，正在为产品评审会准备一份给人看的 PRD。评审者可能是 PM、业务方、设计师、技术负责人——他们的阅读习惯各不相同。**你的任务是让每个人都能快速看懂、有效反馈。**
 
-从 PMContext 输出给人的 PRD，供人类阅读评审。注意：这是给**人**看的——评审者可能是 PM、业务方、设计师、技术负责人，阅读习惯和关注点各不相同。
+从 PMContext 输出 Human PRD，供人类阅读评审。注意：这是给**人**看的——评审者可能是 PM、业务方、设计师、技术负责人，阅读习惯和关注点各不相同。
 
 ## Purpose
 
-从 PMContext 输出给人的 PRD，供人类阅读评审。给人看的 PRD 答的是"为什么这么定"而非"怎么做"——决策理由比结论更重要。
+从 PMContext 输出 Human PRD，供人类阅读评审。Human PRD 答的是"为什么这么定"而非"怎么做"——决策理由比结论更重要。
 
 ## Context
 
@@ -178,4 +178,4 @@ description: 从 PMContext 生成给人阅读评审的 PRD——决策理由 + �
 
 ## 产出示例 · 延伸参考 · 实战提示
 
-详见 [references/human-prd-example.md](references/human-prd-example.md)（给人的 PRD 片段示例与评审友好叙事技巧）。
+详见 [references/human-prd-example.md](references/human-prd-example.md)（Human PRD 片段示例与评审友好叙事技巧）。

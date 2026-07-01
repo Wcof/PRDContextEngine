@@ -1,6 +1,6 @@
 ---
 name: pm-prd
-description: 从 PMContext 生成 PRD 文档——给 AI 的可执行规则版和给人的评审叙事版两种形态。支持 --auto 零确认、--skip-ai / --skip-human 单形态输出。Use when generating PRD from PMContext, or the user mentions 生成PRD、prd、需求文档、产品规格、ai-prd、human-prd、双形态PRD.
+description: 从 PMContext 生成 PRD 文档——AI PRD（可执行规则版）和 Human PRD（评审叙事版）双形态。支持 --auto 零确认、--skip-ai / --skip-human 单形态输出。Use when generating PRD from PMContext, or the user mentions 生成PRD、prd、需求文档、产品规格、ai-prd、human-prd、双形态PRD.
 disable-model-invocation: true
 ---
 
@@ -25,7 +25,7 @@ PMContext 已沉淀了事实/假设/冲突/待确认的结构化上下文。PRD 
 - [ ] PMContext 已读取且非空
 - [ ] 概述/页面定义/全局约束/假设清单/风险项/信息缺口全部提取
 
-### 2. 生成两种 PRD
+### 2. 生成双形态 PRD
 
 Run `/pm-aiprd` — 生成 `docs/pm-context/prd/ai-prd.md`
 Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
@@ -54,7 +54,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 达阈值的关键信息自动回灌到 PMContext 对应 heading（不开新 heading、走现有标记体系）。
 
 **产出约束**：
-- ai-prd 和 human-prd 必须同源同骨架——同一条需求在两种 PRD 中表述不同但追溯的 PMContext 项相同
+- ai-prd 和 human-prd 必须同源同骨架——同一条需求在 AI PRD 和 Human PRD 中表述不同但追溯的 PMContext 项相同
 - 同源项出现分歧时以 PMContext 为准修正，标注修正项
 - 必须产出**双形态 PRD 交付物清单**：ai-prd 含 N 个用户故事 + M 条可执行规则 + K 条验收标准；human-prd 含 N 条含决策理由规则 + 格式纪律检查结果
 - [待确认] 占比 > 50% 时 ai-prd 标 🔴 不可执行、human-prd 只输出信息缺口清单

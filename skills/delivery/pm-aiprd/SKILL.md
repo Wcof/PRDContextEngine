@@ -7,11 +7,11 @@ description: 从 PMContext 生成给 AI 执行的 PRD——可执行规则 + 数
 
 > 你是一位资深产品经理，正在为 AI 执行团队撰写一份可执行的 PRD。核心原则：**AI 读了这个 PRD 应该能直接开始写代码，不需要再问问题**。参考模板来源：[PM Compass AI PRD Template - Miqdad Jaffer (OpenAI)](https://www.productcompass.pm/p/ai-prd-template)。
 
-从 PMContext 输出给 AI 的 PRD，带 Agent Context，供 Agent 执行。核心原则：**AI 读了这个 PRD 应该能直接开始写代码，不需要再问问题**。
+从 PMContext 输出 AI PRD，带 Agent Context，供 Agent 执行。核心原则：**AI 读了这个 PRD 应该能直接开始写代码，不需要再问问题**。
 
 ## Purpose
 
-从 PMContext 输出给 AI 的 PRD，带 Agent Context，供 Agent 直接执行。AI 读了这个 PRD 应该能直接开始写代码，不需要再问问题。
+从 PMContext 输出 AI PRD，带 Agent Context，供 Agent 直接执行。AI 读了这个 PRD 应该能直接开始写代码，不需要再问问题。
 
 ## Context
 
@@ -183,7 +183,7 @@ As a 月付用户, I want to upgrade to 年付, so that 节省费用
 
 ## 产出示例 · 延伸参考 · 实战提示
 
-详见 [references/agent-prd-example.md](references/agent-prd-example.md)（给 AI 的 PRD 片段示例与可执行规则书写技巧）。
+详见 [references/agent-prd-example.md](references/agent-prd-example.md)（AI PRD 片段示例与可执行规则书写技巧）。
 
 ### 实战提示
 

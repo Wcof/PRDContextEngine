@@ -1,4 +1,4 @@
-# PMSkill 评估结果 — mode=dry-run generated=2026-07-01T11:01:07Z
+# PMSkill 评估结果 — mode=dry-run generated=2026-07-01T13:42:39Z
 skill	scenario_id	query	expected_count	status	note
 pm-aiprd	1	基于 PMContext 生成 AI 可执行的 PRD	4	PASS	4 条 expected_behavior
 pm-aiprd	3	PMContext 中有 4 个 [待确认] 项怎么处理	4	PASS	4 条 expected_behavior

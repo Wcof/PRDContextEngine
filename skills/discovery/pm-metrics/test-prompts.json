@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "prompt": "从 PMContext 定义会员续费产品的北极星指标",
+    "expected": "产出业务游戏分类 + NSM 七准则校验 + 3-5 Input Metrics + 指标树 Mermaid 图"
+  },
+  {
+    "id": 2,
+    "prompt": "NSM 定义为月度营收可以吗",
+    "expected": "识别为反模式，NSM 必须客户中心，营收是结果不是先行指标，改为客户价值指标"
+  },
+  {
+    "id": 3,
+    "prompt": "定义 8 个 Input Metrics 行不行",
+    "expected": "识别为反模式，Input Metrics 应 3-5 个，过多稀释注意力，精简到 Top 5"
+  }
+]

@@ -83,3 +83,4 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T00:13	r1	CONTEXT.md	-	-	keep	dim7	Skill调用关系+目录结构+Frontmatter表补全31个skill(新增12个)	dry_run
 2026-07-02T00:16	r1	README.md	-	-	keep	dim7	Skill清单补全31个skill(新增12个,分类表完整)	dry_run
 2026-07-02T00:21	r1	pm-collect	-	90.0	keep	dim3/4	失败模式表2条关键条件加显性🔴STOP标记(HL-1杠杆,无输入/材料<3)	dry_run
+2026-07-02T00:27	r1	pm-retro	91.5	92.0	keep	dim3/4	无迭代素材失败条件升🔴STOP(HL-1)	dry_run

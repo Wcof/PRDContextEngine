@@ -390,12 +390,76 @@ docs/pm-context/
     flow.md
 ```
 
+## 术语规范表（Terminology Registry）
+
+本项目术语中央登记。所有 SKILL.md frontmatter description、body 引用、README 必须使用下表规范写法，禁止同义词混用。
+
+### 核心实体与流程
+
+| 规范术语 | 禁止写法 | 说明 |
+|---|---|---|
+| **PMContext** | PM Context / PM_Context / pmcontext（文件路径 `pm-context.md` 除外） | 唯一 Entity，驼峰连写 |
+| **审计门** | audit gate / Audit Gate（英文 description 中可用 `audit gate`） | PMContext 落盘后的置信度审查点 |
+| **信息缺口** | information gap / 缺口 / 信息差 | `[待确认]` 项的集合，PMContext 章节 |
+| **心智链** | thinking loop / PM Thinking（英文 description 中可用 `PM Thinking Loop`） | 6 步隐式推理，不落盘，约束 LLM 思考结构 |
+| **流程链** | pipeline / chain | 6 步在编排链上的显式切片，落盘 `.loop/` |
+| **审计三元组** | audit triple | `<依据集 → 工具/技术 → 产出>`，流程链审计手段 |
+
+### 双模式与标记
+
+| 规范术语 | 禁止写法 | 说明 |
+|---|---|---|
+| **追问模式** | 1by1 追问 / 逐个确认 / Q&A 模式 | refine 默认模式，Agent 逐维向 PM 提问 |
+| **自主推断模式** | 自动推断 / auto 模式 / 全自动模式 | refine `--auto` 模式，Agent 内部自我追问 loop |
+| **`[待确认]`** | TBD / TODO / 未定（英文 description 中可用 `[pending]`） | 材料完全缺失 |
+| **`[假设]`** | 推测 / 猜测 / guessed | 可合理推断，附置信度(1-10) |
+| **`[冲突]`** | 矛盾 / conflict | 不同材料矛盾 |
+| **`[事实]`** | fact / 确定 | 有明确依据，标注来源 |
+| **置信度** | confidence / 置信分数 | 1-10 整数，附在 `[假设]` 后 |
+
+### PRD 形态（统一为「给 AI / 给人」+ 简写）
+
+| 规范术语 | 禁止写法 | 说明 |
+|---|---|---|
+| **AI PRD** | 给 AI 的 PRD / AI-PRD / aiprd（文件路径 `ai-prd.md` 除外） | 给 AI 执行的 PRD，带 Agent Context |
+| **Human PRD** | 给人的 PRD / human-prd（文件路径 `human-prd.md` 除外） / 人类 PRD | 给人评审的 PRD，带决策理由 |
+| **双形态 PRD** | 两种 PRD / 双形态 / 两种形态 | AI PRD + Human PRD 合称 |
+
+### 风险与可视化
+
+| 规范术语 | 禁止写法 | 说明 |
+|---|---|---|
+| **Tiger** | 真实风险 / real risk | 真实且紧急的风险 |
+| **Paper Tiger** | 过虑 / over-concern / 纸老虎 | 看似严重实际过虑 |
+| **Elephant** | 未讨论 / undiscussed / 大象 | 重要但未讨论 |
+| **Launch-Blocking** | 上线阻断 / blocking | Tiger 紧急度最高级 |
+| **Fast-Follow** | 快速跟进 / fast follow | Tiger 紧急度中级 |
+| **Track** | 跟踪 / track-only | Tiger 紧急度最低级 |
+| **HTML 原型** | prototype / 原型（文件名 `prototype.html` 除外） | `--prototype` 产出的可交互原型 |
+| **技术栈感知** | tech stack awareness / 技术栈检测 | `--prototype` 前自动确定技术栈的约束 |
+
+### 调用类型与模式
+
+| 规范术语 | 禁止写法 | 说明 |
+|---|---|---|
+| **user-invoked** | user_invoked / user-triggered / 用户触发 | 只能由人类触发，设 `disable-model-invocation: true` |
+| **model-invoked** | model_invoked / agent-triggered | 可由 Agent 自主触发或编排调用 |
+| **零确认模式** | 全自动模式 / 无确认 / no-confirm（英文 description 中可用 `zero-confirmation`） | `--auto` 触发，审计门不暂停 |
+| **`--auto`** | auto / -a / 自动模式 | 零确认模式的触发参数 |
+
+### 写法纪律
+
+1. **中文优先**：body 内用中文术语；英文 description 触发词段可用英文括注
+2. **文件路径例外**：`pm-context.md`/`ai-prd.md`/`human-prd.md`/`prototype.html` 是文件名，不适用术语规范
+3. **frontmatter 触发词**：每个 model-invoked SKILL.md 的 description 触发词段必须包含本表对应规范术语的中英文写法，便于 Agent 路由
+4. **新增术语**：必须先登记到本表再在 SKILL.md 使用，禁止 SKILL.md 私造术语
+
 ## Flagged Ambiguities
 
 - "采集/精炼/关联/生成"四阶段是旧项目概念，仅作参考，已被 PMContext 主链路取代。
 - "草图"不等于"PRD 的配图"——它是独立 View，和 PRD 平级。
 - Soft Gate / 独立检查机制已去掉，改为 PMContext 内显式标记（[待确认]/[假设]/[冲突]），View 忠实反映。
-- 1by1 追问机制已去掉，改为 Agent 自主推断 + 审计门。PM 唯一介入点是审计 PMContext。
+- **refine 双执行模式**：正常模式（追问模式，默认）Agent 逐维向 PM 提问，每问附三段式推荐答案（推荐/依据/备选），PM 回答后采信为事实；`--auto` 模式（自主推断模式）Agent 内部完成自我追问 loop，不外显，PM 零介入。两种模式都先尝试从材料推断，推断不了的项在追问模式转为向 PM 提问、在自主模式标 `[待确认]` 记入信息缺口。PM 的介入点：追问模式是逐维回答，自主模式是审计门事后审计。
 - 知识库是可选外部材料源，不替代项目扫描和对话上下文，三者互补。
 - 零确认模式（--auto）跳过审计门但不跳过置信度标记——输出的一站式报告仍包含完整的置信度分布，PM 事后审计。
 - HTML 原型（prototype.html）是草图的增强形态，和 Mermaid 草图平级，不替代 Mermaid。前者适合用户预览交互效果，后者适合 Agent 阅读和编辑。

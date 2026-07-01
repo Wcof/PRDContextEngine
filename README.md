@@ -4,7 +4,7 @@
 
 从模糊想法/用户诉求出发，**一键全链路**沉淀成 PMContext → 衍生出 PRD（给 AI + 给人）→ 生成可视化草图 + HTML 可交互原型。
 
-> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，13 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
+> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，40 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
 >
 > **评估闭环**：45 个评估场景（≥3/skill）经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
 
@@ -94,7 +94,8 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-strategy` | model-invoked | 战略分析套件——SWOT/Porter 五力/Ansoff 矩阵/Lean Canvas 四阶递进 + 交叉验证 |
 | `/pm-market` | model-invoked | 市场分析——TAM/SAM/SOM 双算法交叉验证 + 竞品三层矩阵 + 用户反馈情感分析 |
 | `/pm-vision` | model-invoked | 产品愿景（三要素陈述 + 10/3/1 年阶梯）+ 利益相关者权力/利益网格 + 沟通计划 |
-| `/pm-grill` | model-invoked | 红队质询——steelman 攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口 |
+| `/pm-grill` | model-invoked | 红队质询——steelman-then-attack 三段式攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口 |
+| `/pm-persona` | model-invoked | 用户画像——基于 JTBD 的 ≥3 persona，五维（demographics/behaviors/JTBD 三性/未满足需求/引言）+ 反对意见 + 互斥校验 |
 
 ### Delivery — 交付
 
@@ -113,7 +114,15 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-release` | model-invoked | 发布包——用户向发布说明 + 测试场景（每故事≥1）+ WWA backlog 三性自检 |
 | `/pm-align` | model-invoked | 意图-实现对齐审计——intended vs implemented，意图模型 + 证据 file:line + gap 分级 + 修复建议 |
 | `/pm-triage` | model-invoked | 问题分流——分类×状态状态机 + 垂直切片 tracer-bullet issue + agent-ready brief |
-| `/pm-handoff` | model-invoked | 会话交接——把当前会话压缩成交接文档供下一个 Agent 接续 |
+| `/pm-handoff` | model-invoked | 会话交接——把当前会话压缩成交接文档供下一个 Agent 接续（含 7 项质量自检） |
+| `/pm-abtest` | model-invoked | A/B 测试统计分析——样本量/SRM 验证 + 显著性计算（p/CI/lift）+ guardrail + ship/extend/stop 决策 |
+| `/pm-cohort` | model-invoked | 队列分析——分队列 + 留存/采纳曲线 + 异常队列定位 + 跟进研究建议 |
+| `/pm-sql` | model-invoked | 自然语言→多方言 SQL——schema 读取 + 查询逻辑 + 方言适配 + 性能优化 + 验证脚本 |
+| `/pm-okr` | model-invoked | OKR 拆解——定性 Objective + 3 定量 KR（60-70% 信心）+ 三套候选 + KR/KPI/NSM 关系澄清 |
+| `/pm-sprint` | model-invoked | 迭代规划——容量估算（公式）+ 故事选取（DoR）+ 依赖映射 + 风险 + Sprint Goal |
+| `/pm-meeting` | model-invoked | 会议纪要结构化——日期/参与者/决策/行动项（owner+截止）/未决问题 |
+| `/pm-roadmap` | model-invoked | output→outcome roadmap 转换——Enable/so that 格式 + 度量 + 替代方案考量 |
+| `/pm-battlecard` | model-invoked | 竞品作战卡——对比表+优势+反制+异议话术+地雷问题+赢/输模式 |
 
 ### Visualization — 可视化
 

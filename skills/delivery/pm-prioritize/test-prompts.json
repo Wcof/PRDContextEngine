@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员产品排需求优先级", "expected": "推荐Opportunity Score排机会不排功能+评分表追溯PMContext+四象限+P0/P1/P2标注"},
+  {"id": 2, "prompt": "/pm-prioritize --rice 排我们的功能倡议", "expected": "用RICE评分Reach×Impact×Confidence/Effort+四象限+排序，每维度追溯PMContext"},
+  {"id": 3, "prompt": "我给的是功能列表能直接排吗", "expected": "先回溯每个功能解决的机会，排机会不排功能，无法回溯提示先/pm-ost"}
+]

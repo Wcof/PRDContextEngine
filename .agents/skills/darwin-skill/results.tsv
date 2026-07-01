@@ -57,3 +57,13 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-01T19:01	8a9900d	pm-premortem	90.0	91.0	keep	dim6	pm-skills引用替换为中立产品文章	dry_run
 2026-07-01T19:01	8a9900d	pm-prd	90.5	91.5	keep	dim6	pm-skills引用替换为中立产品文章	dry_run
 2026-07-01T19:01	8a9900d	pm-aiprd	89.0	90.0	keep	dim6	pm-skills引用替换为中立产品文章	dry_run
+2026-07-01T23:02	new	pm-strategy	-	91.0	baseline	-	新增战略套件(SWOT/Porter/Ansoff/LeanCanvas)四阶递进+交叉验证	dry_run
+2026-07-01T23:02	new	pm-gtm	-	91.0	baseline	-	新增GTM(Beachhead四准则+ICP+渠道矩阵+信息阶梯+时间线)	dry_run
+2026-07-01T23:02	new	pm-experiment	-	92.0	baseline	-	新增假设验证闭环(8类风险+Impact×Risk+XYZ+pretotype含skin-in-the-game)	dry_run
+2026-07-01T23:02	new	pm-grill	-	92.0	baseline	-	新增红队质询(steelman攻击承重假设+八维盘问+四面逼问+Top5致命缺口)	dry_run
+2026-07-01T23:02	new	pm-retro	-	90.0	baseline	-	新增回顾(三格式+主题聚合+行动项三要素+经验回灌)	dry_run
+2026-07-01T23:02	new	pm-prioritize	-	91.0	baseline	-	新增优先级(6框架场景推荐+单框架评分+四象限+排机会不排功能)	dry_run
+2026-07-01T23:02	r1	pm-retro	90.0	91.5	keep	dim5	Step2格式选择加反馈特征自动判定决策树	dry_run
+2026-07-01T23:02	r1	pm-experiment	92.0	93.0	keep	dim3/5	关联增强OST交叉验证5步具体化+清单差异汇总	dry_run
+2026-07-01T23:02	r1	pm-grill	92.0	93.0	keep	dim5	最便宜测试加4档成本阶梯判定标准	dry_run
+2026-07-01T23:02	r1	pm-handoff	-	90.5	keep	dim3/4	失败模式表2条STOP加显性🔴标记(HL-1杠杆)	dry_run

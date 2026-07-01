@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员产品设计假设验证实验", "expected": "输出 8 类风险假设+Impact×Risk 矩阵+XYZ 假设+pretotype 实验含 skin-in-the-game 与 kill criterion"},
+  {"id": 2, "prompt": "/pm-experiment 只做 Feasibility 类假设", "expected": "仅输出 Feasibility 类假设+Fails if 形式+对应实验，其余类标无显著风险或提示全量"},
+  {"id": 3, "prompt": "我们没有 PMContext 能直接出实验吗", "expected": "🔴 STOP 提示先运行 /pm-need，不臆造假设与阈值"}
+]

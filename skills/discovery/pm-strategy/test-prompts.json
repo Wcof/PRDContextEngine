@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮我做会员产品的战略分析", "expected": "输出四框架（SWOT/Porter/Ansoff/Lean Canvas）结构化表，每条判断追溯 PMContext，含 Top3 行动与交叉验证"},
+  {"id": 2, "prompt": "/pm-strategy --porter 分析在线教育行业吸引力", "expected": "仅输出 Porter 五力表+吸引力结论，每力量强度有 PMContext 依据，不臆造竞品"},
+  {"id": 3, "prompt": "我们 PMContext 里竞品数据是空的，能直接出 SWOT 吗", "expected": "🔴 STOP 提示先运行 /pm-collect 补竞品扫描，不臆造 SWOT 机会威胁"}
+]

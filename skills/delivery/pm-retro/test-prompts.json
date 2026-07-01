@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员V1迭代做回顾", "expected": "输出三格式之一+主题聚合含频次sentiment+行动项三要素+经验回灌PMContext"},
+  {"id": 2, "prompt": "/pm-retro --sailboat", "expected": "输出 Wind/Anchor/Rocks/Island 四栏含 Island 目标，行动项三要素齐全"},
+  {"id": 3, "prompt": "我们没有迭代产物也没有团队反馈能做 retro 吗", "expected": "提示未发现迭代素材，不臆造回顾，建议先提供反馈或确认迭代已开始"}
+]

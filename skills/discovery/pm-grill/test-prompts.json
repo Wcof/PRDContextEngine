@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮我质询会员产品的 PMContext", "expected": "输出承重假设steelman攻击+Fails if+八维置信度+四面逼问+Top5致命缺口+最便宜测试"},
+  {"id": 2, "prompt": "/pm-grill 只攻度量面", "expected": "仅深度逼问度量面：指标是否虚荣、阈值有无依据、有无kill criterion，其余面提示全量"},
+  {"id": 3, "prompt": "PMContext 内容很稀疏能直接 grill 吗", "expected": "🔴 STOP 提示先运行 /pm-refine 补全，不强行攻击空内容"}
+]

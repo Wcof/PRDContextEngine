@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "帮会员产品做 GTM 策略", "expected": "输出 Beachhead 四准则评分选定单一细分 + ICP 四维 + 渠道矩阵三维评估 + 信息阶梯四层 + 三阶段时间线含度量"},
+  {"id": 2, "prompt": "/pm-gtm 只选 Beachhead 不要渠道", "expected": "仅输出 Beachhead 四准则评分表+选定细分+放弃理由，不臆造渠道"},
+  {"id": 3, "prompt": "PMContext 里没有用户场景数据能出 GTM 吗", "expected": "🔴 STOP 提示先运行 /pm-collect 补用户研究，不臆造细分"}
+]

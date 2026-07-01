@@ -93,3 +93,5 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:00	r1	pm-meeting	-	90.5	new	dim全	借鉴pm-skills/pm-execution/summarize-meeting新增(结构化纪要+行动项三要素)	dry_run
 2026-07-02T07:00	r1	pm-roadmap	-	91.0	new	dim全	借鉴pm-skills/pm-execution/outcome-roadmap新增(Enable/so that转换+替代方案)	dry_run
 2026-07-02T07:00	r1	pm-battlecard	-	91.0	new	dim全	借鉴pm-skills/pm-go-to-market/competitive-battlecard新增(对比+反制+异议+地雷)	dry_run
+2026-07-02T07:10	r1	pm-market	91.0	92.5	keep	dim2/5	借鉴user-segmentation增Step4.5用户分层(行为/JTBD/需求聚类≥3层可行动)	dry_run
+2026-07-02T07:10	r1	pm-persona	-	91.0	new	dim全	借鉴pm-skills/user-personas新增(JTBD三性+五维+引言+反对意见+互斥校验)	dry_run

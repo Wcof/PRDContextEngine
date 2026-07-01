@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "PMContext 用户场景里有独立创作者、小团队主理、企业管理者三类，帮我出 persona。", "expected": "输出 ≥3 persona，每含 demographics+behaviors+JTBD 三性+未满足需求+引言+反对意见，互斥校验，追溯 PMContext"},
+  {"id": 2, "prompt": "persona 按 25-34 岁/35-44 岁分可以吗？", "expected": "检测到仅 demographics 切片，提示改为行为/JTBD/需求聚类，demographics 不驱动产品策略"},
+  {"id": 3, "prompt": "我只想到 2 个 persona 够吗？", "expected": "检测到 persona<3，提示放宽聚类粒度重新分，少于 3 漏关键用户群"}
+]

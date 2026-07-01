@@ -1,6 +1,6 @@
 ---
 name: pm-market
-description: 从 PMContext 生成市场分析套件——TAM/SAM/SOM 市场规模（自上而下+自下而上双算法交叉验证）+ 竞品矩阵（直接/间接/替代三层，差异化机会标注）+ 用户反馈情感分析（segments×sentiment×JTBD×满意度）。Use when the user asks for market analysis or competitive landscape, mentions 市场分析、市场规模、TAM、SAM、SOM、市场容量、竞品分析、competitive analysis、竞争格局、差异化、sentiment analysis、情感分析、用户反馈分析、market sizing、competitive landscape.
+description: 从 PMContext 生成市场分析套件——TAM/SAM/SOM 市场规模（自上而下+自下而上双算法交叉验证）+ 竞品矩阵（直接/间接/替代三层，差异化机会标注）+ 用户反馈情感分析（segments×sentiment×JTBD×满意度）+ 用户分层（行为/JTBD/需求聚类，≥3 层可行动）。Use when the user asks for market analysis or competitive landscape, mentions 市场分析、市场规模、TAM、SAM、SOM、市场容量、竞品分析、competitive analysis、竞争格局、差异化、sentiment analysis、情感分析、用户反馈分析、market sizing、competitive landscape、用户分层、user segmentation、行为聚类、behavioral clustering.
 ---
 
 # /pm-market
@@ -109,9 +109,40 @@ SOM = 可获用户数 × ARPU × 年
 
 若无反馈数据 → 标 `[无反馈数据]`，提示先 /pm-collect 收集，不臆造 sentiment。
 
+### Step 4.5: 用户分层（User Segmentation，行为聚类）
+
+借鉴 pm-skills/user-segmentation：从反馈数据按行为/JTBD/需求聚类，识别 ≥3 个用户层（禁仅按 demographics 分层）。
+
+**分层规则**：
+- 按 **行为 + JTBD + 未满足需求** 聚类，禁只按 demographics（年龄/性别/地域）
+- 每层必须可行动（不同层应有不同产品/GTM 策略，不可行动=无效分层）
+- 层数 ≥3（少于 3 层说明聚类粗糙），≤7（多于 7 层无法聚焦）
+
+| 层 | 名称 | 规模占比 | 核心行为 | JTBD | 未满足需求 | 可行动策略 | 来源 |
+|----|------|---------|---------|------|-----------|-----------|------|
+| 1 | <命名> | <占比> | <使用模式> | <待办任务> | <痛点> | <对应产品/GTM 动作> | PMContext 用户场景 |
+| 2 | ... | | | | | | |
+| 3 | ... | | | | | | |
+
+**分层质量校验**：
+- 层间是否互斥？（同一用户不应属 2 层，否则聚类维度混淆）
+- 层内是否同质？（同层用户行为/JTBD 应相似，否则聚类粗糙）
+- 每层是否有可行动策略？（无策略=无效分层，应合并或重分层）
+
+**失败模式（分层特有）**：
+
+| 触发条件 | 一线修复 | 仍失败兜底 |
+|---------|---------|-----------|
+| 反馈数据不足以分层（<10 条） | 标 `[待确认]` 需补数据 | 降级为"已知用户群"不分层 |
+| 分层仅按 demographics | 重新按行为/JTBD 聚类 | 标 🟡 仅 demographics 分层，结论谨慎 |
+| 层间不互斥（重叠 >20%） | 重新选聚类维度 | 合并重叠层 |
+| 每层无可行动策略 | 补策略或合并层 | 标 `[待确认]` 需 PM 定策略 |
+
+**反例**：按"男/女"或"25-34/35-44"分层——这是 demographics 切片不是用户分层，无法驱动不同产品策略。
+
 ### Step 5: 写入产物
 
-写入 `docs/pm-context/market.md`，含双算法规模表 + 交叉验证 + 三层竞品矩阵 + 情感分析（或无数据标注）+ 追溯列。
+写入 `docs/pm-context/market.md`，含双算法规模表 + 交叉验证 + 三层竞品矩阵 + 情感分析（或无数据标注）+ 用户分层 + 追溯列。
 
 **🔴 CHECKPOINT** — 输出产物路径 + 双算法差异% + 竞品三层完成度 + 情感分析 segment 数 + `[假设]`/`[待补]` 项数。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 

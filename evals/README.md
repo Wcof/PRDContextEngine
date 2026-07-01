@@ -49,6 +49,15 @@
 | pm-ia | [pm-ia.json](pm-ia.json) | 3 |
 | pm-state | [pm-state.json](pm-state.json) | 3 |
 | pm-flow | [pm-flow.json](pm-flow.json) | 3 |
+| pm-abtest | [pm-abtest.json](pm-abtest.json) | 3 |
+| pm-cohort | [pm-cohort.json](pm-cohort.json) | 3 |
+| pm-sql | [pm-sql.json](pm-sql.json) | 3 |
+| pm-okr | [pm-okr.json](pm-okr.json) | 3 |
+| pm-sprint | [pm-sprint.json](pm-sprint.json) | 3 |
+| pm-meeting | [pm-meeting.json](pm-meeting.json) | 3 |
+| pm-roadmap | [pm-roadmap.json](pm-roadmap.json) | 3 |
+| pm-battlecard | [pm-battlecard.json](pm-battlecard.json) | 3 |
+| pm-persona | [pm-persona.json](pm-persona.json) | 3 |
 
 ## 评估驱动开发循环
 

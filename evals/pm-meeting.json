@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-meeting"],
+    "query": "60 分钟会议转录，出结构化纪要",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "日期/参与者/议题提取",
+      "关键决策+行动项（owner+截止+动作）+未决问题",
+      "决策追溯 PMContext"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-meeting"],
+    "query": "会议讨论了但没明确结论",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "标'讨论未决'+列未决问题",
+      "不硬造决策"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-meeting"],
+    "query": "行动项没说谁负责",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "标 🟡 不完整（缺 owner）",
+      "提示 PM 补，不删除该行动项"
+    ]
+  }
+]

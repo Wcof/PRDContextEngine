@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-persona"],
+    "query": "PMContext 用户场景有独立创作者/小团队/企业管理者三类，出 persona",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "≥3 persona",
+      "每含 demographics+behaviors+JTBD 三性+未满足需求+引言+反对意见",
+      "互斥校验",
+      "追溯 PMContext"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-persona"],
+    "query": "按 25-34/35-44 岁分可以吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到仅 demographics 切片",
+      "提示改为行为/JTBD/需求聚类"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-persona"],
+    "query": "只想到 2 个 persona 够吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到 persona<3",
+      "提示放宽聚类粒度重新分"
+    ]
+  }
+]

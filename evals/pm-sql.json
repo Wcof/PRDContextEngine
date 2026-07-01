@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-sql"],
+    "query": "高价值用户=月消费≥¥200，留存=次月≥1会话，schema 有 payments/sessions，写 PostgreSQL 查留存率",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "先用自然语言讲查询逻辑",
+      "PostgreSQL SQL 含 CTE+注释+口径追溯",
+      "性能优化建议（索引/分区）",
+      "验证脚本"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-sql"],
+    "query": "帮我写 SQL 但没给 schema",
+    "files": [],
+    "expected_behavior": [
+      "🔴 STOP 提示提供 schema",
+      "不臆造表结构"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-sql"],
+    "query": "PMContext 说≥¥200 但我觉得应≥¥500",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "标 [冲突] 标注两版口径",
+      "不静默采用任一版",
+      "让 PM 裁决"
+    ]
+  }
+]

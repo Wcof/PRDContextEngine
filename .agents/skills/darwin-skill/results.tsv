@@ -99,3 +99,4 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:15	r1	pm-grill	93.0	94.0	keep	dim5	借鉴skills/grill-me增steelman-then-attack三段式+质量校验(防稻草人)	dry_run
 2026-07-02T07:15	r1	pm-handoff	90.5	92.0	keep	dim3/4	借鉴superpowers/verification-before-completion增Step6.5文档质量7项自检清单	dry_run
 2026-07-02T07:17	r1	README.md/CONTEXT.md	-	-	keep	dim7	登记9个新增skill+更新skill数13→40+目录结构补全	dry_run
+2026-07-02T07:21	r1	evals	-	-	keep	dim8	9个新增skill evals JSON创建+dry-run全PASS(27场景全绿)	dry_run

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-battlecard"],
+    "query": "PMContext 竞品 X 是直接竞品，出销售作战卡",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "公司概览+≥5 维度对比表",
+      "≥3 我方优势附证明+≥2 对方优势附反制",
+      "异议处理具体话术+地雷问题+赢/输模式",
+      "追溯 PMContext"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-battlecard"],
+    "query": "我方优势写'我们更好用'行吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到空话优势",
+      "提示补客户证言/数据/具体能力证明点"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-battlecard"],
+    "query": "异议处理写'强调我们的价值'行吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到空话话术",
+      "提示改为具体回应话术（如总拥有成本框架）"
+    ]
+  }
+]

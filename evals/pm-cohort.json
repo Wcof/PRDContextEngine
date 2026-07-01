@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-cohort"],
+    "query": "2026-01/02/03 三队列 D7 38%/45%/30%，D30 22%/28%/15%，阈值 25%，分析异常",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "队列划分+留存矩阵+对标阈值",
+      "识别 2026-03 异常队列",
+      "给假设原因+验证方式（访谈/实验）",
+      "联动 pm-interview/pm-abtest"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-cohort"],
+    "query": "只有 2 个队列能做吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 标 [待确认] 数据不足（<3 队列）",
+      "不下模式结论，建议补队列"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-cohort"],
+    "query": "队列异常但不知道原因",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "不臆造原因",
+      "给假设原因+验证方式",
+      "标 [待确认] 记入信息缺口"
+    ]
+  }
+]

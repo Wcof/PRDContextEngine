@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-roadmap"],
+    "query": "Q2 roadmap: 搜索筛选/AI推荐/仪表盘改版，转 outcome 导向",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "每 initiative 转 Enable/so that 格式",
+      "关键度量追溯 PMContext",
+      "替代方案考量",
+      "战略对齐说明"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-roadmap"],
+    "query": "没给原始 roadmap 帮我做",
+    "files": [],
+    "expected_behavior": [
+      "🔴 STOP 提示提供原始 roadmap",
+      "不臆造功能"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-roadmap"],
+    "query": "搜索筛选和 AI 推荐都转'让用户找到素材'行吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到重复 outcome",
+      "建议合并或区分客户细分",
+      "标 [冲突] 让 PM 裁决"
+    ]
+  }
+]

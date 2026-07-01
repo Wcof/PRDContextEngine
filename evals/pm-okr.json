@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-okr"],
+    "query": "PMContext 有月付会员数/D30留存/续费率，公司增长导向，拆 Q3 OKR",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "三套候选 OKR（增长/留存/体验导向）",
+      "每 KR 信心度 60-70%",
+      "KR/KPI/NSM 关系澄清",
+      "选定套+追溯 PMContext"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-okr"],
+    "query": "KR 写'提升用户体验'行吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到不可测 KR",
+      "提示改为可测指标+阈值+基线"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-okr"],
+    "query": "KR 信心度 95% 行吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到信心度过高（>80%）",
+      "提示 stretch 不足，建议提高阈值"
+    ]
+  }
+]

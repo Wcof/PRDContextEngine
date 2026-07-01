@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-abtest"],
+    "query": "control 5023/617 转化，variant 4987/688 转化，14 天，D7 阈值+10%，分析 ship 还是 stop",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "实验设置四项验证（样本量/SRM/时长/新鲜效应）",
+      "显著性计算（lift/p-value/95% CI）",
+      "guardrail 检查",
+      "ship/extend/stop 决策附理由",
+      "结论追溯 PMContext 度量阈值"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-abtest"],
+    "query": "control 1000/variant 1000 跑 3 天，5%/5.5%，能 ship 吗",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 检测到 underpowered（样本不足）",
+      "🔴 检测到时长不足（<1 业务周期）",
+      "不下 ship 结论，建议延长实验"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-abtest"],
+    "query": "主指标 lift+15% p=0.01 但 guardrail 收入-8%",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "🔴 guardrail 退化检测到",
+      "决策降级为 stop/extend，不直接 ship",
+      "提示查退化原因"
+    ]
+  }
+]

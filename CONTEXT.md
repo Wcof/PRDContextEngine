@@ -317,8 +317,9 @@ skills/
     pm-strategy/SKILL.md
     pm-market/SKILL.md
     pm-vision/SKILL.md
-    pm-grill/SKILL.md
-  delivery/                 ← 交付：PRD/发布/质量/分流/定价/GTM/验证/回顾/优先级/交接
+    pm-grill/SKILL.md           ← 含 steelman-then-attack 三段式
+    pm-persona/SKILL.md         ← 基于 JTBD 的用户画像
+  delivery/                 ← 交付：PRD/发布/质量/分流/定价/GTM/验证/回顾/优先级/交接/数据分析/执行
     pm-prd/SKILL.md
     pm-aiprd/SKILL.md
     pm-humanprd/SKILL.md
@@ -333,6 +334,14 @@ skills/
     pm-align/SKILL.md
     pm-triage/SKILL.md
     pm-handoff/SKILL.md
+    pm-abtest/SKILL.md          ← A/B 测试统计分析
+    pm-cohort/SKILL.md          ← 队列分析
+    pm-sql/SKILL.md             ← 自然语言→多方言 SQL
+    pm-okr/SKILL.md             ← OKR 拆解
+    pm-sprint/SKILL.md          ← 迭代规划
+    pm-meeting/SKILL.md         ← 会议纪要结构化
+    pm-roadmap/SKILL.md         ← output→outcome roadmap 转换
+    pm-battlecard/SKILL.md      ← 竞品作战卡
   visualization/            ← 可视化
     pm-sketch/SKILL.md
     pm-wireframe/SKILL.md

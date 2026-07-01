@@ -58,6 +58,13 @@
 | pm-roadmap | [pm-roadmap.json](pm-roadmap.json) | 3 |
 | pm-battlecard | [pm-battlecard.json](pm-battlecard.json) | 3 |
 | pm-persona | [pm-persona.json](pm-persona.json) | 3 |
+| pm-businessmodel | [pm-businessmodel.json](pm-businessmodel.json) | 3 |
+| pm-positioning | [pm-positioning.json](pm-positioning.json) | 3 |
+| pm-assumption | [pm-assumption.json](pm-assumption.json) | 3 |
+| pm-northstar | [pm-northstar.json](pm-northstar.json) | 3 |
+| pm-ideation | [pm-ideation.json](pm-ideation.json) | 3 |
+| pm-parallel | [pm-parallel.json](pm-parallel.json) | 3 |
+| pm-skillauthor | [pm-skillauthor.json](pm-skillauthor.json) | 3 |
 
 ## 评估驱动开发循环
 

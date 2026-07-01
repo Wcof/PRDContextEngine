@@ -6,25 +6,25 @@
   "fail": 0,
   "scenarios": [
     {
-      "skill": "pm-persona",
+      "skill": "pm-skillauthor",
       "scenario_id": "1",
-      "query": "PMContext 用户场景有独立创作者/小团队/企业管理者三类，出 perso",
+      "query": "写一个新 skill 教 agent 做 X",
       "expected_count": 4,
       "status": "PASS",
       "note": "4 条 expected_behavior"
     },
     {
-      "skill": "pm-persona",
+      "skill": "pm-skillauthor",
       "scenario_id": "2",
-      "query": "按 25-34/35-44 岁分可以吗",
+      "query": "直接写 SKILL.md 不跑 baseline",
       "expected_count": 2,
       "status": "PASS",
       "note": "2 条 expected_behavior"
     },
     {
-      "skill": "pm-persona",
+      "skill": "pm-skillauthor",
       "scenario_id": "3",
-      "query": "只想到 2 个 persona 够吗",
+      "query": "GREEN 写让 agent 更好地做 X",
       "expected_count": 2,
       "status": "PASS",
       "note": "2 条 expected_behavior"

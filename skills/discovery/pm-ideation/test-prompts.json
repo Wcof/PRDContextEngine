@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "PMContext 齐全，帮我发散方案。", "expected": "输出≥5 方案（optimize≥2+explore≥2）+每方案假设+最便宜验证+去重+回灌"},
+  {"id": 2, "prompt": "我只想到 2 个方案。", "expected": "提示继续发散至≥5，标 [待确认] 发散不足"},
+  {"id": 3, "prompt": "5 个方案都是优化现有功能。", "expected": "检测到缺 explore，提示补新场景方案（≥2）"}
+]

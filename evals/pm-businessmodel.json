@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-businessmodel"], "query": "PMContext 有用户场景和价值度量，出商业模式画布", "files": ["fixtures/pm-context.md"], "expected_behavior": ["业务游戏分类", "BMC 9 模块全+追溯", "收入流≥2", "关键假设回灌"]},
+  {"id": 2, "skills": ["pm-businessmodel"], "query": "BMC 某模块不知道填什么", "files": ["fixtures/pm-context.md"], "expected_behavior": ["标 [待确认] 不留空", "提示补材料"]},
+  {"id": 3, "skills": ["pm-businessmodel"], "query": "只有会员订阅一条收入", "files": ["fixtures/pm-context.md"], "expected_behavior": ["标 🟡 单收入流脆弱", "提示补≥2 条"]}
+]

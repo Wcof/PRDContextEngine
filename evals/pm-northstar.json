@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-northstar"], "query": "PMContext 有价值度量，深化北极星", "files": ["fixtures/pm-context.md"], "expected_behavior": ["业务游戏分类", "单一 NSM 七准则", "3-5 Input+guardrail≥2", "Mermaid 树", "NSM/OKR 关系"]},
+  {"id": 2, "skills": ["pm-northstar"], "query": "想设 3 个北极星", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测多 NSM", "提示必须单一"]},
+  {"id": 3, "skills": ["pm-northstar"], "query": "NSM 选月收入行吗", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测收入型 NSM", "提示改客户中心"]}
+]

@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-skillauthor"], "query": "写一个新 skill 教 agent 做 X", "files": ["fixtures/pm-context.md"], "expected_behavior": ["RED 跑 baseline", "GREEN 针对 RED", "REFACTOR 压力测试", "规范齐全"]},
+  {"id": 2, "skills": ["pm-skillauthor"], "query": "直接写 SKILL.md 不跑 baseline", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测跳过 RED", "STOP 提示 Iron Law"]},
+  {"id": 3, "skills": ["pm-skillauthor"], "query": "GREEN 写让 agent 更好地做 X", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测泛泛指导", "提示针对 RED 具体 rationalization"]}
+]

@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-parallel"], "query": "同时调研 3 个竞品能并行吗", "files": ["fixtures/pm-context.md"], "expected_behavior": ["独立性校验", "分派 3 子 agent", "合并+冲突标注"]},
+  {"id": 2, "skills": ["pm-parallel"], "query": "2 个任务共享一个可变文件", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测共享可变状态", "STOP 改串行"]},
+  {"id": 3, "skills": ["pm-parallel"], "query": "只有 1 个任务要并行", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测任务<2", "STOP 串行"]}
+]

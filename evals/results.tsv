@@ -1,5 +1,5 @@
-# PMSkill 评估结果 — mode=dry-run generated=2026-07-01T23:21:39Z
+# PMSkill 评估结果 — mode=dry-run generated=2026-07-01T23:37:39Z
 skill	scenario_id	query	expected_count	status	note
-pm-persona	1	PMContext 用户场景有独立创作者/小团队/企业管理者三类，出 perso	4	PASS	4 条 expected_behavior
-pm-persona	2	按 25-34/35-44 岁分可以吗	2	PASS	2 条 expected_behavior
-pm-persona	3	只想到 2 个 persona 够吗	2	PASS	2 条 expected_behavior
+pm-skillauthor	1	写一个新 skill 教 agent 做 X	4	PASS	4 条 expected_behavior
+pm-skillauthor	2	直接写 SKILL.md 不跑 baseline	2	PASS	2 条 expected_behavior
+pm-skillauthor	3	GREEN 写让 agent 更好地做 X	2	PASS	2 条 expected_behavior

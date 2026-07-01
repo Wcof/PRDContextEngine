@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "PMContext 齐全，帮我识别风险假设。", "expected": "输出 8 类风险每类≥1 假设+置信度+Top5 优先测试+最便宜测试+回灌 PMContext"},
+  {"id": 2, "prompt": "我只想到 Value 和 Viability 两类风险。", "expected": "提示补全 8 类（GTM/Team 常被漏），标 [待确认] 缺类"},
+  {"id": 3, "prompt": "所有假设置信度都≥8。", "expected": "检测到乐观偏差，提示复核，至少 3 条<5"}
+]

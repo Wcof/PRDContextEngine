@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "PMContext 有价值度量，帮我深化北极星。", "expected": "输出业务游戏+单一 NSM（七准则校验）+3-5 Input 星座+guardrail≥2+Mermaid 指标树+NSM/OKR 关系"},
+  {"id": 2, "prompt": "我想设 3 个北极星指标。", "expected": "检测到多 NSM，提示必须单一（多 NSM=没 NSM）"},
+  {"id": 3, "prompt": "NSM 选月收入行吗？", "expected": "检测到收入型 NSM，提示改客户中心指标（收入是结果非 NSM）"}
+]

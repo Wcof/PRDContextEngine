@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-ideation"], "query": "PMContext 齐全，发散方案", "files": ["fixtures/pm-context.md"], "expected_behavior": ["≥5 方案", "optimize≥2+explore≥2", "每方案验证", "去重+回灌"]},
+  {"id": 2, "skills": ["pm-ideation"], "query": "只想到 2 个方案", "files": ["fixtures/pm-context.md"], "expected_behavior": ["提示发散至≥5", "标 [待确认]"]},
+  {"id": 3, "skills": ["pm-ideation"], "query": "5 个都是优化现有功能", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测缺 explore", "提示补新场景≥2"]}
+]

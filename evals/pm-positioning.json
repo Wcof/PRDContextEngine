@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-positioning"], "query": "PMContext 用户场景和竞品都有，写价值主张和定位", "files": ["fixtures/pm-context.md"], "expected_behavior": ["6 段式每段追溯", "Moore 定位陈述", "差异化矩阵≥3"]},
+  {"id": 2, "skills": ["pm-positioning"], "query": "Who 写中小企业行吗", "files": ["fixtures/pm-context.md"], "expected_behavior": ["检测宽泛表述", "提示具体化"]},
+  {"id": 3, "skills": ["pm-positioning"], "query": "没竞品数据能做定位吗", "files": ["fixtures/pm-context.md"], "expected_behavior": ["差异化标 [待确认]", "提示先 /pm-market"]}
+]

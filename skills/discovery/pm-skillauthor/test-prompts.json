@@ -1,0 +1,5 @@
+[
+  {"id": 1, "prompt": "我要写一个新 skill 教 agent 做 X，怎么写？", "expected": "TDD 范式：RED 跑 baseline→GREEN 写 SKILL.md 针对 RED→REFACTOR 跑压力测试+规范齐全"},
+  {"id": 2, "prompt": "直接写 SKILL.md 不跑 baseline 行吗？", "expected": "🔴 检测到跳过 RED，STOP 提示必须先 baseline（Iron Law）"},
+  {"id": 3, "prompt": "GREEN 写'让 agent 更好地做 X'行吗？", "expected": "检测到泛泛指导，提示必须针对 RED 的具体 rationalization"}
+]

@@ -4,7 +4,7 @@
 
 从模糊想法/用户诉求出发，**一键全链路**沉淀成 PMContext → 衍生出 PRD（给 AI + 给人）→ 生成可视化草图 + HTML 可交互原型。
 
-> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，40 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
+> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，47 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
 >
 > **评估闭环**：45 个评估场景（≥3/skill）经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
 
@@ -96,6 +96,13 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 | `/pm-vision` | model-invoked | 产品愿景（三要素陈述 + 10/3/1 年阶梯）+ 利益相关者权力/利益网格 + 沟通计划 |
 | `/pm-grill` | model-invoked | 红队质询——steelman-then-attack 三段式攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口 |
 | `/pm-persona` | model-invoked | 用户画像——基于 JTBD 的 ≥3 persona，五维（demographics/behaviors/JTBD 三性/未满足需求/引言）+ 反对意见 + 互斥校验 |
+| `/pm-businessmodel` | model-invoked | 商业模式画布——BMC 9 模块 + 业务游戏分类（注意力/交易/生产力）+ 收入流≥2 + 成本结构 + 假设回灌 |
+| `/pm-positioning` | model-invoked | 价值主张——6 段式 JTBD（Who/Why/What before/How/What after/Alternatives）+ Moore 定位陈述 + 差异化矩阵 |
+| `/pm-assumption` | model-invoked | 风险假设——8 类风险（Value/Usability/Viability/Feasibility/Ethics/GTM/Strategy/Team）× 置信度 + Top5 最便宜测试 |
+| `/pm-northstar` | model-invoked | 北极星深化——业务游戏 + 单一 NSM（七准则）+ 3-5 Input 星座 + guardrail≥2 + Mermaid 指标树 |
+| `/pm-ideation` | model-invoked | 方案发散——≥5 方案（optimize≥2+explore≥2）+ 每方案假设+最便宜验证 + 去重 |
+| `/pm-parallel` | model-invoked | 并行 agent 分派——≥2 独立任务分片 + 独立性校验 + 子 agent 调度 + 合并+冲突标注 |
+| `/pm-skillauthor` | model-invoked | TDD 范式写 skill——RED 跑 baseline→GREEN 写 SKILL.md 针对 RED→REFACTOR 跑压力测试 + 规范齐全 |
 
 ### Delivery — 交付
 

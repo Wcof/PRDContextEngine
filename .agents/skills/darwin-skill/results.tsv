@@ -100,3 +100,12 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:15	r1	pm-handoff	90.5	92.0	keep	dim3/4	借鉴superpowers/verification-before-completion增Step6.5文档质量7项自检清单	dry_run
 2026-07-02T07:17	r1	README.md/CONTEXT.md	-	-	keep	dim7	登记9个新增skill+更新skill数13→40+目录结构补全	dry_run
 2026-07-02T07:21	r1	evals	-	-	keep	dim8	9个新增skill evals JSON创建+dry-run全PASS(27场景全绿)	dry_run
+2026-07-02T07:37	r2	pm-businessmodel	-	91.0	new	dim全	借鉴pm-product-strategy/business-model新增(BMC 9模块+业务游戏+收入流≥2)	dry_run
+2026-07-02T07:37	r2	pm-positioning	-	91.0	new	dim全	借鉴pm-product-strategy/value-proposition新增(6段式JTBD+Moore定位+差异化矩阵)	dry_run
+2026-07-02T07:37	r2	pm-assumption	-	91.0	new	dim全	借鉴pm-product-discovery/identify-assumptions新增(8类风险+置信度+Top5最便宜测试)	dry_run
+2026-07-02T07:37	r2	pm-northstar	-	91.5	new	dim全	借鉴pm-marketing-growth/north-star-metric新增(七准则+Input星座+guardrail+Mermaid树)	dry_run
+2026-07-02T07:37	r2	pm-ideation	-	90.5	new	dim全	借鉴pm-product-discovery/brainstorm-experiments新增(optimize/explore≥5方案+最便宜验证)	dry_run
+2026-07-02T07:37	r2	pm-parallel	-	90.5	new	dim全	借鉴superpowers/dispatching-parallel-agents新增(独立性校验+子agent调度+冲突标注)	dry_run
+2026-07-02T07:37	r2	pm-skillauthor	-	91.0	new	dim全	借鉴superpowers/writing-skills+skills/write-a-skill新增(TDD RED-GREEN-REFACTOR+Anthropic规范)	dry_run
+2026-07-02T07:37	r2	evals	-	-	keep	dim8	7个新增skill evals JSON+dry-run全PASS(21场景全绿)	dry_run
+2026-07-02T07:37	r2	README/CONTEXT	-	-	keep	dim7	登记7新增skill+skill数40→47+discovery README+evals README清单	dry_run

@@ -18,3 +18,10 @@
 - **[pm-vision](./pm-vision/SKILL.md)** — 从 PMContext 生成产品愿景与利益相关者地图——三要素愿景 + 10/3/1 年阶梯 + 权力/利益网格 + 沟通计划。
 - **[pm-grill](./pm-grill/SKILL.md)** — 对 PMContext 做 relentless 质询压力测试——红队攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口。
 - **[pm-persona](./pm-persona/SKILL.md)** — 从 PMContext 生成基于 JTBD 的用户画像——≥3 个 persona，五维（demographics/behaviors/JTBD 三性/未满足需求/引言）+ 反对意见 + 互斥校验。
+- **[pm-businessmodel](./pm-businessmodel/SKILL.md)** — 商业模式画布——BMC 9 模块 + 业务游戏分类 + 收入流≥2 + 成本结构 + 假设回灌。
+- **[pm-positioning](./pm-positioning/SKILL.md)** — 价值主张——6 段式 JTBD + Moore 定位陈述 + 差异化矩阵。
+- **[pm-assumption](./pm-assumption/SKILL.md)** — 风险假设——8 类风险 × 置信度 + Top5 最便宜测试。
+- **[pm-northstar](./pm-northstar/SKILL.md)** — 北极星深化——单一 NSM（七准则）+ Input 星座 + guardrail + Mermaid 指标树。
+- **[pm-ideation](./pm-ideation/SKILL.md)** — 方案发散——≥5 方案（optimize/explore）+ 每方案最便宜验证。
+- **[pm-parallel](./pm-parallel/SKILL.md)** — 并行 agent 分派——独立性校验 + 子 agent 调度 + 合并+冲突标注。
+- **[pm-skillauthor](./pm-skillauthor/SKILL.md)** — TDD 范式写 skill——RED-GREEN-REFACTOR + Anthropic 规范。

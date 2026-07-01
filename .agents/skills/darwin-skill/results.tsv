@@ -80,3 +80,4 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T00:05	r1	pm-metrics	-	91.5	keep	dim6	补references/metrics-example.md断链(业务游戏分类+北极星星座+指标树Mermaid)	dry_run
 2026-07-02T00:05	r1	pm-stories	-	91.0	keep	dim6	补references/stories-example.md断链(3C对照+INVEST自检+完整故事)	dry_run
 2026-07-02T00:05	r1	pm-handoff	-	90.5	keep	dim6	补references/handoff-example.md断链(完整交接文档示例)	dry_run
+2026-07-02T00:13	r1	CONTEXT.md	-	-	keep	dim7	Skill调用关系+目录结构+Frontmatter表补全31个skill(新增12个)	dry_run

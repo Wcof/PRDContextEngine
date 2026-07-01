@@ -296,7 +296,9 @@ _Avoid_: 因为某类文档有文件就把它升级成实体
 - **/pm-premortem**（model-invoked）从 PMContext 假设失败并倒推风险，产出风险分析 View。--auto 模式下强制编入主链路（collect→refine→premortem→prd→sketch），正常模式可在 `/pm-prd` 之后或独立调用。
 - **/pm-sketch**（user-invoked）编排 **/pm-wireframe**、**/pm-ia**、**/pm-state**、**/pm-flow**（model-invoked）。支持 `--prototype` 高质量 HTML 原型模式、`--auto` 零确认模式。
 - 四个草图子 Skill 也可独立调用。
-- **关联增强**：关联纪律分散进所有环节——collect 建材料间关联，refine 建事实/规则/页面/验收关联，prd 确保需求追溯到 PMContext，sketch 确保图元对应实体/关系。
+- **发现结构化套件**（model-invoked，从 PMContext 派生 View）：**/pm-interview**（访谈脚本）、**/pm-metrics**（北极星指标）、**/pm-ost**（机会方案树）、**/pm-strategy**（SWOT/Porter/Ansoff/Lean Canvas 战略套件）、**/pm-market**（TAM/SAM/SOM+竞品三层+情感分析）、**/pm-vision**（愿景+stakeholder 网格）、**/pm-grill**（红队质询承重假设）。
+- **交付套件**（model-invoked，从 PMContext/产物派生交付件）：**/pm-stories**（用户故事）、**/pm-gtm**（GTM 策略）、**/pm-experiment**（假设验证闭环）、**/pm-retro**（回顾）、**/pm-prioritize**（优先级排序）、**/pm-pricing**（定价与变现）、**/pm-release**（发布包：发布说明+测试场景+WWA）、**/pm-align**（意图-实现对齐审计）、**/pm-triage**（问题分流状态机+垂直切片 issue）、**/pm-handoff**（会话交接）。
+- **关联增强**：关联纪律分散进所有环节——collect 建材料间关联，refine 建事实/规则/页面/验收关联，prd 确保需求追溯到 PMContext，sketch 确保图元对应实体/关系，strategy/market/ost/experiment/grill 互做交叉验证（冲突标 `[冲突]` 不静默合并）。
 - **心智链纪律**：PM Thinking Loop（6 步漏斗）横向嵌入每个 Skill 的 `## Thinking Protocol` 段，按 Skill 职责分配对应步骤。每步产出约束 + 依赖检查 + 审计三元组，确保推理链有结构、可审计。
 
 ## Skill 目录结构
@@ -305,20 +307,39 @@ _Avoid_: 因为某类文档有文件就把它升级成实体
 skills/
   setup/                    ← 初始化
     pm-setup/SKILL.md
-  discovery/                ← 需求发现
+  discovery/                ← 需求发现 + 发现结构化 + 战略/市场/愿景 + 质询
     pm-need/SKILL.md
     pm-collect/SKILL.md
     pm-refine/SKILL.md
-  delivery/                 ← 交付
+    pm-interview/SKILL.md
+    pm-metrics/SKILL.md
+    pm-ost/SKILL.md
+    pm-strategy/SKILL.md
+    pm-market/SKILL.md
+    pm-vision/SKILL.md
+    pm-grill/SKILL.md
+  delivery/                 ← 交付：PRD/发布/质量/分流/定价/GTM/验证/回顾/优先级/交接
     pm-prd/SKILL.md
     pm-aiprd/SKILL.md
     pm-humanprd/SKILL.md
+    pm-premortem/SKILL.md
+    pm-stories/SKILL.md
+    pm-gtm/SKILL.md
+    pm-experiment/SKILL.md
+    pm-retro/SKILL.md
+    pm-prioritize/SKILL.md
+    pm-pricing/SKILL.md
+    pm-release/SKILL.md
+    pm-align/SKILL.md
+    pm-triage/SKILL.md
+    pm-handoff/SKILL.md
   visualization/            ← 可视化
     pm-sketch/SKILL.md
     pm-wireframe/SKILL.md
     pm-ia/SKILL.md
     pm-state/SKILL.md
     pm-flow/SKILL.md
+    pm-journey/SKILL.md
 ```
 
 不需要 `/pm-remove`——不注册 hook 无需清理，Agent 规则几行手动删，产物目录可能有价值不自动删，Skill 卸载归安装器。
@@ -340,6 +361,24 @@ skills/
 | pm-ia | model-invoked | 从 PMContext 生成信息架构图。Use when the user asks for information architecture or entity relationships. |
 | pm-state | model-invoked | 从 PMContext 生成状态机图。Use when the user asks for state machine or state transitions. |
 | pm-flow | model-invoked | 从 PMContext 生成流程图。Use when the user asks for flowchart or process flow. |
+| pm-interview | model-invoked | 从 PMContext 生成结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律。Use when the user asks for interview script or user research. |
+| pm-metrics | model-invoked | 从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 指标星座。Use when the user asks for North Star metric or metrics framework. |
+| pm-ost | model-invoked | 从 PMContext 生成机会方案树（OST）——四层结构 + 机会优先级评分。Use when the user asks for opportunity solution tree or discovery structuring. |
+| pm-strategy | model-invoked | 从 PMContext 生成战略分析套件——SWOT/Porter/Ansoff/Lean Canvas 四阶递进 + 交叉验证。Use when the user asks for strategy analysis or business model. |
+| pm-market | model-invoked | 从 PMContext 生成市场分析——TAM/SAM/SOM 双算法 + 竞品三层 + 情感分析。Use when the user asks for market analysis or competitive landscape. |
+| pm-vision | model-invoked | 从 PMContext 生成产品愿景 + 利益相关者权力/利益网格 + 沟通计划。Use when the user asks for product vision or stakeholder management. |
+| pm-grill | model-invoked | 对 PMContext 做 relentless 红队质询——攻击承重假设 + 八维盘问 + Top5 致命缺口。Use when the user asks to stress-test or pressure-test PMContext. |
+| pm-stories | model-invoked | 从 PMContext 生成用户故事——3C 框架 + INVEST 准则 + 验收标准。Use when the user asks for user stories or backlog items. |
+| pm-gtm | model-invoked | 从 PMContext 生成 GTM 策略——Beachhead + ICP + 渠道矩阵 + 信息阶梯 + 时间线。Use when the user asks for go-to-market or launch strategy. |
+| pm-experiment | model-invoked | 从 PMContext 生成假设验证闭环——8 类风险 + Impact×Risk + XYZ + pretotype 含 skin-in-the-game。Use when the user asks for experiment design or assumption testing. |
+| pm-retro | model-invoked | 从 PMContext 与迭代产物生成回顾——三格式 + 主题聚合 + 行动项 + 经验回灌。Use when the user asks for retrospective or sprint review. |
+| pm-prioritize | model-invoked | 从 PMContext 做优先级排序——6 框架场景推荐 + 单框架评分 + 四象限。Use when the user asks to prioritize features or backlog. |
+| pm-pricing | model-invoked | 从 PMContext 生成定价与变现策略——模型按业务游戏 + 竞品矩阵 + Van Westendorp WTP + 弹性 + 3-5 变现方案。Use when the user asks for pricing or monetization strategy. |
+| pm-release | model-invoked | 从 PMContext 与产物生成发布包——发布说明 + 测试场景 + WWA backlog。Use when the user asks for release notes or test scenarios or backlog. |
+| pm-align | model-invoked | 审计已实现代码与 PMContext/AI PRD 的意图差距——意图模型 + 证据 file:line + gap 分级 + 修复。Use when the user asks to audit code against intent or find implementation gaps. |
+| pm-triage | model-invoked | 从 PMContext 与产物分流需求/缺陷/PR 过状态机 + 垂直切片拆 tracer-bullet issue + agent brief。Use when the user asks to triage issues or break plan into issues. |
+| pm-handoff | model-invoked | 把当前 PMSkill 会话压缩成交接文档供下一个 Agent 接续。Use when the user asks to handoff or continue in another session. |
+| pm-journey | model-invoked | 从 PMContext 生成客户旅程地图——七阶段 + 触点/行为/情绪/痛点/机会。Use when the user asks for customer journey or user journey. |
 
 user-invoked 设置 `disable-model-invocation: true`，description 人看一句话；model-invoked 不设置，description 带 "Use when..." trigger phrasing。
 

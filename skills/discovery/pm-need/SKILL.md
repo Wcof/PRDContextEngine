@@ -1,6 +1,6 @@
 ---
 name: pm-need
-description: 从模糊想法或用户诉求出发，全自动收集材料并推断澄清，沉淀成 PMContext，停在审计门等 PM 确认。支持 --auto 零确认模式一键全链路直达 PRD 与原型。Use when starting a new product requirement, or the user mentions 需求分析、pm-need、产品需求、一键全链路、从想法到PRD、需求梳理、auto discovery.
+description: 从模糊想法或用户诉求出发，收集材料并推断澄清，沉淀成 PMContext，停在审计门等 PM 确认。支持 --auto 零确认模式一键全链路直达 PRD 与原型。Use when starting a new product requirement, or the user mentions 需求分析、pm-need、产品需求、一键全链路、从想法到PRD、需求梳理、auto discovery.
 disable-model-invocation: true
 ---
 
@@ -8,20 +8,20 @@ disable-model-invocation: true
 
 > 你是一位资深产品经理。面对一个模糊想法或用户诉求，你需要快速将其转化为结构化的产品上下文（PMContext），让团队有据可依。本 skill 自动完成这件事。
 
-全自动主入口：collect → refine → audit 一气呵成。支持两种模式：
+主入口：collect → refine → audit 一气呵成。支持两种模式：
 
 - **正常模式**：collect → **refine 追问模式**（逐维向 PM 提问确认）→ 🛑 审计门 →（可选）PRD/草图
 - **零确认模式**（`--auto`）：collect → **refine 自主推断模式**（PM 零介入）→ 审计门不暂停 → PRD → 原型
 
-PM 的核心干预点是 refine 追问过程中的逐维回答。`--auto` 模式下 PM 零介入。
+PM 的核心干预点是 refine 追问过程中的逐维回答。`--auto` 零确认模式下 PM 不介入。
 
 ## Purpose
 
-全自动主入口：collect → refine → audit 一气呵成。**正常模式 pm-refine 进入追问模式**——Agent 逐维向 PM 提问，每问附推荐答案，PM 回答后回填。**`--auto` 模式全自动**——refine 自主推断全部 8 维，PM 零介入。
+主入口：collect → refine → audit 一气呵成，承载**心智链**（PM Thinking Loop 6 步隐式推理）对全链路的约束。**正常模式 pm-refine 进入追问模式**——Agent 逐维向 PM 提问，每问附推荐答案，PM 回答后回填。**`--auto` 零确认模式**——refine 进入自主推断模式，8 维全推断，PM 零介入。
 
 ## Context
 
-PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上下文。本 skill 自动完成收集、精炼、沉淀三步。精炼阶段支持两种模式：正常模式 Agent 逐维追问 PM；--auto 模式 Agent 自主推断。
+PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上下文。本 skill 自动完成收集、精炼、沉淀三步。心智链驱动流程链：collect（步骤 1-2）→ refine（步骤 3-4）→ audit（步骤 5-6）。精炼阶段两种模式：正常模式 Agent 逐维追问 PM；`--auto` 模式 Agent 自主推断。
 
 ## Instructions
 
@@ -103,7 +103,7 @@ mkdir -p docs/pm-context/.loop/
    - 项目源文件的目录结构和命名模式
 4. **知识库搜索** — 若配置了知识库路径，搜索相关文档
 
-✅ **全自动**，无需 PM 介入。
+✅ **零确认**，无需 PM 介入。
 
 ### 2. Run `/pm-refine`
 

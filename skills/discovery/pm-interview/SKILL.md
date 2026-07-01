@@ -227,7 +227,7 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 
 ## 产出示例
 
-会员续费访谈脚本片段：
+会员续费访谈脚本片段（完整脚本模板与记录模板详见 [references/interview-templates.md](references/interview-templates.md)）：
 
 ```markdown
 ### 核心探索：JTBD

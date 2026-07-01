@@ -74,3 +74,9 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-01T23:41	new	pm-align	-	91.5	baseline	-	新增意图对齐审计(intended vs implemented,意图模型+证据file:line+gap分级+修复)	dry_run
 2026-07-01T23:47	new	pm-triage	-	91.0	baseline	-	新增分流(分类×状态状态机+垂直切片tracer-bullet+agent brief自包含)	dry_run
 2026-07-01T23:51	r1	pm-refine	422	390	keep	dim6/7	PMContext产物模板渐进披露到references/pm-context-template.md(422→390行)	dry_run
+2026-07-02T00:05	r1	pm-interview	260	260	keep	dim6	记录模板+脚本示例渐进披露到references/interview-templates.md+补interview-example.md断链	dry_run
+2026-07-02T00:05	r1	pm-journey	-	90.5	keep	dim6	补references/journey-example.md断链(七阶段完整示例+情绪曲线解读)	dry_run
+2026-07-02T00:05	r1	pm-ost	-	91.5	keep	dim6	补references/ost-example.md断链(Opportunity Score计算表+完整OST)	dry_run
+2026-07-02T00:05	r1	pm-metrics	-	91.5	keep	dim6	补references/metrics-example.md断链(业务游戏分类+北极星星座+指标树Mermaid)	dry_run
+2026-07-02T00:05	r1	pm-stories	-	91.0	keep	dim6	补references/stories-example.md断链(3C对照+INVEST自检+完整故事)	dry_run
+2026-07-02T00:05	r1	pm-handoff	-	90.5	keep	dim6	补references/handoff-example.md断链(完整交接文档示例)	dry_run

@@ -87,3 +87,4 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T06:51	r1	pm-abtest	-	91.5	new	dim全	借鉴pm-skills/pm-data-analytics新增(AB测试统计分析+ship/stop决策+guardrail)	dry_run
 2026-07-02T06:51	r1	pm-cohort	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(队列分析+留存曲线+异常队列)	dry_run
 2026-07-02T06:51	r1	pm-sql	-	91.0	new	dim全	借鉴pm-skills/pm-data-analytics新增(自然语言→多方言SQL+口径对齐PMContext)	dry_run
+2026-07-02T06:52	r1	pm-gtm	93.0	94.0	keep	dim2/5	借鉴growth-loops增Step6.5增长循环五型+闭环图+失败模式+反例	dry_run

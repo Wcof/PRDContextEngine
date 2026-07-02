@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Purpose
 
-从 PMContext 生成两份 PRD——一份给 AI 直接执行（可执行规则+验收标准），一份给人评审决策（决策理由+自然叙事）。PRD 是 PMContext 的 View，同源同骨架，差异只在写法。
+从 PMContext 生成两份 PRD——一份给 AI 直接执行（可执行规则+验收标准），一份给人评审决策（决策理由+自然叙事）。PRD 是 PMContext 的 View，同源同骨架，差异只在写法。**PRD 的"追光灯"始终照回 PMContext——每条规则/验收/边界必须可追溯。**
 
 ## Context
 

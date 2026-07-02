@@ -110,3 +110,36 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T07:37	r2	evals	-	-	keep	dim8	7个新增skill evals JSON+dry-run全PASS(21场景全绿)	dry_run
 2026-07-02T07:37	r2	README/CONTEXT	-	-	keep	dim7	登记7新增skill+skill数40→47+discovery README+evals README清单	dry_run
 2026-07-02T07:45	r3	references-batch	-	-	keep	dim7	7个R2新skill references示例文件补全(bm/positioning/assumption/northstar/ideation/parallel/skillauthor)	dry_run
+2026-07-02T08:00	r3	pm-release	-	-	keep	dim3/8	Step5.5 发布就绪Gate Function+Iron Law+evidence-before-assertions	dry_run
+2026-07-02T08:00	r3	pm-triage	-	-	keep	dim3/8	Step5.5 分流就绪验证+4项核对		dry_run
+2026-07-02T08:00	r3	pm-align	-	-	keep	dim2/5	L1/L2/L3意图来源层级+偏差细化(字面vs语义偏离)	dry_run
+2026-07-02T08:00	r3	pm-handoff	-	-	keep	dim5/2	条件触发式下一步+知识转移段+9项自检(7→9)	dry_run
+2026-07-02T08:30	r4	pm-pestle	-	85.0	baseline	dim1/2/3/9	新建PESTLE六维宏观环境分析skill	full_test
+2026-07-02T08:30	r4	pm-parallel	-	-	keep	dim5/9	隔离上下文5字段派单+上下文构造检查	dry_run
+2026-07-02T08:30	r4	pm-sprint	-	-	keep	dim5	Step3.5 任务拆分粒度校验+右值化标准	dry_run
+2026-07-02T08:30	r4	pm-ideation	-	-	keep	dim4/5	Step2.5 方案对比矩阵+HARD-GATE设计前不验证	dry_run
+2026-07-02T08:30	r4	pm-skillauthor	-	-	keep	dim5	建不建skill决策门+Technique/Pattern/Reference类型分类	dry_run
+2026-07-02T08:30	r4	pm-market	-	-	keep	dim8	Step4.75 NSM与市场规模交叉验证	dry_run
+2026-07-02T08:30	r4	pm-businessmodel	-	-	keep	dim5	Step3.5 货币化L1-L4成熟度+加速策略	dry_run
+2026-07-02T09:00	r5	pm-parallel	-	-	keep	dim3	Step2.5 每任务自动审查+不断续执行	dry_run
+2026-07-02T09:00	r5	pm-sprint	-	-	keep	dim3/8	Step7.5 迭代完成验证门(容量/DoR/粒度/依赖/回滚5步)	dry_run
+2026-07-02T09:00	r5	pm-positioning	-	-	keep	dim5	Step2.5 定位创意发散≥3角度+竞品盲区分析	dry_run
+2026-07-02T09:00	r5	pm-grill	-	-	keep	dim3/8	Step2.5 逐项追问模式(一次性一问+推荐答案)	dry_run
+2026-07-02T09:00	r5	pm-businessmodel	-	-	keep	dim5	Step3.75 竞争护城河(Can't/Won't)+取舍声明	dry_run
+2026-07-02T09:00	r5	pm-skillauthor	-	-	keep	dim5	Step2.5 Leading Words+渐进披露+Completion Criterion+No-op裁剪	dry_run
+2026-07-02T09:30	r6	CONTEXT.md	-	-	keep	dim7	写法纪律第5条 Leading Words规范	dry_run
+2026-07-02T09:30	r6	pm-retro	-	-	keep	dim9	Step6.5 学习记录(LR-非显性发现+可迁移规则+可推翻条件)	dry_run
+2026-07-02T09:30	r6	pm-experiment	-	-	keep	dim3/8	Step4.5 RED-GREEN-REFACTOR验证循环	dry_run
+2026-07-02T09:30	r7	pm-grill	-	-	keep	dim7	leading word"承重墙"传播	dry_run
+2026-07-02T09:30	r7	pm-collect	-	-	keep	dim7	leading word"迷雾"传播	dry_run
+2026-07-02T09:30	r7	pm-stories	-	-	keep	dim7	leading word"追光灯"传播(故事溯源PMContext)	dry_run
+2026-07-02T09:30	r9	pm-refine	-	-	keep	dim7	leading word"迷雾"传播(驱散信息缺口)	dry_run
+2026-07-02T09:30	r9	pm-assumption	-	-	keep	dim7	leading word"承重墙"传播(风险假设锚定)	dry_run
+2026-07-02T09:30	r9	pm-northstar	-	-	keep	dim7	leading word"追光灯"传播(NSM回归PMContext)	dry_run
+2026-07-02T09:30	r9	pm-interview	-	-	keep	dim7	leading word"迷雾"传播(访谈驱散用户需求迷雾)	dry_run
+2026-07-02T09:30	r9	pm-need	-	-	keep	dim7	leading word"追光灯"传播(永远照向用户诉求)	dry_run
+2026-07-02T09:30	r9	pm-premortem	-	-	keep	dim7	leading word"承重墙"传播(找出压垮产品的假设)	dry_run
+2026-07-02T09:30	r9	CONTEXT.md	-	-	keep	dim7	3 leading words注册到术语表(追光灯/承重墙/迷雾)	dry_run
+2026-07-02T10:00	r10	pm-prd	-	-	keep	dim7	leading word"追光灯"传播(PRD追溯PMContext)	dry_run
+2026-07-02T10:00	r10	pm-ost	-	-	keep	dim7	leading word"迷雾"传播(驱散机会空间迷雾)	dry_run
+2026-07-02T10:00	r10	evals	-	-	keep	dim8	pm-pestle eval JSON+results.tsv更新	dry_run

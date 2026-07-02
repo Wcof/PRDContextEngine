@@ -526,6 +526,10 @@ docs/pm-context/
 2. **文件路径例外**：`pm-context.md`/`ai-prd.md`/`human-prd.md`/`prototype.html` 是文件名，不适用术语规范
 3. **frontmatter 触发词**：每个 model-invoked SKILL.md 的 description 触发词段必须包含本表对应规范术语的中英文写法，便于 Agent 路由
 4. **新增术语**：必须先登记到本表再在 SKILL.md 使用，禁止 SKILL.md 私造术语
+5. **Leading Words**（借鉴 skills/writing-great-skills）：用紧凑概念锚定 agent 行为（如"追光灯""承重墙""迷雾"），代替散装说明。Leading Word 定义必须登记到本表「规范术语」中才可使用。使用方式：
+   - 在 body 中重复出现以累积分布式定义
+   - 在 description 触发词中出现以强化前后关联
+   - 避免在同段内用 3+ 个不同 leading words（语义干扰）
 
 ## Flagged Ambiguities
 

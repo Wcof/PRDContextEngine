@@ -111,6 +111,38 @@ At least X% of Y will do Z
 | 最小代价 | <最便宜能跑的方式> | 优先选最便宜的 |
 | kill criterion | <阈值> 达不到则停/改方向 | 必须，否则实验无退出条件 |
 
+### Step 4.5: RED-GREEN-REFACTOR 验证循环（借鉴 superpowers/test-driven-development）
+
+> 实验设计落盘后还不是"可执行"——参照 TDD 的 RED-GREEN-REFACTOR，确保实验先看见"没验证前假设不可信"（RED），再设计验证方式（GREEN），最后根据结果修正假设（REFACTOR）。
+
+**RED 阶段**（先看 baseline——不带实验设计的假设本身是否可信）：
+```
+for each XYZ 假设:
+  1. 问："不用这实验，当前凭什么信它？"
+  2. 已有数据支持 → 标 `[已有证据]`，不实验
+  3. 纯直觉/竞品做了/领导说的 → 标 `[Baseline RED]`，必须实验
+  4. 记录 baseline 置信度（0-10），备实验后对比
+```
+
+**GREEN 阶段**（Step 4 的 pretotype 设计必须过"可执行"门）：
+- 实验可在一周内跑完？ → 否标 🟡 退回 Step 4 缩范围
+- 成功阈值可观测？ → 否标 🟡 改成功阈值为可观测行为
+- skin-in-the-game 真实？ → 否标 🟡 加真实代价
+- 三问全过 → 标 `[GREEN]` 可执行
+
+**REFACTOR 阶段**（实验结果回灌本步修正假设）：
+```
+实验结果回来后：
+- 假设证伪（Fails if 触发）→ 标 `[证伪]`，回灌 PMContext 风险段
+- 假设验证（成功阈值达成）→ 标 `[验证]`，回灌 PMContext 事实段
+- 结果模糊 ← 标 `[待再次验证]` 建议重设计实验
+```
+
+**纪律**（借鉴 TDD 铁律）：
+- 禁跳过 RED 直接设计 GREEN——没 baseline 的验证是盲测
+- REFACTOR 后假设状态必须回灌 PMContext（事实/风险/待验证三选一）
+- 实验运行中不超前修改假设——等结果回来再 REFACTOR
+
 ### Step 5: 写入产物
 
 写入 `docs/pm-context/experiment.md`，含 8 类假设表 + Impact×Risk 矩阵 + XYZ 假设 + pretotype 实验表 + 追溯列。

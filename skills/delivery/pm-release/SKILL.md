@@ -161,7 +161,7 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 | 测试场景预期不可观测 | 预期必须可验证，"体验好"不算 |
 | 三件套只做发布说明省测试/WWA | 发布包三件套缺一，发布是赌博 |
 | 声称"测试场景已覆盖"未跑验证（违反 verification-before-completion Iron Law） | 声称完成而未跑测试命令验证=说谎非效率。NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE——发布说明"测试通过"必须有测试命令输出: 0 failures 为证，"WWA 三性达标"必须有逐项核对证据 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
 ## 产出示例
 

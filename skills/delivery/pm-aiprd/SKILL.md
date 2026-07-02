@@ -1,6 +1,6 @@
 ---
 name: pm-aiprd
-description: 从 PMContext 生成 AI PRD——可执行规则 + 数据模型 + Agent Context + 验收标准 + 风险项，每条需求附 PMContext 追溯标记。Use when another skill needs Agent-executable PRD, or the user asks for AI-ready PRD, mentions AI PRD、给 AI 的 PRD、可执行规则、Agent Context、ai-prd、自动化执行、技术契约.
+description: 从 PMContext 生成 AI PRD——可执行规则 + 数据模型 + Agent Context + 验收标准 + 风险项，每条需求附 PMContext 追溯标记。由 /pm-prd 编排调用，支持 --auto 零确认模式（不暂停直接落盘）。Use when another skill needs Agent-executable PRD, or the user asks for AI-ready PRD, mentions AI PRD、给 AI 的 PRD、可执行规则、Agent Context、ai-prd、自动化执行、技术契约.
 ---
 
 # /pm-aiprd
@@ -148,9 +148,9 @@ PMContext 已沉淀事实/假设/冲突/待确认。AI PRD 的职责是将这些
 | 在用户故事中混入技术实现细节 | 用户故事是做什么（what），不是怎么做（how） |
 | 忽略边界场景（d3 缺失） | 执行 Agent 遇到异常路径会不知所措 |
 | 把 Agent Context 塞给人类读者（human-prd 与 ai-prd 内容互换） | AI 要的东西和人要看的不同 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
+| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
 ## 产出示例
 

@@ -66,6 +66,7 @@
 | pm-parallel | [pm-parallel.json](pm-parallel.json) | 3 |
 | pm-skillauthor | [pm-skillauthor.json](pm-skillauthor.json) | 3 |
 | pm-pestle | [pm-pestle.json](pm-pestle.json) | 3 |
+| pm-legal | (存放于 `skills/utility/pm-legal/evals/`，3 场景) | 3 |
 
 ## 评估驱动开发循环
 
@@ -90,9 +91,9 @@ bash evals/run-evals.sh --dry-run --skill pm-prd
 
 退出码：`0`=全 PASS/PARTIAL，`1`=存在 FAIL，`2`=参数/脚本错误。可直接接入 CI。
 
-### 真实模型跑分（live）
+### 真实模型跑分（live — 占位实现）
 
-需本地 `claude` 或 `codex` CLI 可用：
+需本地 `claude` 或 `codex` CLI 可用。**当前 `--live` 模式为占位实现**，实际等同于 `--dry-run` 结构校验，尚未接入真实模型推理：
 
 ```bash
 bash evals/run-evals.sh --live

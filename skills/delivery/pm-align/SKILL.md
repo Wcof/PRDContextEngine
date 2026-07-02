@@ -15,12 +15,12 @@ description: 审计已实现代码与 PMContext/AI PRD 的意图差距——定�
 
 ## Context
 
-PMContext + `docs/pm-context/aiprd.md`（AI PRD 含可执行规则+验收标准）是意图来源。项目源码是实现证据。本 skill 比对两者找差距。对齐审计是 PM Thinking Loop 的交付质量门。
+PMContext + `docs/pm-context/prd/ai-prd.md`（AI PRD 含可执行规则+验收标准）是意图来源。项目源码是实现证据。本 skill 比对两者找差距。对齐审计是 PM Thinking Loop 的交付质量门。
 
 ## Instructions
 
 - [ ] PMContext 已读取（不存在则 STOP 提示运行 /pm-need）
-- [ ] `docs/pm-context/aiprd.md` 已读取（AI PRD 规则+验收标准，不存在则提示先 /pm-aiprd）
+- [ ] `docs/pm-context/prd/ai-prd.md` 已读取（AI PRD 规则+验收标准，不存在则提示先 /pm-aiprd）
 - [ ] 项目源码已扫描（用 grep/glob 定位实现）
 - [ ] "文档化意图"已提取（PRD 每条规则+验收标准+边界条件）
 - [ ] "实现证据"已逐项采集（代码位置+行为）
@@ -52,13 +52,13 @@ PMContext + `docs/pm-context/aiprd.md`（AI PRD 含可执行规则+验收标准�
 
 ### Step 1: 提取文档化意图
 
-读取 `docs/pm-context/pm-context.md` + `docs/pm-context/aiprd.md`，列出"文档化意图"清单：
+读取 `docs/pm-context/pm-context.md` + `docs/pm-context/prd/ai-prd.md`，列出"文档化意图"清单：
 
 | 意图ID | 类型 | 内容 | 来源 |
 |---|---|---|---|
-| INT-01 | 规则 | 续费前必须校验会员等级 | aiprd.md §R3 |
-| INT-02 | 验收 | 一键续费 3 秒内完成 | aiprd.md §AC1 |
-| INT-03 | 边界 | 支付失败必须回滚权益 | aiprd.md §B2 |
+| INT-01 | 规则 | 续费前必须校验会员等级 | ai-prd.md §R3 |
+| INT-02 | 验收 | 一键续费 3 秒内完成 | ai-prd.md §AC1 |
+| INT-03 | 边界 | 支付失败必须回滚权益 | ai-prd.md §B2 |
 
 类型：规则（必须做）/验收（必须达到）/边界（必须不违反）。
 
@@ -66,7 +66,7 @@ PMContext + `docs/pm-context/aiprd.md`（AI PRD 含可执行规则+验收标准�
 
 | 层级 | 定义 | 来源 | 审计策略 |
 |------|------|------|---------|
-| L1 显式规则 | PRD 字面写出的规则/验收/边界 | aiprd.md §R/§AC/§B | 字面比对即可 |
+| L1 显式规则 | PRD 字面写出的规则/验收/边界 | ai-prd.md §R/§AC/§B | 字面比对即可 |
 | L2 隐含语义 | PRD 未字面写但语义推导得出 | PMContext 用户目标+场景反推 | 重点审——AI 生成代码最易在此偏离，字面看对但意图错 |
 | L3 业务约束推导 | 行业/合规/常识推导的约束 | 业务领域知识+法规 | 必须列推导链，避免臆造意图 |
 
@@ -165,7 +165,7 @@ Critical gap 回灌 PMContext 风险段。与 pm-premortem 交叉（gap 即上�
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
 | **🔴 STOP**：`docs/pm-context/pm-context.md` 不存在 | 提示先运行 `/pm-need <需求>` | 不阻塞，提示后退出 |
-| **🔴 STOP**：`docs/pm-context/aiprd.md` 不存在 | 提示先运行 `/pm-aiprd` | 无意图来源无法审计 |
+| **🔴 STOP**：`docs/pm-context/prd/ai-prd.md` 不存在 | 提示先运行 `/pm-aiprd` | 无意图来源无法审计 |
 | 源码库空或找不到目标模块 | 提示确认代码路径 | 标 `[无法定位实现]` 该意图悬空 |
 | 意图无文档来源（PM 口头要求） | 标 `[非文档化意图]` 建议补 PRD | 不臆造意图审计 |
 | 证据 hand-wavy（"大概在支付模块"） | 退回定位到 file:line | 无法定位标 `[证据不足]` |
@@ -184,7 +184,7 @@ Critical gap 回灌 PMContext 风险段。与 pm-premortem 交叉（gap 即上�
 | gap 不分级 | 无分级无法排修复优先级，必须 Critical/High/Medium/Low |
 | Critical gap 不回灌 PMContext | 不回灌等于没审计，上线风险会漏 |
 | 把"多余实现"当 gap 严重对待 | 多余实现标 `[冗余]` Low 级，非 Critical |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
 ## 产出示例
 

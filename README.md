@@ -6,7 +6,7 @@
 
 > 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，49 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
 >
-> **评估闭环**：93 个评估场景（≥3/skill）经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
+> **评估集**：93 个评估场景覆盖 30 个 skill（≥3 场景/skill，详见 [evals/README.md](evals/README.md#评估清单)），经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
 
 ## 一句话价值
 
@@ -227,11 +227,8 @@ docs/pm-context/
 ```
 PMSkill/
 ├── INSTALL.md                    ← 本地直接安装入口（非 Skill，无 frontmatter）
-├── CLAUDE.md                     ← Agent 指令 + 项目级 Skill 规则
-├── CONTEXT.md                    ← 领域术语表
 ├── README.md                     ← 本文件
-├── .claude-plugin/plugin.json    ← Claude Code 插件清单
-├── .codex-plugin/plugin.json     ← Codex 插件清单
+├── .gitignore                    ← 仓库忽略规则
 ├── skills/
 │   ├── setup/
 │   │   ├── README.md             ← bucket 导航
@@ -288,9 +285,9 @@ evals/                          ← 评估集（≥3 场景/skill + rubric）
 可复现校验：
 
 ```bash
-bash evals/run-evals.sh --dry-run          # 40 场景结构校验，CI 退出码 0=全 PASS
+bash evals/run-evals.sh --dry-run          # 93 场景结构校验，CI 退出码 0=全 PASS
 bash evals/run-evals.sh --dry-run --skill pm-prd   # 单 skill
-bash evals/run-evals.sh --live             # 真实模型跑分（需 claude/codex CLI）
+bash evals/run-evals.sh --live             # 真实模型跑分（需 claude/codex CLI；当前为占位实现，等同于 --dry-run 结构校验）
 ```
 
 详见 [evals/README.md](evals/README.md)。

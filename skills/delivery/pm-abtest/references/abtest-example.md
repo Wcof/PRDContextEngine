@@ -18,9 +18,9 @@
 
 | 验证项 | 结果 | 状态 |
 |--------|------|------|
-| 样本量 | control 5023 / variant 4987；MDE 3% 需 4800/组（80% power, α=0.05） | ✅ 达标 |
+| 样本量 | control 5023 / variant 4987；MDE 3% 需 4800/组（80% power, α=0.05, Z_α/2=1.96, Z_β=0.84） | ✅ 达标 |
 | 运行时长 | 14 天（覆盖 2 个完整周周期，含周末） | ✅ |
-| SRM | 期望 5000/5000，实际 5023/4987；χ²=0.25, p=0.62 | ✅ 无 SRM |
+| SRM | 期望 5000/5000，实际 5023/4987；χ²=0.13, p=0.72 | ✅ 无 SRM |
 | 新鲜效应 | 前 3 天数据剔除后趋势稳定 | ✅ |
 
 ## 显著性计算（Python 脚本）
@@ -48,7 +48,7 @@ p_value = 2 * (1 - stats.norm.cdf(abs(z)))  # 0.003
 ci_low = (p_variant - p_control - 1.96 * se) / p_control * 100
 ci_high = (p_variant - p_control + 1.96 * se) / p_control * 100
 print(f"lift={lift:.1f}%, p={p_value:.4f}, 95% CI=[{ci_low:.1f}%, {ci_high:.1f}%]")
-# lift=+12.2%, p=0.003, 95% CI=[+4.1%, +21.5%]
+# lift=+12.3%, p=0.0246, 95% CI=[+1.6%, +23.1%]
 ```
 
 ## guardrail 检查

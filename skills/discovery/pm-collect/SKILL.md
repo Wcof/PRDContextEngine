@@ -68,7 +68,7 @@ PM 在当前对话中说/粘贴的内容——直接提取，无需额外操作�
 # 扫描根级配置文件——了解技术栈、项目描述、Agent 配置
 for f in README.md CONTEXT.md CLAUDE.md AGENTS.md .atomcode.md CHANGELOG.md SECURITY.md SKILL.md; do
   if [ -f "$f" ]; then
-    echo "=== $f ($(wc -c) $(wc -c < "$f"))==="
+    echo "=== $f ($(wc -c < "$f"))==="
     head -50 "$f"
   fi
 done
@@ -101,7 +101,7 @@ git diff --stat main...HEAD 2>/dev/null || echo "无法对比分支"
 ```
 从 commit message 提取：正在做的功能方向、已修复的 bug、重构计划。
 
-#### 2.四源码中的标记（轻量扫描）
+#### 2.4 源码中的标记（轻量扫描）
 ```bash
 # 扫描 TODO/FIXME/HACK——发现已知问题和未完成功能
 grep -rn "TODO\|FIXME\|HACK" src/ app/ lib/ components/ pages/ services/ \
@@ -222,9 +222,9 @@ mkdir -p docs/pm-context/.loop/
 | 忽略 git commit history | commit message 中蕴含了产品决策和演进 |
 | 扫描到 TODO/FIXME 但不标注其产品含义 | PM 需要知道这些标记对应的功能方向 |
 | 四源材料不去重导致 refine 重复推断 | 去重是 collect 的职责，重复材料增加 refine 成本 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
+| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
 ## 产出示例 · 延伸参考 · 实战提示
 

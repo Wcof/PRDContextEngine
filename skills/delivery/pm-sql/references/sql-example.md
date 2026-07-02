@@ -55,7 +55,7 @@ LEFT JOIN retained_users r ON r.user_id = h.user_id;
 ## SQL — BigQuery（方言差异）
 
 ```sql
--- BigQuery 用 EXACT_COUNT_DISTINCT 替代 COUNT(DISTINCT)
+-- BigQuery Standard SQL：COUNT(DISTINCT) 已是精确计数，无需 EXACT_COUNT_DISTINCT
 WITH high_value_users AS (
   SELECT user_id
   FROM `project.dataset.payments`
@@ -70,12 +70,14 @@ retained_users AS (
   WHERE s.session_date >= '2026-07-01' AND s.session_date < '2026-08-01'
 )
 SELECT
-  EXACT_COUNT_DISTINCT(h.user_id) AS high_value_total,
-  EXACT_COUNT_DISTINCT(r.user_id) AS retained,
-  ROUND(EXACT_COUNT_DISTINCT(r.user_id) / EXACT_COUNT_DISTINCT(h.user_id) * 100, 2) AS retention_rate_pct
+  COUNT(DISTINCT h.user_id) AS high_value_total,
+  COUNT(DISTINCT r.user_id) AS retained,
+  ROUND(COUNT(DISTINCT r.user_id) / COUNT(DISTINCT h.user_id) * 100, 2) AS retention_rate_pct
 FROM high_value_users h
 LEFT JOIN retained_users r ON r.user_id = h.user_id;
 ```
+
+> 注意：BigQuery Standard SQL 的 `COUNT(DISTINCT x)` 默认就是精确计数，无需使用 Legacy SQL 的 `EXACT_COUNT_DISTINCT`。CTE（WITH 子句）是 Standard SQL 特性，与 Legacy SQL 函数不兼容。
 
 ## 性能优化建议
 

@@ -72,7 +72,7 @@ PMContext 各维度隐含假设需显式化。本 skill 提取 PMContext 全维�
 
 每条给：Fails if + 本周证据 + Kill criterion + 最便宜测试（按成本阶梯）。
 
-**🔴 CHECKPOINT** — 输出产物路径 + 8 类完整度 + 假设总数 + Top 5 测试。
+**🔴 CHECKPOINT** — 输出产物路径 + 8 类完整度 + 假设总数 + Top 5 测试。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
 ## 失败模式
 

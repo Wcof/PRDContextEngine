@@ -9,7 +9,7 @@
 ## Model-invoked
 
 - **[pm-collect](./pm-collect/SKILL.md)** — 主动深度扫描 URL、项目、知识库和对话上下文，收集材料整理到 collect 目录，不筛选只整理。
-- **[pm-refine](./pm-refine/SKILL.md)** — 对已收集材料自主推断澄清，区分事实/假设/冲突/待确认，沉淀成 PMContext，无需 PM 逐个确认。
+- **[pm-refine](./pm-refine/SKILL.md)** — 对已收集材料精炼澄清，区分事实/假设/冲突/待确认，沉淀成 PMContext。**两种模式**：默认追问模式向 PM 逐维提问确认；`--auto` 自主推断模式无需 PM 逐个确认。
 - **[pm-interview](./pm-interview/SKILL.md)** — 从 PMContext 生成结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律，含暖场/核心探索/收尾三段式。
 - **[pm-metrics](./pm-metrics/SKILL.md)** — 从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 指标星座，分类业务游戏 + 七准则校验 + Mermaid 指标树。
 - **[pm-ost](./pm-ost/SKILL.md)** — 从 PMContext 生成机会方案树（OST），四层结构（期望结果→机会→方案→实验）+ 机会优先级评分。
@@ -23,7 +23,6 @@
 - **[pm-assumption](./pm-assumption/SKILL.md)** — 风险假设——8 类风险 × 置信度 + Top5 最便宜测试。
 - **[pm-northstar](./pm-northstar/SKILL.md)** — 北极星深化——单一 NSM（七准则）+ Input 星座 + guardrail + Mermaid 指标树。
 - **[pm-ideation](./pm-ideation/SKILL.md)** — 方案发散——≥5 方案（optimize/explore）+ 每方案最便宜验证。
-- **[pm-parallel](./pm-parallel/SKILL.md)** — 并行 agent 分派——独立性校验 + 子 agent 调度 + 合并+冲突标注。
 - **[pm-parallel](./pm-parallel/SKILL.md)** — 并行 agent 分派——独立性校验 + 子 agent 调度 + 合并+冲突标注。
 - **[pm-skillauthor](./pm-skillauthor/SKILL.md)** — TDD 范式写 skill——RED-GREEN-REFACTOR + Anthropic 规范。
 - **[pm-pestle](./pm-pestle/SKILL.md)** — PESTLE 宏观环境分析——政治/经济/社会/技术/法律/环境六维 + 影响×概率优先级矩阵 + 战略响应 + 监控指标。

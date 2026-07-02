@@ -49,7 +49,7 @@ PMSkill 需扩展新能力时用本 skill。新 skill 必须符合 Anthropic 规
 - [ ] frontmatter 规范（name + description ≤1024 + Use when 触发词）
 - [ ] 三段式失败模式表
 - [ ] 反例黑名单章节
-- [ ] test-prompts.json ≥2 + evals ≥3
+- [ ] test-prompts.json ≥2 + evals ≥1（建议 ≥3）
 - [ ] references 按需加载
 - [ ] 产物落盘 skills/<bucket>/<skill-name>/
 
@@ -163,7 +163,7 @@ agent 不带 skill 的失败:
 - **RED 先跑**：没 baseline 的 skill 是猜测（Iron Law）
 - **GREEN 针对 RED**：不写泛泛指导
 - **REFACTOR 跑压力测试**：时间/权威/沉没成本
-- **规范齐全**：frontmatter + 三段式 + 反例 + evals
+- **规范齐全**：frontmatter + 三段式 + 反例 + evals（≥1，建议 ≥3）
 - **联动 darwin-skill**：本 skill 创建，darwin 优化
 
 详见 [references/skillauthor-example.md](references/skillauthor-example.md)。

@@ -42,7 +42,7 @@ PMContext 中"价值验证度量"定义了实验应移动的指标与阈值；"�
 执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/abtest-step5.md`、`.loop/abtest-step6.md`。
 
 **产出约束**：
-- 样本量必须用公式 `n = (Z²α/2 × 2 × p × (1-p)) / MDE²` 验证是否达到 80% power，不足则标 🔴 underpowered
+- 样本量必须用公式 `n = ((Z_α/2 + Z_β)² × 2 × p × (1-p)) / MDE²` 验证是否达到 80% power（Z_β 对应 80% power = 0.84），不足则标 🔴 underpowered
 - p-value 必须用 two-tailed z-test 或 chi-squared 计算，禁只看转化率差值
 - 95% CI 必须给出，lift 必须区分 statistical significance（p<0.05）与 practical significance（业务意义）
 - guardrail 任一退化则 ship 决策降级为 extend/stop
@@ -141,7 +141,7 @@ p-value = two-tailed z-test 或 chi-squared
 | SRM 存在仍下结论 | 随机化失败意味着两组不可比，任何结论都是错的 |
 | underpowered 实验下 ship 结论 | 样本不足可能漏掉真实效应或放大噪声 |
 | 不追溯 PMContext 度量项 | 实验结论悬空，无法回填到假设验证状态 |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
 ## 产出示例
 
@@ -151,16 +151,16 @@ p-value = two-tailed z-test 或 chi-squared
 ## 实验设置验证
 | 验证项 | 结果 | 状态 |
 |--------|------|------|
-| 样本量 | control 5023 / variant 4987，MDE 3% 需 4800 | ✅ 达标 |
+| 样本量 | control 5023 / variant 4987，MDE 3% 需 4800（80% power, α=0.05, Z_α/2=1.96, Z_β=0.84） | ✅ 达标 |
 | 运行时长 | 14 天（2 个完整周周期） | ✅ |
-| SRM | 期望 5000/5000，实际 5023/4987，p=0.62 | ✅ 无 SRM |
+| SRM | 期望 5000/5000，实际 5023/4987，χ²=0.13, p=0.72 | ✅ 无 SRM |
 | 新鲜效应 | 前 3 天剔除后趋势稳定 | ✅ |
 
 ## 显著性
 - 转化率：control 12.3% → variant 13.8%
-- 相对 lift：+12.2%
-- p-value：0.003（< 0.05 统计显著）
-- 95% CI：[+4.1%, +21.5%]
+- 相对 lift：+12.3%
+- p-value：0.0246（< 0.05 统计显著）
+- 95% CI：[+1.6%, +23.1%]
 - PMContext 阈值：+10% → ✅ 业务显著
 
 ## guardrail

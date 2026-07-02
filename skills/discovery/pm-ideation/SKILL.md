@@ -84,7 +84,7 @@ PMContext"用户场景"定义方案方向；"现状平替"定义优化空间；"
 
 相似方案合并，方案候选回灌 PMContext。
 
-**🔴 CHECKPOINT** — 输出产物路径 + 方案数 + optimize/explore 分布。
+**🔴 CHECKPOINT** — 输出产物路径 + 方案数 + optimize/explore 分布。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
 ## 失败模式
 

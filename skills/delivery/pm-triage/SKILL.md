@@ -167,7 +167,7 @@ brief 必须自包含——agent 读完无需再问即可开工。
 | ready-for-agent 无验收 | agent 不知何时完成，必须有可观测验收 |
 | issue 不追溯 PMContext/故事 | 无追溯的 issue 脱离需求，变凭空任务 |
 | 把 bug 当 enhancement 凑数 | bug 是坏了必须修，enhancement 是改进，不可混 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
 ## 产出示例
 

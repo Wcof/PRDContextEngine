@@ -1,6 +1,6 @@
 ---
 name: pm-metrics
-description: 从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 组成的指标星座——分类业务游戏（注意力/交易/生产力）+ 七准则校验 + 指标树 Mermaid 图。Use when the user asks for North Star metric or metrics framework, mentions 北极星指标、north star、NSM、input metric、指标体系、metrics framework、OMTM、核心指标、价值度量、指标星座.
+description: 首次从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 组成的指标星座——分类业务游戏（注意力/交易/生产力）+ 七准则校验 + 指标树 Mermaid 图。Use when the user needs initial north star and metrics framework setup, mentions 北极星指标、north star、NSM、input metric、指标体系、metrics framework、OMTM、核心指标、价值度量、指标星座.
 ---
 
 # /pm-metrics
@@ -175,8 +175,8 @@ flowchart TD
 | 指标不追溯到 PMContext | 指标与需求脱节，可能度量了不该度量的 |
 | 用绝对值指标（总用户数）当 NSM | 优先比率型（转化率/留存率），绝对值不反映价值密度 |
 | NSM 不可行动（团队无法直接影响） | 不可行动的指标是虚荣指标，无指导意义 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
 ## 产出示例
 

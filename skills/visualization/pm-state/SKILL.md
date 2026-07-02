@@ -12,7 +12,7 @@ description: 从 PMContext 生成状态机图——Mermaid stateDiagram-v2，状
 <instruction_set>
   <constraint>禁止臆造 PMContext 之外的实体——所有状态必须可追溯到 PMContext 实体关系段</constraint>
   <constraint>每实体必须有失败/取消终态——仅有成功终态的状态机不完整，缺失时标 `[建议补充]`</constraint>
-  <constraint>Mermaid 视觉语义——合法转移实线 `-->`，回退/异常虚线 `-.->`，非法转移 `--x`，假设项状态名前缀 ⚠️</constraint>
+  <constraint>Mermaid 视觉语义——合法转移实线 `-->`，异常路径用 `note right of` 标注，非法转移用 `%%` 注释标记，假设项状态名前缀 ⚠️</constraint>
   <output_format>必须包含审计三元组（输入依据 → 分析逻辑 → 产出验证）验证推导逻辑</output_format>
   <output_format>产物顶部输出 Pre-flight Verification List（每项 ✓/✗）</output_format>
 </instruction_set>
@@ -99,8 +99,8 @@ PMContext 中有状态/规则定义。本 skill 提取状态和转移，画状�
 
 **Mermaid 视觉语义**：
 - 合法转移：实线 `-->`
-- 回退/异常转移：虚线 `-.->`
-- 非法转移（显式禁止）：标注 `--x` 或注释 `%% 禁止: Draft --> Paid`
+- 异常路径：用 `note right of` 标注（如 `note right of Submitted: 超时 24h 自动驳回`）
+- 非法转移（显式禁止）：用 `%%` 注释标记（如 `%% 禁止: Draft --> Paid`）
 - 假设项：状态名前缀加 ⚠️
 
 ### Step 4: 写入产物
@@ -115,7 +115,7 @@ PMContext 中有状态/规则定义。本 skill 提取状态和转移，画状�
 
 ## 状态机
 
-​```mermaid
+```mermaid
 stateDiagram-v2
   [*] --> Draft
   Draft --> Submitted: 提交
@@ -124,7 +124,7 @@ stateDiagram-v2
   InReview --> Rejected: 驳回
   Rejected --> Draft: 修改后重新提交
   Approved --> [*]
-​```
+```
 
 ## 状态清单
 
@@ -149,7 +149,9 @@ stateDiagram-v2
 步骤 6（交付）产出完成后，写入中间工件：
 - `docs/pm-context/.loop/state-step6.md`（图元追溯映射 + 审计三元组）
 
-## 关联增强，在"状态清单"和"转移清单"的"来源"列标注。无来源的标 `[假设]`。
+## 关联增强
+
+在"状态清单"和"转移清单"的"来源"列标注。无来源的标 `[假设]`。
 
 ## 失败模式
 
@@ -173,7 +175,7 @@ stateDiagram-v2
 - `[假设]` 状态用 `state "[假设: 推断状态]" as假设_x` 别名形式视觉区分
 - 复合状态用 `state Order { ... }` 包裹同实体的多个状态
 - 转移异常路径用 `note right of` 标注（如 `note right of Submitted: 超时 24h 自动驳回`）
-- Mermaid 块用三反引号 + `mermaid` 标识，不要用 `​```` 零宽字符包裹
+- Mermaid 块用三反引号 + `mermaid` 标识，不要用 ````` 零宽字符包裹
 
 ## 不要做什么（反例黑名单）
 
@@ -184,9 +186,9 @@ stateDiagram-v2
 | 漏掉异常状态（失败、超时、取消等） | 状态机最重要的价值是表达异常路径 |
 | 转移条件写"等"或"等等" | 条件必须可判定，模糊条件无法实现 |
 | 状态机无终态（无 `[*]` 终止） | 流程无法结束的状态机是设计错误 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
+| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
 ## 产出示例
 

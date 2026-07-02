@@ -135,6 +135,8 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 步骤 5（风险）产出完成后，写入中间工件：
 - `docs/pm-context/.loop/premortem-step5.md`（风险清单 + Tiger/Paper Tiger/Elephant 分类 + 行动计划 + 假设交叉检查 + 审计三元组）
 
+产物主文件落盘路径：`docs/pm-context/premortem.md`
+
 ## 产物，结构：
 
 ```markdown
@@ -173,6 +175,8 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 - Tiger 数量（Launch-Blocking / Fast-Follow / Track）
 - Paper Tiger 数量
 - Elephant 数量
+
+等待 PM 确认或自动进入下一步（`--auto` 模式）。`--auto` 模式下不等待，直接进入下一 skill。
 - 假设升级为 Tiger 的数量
 
 等待用户确认是否采纳行动计划。
@@ -203,9 +207,9 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 | 行动计划不写负责人 | 无负责人=无人执行，premortem 失去意义 |
 | 跳过假设清单交叉检查 | PMContext 中低置信度假设是最可能出问题的地方 |
 | 不输出摘要直接结束 | PM 不知道要关注哪类风险 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure（ADR 0008 §11） |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一（ADR 0008 §11） |
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
+| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
 ## 产出示例
 

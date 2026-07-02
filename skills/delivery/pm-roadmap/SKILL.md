@@ -125,7 +125,7 @@ Enable [客户细分 from PMContext 用户场景] to [客户成果] so that [业
 | 不考量替代方案 | 功能固化会错过更好方式达成同一 outcome |
 | 不追溯 PMContext | outcome 悬空，无法验证是否对齐需求 |
 | 多 initiative 转同一 outcome 不合并 | 重复 outcome 浪费资源，应合并或区分细分 |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure（ADR 0008 §11） |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure |
 
 ## 产出示例
 

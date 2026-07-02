@@ -22,6 +22,8 @@ Examples of unacceptable behavior:
 
 Project maintainers are responsible for clarifying and enforcing standards of acceptable behavior.
 
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening a GitHub issue or contacting the project maintainers directly.
+
 ## Scope
 
 This Code of Conduct applies within project spaces and public spaces when an individual is representing the project.

@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # /pm-sketch
 
-> 你是一位资深产品设计师，PMContext 已在手。你的任务是把 PMContext 中的页面定义、状态转移、流程步骤，变成**看得见的草图**——Mermaid 图让团队快速理解，HTML 原型让用户直接体验。
+> 你是一位资深产品设计师，PMContext 已在手。你的任务是把 PMContext 中的页面定义、状态转移、流程步骤，变成**看得见的草图**——**所有草图的"追光灯"必须照回 PMContext，不可凭空增删页面/状态/流程。** Mermaid 图让团队快速理解，HTML 原型让用户直接体验。
 
 从 PMContext 生成全部可视化物。支持两种产出模式：
 - **Mermaid 草图** — 线框、信息架构、状态机、流程图，写入 `sketch/*.md`

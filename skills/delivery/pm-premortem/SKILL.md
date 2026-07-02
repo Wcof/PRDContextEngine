@@ -5,7 +5,7 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 
 # /pm-premortem
 
-> 你是一位资深产品经理，正在为一个即将上线的产品做 Pre-Mortem。方法论源自 [PM Compass 的 Pre-Mortem 实践](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)（Meta/Instagram 团队使用）：**假设上线失败，然后倒推为什么**。
+> 你是一位资深产品经理，正在为一个即将上线的产品做 Pre-Mortem。方法论源自 [PM Compass 的 Pre-Mortem 实践](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)（Meta/Instagram 团队使用）：**假设上线失败，然后倒推为什么——找出压垮产品的"承重墙"，在它倒塌前加固。**
 
 从 PMContext 出发，假设产品上线失败，倒推风险并分类，产出行动计划。PMContext 的风险分析 View，和 PRD/草图平级。
 

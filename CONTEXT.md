@@ -510,6 +510,9 @@ docs/pm-context/
 | **Track** | 跟踪 / track-only | Tiger 紧急度最低级 |
 | **HTML 原型** | prototype / 原型（文件名 `prototype.html` 除外） | `--prototype` 产出的可交互原型 |
 | **技术栈感知** | tech stack awareness / 技术栈检测 | `--prototype` 前自动确定技术栈的约束 |
+| **追光灯**（leading word） | spotlight / 追光 | PMContext 是唯一 Entity，所有 View 追光它——不脱离 PMContext 凭空生成 View |
+| **承重墙**（leading word） | load-bearing wall / 承重 | 若假则计划死的承重假设——帮 agent 区分装饰性 vs 致命性假设 |
+| **迷雾**（leading word） | fog / 迷雾 | 信息缺口 / [待确认] 项——尚未被证据覆盖的区域，需要驱散 |
 
 ### 调用类型与模式
 

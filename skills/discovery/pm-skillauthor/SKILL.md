@@ -17,6 +17,29 @@ description: 用 TDD 范式（RED-GREEN-REFACTOR）为 PMSkill 写新 skill—�
 
 PMSkill 需扩展新能力时用本 skill。新 skill 必须符合 Anthropic 规范 + PMSkill 风格（frontmatter + Purpose/Context/Instructions/Thinking Protocol/失败模式三段式/反例黑名单/产出示例 + references + test-prompts + evals）。
 
+### 建不建 skill 的决策门（借鉴 superpowers/writing-skills "When to Create a Skill"）
+
+> 不是所有能力都该建 skill——机械约束用自动化，项目约定写 instructions，一次性方案不建文档。
+
+| 该建 skill | 不该建 skill |
+|-----------|-------------|
+| 技术非直觉（你不假思索做不对的） | 一次性方案（用完不再用） |
+| 跨项目复用（非项目特定） | 项目特定约定（写 .atomcode.md/AGENTS.md） |
+| 模式广泛适用（他人受益） | 标准实践已有良好文档（重复造轮子） |
+| 需要判断调用（非机械） | 机械约束可用 regex/校验自动化的（自动化，省文档） |
+
+**决策门**：待文档化能力命中"该建"≥3 且"不该建"=0 → 建；否则不建，走对应替代（自动化/instructions/不建）。
+
+### Skill 类型（借鉴 writing-skills Skill Types）
+
+| 类型 | 定义 | PMSkill 示例 |
+|------|------|-------------|
+| Technique | 有步骤的具体方法 | pm-align, pm-triage, pm-grill |
+| Pattern | 思考问题的方式 | pm-ideation, pm-refine, pm-premortem |
+| Reference | API/语法/工具文档 | pm-sql, pm-abtest（含指标定义参考） |
+
+新 skill 建前先定类型——Technique 重步骤可执行性，Pattern 重思维框架，Reference 重查得准。类型定错会导致 dim2/dim5 失分。
+
 ## Instructions
 
 - [ ] 待文档化能力已确认（用户描述或 PMContext 推导）

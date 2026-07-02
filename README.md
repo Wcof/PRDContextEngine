@@ -4,9 +4,9 @@
 
 从模糊想法/用户诉求出发，**一键全链路**沉淀成 PMContext → 衍生出 PRD（给 AI + 给人）→ 生成可视化草图 + HTML 可交互原型。
 
-> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，47 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
+> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，48 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
 >
-> **评估闭环**：45 个评估场景（≥3/skill）经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
+> **评估闭环**：48+ 评估场景（≥3/skill）经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
 
 ## 一句话价值
 

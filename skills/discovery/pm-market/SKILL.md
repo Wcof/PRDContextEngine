@@ -140,6 +140,19 @@ SOM = 可获用户数 × ARPU × 年
 
 **反例**：按"男/女"或"25-34/35-44"分层——这是 demographics 切片不是用户分层，无法驱动不同产品策略。
 
+### Step 4.75: NSM 与市场规模交叉验证（借鉴 pm-marketing-growth/north-star-metric）
+
+> 市场规模的假设应反映在北极星指标的信噪验证中——如果 SOM 太大但 NSM 设计太小（或相反），说明规模估算或 NSM 设计至少一个不准。
+
+| 检查 | 问题 | 不一致信号 | 处置 |
+|------|------|-----------|------|
+| SOM 的获客假设 ↔ NSM Input Metrics | SOM 假设月获 1 万用户，但 NSM Input Metrics 未含获客渠道指标 | NSM 无法支撑 SOM 目标 | 补 Input Metrics 或共识 SOM |
+| ARPU 假设 ↔ NSM 的 AARRR 付费节点 | SOM 用 ARPU ¥100，但 NSM guardrail 含"免费不可用" | ARPU 假设与产品体验冲突 | 校准 ARPU 或改 guardrail 设计 |
+| 行业增速假设 ↔ NSM 周期性 | SOM 假设年增 50% 但 NSM 设计为季度脉冲式增长 | 增速假设与 NSM 节奏不匹配 | 对齐增速假设与 NSM 节奏 |
+| 目标细分 ↔ pm-northstar 输出 | SAM 定义的目标细分与 pm-northstar 产出中"核心用户"定义不一致 | 两个 View 的目标用户不一致 | 标 `[冲突]` 让 PM 裁决 |
+
+**纪律**：市场规模假设必须与 NSM（若 pm-northstar 已跑）交叉验证。不一致但不影响结论的标 🟢 可接受，直接影响结论的标 `[冲突]` 并提示 PM 统一。若 pm-northstar 尚未跑，跳过本步不阻塞。
+
 ### Step 5: 写入产物
 
 写入 `docs/pm-context/market.md`，含双算法规模表 + 交叉验证 + 三层竞品矩阵 + 情感分析（或无数据标注）+ 用户分层 + 追溯列。

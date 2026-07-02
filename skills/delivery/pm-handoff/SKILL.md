@@ -1,6 +1,6 @@
 ---
 name: pm-handoff
-description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态 + 已完成产物 + 未完成项 + 下一步建议 + 关键决策 + 7 项质量自检（自包含/下一步具体/未完成精确/决策可追溯/置信度完整/产物状态/待确认盘点），供下一个 Agent 接续。Use when the user asks to handoff or continue in another session, mentions 交接、handoff、切换会话、continue later、session handoff、换 agent、接续工作、上下文压缩、compact session.
+description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态 + 已完成产物 + 未完成项 + 条件触发式下一步建议（触发条件+动作+前置检查，借鉴 condition-based-waiting）+ 关键决策 + 知识转移（决策非显性理由+可推翻条件+ZPD 能力差距，借鉴 teach）+ 9 项质量自检，供下一个 Agent 接续。Use when the user asks to handoff or continue in another session, mentions 交接、handoff、切换会话、continue later、session handoff、换 agent、接续工作、上下文压缩、compact session、知识转移、knowledge transfer、条件触发、condition-based trigger.
 ---
 
 # /pm-handoff
@@ -90,18 +90,31 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 3. 技术栈定为 Vue3 + Vite + TS（项目已有 package.json）→ 来源: 项目扫描
 ```
 
-### Step 5: 给出下一步建议
+### Step 5: 给出下一步建议（条件触发器，借鉴 superpowers/condition-based-waiting）
 
-基于未完成项，给出具体下一步：
+**核心原则**：下一步不是"按时间顺序执行"，而是"当条件满足时触发"——避免接手者在前置条件未达时盲目执行导致空转。
+
+基于未完成项，给出**条件触发式**下一步：
+
 ```
-下一步建议:
-1. 优先: 补全 PMContext 信息缺口中 [待确认] 的 3 项（续费转化率基线/支付通道/会员等级）
-   → 调用 /pm-need <补充材料> --incremental
-2. 然后: 生成剩余草图
-   → 调用 /pm-ia 和 /pm-state
-3. 可选: 生成 HTML 原型
-   → 调用 /pm-sketch --prototype --auto
+下一步建议（条件触发）:
+1. 触发条件: PMContext [待确认] 3 项已补全
+   触发动作: /pm-need <补充材料> --incremental
+   前置检查: 待确认项数 == 0 后才触发下一步
+2. 触发条件: PMContext 置信度 事实 >= 80%
+   触发动作: /pm-ia 和 /pm-state
+   前置检查: 置信度不达标则先跑 /pm-grill 补证据
+3. 触发条件: 草图全生成（ia + state ✓）
+   触发动作: /pm-sketch --prototype --auto
+   前置检查: 草图未全则不触发，避免原型基于不完整草图
 ```
+
+**条件触发器规范**（每条下一步必须含）：
+- **触发条件**：可观测的状态断言（文件存在/置信度达标/待确认清零），非时间猜测
+- **触发动作**：具体 skill 调用
+- **前置检查**：条件未达时该做什么（补证据/跑前置 skill/等待 PM 输入），不可空转
+
+**反模式**（借鉴 condition-based-waiting "勿猜时间"）：禁止写"然后""接下来"等时序词——时序是条件满足的自然结果，不是指令。
 
 ### Step 6: 写入交接文档
 
@@ -147,10 +160,27 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 | 续费方案 | 一键续费 | PM 暂不做自动续费 | 对话: PM 确认 |
 | 技术栈 | Vue3+Vite+TS | 项目已有 package.json | 项目扫描 |
 
-## 下一步建议
-1. **优先:** 补全 PMContext [待确认] 项 → `/pm-need <补充材料> --incremental`
-2. **然后:** 生成剩余草图 → `/pm-ia` 和 `/pm-state`
-3. **可选:** HTML 原型 → `/pm-sketch --prototype --auto`
+## 下一步建议（条件触发）
+| # | 触发条件 | 触发动作 | 前置检查 |
+|---|---------|---------|---------|
+| 1 | PMContext [待确认] 项 = 0 | `/pm-need <补充材料> --incremental` | 未清零不触发 |
+| 2 | 置信度 事实 >= 80% | `/pm-ia` + `/pm-state` | 不达标先 `/pm-grill` |
+| 3 | 草图全生成（ia+state ✓） | `/pm-sketch --prototype --auto` | 草图未全不触发 |
+
+## 知识转移（借鉴 skills/teach：mission grounding + learning records + ZPD）
+
+> 状态交接让接手者知道"做到哪"，知识转移让接手者知道"为什么这样定"——非显性决策理由是避免重复讨论的关键。
+
+### 决策理由（learning-records 式，非显性知识）
+| 决策 | 选择 | 为什么这样定（非显性理由） | 可被推翻的条件 |
+|------|------|--------------------------|--------------|
+| refine 模式选追问 | 逐维确认 | PM 首次做该需求，对领域不熟，自主推断风险高 | PM 表达熟悉度提升后可切自主模式 |
+| 续费选一键续费 | 非自动续费 | 自动续费涉及合规+扣费争议，本期合规审查未启动 | 合规审查通过后可重启自动续费评估 |
+
+### 接手者能力-任务差距（ZPD，zone of proximal development）
+- **接手者需具备**：读 PMContext 的能力 + 跑 skill 的能力 + 判断条件触发的能力
+- **可能差距**：若接手者不熟悉条件触发器模式 → 建议先读本文件"下一步建议（条件触发）"段说明
+- **弥合建议**：复杂决策旁标"为什么"，接手者遇疑问先查"决策理由"表再问 PM
 
 ## 接手者快速进入指南
 1. 读本文件了解工作状态
@@ -172,13 +202,15 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 | 5 | **置信度分布完整** | 事实/[假设]/[待确认]/[冲突] 四态占比是否齐全？ | 从 PMContext 手动统计 |
 | 6 | **产物状态盘点** | 每产物是否标 ✓/✗ + 路径？ | 补状态标注 |
 | 7 | **`[待确认]` 项盘点** | PMContext 待确认项是否全列出？ | 补全待确认项清单 |
+| 8 | **条件触发器完整** | 每下一步是否含触发条件+触发动作+前置检查三要素？ | 改为条件触发式（禁"然后/接下来"时序词） |
+| 9 | **知识转移完整** | 关键决策是否含"非显性理由"+"可被推翻条件"？ | 补决策理由，标注推翻条件 |
 
 **自检纪律**（借鉴 verification-before-completion）：
 - 不得声称"交接文档已完成"而不跑自检——evidence before assertions
 - 自检不过的文档标 🟡 不落盘，先修补再落盘
 - 落盘后再次跑自检确认通过
 
-**🔴 CHECKPOINT** — 输出交接文档路径 + 已完成产物数 + 未完成项数 + 下一步建议数 + 自检结果（7 项全过/🟡 N 项需修补）。
+**🔴 CHECKPOINT** — 输出交接文档路径 + 已完成产物数 + 未完成项数 + 下一步建议数 + 自检结果（9 项全过/🟡 N 项需修补）。
 
 ## 流程链落盘
 

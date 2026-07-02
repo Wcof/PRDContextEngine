@@ -118,7 +118,20 @@ brief 必须自包含——agent 读完无需再问即可开工。
 
 写入 `docs/pm-context/triage.md`，含分流表 + 垂直切片 issue + agent brief + 追溯列。
 
-**🔴 CHECKPOINT** — 输出产物路径 + 分流项数 + ready-for-agent 数 + 垂直切片数 + 水平切片作废数 + wontfix 数。等待 PM 确认或自动进入下一步（`--auto` 模式）。
+### Step 5.5: 分流就绪验证（evidence-before-assertions，借鉴 superpowers/verification-before-completion）
+
+落盘"分流完成"结论前必须跑 Gate Function，无新鲜证据不得声称完成：
+
+| 声称 | 必须的验证证据 | 不充分（不算证据） |
+|------|--------------|------------------|
+| "issue 全分流" | 分流表每项有 category+state 核对 | "都分了" |
+| "brief 全自包含" | 每 brief 五要素核对（上下文/验收/边界/入口/验证） | "写完了" |
+| "垂直切片端到端" | 每切片穿所有层核对（DB/API/UI） | "切了" |
+| "wontfix 全有理由" | 每 wontfix 项理由非空核对 | "关了" |
+
+**Iron Law**: NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE。验证不过标 `[待验证]` + 列缺口，不声称完成。
+
+**🔴 CHECKPOINT** — 输出产物路径 + 分流项数 + ready-for-agent 数 + 垂直切片数 + 水平切片作废数 + wontfix 数 + **分流就绪验证结果（4 项全过/🟡 N 项待验证）**。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
 ## 流程链落盘
 
@@ -140,6 +153,7 @@ brief 必须自包含——agent 读完无需再问即可开工。
 | brief 不自包含（agent 还需问） | 补上下文/验收/边界/入口/验证 | 仍不自包含标 `[brief待补]` |
 | wontfix 无理由 | 补理由（超范围/低价值/重复） | 无理由不关，标 `[待确认]` |
 | needs-info 复现条件不全 | 列出缺哪些信息问上报者 | 不臆造条件强行分流 |
+| 声称"分流完成"未跑 Gate Function（违反 verification Iron Law） | NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE——必须跑 Step 5.5 四项核对 | 标 `[待验证]` 不声称完成 |
 
 ## 不要做什么（反例黑名单）
 

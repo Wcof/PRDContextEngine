@@ -1,0 +1,17 @@
+{
+  "skill": "pm-pestle",
+  "test": "full-coverage",
+  "label": "六维全覆盖+P1/P2/P3排序",
+  "inputs": {
+    "prompt": "我们做AI面试助手（面向B2B招聘市场），跑一下PESTLE宏观环境分析"
+  },
+  "expect": {
+    "six_dimensions_all_present": true,
+    "has_impact_probability_matrix": true,
+    "has_priority_levels": true,
+    "each_factor_traces_pmcontext": true,
+    "has_strategic_responses": true,
+    "has_monitoring_metrics": true
+  },
+  "result": null
+}

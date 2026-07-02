@@ -24,4 +24,6 @@
 - **[pm-northstar](./pm-northstar/SKILL.md)** — 北极星深化——单一 NSM（七准则）+ Input 星座 + guardrail + Mermaid 指标树。
 - **[pm-ideation](./pm-ideation/SKILL.md)** — 方案发散——≥5 方案（optimize/explore）+ 每方案最便宜验证。
 - **[pm-parallel](./pm-parallel/SKILL.md)** — 并行 agent 分派——独立性校验 + 子 agent 调度 + 合并+冲突标注。
+- **[pm-parallel](./pm-parallel/SKILL.md)** — 并行 agent 分派——独立性校验 + 子 agent 调度 + 合并+冲突标注。
 - **[pm-skillauthor](./pm-skillauthor/SKILL.md)** — TDD 范式写 skill——RED-GREEN-REFACTOR + Anthropic 规范。
+- **[pm-pestle](./pm-pestle/SKILL.md)** — PESTLE 宏观环境分析——政治/经济/社会/技术/法律/环境六维 + 影响×概率优先级矩阵 + 战略响应 + 监控指标。

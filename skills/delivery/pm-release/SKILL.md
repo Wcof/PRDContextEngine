@@ -1,6 +1,6 @@
 ---
 name: pm-release
-description: 从 PMContext 与产物生成发布包——用户向发布说明（按新功能/改进/修复分类）+ 测试场景（从用户故事导出，含目标/起始条件/角色/步骤/预期）+ WWA 格式 backlog（Why-What-Acceptance，独立/有价值/可测）。Use when the user asks for release notes or test scenarios or backlog, mentions 发布说明、release notes、changelog、测试场景、test scenarios、测试用例、acceptance test、WWA、backlog、Why What Acceptance、工作项、发布包、ship、发布清单.
+description: 从 PMContext 与产物生成发布包——用户向发布说明（按新功能/改进/修复分类）+ 测试场景（从用户故事导出，含目标/起始条件/角色/步骤/预期）+ WWA 格式 backlog（Why-What-Acceptance，独立/有价值/可测）+ 发布就绪 Gate Function 验证（evidence-before-assertions，4 项新鲜证据）。Use when the user asks for release notes or test scenarios or backlog, mentions 发布说明、release notes、changelog、测试场景、test scenarios、测试用例、acceptance test、WWA、backlog、Why What Acceptance、工作项、发布包、ship、发布清单、发布就绪、readiness、verification before completion.
 ---
 
 # /pm-release
@@ -113,7 +113,20 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 
 写入 `docs/pm-context/release.md`，含发布说明 + 测试场景表 + WWA backlog + 追溯列。
 
-**🔴 CHECKPOINT** — 输出产物路径 + 发布说明三分类条数 + 测试场景数 + WWA 项数 + `[待确认]` 项数。等待 PM 确认或自动进入下一步（`--auto` 模式）。
+### Step 5.5: 发布就绪验证（evidence-before-assertions，借鉴 superpowers/verification-before-completion）
+
+落盘"发布就绪"结论前必须跑 Gate Function，无新鲜证据不得声称就绪：
+
+| 声称 | 必须的验证证据 | 不充分（不算证据） |
+|------|--------------|------------------|
+| "测试场景全覆盖" | 测试命令输出: 0 failures（本轮跑） | 上次跑过、"应该过" |
+| "WWA 三性全达标" | 逐项核对清单（Why/What/Acceptance 各 ✓） | "我检查过了" |
+| "发布说明无技术术语" | 逐条扫描无技术词证据 | "看起来用户化了" |
+| "故事来源全追溯" | 追溯列每项非空核对 | "都标了" |
+
+**Iron Law**: NO READINESS CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE。跳过任一步=说谎非验证。验证不过则声称降级为标 `[待验证]` + 列具体缺口，不声称就绪。
+
+**🔴 CHECKPOINT** — 输出产物路径 + 发布说明三分类条数 + 测试场景数 + WWA 项数 + `[待确认]` 项数 + **发布就绪验证结果（4 项全过/🟡 N 项待验证）**。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
 ## 流程链落盘
 
@@ -147,6 +160,7 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 | 技术变更混入用户发布说明 | 用户不关心技术重构，除非影响行为 |
 | 测试场景预期不可观测 | 预期必须可验证，"体验好"不算 |
 | 三件套只做发布说明省测试/WWA | 发布包三件套缺一，发布是赌博 |
+| 声称"测试场景已覆盖"未跑验证（违反 verification-before-completion Iron Law） | 声称完成而未跑测试命令验证=说谎非效率。NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE——发布说明"测试通过"必须有测试命令输出: 0 failures 为证，"WWA 三性达标"必须有逐项核对证据 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure（ADR 0008 §11） |
 
 ## 产出示例

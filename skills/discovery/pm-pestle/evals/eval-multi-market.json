@@ -1,0 +1,15 @@
+{
+  "skill": "pm-pestle",
+  "test": "multi-market",
+  "label": "多市场对比分析",
+  "inputs": {
+    "prompt": "我们在考虑进入欧洲和东南亚市场，帮我跑PESTLE对比一下两个市场的外部环境"
+  },
+  "expect": {
+    "two_markets_analyzed": true,
+    "comparison_matrix_generated": true,
+    "recommendation_with_reasoning": true,
+    "differences_highlighted_by_dimension": true
+  },
+  "result": null
+}

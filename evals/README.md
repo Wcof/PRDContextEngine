@@ -65,6 +65,7 @@
 | pm-ideation | [pm-ideation.json](pm-ideation.json) | 3 |
 | pm-parallel | [pm-parallel.json](pm-parallel.json) | 3 |
 | pm-skillauthor | [pm-skillauthor.json](pm-skillauthor.json) | 3 |
+| pm-pestle | [pm-pestle.json](pm-pestle.json) | 3 |
 
 ## 评估驱动开发循环
 

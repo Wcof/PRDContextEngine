@@ -319,6 +319,14 @@ skills/
     pm-vision/SKILL.md
     pm-grill/SKILL.md           ← 含 steelman-then-attack 三段式
     pm-persona/SKILL.md         ← 基于 JTBD 的用户画像
+    pm-businessmodel/SKILL.md   ← 商业模式画布 9 模块
+    pm-positioning/SKILL.md     ← 价值主张 + Moore 定位
+    pm-assumption/SKILL.md      ← 风险假设 8 类
+    pm-northstar/SKILL.md       ← 北极星指标深化
+    pm-ideation/SKILL.md        ← 方案发散 + 对比矩阵
+    pm-parallel/SKILL.md        ← 并行 agent 派单
+    pm-skillauthor/SKILL.md     ← TDD 范式写 skill
+    pm-pestle/SKILL.md          ← PESTLE 宏观环境分析
   delivery/                 ← 交付：PRD/发布/质量/分流/定价/GTM/验证/回顾/优先级/交接/数据分析/执行
     pm-prd/SKILL.md
     pm-aiprd/SKILL.md
@@ -386,8 +394,25 @@ skills/
 | pm-release | model-invoked | 从 PMContext 与产物生成发布包——发布说明 + 测试场景 + WWA backlog。Use when the user asks for release notes or test scenarios or backlog. |
 | pm-align | model-invoked | 审计已实现代码与 PMContext/AI PRD 的意图差距——意图模型 + 证据 file:line + gap 分级 + 修复。Use when the user asks to audit code against intent or find implementation gaps. |
 | pm-triage | model-invoked | 从 PMContext 与产物分流需求/缺陷/PR 过状态机 + 垂直切片拆 tracer-bullet issue + agent brief。Use when the user asks to triage issues or break plan into issues. |
-| pm-handoff | model-invoked | 把当前 PMSkill 会话压缩成交接文档供下一个 Agent 接续。Use when the user asks to handoff or continue in another session. |
+| pm-handoff | model-invoked | 把当前 PMSkill 会话压缩成交接文档供下一个 Agent 接续——条件触发式下一步 + 知识转移 + 9 项自检。Use when the user asks to handoff or continue in another session. |
 | pm-journey | model-invoked | 从 PMContext 生成客户旅程地图——七阶段 + 触点/行为/情绪/痛点/机会。Use when the user asks for customer journey or user journey. |
+| pm-abtest | model-invoked | 从 PMContext 设计 A/B 测试——指标定义 + 样本量计算 + 分流 + guardrail + 决策树。Use when user asks for A/B test or experiment design. |
+| pm-cohort | model-invoked | 从 PMContext 做队列分析——群体留存/转化/收入趋势 + 四维对比 + 行为洞察。Use when user asks for cohort or retention analysis. |
+| pm-sql | model-invoked | 用自然语言生成多方言 SQL 查询——SQL/Tableau/Pandas 三种输出。Use when user asks to query data or write SQL. |
+| pm-okr | model-invoked | 从 PMContext 拆解 OKR——输出 Objective + 3-5 KR + Initiative + 承重假设 + NSM 对齐。Use when user asks for OKR or goal setting. |
+| pm-sprint | model-invoked | 从 PMContext 与 backlog 规划迭代——容量估算 + DoR 校验 + 依赖映射 + 风险识别 + Sprint Goal。Use when user asks for sprint planning. |
+| pm-meeting | model-invoked | 从原始笔记/录音整理会议纪要——三格式 + 决策提炼 + 行动项 + 追溯决策理由。Use when user asks for meeting notes or minutes. |
+| pm-roadmap | model-invoked | 把 output 式路线图转为 outcome 式——用户分组 + 时间轴 + 假设标 `[待确认]`。Use when user asks for roadmap or timeline. |
+| pm-battlecard | model-invoked | 从 PMContext 生成竞品作战卡——买家画像 + 竞品对比 + 弱点利用 + 应对武器。Use when user asks for battlecard or competitor analysis. |
+| pm-persona | model-invoked | 从 PMContext 生成基于 JTBD 的用户画像——≥3 persona 五维 + 互斥校验。Use when user asks for user personas or JTBD analysis. |
+| pm-businessmodel | model-invoked | 从 PMContext 生成商业模式画布——BMC 9 模块 + 业务游戏分类 + 收入流≥2。Use when user asks for business model or BMC. |
+| pm-positioning | model-invoked | 从 PMContext 生成价值主张与定位——6 段式 JTBD + Moore 定位陈述 + 差异化矩阵。Use when user asks for positioning or value proposition. |
+| pm-assumption | model-invoked | 从 PMContext 生成风险假设矩阵——8 类风险 × 置信度 + Top5 最便宜测试。Use when user asks for assumption mapping or risk inventory. |
+| pm-northstar | model-invoked | 从 PMContext 深化北极星指标——单一 NSM 七准则 + Input 星座 + guardrail + Mermaid 指标树。Use when user asks for north star metric refinement. |
+| pm-ideation | model-invoked | 从 PMContext 发散可验证方案——optimize/explore 各 ≥2 + 对比矩阵 + HARD-GATE 设计前不验证。Use when user asks for brainstorm or ideation. |
+| pm-parallel | model-invoked | 当 ≥2 独立任务时分派并行子 agent——隔离上下文 + 独立性校验 + 结果合并 + 冲突标注。Use when user asks for parallel agent dispatch or concurrent tasks. |
+| pm-skillauthor | model-invoked | 用 TDD 范式（RED-GREEN-REFACTOR）写 skill——决策门 + 类型分类 + 压力测试闭漏洞。Use when user asks to write or create a new skill. |
+| pm-pestle | model-invoked | 从 PMContext 生成 PESTLE 宏观环境分析——六维 + 影响×概率矩阵 + 战略响应 + 监控指标。Use when user asks for macro environment or PESTLE analysis. |
 
 user-invoked 设置 `disable-model-invocation: true`，description 人看一句话；model-invoked 不设置，description 带 "Use when..." trigger phrasing。
 

@@ -53,9 +53,25 @@ PMSkill 多 skill 场景（如 pm-sketch 生成 4 类草图、pm-market 调研�
 
 任一任务共享可变状态 → **🔴 STOP** 不可并行，改串行。
 
-### Step 2: 分派子 agent
+### Step 2: 分派子 agent（隔离上下文，借鉴 superpowers/dispatching-parallel-agents）
 
-每子 agent 明确：输入文件 + 输出文件 + skill 调用。
+> **核心原则**：子 agent **不得继承当前会话上下文/历史**——你精确构造它需要的最小上下文。继承会话历史会让子 agent 被无关信息干扰 + 挤占其 context window。你保留自己的 context 做协调，子 agent 拿到的应是"刚好够完成这一任务"的纯净输入。
+
+每子 agent 明确：
+
+| 字段 | 内容 | 为什么 |
+|------|------|--------|
+| 任务描述 | 一句话目标（如"调研竞品 X 的定价策略"） | 聚焦，不发散 |
+| 输入文件 | 精确路径（如 `docs/pm-context/pm-context.md` 竞品段） | 不让它自己找，避免读偏 |
+| 输出文件 | 精确路径（如 `docs/pm-context/battlecard-x.md`） | 避免输出重叠覆盖 |
+| skill 调用 | 具体命令（如 `/pm-battlecard --competitor X`） | 不让子 agent 猜该用哪个 skill |
+| 边界 | 不做什么（如"只调研定价，不调研功能"） | 防子 agent 越界扩张任务 |
+
+**反模式**（借鉴 dispatching-parallel-agents "never inherit session context"）：
+- ❌ "你去调研下竞品"（无输入/输出/边界，子 agent 会乱跑）
+- ✅ "读 pm-context.md §竞品X 段，用 /pm-battlecard 生成 battlecard-x.md，只覆盖定价不覆盖功能"
+
+**上下文构造检查**：派单前自检——子 agent 拿到这 5 字段能否不读会话历史就完成？不能=构造不足，补全再派。
 
 ### Step 3: 合并结果 + 冲突标注
 
@@ -78,6 +94,8 @@ PMSkill 多 skill 场景（如 pm-sketch 生成 4 类草图、pm-market 调研�
 |--------|------------|
 | 共享可变状态强并行 | 数据竞争，结果错乱 |
 | 子 agent 输入/输出不明确 | 重叠输出=互相覆盖 |
+| 子 agent 继承会话历史（违反隔离原则） | 无关信息干扰+挤占 context，必须构造纯净最小上下文 |
+| 派单不标边界（"去调研竞品"） | 子 agent 越界扩张任务，必须标"只做什么不做什么" |
 | 失败子 agent 阻塞其他 | 一个失败全卡，违背并行初衷 |
 | 冲突静默覆盖 | 丢失信息，必须标 `[冲突]` |
 | 任务 <2 强并行 | 并行开销 > 收益，串行更优 |

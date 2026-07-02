@@ -1,0 +1,16 @@
+{
+  "skill": "pm-pestle",
+  "test": "pmcontext-verification",
+  "label": "PMContext追溯验证",
+  "inputs": {
+    "prompt": "我们是一个面向国内市场的SaaS工具，帮我看看外部宏观环境"
+  },
+  "expect": {
+    "no_generic_trends": true,
+    "each_impact_is_product_specific": true,
+    "factors_trace_to_pmcontext": true,
+    "no_hypothesis_without_marking": true,
+    "cross_ref_with_strategy_if_exists": true
+  },
+  "result": null
+}

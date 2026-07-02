@@ -3,3 +3,6 @@ skill	scenario_id	query	expected_count	status	note
 pm-skillauthor	1	写一个新 skill 教 agent 做 X	4	PASS	4 条 expected_behavior
 pm-skillauthor	2	直接写 SKILL.md 不跑 baseline	2	PASS	2 条 expected_behavior
 pm-skillauthor	3	GREEN 写让 agent 更好地做 X	2	PASS	2 条 expected_behavior
+pm-pestle	1	AI 面试助手 B2B 招聘 PESTLE	4	PASS	六维全扫描+矩阵+追溯+响应
+pm-pestle	2	中国大陆市场宏观环境	3	PASS	中国特定因素+本产品影响+无泛泛
+pm-pestle	3	PESTLE+SWOT 交叉验证	3	PASS	六维+交叉验证+冲突标注

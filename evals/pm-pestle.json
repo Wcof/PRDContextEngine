@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-pestle"], "query": "我们做 AI 面试助手（B2B 招聘），跑 PESTLE 宏观环境分析", "files": ["fixtures/pm-context.md"], "expected_behavior": ["六维全扫描", "影响×概率矩阵", "每判断追溯 PMContext", "战略响应可执行"]},
+  {"id": 2, "skills": ["pm-pestle"], "query": "只面向中国大陆市场，看看宏观环境", "files": ["fixtures/pm-context.md"], "expected_behavior": ["中国特定宏观因素", "每因素标对'本产品'影响", "无泛泛行业趋势"]},
+  {"id": 3, "skills": ["pm-pestle"], "query": "做 PESTLE + SWOT 交叉验证", "files": ["fixtures/pm-context.md", "docs/pm-context/strategy.md"], "expected_behavior": ["PESTLE 六维", "交叉验证结果", "冲突标 [冲突]"]}
+]

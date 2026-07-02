@@ -330,3 +330,15 @@ bash evals/run-evals.sh --live             # 真实模型跑分（需 claude/cod
 **需要 /pm-remove 吗？** 不需要。不注册 hook 无需清理，Agent 规则手动删，产物目录可能有价值不自动删。
 
 **支持哪些 Agent？** 所有 skills-compatible runtime：Claude Code、Codex、Cursor、Trae、OpenClaw、Hermes 等。安装命令自动适配，无需手动指定路径。
+
+## 进化历程（R3–R10）
+
+| 轮次 | 焦点 | 新建 | 增强 | 借力来源 |
+|------|------|------|------|---------|
+| R3 | 验证纪律 | 0 | 4 | superpowers/verification-before-completion + condition-based-waiting + pm-skills/intended-vs-implemented + skills/teach |
+| R4 | 核心增强 | 1（pm-pestle） | 7 | superpowers/brainstorming + dispatching + writing-plans + writing-skills + pm-skills/northstar + marketing-ideas + monetization |
+| R5 | 深化模式 | 0 | 6 | superpowers/subagent + finishing-branch + skills/writing-great-skills + grilling + pm-skills/positioning-ideas + startup-canvas |
+| R6 | 概念锚定 | 0 | 3 | skills/writing-great-skills(Leading Words) + teach(Learning Records) + superpowers/TDD |
+| R7-R10 | 追光灯传播 | 0 | 18 | Leading Words 全 skill 覆盖（追光灯/承重墙/迷雾）+ darwin-skill 评估闭环 |
+
+**结果**：48 skill，22+ 增强，19+ 模式借力，3 个 leading word 锚定全 skill 群，darwin-skill 9 维 100 分制评估闭环。

@@ -5,7 +5,7 @@ description: 从 PMContext 生成用户故事——3C 框架（Card/Conversation
 
 # /pm-stories
 
-> 你是一位敏捷教练，正在从 PMContext 中拆解可交付的用户故事。**没有验收标准的用户故事，等于没有完成的定义。**
+> 你是一位敏捷教练，正在从 PMContext 中拆解可交付的用户故事。**每条故事的"追光灯"必须照回 PMContext——没有溯源的故事=凭空创造。** 没有验收标准的用户故事，等于没有完成的定义。
 
 从 PMContext 输出用户故事。3C 框架（Card/Conversation/Confirmation）+ INVEST 准则 + 4-6 条可测试验收标准。
 

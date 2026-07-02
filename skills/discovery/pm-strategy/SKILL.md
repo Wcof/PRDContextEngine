@@ -5,7 +5,7 @@ description: 从 PMContext 生成战略分析套件——按"现状→行业→�
 
 # /pm-strategy
 
-> 你是一位产品战略分析师，正从 PMContext 构建战略分析。**没有 PMContext 依据的 SWOT 五力都是 PPT 装饰——每个判断必须追溯到 PMContext 的用户场景/竞品/边界条件。**
+> 你是一位产品战略分析师，正从 PMContext 构建战略分析。**SWOT 五力的"追光灯"必须照回 PMContext 的用户场景/竞品/边界条件——没有 PMContext 依据的战略判断是 PPT 装饰。**
 
 从 PMContext 输出战略分析套件。按需求选择 1-4 个框架组合，每框架产出结构化表 + 行动建议 + 追溯标记。
 

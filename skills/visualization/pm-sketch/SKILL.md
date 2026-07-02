@@ -70,7 +70,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ## 流程
 
-### 1. 读取 PMContext
+### 1. 读取 PMContext + 建立 Entity Dictionary
 
 读取 `docs/pm-context/pm-context.md`，提取：
 - 用户场景与目标
@@ -78,6 +78,26 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 - 实体/关系定义
 - 状态与状态转移
 - 流程与步骤
+
+**Entity Dictionary（实体映射表，防止跨图名词混淆）**：
+
+> 不同子 Skill（IA/Flow/State/Wireframe）各自绘图时，容易把同一实体写成不同名字（IA 用 "User"、Flow 用 "End User"、State 用 "Account"）——导致跨图对照困难。本步建立全局实体映射表，所有子 Skill 必须使用映射表中的规范名。
+
+扫描 PMContext，提取所有名词实体建立 `UUID-Entity` 映射，写入 `docs/pm-context/sketch/entity-dictionary.md`：
+
+```markdown
+| UUID | 规范名 | PMContext 来源 | 同义词（禁用） | 类型 |
+|------|--------|-------------|--------------|------|
+| E001 | User | 用户场景段 | End User/Account/用户 | 实体 |
+| E002 | Order | 实体关系段 | 订单/订单记录 | 实体 |
+| E003 | 支付流程 | 流程段 | 付款/结算 | 流程 |
+```
+
+**纪律**：
+- 所有子 Skill 必须读 `entity-dictionary.md` 后再绘图，使用规范名
+- 若子 Skill 发现 PMContext 中出现新实体（不在字典中）→ 加新行 + 标 `[待补充]`
+- 禁止在图中使用同义词列中的禁用名（如禁用 "End User"，必须用 "User"）
+- Entity Dictionary 是子 Skill 的**前置依赖**，不读字典直接绘图=违规
 
 若 PMContext 不存在且 `$ARGUMENTS` 不为空 → 自动调用 `/pm-need $ARGUMENTS` → 完成后继续。
 
@@ -109,22 +129,34 @@ Run 四个子 Skill（按依赖顺序）：
    - 检测 `flutter/` / `pubspec.yaml` → Flutter（HTML 原型不适用，标注）
    - 检测 `Cargo.toml` 含 `tauri` → Tauri（HTML 原型不适用，标注）
    - 检测 `angular.json` → Angular
-2. **判断**：
+2. **判断**（三重信号：代码检测 → 业务复杂度 → 产品类型）：
    - 检测到已有技术栈 → 使用该技术栈的 CDN 版本生成原型
-   - 未检测到代码（新项目）→ 按 PMContext 中的产品类型推荐技术栈
-3. **输出技术栈决策**：`✅ 技术栈: <名称>（<依据: 检测到依赖 / 新项目推荐>）`
+   - 未检测到代码（新项目）→ 按"业务复杂度"+"产品类型"双维度推荐技术栈
+3. **输出技术栈决策**：`✅ 技术栈: <名称>（<依据: 检测到依赖 / 业务复杂度+产品类型推荐>）`
 
-**新项目技术栈推荐规则**：
+**业务复杂度感知**（不仅仅看 package.json，更看 PMContext 业务特征）：
 
-| 产品类型（从 PMContext 推断） | 推荐技术栈 |
-|---------------------------|-----------|
-| 业务管理系统 / 后台管理 | Vue3 + Vite + TypeScript + Element Plus |
-| 前端页面 / 官网 / 营销页 | Vue3 + Vite + TailwindCSS + TypeScript |
-| 桌面客户端应用 | Electron + Vue3 + Vite + TypeScript |
-| 移动端 App | Flutter / React Native（HTML 原型不适用，输出设计说明） |
-| 全栈 Web 应用 | Vue3 + Nuxt + TypeScript / React + Next.js + TypeScript |
-| 微前端架构 | Vue3 + Vite + Module Federation + TypeScript |
-| 默认（无法推断产品类型） | Vue3 + Vite + TypeScript（最通用） |
+| PMContext 业务特征 | 推荐技术栈 | 依据 |
+|------------------|-----------|------|
+| 大量表单 + 复杂校验（如后台管理/CRM/ERP） | Vue3 + Element Plus | Element Plus 表单/校验生态成熟，开发效率高 |
+| 大量实时状态变化（如协作工具/IM/仪表盘） | React + Zustand/Signal | React 生态对实时状态管理更成熟 |
+| 纯内容展示（官网/营销页/博客） | Tailwind + 原生 HTML | 无需框架，Tailwind 足够，体积最小 |
+| 大量数据可视化（BI/分析平台） | Vue3 + ECharts/D3 | ECharts 与 Vue3 集成成熟 |
+| 跨平台同代码（Web + 桌面） | Electron + Vue3 | 桌面端生态最成熟 |
+
+**新项目技术栈推荐规则**（业务复杂度 + 产品类型双维度，业务复杂度优先）：
+
+| 产品类型（从 PMContext 推断） | 业务复杂度信号 | 推荐技术栈 |
+|---------------------------|--------------|-----------|
+| 业务管理系统 / 后台管理 | 表单多+校验多 | Vue3 + Vite + TypeScript + Element Plus |
+| 前端页面 / 官网 / 营销页 | 纯展示 | Vue3 + Vite + TailwindCSS + TypeScript（或纯 Tailwind + HTML） |
+| 协作工具 / IM / 仪表盘 | 实时状态多 | React + Vite + TypeScript + Zustand |
+| 数据分析 / BI 平台 | 图表多 | Vue3 + Vite + TypeScript + ECharts |
+| 桌面客户端应用 | 跨平台 | Electron + Vue3 + Vite + TypeScript |
+| 移动端 App | — | Flutter / React Native（HTML 原型不适用，输出设计说明） |
+| 全栈 Web 应用 | — | Vue3 + Nuxt + TypeScript / React + Next.js + TypeScript |
+| 微前端架构 | — | Vue3 + Vite + Module Federation + TypeScript |
+| 默认（无法推断） | — | Vue3 + Vite + TypeScript（最通用） |
 
 **HTML 原型模板**（完整代码见 [references/prototype-templates.md](references/prototype-templates.md)，按技术栈选择对应模板，不要偏离核心结构）：
 - Vue3 CDN → 检测到 Vue3 或推荐 Vue3 时使用

@@ -69,7 +69,7 @@ PMSkill 需扩展新能力时用本 skill。新 skill 必须符合 Anthropic 规
 
 **依赖检查**：RED 是否跑？GREEN 是否针对 RED？REFACTOR 是否跑压力测试？规范是否齐全？
 
-**自愈机制**：失败回溯（最多 3 轮），超限降级标 `[待确认]` + 终止
+**Pre-flight Verification**（确定性审计，替代循环重试——AI 单次生成无法真循环）：依赖检查失败时，**不重试**，直接在产物顶部输出 Pre-flight 验证清单（标记每项 ✓/✗），✗ 项标 `[待确认]` + 信息缺口记录断链点 + 终止当前 Skill 并告知用户
 
 ### Step 1: RED — 跑 baseline
 

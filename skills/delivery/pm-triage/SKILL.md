@@ -48,7 +48,7 @@ PMContext + 产物（pm-prd/pm-stories/pm-release）是分流素材。本 skill 
 
 **依赖检查**：每 issue 一 category 一 state？垂直切片端到端？brief 自包含？wontfix 有理由？
 
-**自愈机制**：依赖检查失败时，在隐式思考空间内回溯重生成当前步骤产出（最多 3 轮），超限降级为标 `[待确认]` + 信息缺口记录断链点 + 终止当前 Skill 并告知用户
+**Pre-flight Verification**（确定性审计，替代循环重试——AI 单次生成无法真循环）：依赖检查失败时，**不重试**，直接在产物顶部输出 Pre-flight 验证清单（标记每项 ✓/✗），✗ 项标 `[待确认]` + 信息缺口记录断链点 + 终止当前 Skill 并告知用户
 
 ### Step 1: 读取分流素材
 

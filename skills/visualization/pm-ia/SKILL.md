@@ -9,6 +9,14 @@ description: 从 PMContext 生成信息架构图——Mermaid graph，节点为�
 
 从 PMContext 输出信息架构图。节点为实体/页面，边为导航/包含关系。
 
+<instruction_set>
+  <constraint>禁止臆造 PMContext 之外的实体——所有节点必须可追溯到 PMContext 实体关系段</constraint>
+  <constraint>节点命名必须使用 Entity Dictionary 规范名——禁止同义词混用（User/End User/Account 不混用）</constraint>
+  <constraint>孤儿节点必须标注——无入边的节点标 `[建议补充: 入口路径]`，可能是遗漏</constraint>
+  <output_format>必须包含审计三元组（输入依据 → 分析逻辑 → 产出验证）验证推导逻辑</output_format>
+  <output_format>产物顶部输出 Pre-flight Verification List（每项 ✓/✗）</output_format>
+</instruction_set>
+
 ## Purpose
 
 从 PMContext 输出信息架构图。节点为实体/页面，边为导航/引用关系。只表达实体/页面间关系，不画页面内组件。
@@ -44,7 +52,7 @@ PMContext 中有实体/页面定义。本 skill 梳理实体间关系，画出�
 
 **依赖检查**：是否有未追溯到 PMContext 的节点/边？
 
-**自愈机制**：依赖检查失败时（如节点无法追溯到 PMContext），在隐式思考空间内回溯重生成当前步骤产出（最多 3 轮），超限降级为标 `[假设]` + 信息缺口记录断链点 + 终止当前 Skill 并告知用户
+**Pre-flight Verification**（确定性审计，替代循环重试——AI 单次生成无法真循环）：依赖检查失败时，**不重试**，直接在产物顶部输出 Pre-flight 验证清单（标记每项 ✓/✗），✗ 项标 `[待确认]` + 信息缺口记录断链点 + 终止当前 Skill 并告知用户
 
 ### Step 1: 读取 PMContext
 

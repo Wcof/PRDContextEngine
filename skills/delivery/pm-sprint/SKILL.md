@@ -141,6 +141,36 @@ Sprint Goal: 让新用户在 20 分钟内完成首次付费（对应 PMContext �
 
 **🔴 CHECKPOINT** — 输出产物路径 + 可用容量 + 选取故事数 + Sprint Goal。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
+### Step 7.5: 迭代完成验证门（借鉴 superpowers/finishing-a-development-branch "verify tests → detect → options → execute → cleanup"）
+
+> 迭代计划落盘后还不是"完成"——在宣布迭代就绪前必须跑验证门，确保计划是可执行的。
+
+**验证门顺序**（借鉴 finishing-a-development-branch 的 verify-before-proceed）：
+
+```
+Step 1: Verify 容量 → 故事点数总和是否 ≤ 可用容量？
+  是 → 继续
+  否 → 标 🟡 超载，提示调整（减故事/拆故事/增容量）
+  
+Step 2: Verify DoR → 选取的故事是否全部通过 DoR？
+  是 → 继续
+  否 → 标 🟡 不达标故事需 refinement，不进入迭代
+  
+Step 3: Verify 粒度 → 每故事是否通过 Step 3.5 粒度校验？
+  是 → 继续
+  否 → 标 🟡 大故事需拆分，退回 pm-stories
+  
+Step 4: Verify 依赖 → 每外部依赖是否标注 owner + 风险？
+  是 → 继续
+  否 → 标 🟡 缺 owner 的依赖标 `[待确认]`，不阻塞但警示
+  
+Step 5: Verify 回滚 → 如果迭代中发现问题，是否有降级方案？
+  是 → 继续
+  否 → 标 🟢 建议补降级方案但不阻塞
+```
+
+**验证通过则迭代就绪**，可进入开发阶段。验证不通过的项目不阻塞发布，但标 🟡 在迭代计划顶部标注风险区域。
+
 ## 流程链落盘
 
 步骤 4、6 产出完成后，写入中间工件：

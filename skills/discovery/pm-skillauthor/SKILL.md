@@ -87,6 +87,26 @@ PMSkill 需扩展新能力时用本 skill。新 skill 必须符合 Anthropic 规
 - 反例黑名单（针对 RED 的 rationalization）
 - 产出示例 + references
 
+### Step 2.5: Skill 写作最佳实践（借鉴 skills/writing-great-skills）
+
+GREEN 阶段按以下最佳实践精炼 SKILL.md 质量：
+
+| 实践 | 说明 | 检查 |
+|------|------|------|
+| **Leading Words** | 用紧凑概念锚定行为（如"追光灯""迷雾""承重墙"），代替散装说明 | 全文是否有一个重复出现的核心隐喻？ |
+| **渐进披露** | 信息层级：in-skill step → in-skill reference → external reference，SKILL.md 保持精干 | 每段是否必须 inline？能否推入 references/？ |
+| **Completion Criterion** | 每 Step 结束时给出可检查的完成条件（禁"完成 X"写"每修改文件已追溯，gap=0"） | 每 Step 末尾是否有可断言的条件？ |
+| **Premature Completion 防御** | 后续步骤在视野内会诱使 agent 提前结束当前步 | 长 Step 是否需隐藏后续步（sequence split）？ |
+| **No-op 裁剪** | 逐句跑 no-op 测试——删掉那句话输出会变吗？不会=删 | 每段是否有不可替代的信息？ |
+| **Single Source of Truth** | 同一概念只在一处定义，不重复 | 规则/定义是否出现在多处？ |
+
+**Leading Word 示例**（PMSkill 生态可用的 compact concepts）：
+- **"追光灯"**：PMContext 是唯一 Entity，所有 View 追光它（防止 View 脱离 PMContext 凭空生成）
+- **"承重墙"**：PMContext 中承重假设，打掉产品结构就塌（关联 pm-grill 红队攻击目标）
+- **"迷雾"**：信息缺口/`[待确认]` 项，PMContext 中待驱散的区域
+
+GREEN 产出必须过 Step 2.5 至少 4 项检查，不过标 🟡 需精炼。
+
 ### Step 3: REFACTOR — 闭漏洞
 
 跑压力测试（时间/权威/沉没成本），找新 rationalization，补 SKILL.md。

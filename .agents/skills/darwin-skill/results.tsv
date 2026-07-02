@@ -143,3 +143,9 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-07-02T10:00	r10	pm-prd	-	-	keep	dim7	leading word"追光灯"传播(PRD追溯PMContext)	dry_run
 2026-07-02T10:00	r10	pm-ost	-	-	keep	dim7	leading word"迷雾"传播(驱散机会空间迷雾)	dry_run
 2026-07-02T10:00	r10	evals	-	-	keep	dim8	pm-pestle eval JSON+results.tsv更新	dry_run
+2026-07-02T10:30	r11	pm-strategy	-	-	keep	dim7	leading word"追光灯"传播(战略追溯PMContext)	dry_run
+2026-07-02T10:30	r11	pm-metrics	-	-	keep	dim7	leading word"迷雾"传播(指标驱散产品表现迷雾)	dry_run
+2026-07-02T10:30	r11	pm-vision	-	-	keep	dim7	leading word"追光灯"传播(愿景追溯PMContext用户场景)	dry_run
+2026-07-02T11:00	r12	全库check	-	-	keep	dim1/9	description触发词格式统一+references链接一致性校验通过	dry_run
+2026-07-02T11:00	r13	pm-legal	-	85.0	baseline	dim1/2/3	新建合规文档skill(NDA/隐私政策/差距分析)借鉴pm-toolkit	dry_run
+2026-07-02T11:00	r14	evals-final	-	-	keep	dim8	全库93评估场景dry-run 93/93 PASS(含pm-pestle/pm-legal)	dry_run

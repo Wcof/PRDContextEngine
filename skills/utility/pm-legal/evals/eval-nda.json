@@ -1,0 +1,13 @@
+{
+  "skill": "pm-legal",
+  "test": "full-nda",
+  "label": "NDA 全流程",
+  "inputs": {"prompt": "与 AI 供应商合作，签双方 NDA，法域中国"},
+  "expect": {
+    "type_confirmed": true,
+    "nda_template_generated": true,
+    "legal_review_marked": true,
+    "disclaimer_present": true
+  },
+  "result": null
+}

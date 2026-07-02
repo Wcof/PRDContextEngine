@@ -1,0 +1,5 @@
+[
+  {"id": 1, "skills": ["pm-legal"], "query": "我们和一家 AI 供应商合作，需要签 NDA，帮我草拟一份", "files": ["fixtures/pm-context.md"], "expected_behavior": ["确认双方主体+信息类型+法域", "生成 NDA 模板条款", "标注 [需法务审查]", "含免责声明"]},
+  {"id": 2, "skills": ["pm-legal"], "query": "新产品要上线，需要隐私政策，面向中国用户", "files": ["fixtures/pm-context.md"], "expected_behavior": ["确认产品名+数据类型+法域", "生成隐私政策纲要", "标注 [需法务审查]", "含免责声明"]},
+  {"id": 3, "skills": ["pm-legal"], "query": "我们打算进入欧洲市场，帮做合规差距分析", "files": ["fixtures/pm-context.md"], "expected_behavior": ["确认产品特征+目标法域", "生成合规差距分析表", "每差距标注优先级", "标注 [需法务审查]"]}
+]

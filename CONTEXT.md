@@ -357,6 +357,8 @@ skills/
     pm-state/SKILL.md
     pm-flow/SKILL.md
     pm-journey/SKILL.md
+  utility/                  ← 实用工具
+    pm-legal/SKILL.md           ← 合规文档（NDA/隐私政策/差距分析）
 ```
 
 不需要 `/pm-remove`——不注册 hook 无需清理，Agent 规则几行手动删，产物目录可能有价值不自动删，Skill 卸载归安装器。

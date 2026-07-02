@@ -1,0 +1,13 @@
+{
+  "skill": "pm-legal",
+  "test": "privacy-policy",
+  "label": "隐私政策生成",
+  "inputs": {"prompt": "新产品面向中国用户上线，需隐私政策"},
+  "expect": {
+    "product_name_confirmed": true,
+    "data_types_collected": true,
+    "gdpr_ccpa_pipl_awareness": true,
+    "legal_review_marked": true
+  },
+  "result": null
+}

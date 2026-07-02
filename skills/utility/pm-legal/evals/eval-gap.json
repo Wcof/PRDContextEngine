@@ -1,0 +1,13 @@
+{
+  "skill": "pm-legal",
+  "test": "gap-analysis",
+  "label": "合规差距分析",
+  "inputs": {"prompt": "我们准备进入欧洲市场，帮做合规差距分析"},
+  "expect": {
+    "feature_list_collected": true,
+    "regulations_mapped": true,
+    "gap_table_generated": true,
+    "priority_labeled": true
+  },
+  "result": null
+}

@@ -340,5 +340,6 @@ bash evals/run-evals.sh --live             # 真实模型跑分（需 claude/cod
 | R5 | 深化模式 | 0 | 6 | superpowers/subagent + finishing-branch + skills/writing-great-skills + grilling + pm-skills/positioning-ideas + startup-canvas |
 | R6 | 概念锚定 | 0 | 3 | skills/writing-great-skills(Leading Words) + teach(Learning Records) + superpowers/TDD |
 | R7-R10 | 追光灯传播 | 0 | 18 | Leading Words 全 skill 覆盖（追光灯/承重墙/迷雾）+ darwin-skill 评估闭环 |
+| **R11-fix** | **逻辑挖掘优化** | **0** | **6 可视化** | **5 项整改：XML 结构标准化 + Logic Gap Analysis + Pre-flight 替代自愈 + Entity Dictionary + 业务复杂度感知** |
 
-**结果**：49 skill，22+ 增强，19+ 模式借力，3 个 leading word 锚定全 skill 群，darwin-skill 9 维 100 分制评估闭环。
+**结果**：49 skill，25+ 增强，19+ 模式借力，3 个 leading word 锚定全 skill 群，5 项深度整改落地，darwin-skill 9 维评估闭环。

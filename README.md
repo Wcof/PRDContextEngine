@@ -1,16 +1,30 @@
 # PMSkill
 
-产品经理在 Agent 里工作的 Skill 工具箱。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Skills](https://img.shields.io/badge/Skills-49-blue.svg)](#skill-清单)
+[![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
+[![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
-从模糊想法/用户诉求出发，**一键全链路**沉淀成 PMContext → 衍生出 PRD（给 AI + 给人）→ 生成可视化草图 + HTML 可交互原型。
+> 面向 Agent 环境的产品经理 Skill 工具箱。
 
-> 经过 darwin-skill 多轮结构化优化 + 参考行业最佳实践，49 个 SKILL.md 全量覆盖角色设定、产出示例、延伸参考与实战提示。符合 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：YAML frontmatter 渐进披露、第三人称触发描述、Level 3 references 按需加载。
->
-> **评估集**：93 个评估场景覆盖 30 个 skill（≥3 场景/skill，详见 [evals/README.md](evals/README.md#评估清单)），经 `bash evals/run-evals.sh --dry-run` 结构校验全 PASS（详见 [evals/README.md](evals/README.md#如何跑评估) 与 [evals/results.tsv](evals/results.tsv)），CI 退出码可复现。
+从模糊想法或用户诉求出发，经一条命令完成全链路沉淀：**PMContext（唯一源）→ PRD（给 AI + 给人）→ 可视化草图 + HTML 可交互原型**。
 
-## 一句话价值
+---
 
-PMSkill 帮助在 Agent 里工作的产品经理，把分散的模糊产品上下文，通过**零确认全自动链路**沉淀成可追溯的 PMContext，再从 PMContext 衍生出可交付的 PRD 和草图。
+## 概述
+
+PMSkill 将产品经理在 Agent 中的核心工作流程封装为 49 个可调用的 Skill，覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
+
+### 核心特性
+
+- **单一数据源**：PMContext 是唯一 Entity，PRD 与草图均为其下游 View，下游 Skill 读取一个文件即可获得全貌。
+- **全链路自动化**：一条命令完成 collect → refine → PRD → 原型，支持零确认 `--auto` 模式。
+- **双形态 PRD**：面向 AI 的可执行 PRD（含 Agent Context）与面向人类的评审友好 PRD。
+- **技术栈感知**：HTML 原型根据项目实际技术栈自动适配，断网可预览。
+- **渐进披露**：Level 1/2/3 三层加载，按需引用，控制 Token 开销。
+- **可追溯性**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯。
+
+---
 
 ## 快速开始
 
@@ -28,50 +42,40 @@ npx skills@latest add Wcof/PMSkill --all
 
 ### 3. 一键全链路（推荐）
 
-一句话触发 collect → refine → premortem → PRD → 原型。支持两种精炼模式：
-
 ```text
-/pm-need <需求描述>           # 正常模式：refine 逐维追问 PM（推荐）
+/pm-need <需求描述>           # 正常模式：refine 逐维追问 PM
 /pm-need <需求描述> --auto    # 零确认模式：refine 自主推断，全自动走完
 ```
-
-示例：`/pm-need 会员体系重构` → refine 逐维追问确认；`/pm-need 会员体系重构 --auto` → 零确认一气呵成。
 
 ### 4. 分步执行
 
 ```text
-/pm-need              # 全自动收集材料 → refine 追问模式（逐维向 PM 提问确认）→ 停在审计门
-/pm-need --auto       # 全自动收集材料 → refine 自主推断模式（PM 零介入）→ PRD → 原型
+/pm-need              # 收集材料 → refine 追问 → 审计门
+/pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 原型
 /pm-prd               # 从 PMContext 生成 PRD（给 AI + 给人）
-/pm-prd --auto        # 零确认模式：直接出 PRD，不暂停
-/pm-sketch            # 从 PMContext 生成全部草图
-/pm-sketch --prototype # 生成 Mermaid 草图 + HTML 可交互原型（按技术栈适配）
+/pm-prd --auto        # 零确认：直接出 PRD
+/pm-sketch            # 生成全部草图
+/pm-sketch --prototype # 生成草图 + HTML 可交互原型
 ```
 
-## 核心主张
-
-**PMContext 是唯一 Entity（源），PRD 和草图都是它的下游 View。**
-
-- PMContext 落盘为单文件 `pm-context.md`，自包含，下游 Skill 读一个文件就知道全貌
-- PRD 有两种形态：给 AI 的（带 Agent Context，供 Agent 直接执行）和给人的（供人类评审）
-- 草图以 markdown 内嵌 Mermaid 图表达，Agent 可直接读写
-- HTML 原型（`--prototype`）单页无外部依赖，断网可预览，9 项质量检查
-- 风险信息用显式标记（`[待确认]`/`[假设]`/`[冲突]`）写在正文里，不需要独立检查报告
+---
 
 ## 主链路
 
 ```
-模糊想法/用户诉求
+模糊想法 / 用户诉求
         │
   /pm-need ─── {--auto: 零确认} ───→ PMContext (唯一 Entity)
         │                                   │
   ┌─────┴─────┐                    ┌────────┴────────┐
   │           │                    │                 │
-/pm-prd    /pm-premortem     /pm-sketch          /pm-sketch --prototype
+/pm-prd  /pm-premortem       /pm-sketch      /pm-sketch --prototype
   │           │                    │                 │
   ▼           ▼                    ▼                 ▼
-prd/*.md   premortem.md      sketch/*.md       prototype.html
+prd/*.md  premortem.md       sketch/*.md     prototype.html
 ```
+
+---
 
 ## Skill 清单
 
@@ -79,264 +83,230 @@ prd/*.md   premortem.md      sketch/*.md       prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-setup` | user-invoked | 首次配置项目（产物目录/语言/知识库/Agent 规则） |
+| `/pm-setup` | user-invoked | 首次配置项目（产物目录 / 语言 / 知识库 / Agent 规则） |
 
 ### Discovery — 需求发现
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动完成。正常模式 refine 逐维追问 PM；`--auto` 零确认自主推断直达 PRD+原型 |
-| `/pm-collect` | model-invoked | 主动深扫描（代码/git/URL/知识库），4 源去重，**不筛选只整理** |
-| `/pm-refine` | model-invoked | 8 维度推断（P0 用户场景/边界/冲突 → P1 优先级/术语/摩擦力 → P2 技术约束/度量）。正常模式追问 PM；`--auto` 自主推断，标记置信度 |
-| `/pm-interview` | model-invoked | 结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律，暖场/核心探索/收尾三段式 |
-| `/pm-metrics` | model-invoked | 北极星指标 + 3-5 个 Input Metrics 指标星座，分类业务游戏 + 七准则校验 + Mermaid 指标树 |
-| `/pm-ost` | model-invoked | 机会方案树（OST）——四层结构（期望结果→机会→方案→实验）+ 机会优先级评分 |
-| `/pm-strategy` | model-invoked | 战略分析套件——SWOT/Porter 五力/Ansoff 矩阵/Lean Canvas 四阶递进 + 交叉验证 |
-| `/pm-market` | model-invoked | 市场分析——TAM/SAM/SOM 双算法交叉验证 + 竞品三层矩阵 + 用户反馈情感分析 |
-| `/pm-vision` | model-invoked | 产品愿景（三要素陈述 + 10/3/1 年阶梯）+ 利益相关者权力/利益网格 + 沟通计划 |
-| `/pm-grill` | model-invoked | 红队质询——steelman-then-attack 三段式攻击承重假设 + 八维置信度盘问 + 四面逼问 + Top5 致命缺口 |
-| `/pm-persona` | model-invoked | 用户画像——基于 JTBD 的 ≥3 persona，五维（demographics/behaviors/JTBD 三性/未满足需求/引言）+ 反对意见 + 互斥校验 |
-| `/pm-businessmodel` | model-invoked | 商业模式画布——BMC 9 模块 + 业务游戏分类（注意力/交易/生产力）+ 收入流≥2 + 成本结构 + 假设回灌 |
-| `/pm-positioning` | model-invoked | 价值主张——6 段式 JTBD（Who/Why/What before/How/What after/Alternatives）+ Moore 定位陈述 + 差异化矩阵 |
-| `/pm-assumption` | model-invoked | 风险假设——8 类风险（Value/Usability/Viability/Feasibility/Ethics/GTM/Strategy/Team）× 置信度 + Top5 最便宜测试 |
-| `/pm-northstar` | model-invoked | 北极星深化——业务游戏 + 单一 NSM（七准则）+ 3-5 Input 星座 + guardrail≥2 + Mermaid 指标树 |
-| `/pm-ideation` | model-invoked | 方案发散——≥5 方案（optimize≥2+explore≥2）+ 每方案假设+最便宜验证 + 去重 |
-| `/pm-parallel` | model-invoked | 并行 agent 分派——≥2 独立任务分片 + 独立性校验 + 子 agent 调度 + 合并+冲突标注 |
-| `/pm-skillauthor` | model-invoked | TDD 范式写 skill——RED 跑 baseline→GREEN 写 SKILL.md 针对 RED→REFACTOR 跑压力测试 + 规范齐全 |
+| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动；`--auto` 零确认直达 PRD + 原型 |
+| `/pm-collect` | model-invoked | 主动深扫描（代码 / git / URL / 知识库），4 源去重 |
+| `/pm-refine` | model-invoked | 8 维度推断（P0 用户场景 / 边界 / 冲突 → P1 优先级 / 术语 / 摩擦力 → P2 技术约束 / 度量） |
+| `/pm-interview` | model-invoked | 结构化用户访谈脚本（JTBD + The Mom Test） |
+| `/pm-metrics` | model-invoked | 北极星指标 + Input Metrics 指标星座 |
+| `/pm-ost` | model-invoked | 机会方案树（OST） |
+| `/pm-strategy` | model-invoked | 战略分析（SWOT / Porter 五力 / Ansoff / Lean Canvas） |
+| `/pm-market` | model-invoked | 市场分析（TAM/SAM/SOM + 竞品矩阵） |
+| `/pm-vision` | model-invoked | 产品愿景与利益相关者沟通计划 |
+| `/pm-grill` | model-invoked | 红队质询（攻击承重假设） |
+| `/pm-persona` | model-invoked | 用户画像（基于 JTBD） |
+| `/pm-businessmodel` | model-invoked | 商业模式画布（BMC） |
+| `/pm-positioning` | model-invoked | 价值主张与差异化定位 |
+| `/pm-assumption` | model-invoked | 风险假设识别与最便宜测试 |
+| `/pm-northstar` | model-invoked | 北极星指标深化 |
+| `/pm-ideation` | model-invoked | 方案发散（optimize + explore） |
+| `/pm-parallel` | model-invoked | 并行 agent 分派 |
+| `/pm-skillauthor` | model-invoked | TDD 范式撰写 skill |
 
 ### Delivery — 交付
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-prd` | user-invoked | 编排输出双形态 PRD。`--auto` 零确认，`--skip-ai`/`--skip-human` 可选 |
-| `/pm-aiprd` | model-invoked | 给 AI 的 PRD：可执行规则 + 数据模型 + Agent Context + 验收标准 + 风险项 |
-| `/pm-humanprd` | model-invoked | 给人的 PRD：决策理由 + 自然语言叙事 + 追溯清单，评审友好 |
-| `/pm-premortem` | model-invoked | Pre-Mortem 风险分析：8 域风险覆盖（Value→Team），Tiger/Paper Tiger/Elephant 三分 + 行动计划 + 假设交叉检查 |
-| `/pm-stories` | model-invoked | 用户故事——3C 框架（Card/Conversation/Confirmation）+ INVEST 准则 + 验收标准 |
-| `/pm-gtm` | model-invoked | GTM 策略——Beachhead 四准则 + ICP 画像 + 渠道矩阵 + 信息阶梯 + 发布时间线 |
-| `/pm-experiment` | model-invoked | 假设验证闭环——8 类风险假设 + Impact×Risk 矩阵 + XYZ 假设 + pretotype 含 skin-in-the-game |
-| `/pm-retro` | model-invoked | 回顾——三格式（Start/Stop/Continue/4Ls/Sailboat）+ 主题聚合 + 行动项三要素 + 经验回灌 |
-| `/pm-prioritize` | model-invoked | 优先级排序——6 框架场景推荐（Opportunity Score/ICE/RICE/Kano/MoSCoW/WSJF）+ 四象限，排机会不排功能 |
-| `/pm-pricing` | model-invoked | 定价与变现——模型按业务游戏 + 竞品矩阵 + Van Westendorp WTP + 价格弹性 + 3-5 变现方案 |
-| `/pm-release` | model-invoked | 发布包——用户向发布说明 + 测试场景（每故事≥1）+ WWA backlog 三性自检 |
-| `/pm-align` | model-invoked | 意图-实现对齐审计——intended vs implemented，意图模型 + 证据 file:line + gap 分级 + 修复建议 |
-| `/pm-triage` | model-invoked | 问题分流——分类×状态状态机 + 垂直切片 tracer-bullet issue + agent-ready brief |
-| `/pm-handoff` | model-invoked | 会话交接——把当前会话压缩成交接文档供下一个 Agent 接续（含 7 项质量自检） |
-| `/pm-abtest` | model-invoked | A/B 测试统计分析——样本量/SRM 验证 + 显著性计算（p/CI/lift）+ guardrail + ship/extend/stop 决策 |
-| `/pm-cohort` | model-invoked | 队列分析——分队列 + 留存/采纳曲线 + 异常队列定位 + 跟进研究建议 |
-| `/pm-sql` | model-invoked | 自然语言→多方言 SQL——schema 读取 + 查询逻辑 + 方言适配 + 性能优化 + 验证脚本 |
-| `/pm-okr` | model-invoked | OKR 拆解——定性 Objective + 3 定量 KR（60-70% 信心）+ 三套候选 + KR/KPI/NSM 关系澄清 |
-| `/pm-sprint` | model-invoked | 迭代规划——容量估算（公式）+ 故事选取（DoR）+ 依赖映射 + 风险 + Sprint Goal |
-| `/pm-meeting` | model-invoked | 会议纪要结构化——日期/参与者/决策/行动项（owner+截止）/未决问题 |
-| `/pm-roadmap` | model-invoked | output→outcome roadmap 转换——Enable/so that 格式 + 度量 + 替代方案考量 |
-| `/pm-battlecard` | model-invoked | 竞品作战卡——对比表+优势+反制+异议话术+地雷问题+赢/输模式 |
+| `/pm-prd` | user-invoked | 编排双形态 PRD 输出（`--auto` / `--skip-ai` / `--skip-human`） |
+| `/pm-aiprd` | model-invoked | 给 AI 的 PRD（可执行规则 + Agent Context） |
+| `/pm-humanprd` | model-invoked | 给人的 PRD（评审友好） |
+| `/pm-premortem` | model-invoked | Pre-Mortem 风险分析 |
+| `/pm-stories` | model-invoked | 用户故事（3C + INVEST） |
+| `/pm-gtm` | model-invoked | GTM 策略 |
+| `/pm-experiment` | model-invoked | 假设验证闭环 |
+| `/pm-retro` | model-invoked | 回顾（Start/Stop/Continue 等） |
+| `/pm-prioritize` | model-invoked | 优先级排序（6 框架场景推荐） |
+| `/pm-pricing` | model-invoked | 定价与变现 |
+| `/pm-release` | model-invoked | 发布包 |
+| `/pm-align` | model-invoked | 意图-实现对齐审计 |
+| `/pm-triage` | model-invoked | 问题分流 |
+| `/pm-handoff` | model-invoked | 会话交接文档 |
+| `/pm-abtest` | model-invoked | A/B 测试统计分析 |
+| `/pm-cohort` | model-invoked | 队列分析 |
+| `/pm-sql` | model-invoked | 自然语言 → 多方言 SQL |
+| `/pm-okr` | model-invoked | OKR 拆解 |
+| `/pm-sprint` | model-invoked | 迭代规划 |
+| `/pm-meeting` | model-invoked | 会议纪要结构化 |
+| `/pm-roadmap` | model-invoked | output → outcome roadmap 转换 |
+| `/pm-battlecard` | model-invoked | 竞品作战卡 |
 
 ### Visualization — 可视化
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-sketch` | user-invoked | 🏆 主入口：输出全部四类草图 + HTML 原型（`--prototype`）。`--auto` 零确认。原型生成前自动检测/推荐技术栈 |
-| `/pm-wireframe` | model-invoked | 界面线框图：Mermaid 页面导航 + Markdown 表格组件布局 |
-| `/pm-ia` | model-invoked | 信息架构图：Mermaid graph，实体/页面 + 导航/包含/引用三类边 |
-| `/pm-state` | model-invoked | 状态机图：Mermaid stateDiagram-v2，状态 + 转移条件 + 异常路径 |
-| `/pm-flow` | model-invoked | 流程图：Mermaid flowchart，步骤 + 判断 + 异常，循环配退出条件 |
-| `/pm-journey` | model-invoked | 客户旅程地图：七阶段（认知→拥护）+ 触点/行为/情绪/痛点/机会 + Aha/关键时刻/流失触发点 |
+| `/pm-sketch` | user-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，技术栈自动适配） |
+| `/pm-wireframe` | model-invoked | 界面线框图 |
+| `/pm-ia` | model-invoked | 信息架构图 |
+| `/pm-state` | model-invoked | 状态机图 |
+| `/pm-flow` | model-invoked | 流程图 |
+| `/pm-journey` | model-invoked | 客户旅程地图 |
 
-## Skill 调用规则
+---
 
-- **user-invoked**：只能由人类触发（`disable-model-invocation: true`），可调用 model-invoked 子 skill
-- **model-invoked**：可由 Agent 自主触发或由 user-invoked 编排调用
-- user-invoked **不可**调用另一个 user-invoked skill
+## 调用规则
 
-## 零确认模式（--auto）
+- **user-invoked**：仅由人类触发（`disable-model-invocation: true`），可调用 model-invoked 子 skill。
+- **model-invoked**：可由 Agent 自主触发或由 user-invoked 编排调用。
+- user-invoked **不可**调用另一个 user-invoked skill。
+- 所有 user-invoked 技能均支持 `--auto` 零确认参数。
 
-所有 user-invoked 技能均支持 `--auto` 参数：
-
-```text
-/pm-need <需求> --auto        # 全链路：collect → refine（自主推断）→ premortem → PRD → 原型，PM 零介入
-/pm-prd --auto                # 直接按已有 PMContext 生成 PRD，不暂停
-/pm-sketch --auto             # 直接生成全部草图 + HTML 原型
-```
-
-`--auto` 模式下：
-- `/pm-refine` 进入自主推断模式，逐维在内部完成自我追问 loop，不外显
-- 不等待 PM 确认，直接落盘所有产物
-- 子 skill 失败不阻塞全链路，失败项单独标注
-- 输出一站式报告含置信度分布 + 信息缺口，供 PM 事后审计
-
-## 技术栈感知（Tech Stack Awareness）
-
-`/pm-sketch --prototype` 生成 HTML 原型前，自动确定技术栈：
-
-- **已有代码的项目**：扫描 `package.json`、`vite.config.ts`、`vue.config.js` 等检测
-- **新项目**：按场景推荐当前流行技术栈（管理系统 → Vue3 + Vite + TS，桌面客户端 → Electron + Vue3，前端页面 → Vue3 + Vite + TailwindCSS）
-- 原型按技术栈适配生成，使用对应 CDN 版本，而非纯 HTML
-
-## /pm-refine 双执行模式
-
-`/pm-refine` 根据调用方式分为两种执行模式：
-
-| 模式 | 触发方式 | 行为 |
-|------|---------|------|
-| **追问模式**（默认） | `/pm-refine` 或 `/pm-need`（正常模式） | Agent 逐维向 PM 提问，每次一个问题，附三段式推荐答案（推荐/依据/备选）。PM 回答后采信为事实；说"停"→已问落盘、未问标待确认；说"剩下的你自主"→降级自主推断 |
-| **自主推断模式** | `/pm-refine --auto` 或 `/pm-need <需求> --auto` | Agent 内部完成自我追问 loop，不外显。有依据写事实，可推断标 `[假设]`+置信度，缺失标 `[待确认]`，矛盾标 `[冲突]` |
-
-## /pm-refine 推断维度（8 维全覆盖）
-
-```
-P0（必须先推断）：
-1. 用户场景    2. 边界条件    3. 冲突检测
-
-P1（决定质量上限）：
-4. 优先级（ICE/RICE/Kano/MoSCoW/OST）    5. 术语澄清    6. 现状平替与摩擦力
-
-P2（增量增强）：
-7. 技术与资源约束    8. 价值验证度量
-```
-
-## 失败模式处理
-
-所有 Skill 统一采用 **三段式 fallback 表**（触发条件 → 一线修复 → 仍失败兜底）：
-
-| 触发条件 | 一线修复 | 仍失败兜底 |
-|---------|---------|-----------|
-| PMContext 不存在 | 🔴 STOP：提示先运行 `/pm-need` | 不阻塞，提示后退出 |
-| 子 skill 生成失败 | 不阻塞主流程，失败项单独标注 | 其他成功部分仍落盘 |
-| 材料/信息不足 | 🟡 WARNING 标记到信息缺口 + 降置信度 | 不臆造，继续处理 |
+---
 
 ## 产物目录
 
 ```
 docs/pm-context/
   pm-context.md          ← 唯一 Entity（源）
-  collect/               ← /pm-collect 整理后的原始材料
-  .loop/                 ← 流程链中间工件（构建快照，PMContext 成熟后可清理）
+  collect/               ← 整理后的原始材料
   prd/
     ai-prd.md            ← 给 AI 的 PRD（Agent 可执行）
     human-prd.md         ← 给人的 PRD（评审友好）
   sketch/
-    wireframe.md         ← 界面线框图（Mermaid + 表格）
-    ia.md                ← 信息架构图（Mermaid graph）
-    state.md             ← 状态机图（Mermaid stateDiagram-v2）
-    flow.md              ← 流程图（Mermaid flowchart）
+    wireframe.md         ← 界面线框图
+    ia.md                ← 信息架构图
+    state.md             ← 状态机图
+    flow.md              ← 流程图
     prototype.html       ← HTML 可交互原型（--prototype 模式）
 ```
 
-## 项目结构
+---
+
+## 目录结构
 
 ```
 PMSkill/
-├── INSTALL.md                    ← 本地直接安装入口（非 Skill，无 frontmatter）
-├── README.md                     ← 本文件
-├── .gitignore                    ← 仓库忽略规则
-├── skills/
-│   ├── setup/
-│   │   ├── README.md             ← bucket 导航
-│   │   └── pm-setup/
-│   │       ├── SKILL.md          ← Level 1+2 渐进披露
-│   │       └── references/       ← Level 3 按需加载
-│   ├── discovery/
-│   │   ├── README.md
-│   │   ├── pm-need/SKILL.md + references/
-│   │   ├── pm-collect/SKILL.md + references/
-│   │   └── pm-refine/SKILL.md
-│   ├── delivery/
-│   │   ├── README.md
-│   │   ├── pm-prd/SKILL.md
-│   │   ├── pm-aiprd/SKILL.md
-│   │   ├── pm-humanprd/SKILL.md
-│   │   └── pm-premortem/SKILL.md
-│   └── visualization/
-│       ├── README.md
-│       ├── pm-sketch/SKILL.md + references/
-│       ├── pm-wireframe/SKILL.md
-│       ├── pm-ia/SKILL.md
-│       ├── pm-state/SKILL.md
-│       └── pm-flow/SKILL.md
-└── docs/
-    ├── pm-context/            ← PMSkill 产物目录（运行后生成）
-    └── adr/                   ← 架构决定记录
-
-evals/                          ← 评估集（≥3 场景/skill + rubric）
-├── README.md                   ← 评估方法说明
-├── run-evals.sh                ← 评估运行器（--dry-run 结构校验 / --live 真实模型跑分）
-├── results.tsv                 ← 最近一次 dry-run 结果（人读 TSV，可复现）
-├── results.json                ← 最近一次结果机读汇总
-├── pm-*.json                   ← 13 个 skill 的评估场景
-└── fixtures/                   ← 评估夹具（PMContext 样本/mock-project/non-git-project 等）
+├── skills/                  ← Skill 源码（按领域分桶）
+│   ├── setup/               ← 初始化
+│   ├── discovery/           ← 需求发现
+│   ├── delivery/            ← 交付
+│   ├── visualization/       ← 可视化
+│   └── utility/             ← 工具类
+├── evals/                   ← 评估集（场景 + rubric + 夹具）
+├── docs/
+│   ├── adr/                 ← 架构决定记录
+│   └── pm-context/          ← 运行时产物目录
+├── .github/
+│   ├── workflows/ci.yml     ← CI 流水线
+│   ├── ISSUE_TEMPLATE/      ← Issue 模板
+│   └── PULL_REQUEST_TEMPLATE.md
+├── CLAUDE.md                ← Agent 指令
+├── CONTEXT.md               ← 领域术语表
+├── INSTALL.md               ← 本地安装入口
+└── README.md                ← 本文件
 ```
 
-## 渐进披露
+每个 Skill 目录结构统一：`SKILL.md`（Level 1+2 渐进披露）+ `references/`（Level 3 按需加载）+ `test-prompts.json`（测试用例）。
 
-本项目遵循 [Anthropic Agent Skills 三层渐进披露规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)：
+---
 
-| 层级 | 加载时机 | Token 开销 | 内容 |
-|---|---|---|---|
-| Level 1: Metadata | 始终（启动时） | ~100 tokens/skill | YAML frontmatter `name` + `description` |
-| Level 2: Instructions | Skill 被触发时 | < 5k tokens | SKILL.md body（流程/失败模式/反例黑名单） |
-| Level 3: Resources | 按需引用 | 无上限 | `references/` 下的产出示例、延伸参考、实战提示 |
+## 评估
 
-每个 skill 的 references 文件按内容语义命名（如 `scan-recipes.md`/`inference-dimensions.md`/`flow-example.md`），便于 Claude 按需精准定位而非千篇一律的 `examples-and-tips.md`。
-
-## 评估集
-
-遵循 [Anthropic「先建评估再写文档」原则](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration)，每个 skill 在 `evals/` 下有 ≥3 个评估场景与可判定 rubric，夹具样本在 `evals/fixtures/`。
-
-可复现校验：
+遵循「先建评估再写文档」原则，每个 skill 在 `evals/` 下配有 ≥3 个评估场景与可判定 rubric。
 
 ```bash
-bash evals/run-evals.sh --dry-run          # 93 场景结构校验，CI 退出码 0=全 PASS
-bash evals/run-evals.sh --dry-run --skill pm-prd   # 单 skill
-bash evals/run-evals.sh --live             # 真实模型跑分（需 claude/codex CLI；当前为占位实现，等同于 --dry-run 结构校验）
+bash evals/run-evals.sh --dry-run                 # 结构校验（CI 可复现）
+bash evals/run-evals.sh --dry-run --skill pm-prd  # 单 skill
+bash evals/run-evals.sh --live                    # 真实模型跑分
 ```
 
 详见 [evals/README.md](evals/README.md)。
 
-## 延伸参考
+---
 
-本项目受以下资源启发：
+## 开发与测试
 
-- [PM Compass - Product Discovery Guide](https://www.productcompass.pm/p/what-exactly-is-product-discovery)
-- [PM Skills Marketplace (68 PM skills)](https://github.com/phuryn/pm-skills)
-- [Continuous Discovery Habits - Teresa Torres](https://www.productcompass.pm/p/cpdm)
-- [A Proven AI PRD Template - Miqdad Jaffer (OpenAI)](https://www.productcompass.pm/p/ai-prd-template)
-- [Mermaid 官方文档](https://mermaid.js.org/)
-- [Pre-Mortem: Meta/Instagram 实践](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)
-- [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+### 环境要求
 
-## 设计决定
+- Node.js ≥ 18
+- 支持 skills-compatible runtime（Claude Code、Codex、Cursor 等）
 
-关键架构决定（记录在仓库 `docs/adr/`，本地开发可见，安装包不含）：
+### 本地开发
 
-- **ADR 0004**: PMContext 是唯一 Entity，PRD 和草图都是 View
-- **ADR 0005**: 显式标记替代 Soft Gate，风险写在正文里
-- **ADR 0006**: Relate 阶段分散进所有 Skill，关联是每个 Skill 的内置纪律
-- **ADR 0007**: 单级追溯（有来源/无来源）替代 Strong/Weak Trace 二级
-- **ADR 0008**: PM Thinking Loop 双层注入（心智链+流程链），6 步漏斗+审计三元组+自愈机制
+```bash
+git clone https://github.com/Wcof/PMSkill.git
+cd PMSkill
+```
+
+### 运行测试
+
+```bash
+# 结构校验（CI 使用，无需 API key）
+bash evals/run-evals.sh --dry-run
+
+# 单 skill 校验
+bash evals/run-evals.sh --dry-run --skill pm-prd
+
+# 真实模型跑分（需 claude/codex CLI）
+bash evals/run-evals.sh --live
+```
+
+### CI
+
+仓库配置了 GitHub Actions（`.github/workflows/ci.yml`），对每个 Pull Request 自动执行 `--dry-run` 结构校验。
+
+---
+
+## 兼容性
+
+支持所有 skills-compatible runtime：Claude Code、Codex、Cursor、Trae、OpenClaw、Hermes 等。安装命令自动适配，无需手动指定路径。
+
+---
 
 ## 常见问题
 
-**PMContext 可以更新吗？** 可以。PMContext 是活文档，拿到新反馈后再次调用 `/pm-refine`，Agent 只推断新增部分，增量写入。
+**PMContext 可以更新吗？** 可以。PMContext 是活文档，再次调用 `/pm-refine` 仅推断新增部分并增量写入。
 
-**可以跳过 collect 直接 refine 吗？** 可以。`/pm-collect` 和 `/pm-refine` 都可以独立调用。
+**可以跳过 collect 直接 refine 吗？** 可以。`/pm-collect` 与 `/pm-refine` 均可独立调用。
 
-**可以只出一种 PRD / 一种草图吗？** 可以。各子 skill 均可独立调用。
+**`--auto` 与正常模式的区别？** 正常模式产出 PMContext 后停在审计门等待 PM 确认；`--auto` 不等待，一气呵成全部落盘，并出具一站式报告供事后审计。
 
-**--auto 模式和正常模式有什么区别？** 正常模式产出 PMContext 后停在审计门等 PM 确认；`--auto` 模式不等待，一气呵成全部落盘，事后出具一站式报告供审计。
+**支持哪些 Agent？** 所有 skills-compatible runtime，安装命令自动适配。
 
-**需要 /pm-remove 吗？** 不需要。不注册 hook 无需清理，Agent 规则手动删，产物目录可能有价值不自动删。
+---
 
-**支持哪些 Agent？** 所有 skills-compatible runtime：Claude Code、Codex、Cursor、Trae、OpenClaw、Hermes 等。安装命令自动适配，无需手动指定路径。
+## 延伸参考
 
-## 进化历程（R3–R10）
+- [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+- [Continuous Discovery Habits — Teresa Torres](https://www.productcompass.pm/p/cpdm)
+- [A Proven AI PRD Template — Miqdad Jaffer (OpenAI)](https://www.productcompass.pm/p/ai-prd-template)
+- [Pre-Mortem: Meta/Instagram 实践](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)
+- [Mermaid 官方文档](https://mermaid.js.org/)
 
-| 轮次 | 焦点 | 新建 | 增强 | 借力来源 |
-|------|------|------|------|---------|
-| R3 | 验证纪律 | 0 | 4 | superpowers/verification-before-completion + condition-based-waiting + pm-skills/intended-vs-implemented + skills/teach |
-| R4 | 核心增强 | 1（pm-pestle） | 7 | superpowers/brainstorming + dispatching + writing-plans + writing-skills + pm-skills/northstar + marketing-ideas + monetization |
-| R5 | 深化模式 | 0 | 6 | superpowers/subagent + finishing-branch + skills/writing-great-skills + grilling + pm-skills/positioning-ideas + startup-canvas |
-| R6 | 概念锚定 | 0 | 3 | skills/writing-great-skills(Leading Words) + teach(Learning Records) + superpowers/TDD |
-| R7-R10 | 追光灯传播 | 0 | 18 | Leading Words 全 skill 覆盖（追光灯/承重墙/迷雾）+ darwin-skill 评估闭环 |
-| **R11-fix** | **逻辑挖掘优化** | **0** | **6 可视化** | **5 项整改：XML 结构标准化 + Logic Gap Analysis + Pre-flight 替代自愈 + Entity Dictionary + 业务复杂度感知** |
+---
 
-**结果**：49 skill，25+ 增强，19+ 模式借力，3 个 leading word 锚定全 skill 群，5 项深度整改落地，darwin-skill 9 维评估闭环。
+## 贡献
+
+欢迎通过 Issue 与 Pull Request 参与贡献。
+
+- 提交 Issue：使用 [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) 中的模板（bug 报告 / 功能请求）。
+- 提交 PR：遵循 [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)，确保通过 CI（`bash evals/run-evals.sh --dry-run` 退出码为 0）。
+- 新增 Skill：遵循 9 段式模板（Purpose / Context / Instructions / Thinking Protocol / 关联增强 / 失败模式 / 禁止做什么 / 产出示例 / Further Reading），并配套 ≥3 个评估场景。
+- 行为准则：参见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。
+- 安全漏洞报告：参见 [SECURITY.md](SECURITY.md)。
+
+---
+
+## 致谢
+
+本项目受以下资源启发：
+
+- [PM Compass — Product Discovery Guide](https://www.productcompass.pm/)
+- [PM Skills Marketplace](https://github.com/phuryn/pm-skills)
+- [Teresa Torres — Continuous Discovery Habits](https://www.productcompass.pm/p/cpdm)
+- [Miqdad Jaffer (OpenAI) — AI PRD Template](https://www.productcompass.pm/p/ai-prd-template)
+- [Anthropic — Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+
+感谢所有 [贡献者](https://github.com/Wcof/PMSkill/graphs/contributors)。
+
+---
+
+## License
+
+本项目基于 [MIT License](LICENSE) 发布。
+
+Copyright (c) 2026 PMSkill Contributors.

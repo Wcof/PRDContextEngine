@@ -240,7 +240,7 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 交接文档片段：
 
@@ -255,19 +255,16 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 3. **可选:** `/pm-sketch --prototype --auto` 生成 HTML 原型
 ```
 
-### Further Reading
+完整交接文档示例 + 状态盘点检查清单见 [references/handoff-example.md](references/handoff-example.md)。
 
-- [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-- [Session Handoff Best Practices](https://www.productcompass.pm/p/cpdm)
-
-## 产出示例 · 延伸参考 · 实战提示
-
-详见 [references/handoff-example.md](references/handoff-example.md)（完整交接文档示例 + 状态盘点检查清单）。
-
-### 实战提示
-
-- **30 秒进入是标准**：接手者读交接文档 30 秒内应知道"做到哪、还差什么、下一步"
+**实战铁律**（落盘前对照）：
+- **30 秒进入**：接手者读交接文档 30 秒内应知道"做到哪、还差什么、下一步"
 - **下一步必须具体到 skill 调用**：写"运行 `/pm-prd --auto`"而非"继续工作"
 - **未完成项是核心**：遗漏未完成项 = 让接手者重复劳动
 - **关键决策防止重复讨论**：记录"为什么这样定"，接手者不会重新争论已定事项
 - **新会话开头读交接文档**：接手 Agent 第一件事是读本文件恢复上下文
+
+### Further Reading
+
+- [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+- [Session Handoff Best Practices](https://www.productcompass.pm/p/cpdm)

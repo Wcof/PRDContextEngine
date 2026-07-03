@@ -51,7 +51,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 - 每个图元必须对应 PMContext 中的实体/关系，无法对应的标 `[假设]`
 - 步骤 5 的 Launch-Blocking Tiger 涉及的实体必须在草图中有对应图元
 - 必须产出**草图交付物清单**：4 个 Mermaid 文件路径 + [假设] 图元数 + 未覆盖 Tiger 实体数
-- HTML 原型（--prototype）：使用推荐/检测到的技术栈 CDN 生成、< 200KB（不含 CDN 外部资源）、响应式
+- HTML 原型（--prototype）：使用推荐/检测到的技术栈 CDN 生成、简单模式 < 280KB / 复杂模式 index.html < 30KB（不含 CDN 外部资源）、响应式
 
 **依赖检查**：是否有未追溯到 PMContext 的图元？步骤 5 的 Tiger 实体是否在草图中覆盖？HTML 原型是否通过质量清单？
 
@@ -59,7 +59,10 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ```
 /pm-sketch                         → 正常模式：出全部四种 Mermaid 草图，停在审计门
-/pm-sketch --prototype             → 高质量 HTML 可交互原型（含所有视图）
+/pm-sketch --prototype             → HTML 可交互原型（自动判断简单/复杂模式）
+/pm-sketch --prototype --single    → 强制简单模式（单 HTML < 280KB）
+/pm-sketch --prototype --bundle    → 强制复杂模式（前端 bundle 文件夹）
+/pm-sketch --prototype --dark      → 暗色主题（覆盖 prefers-color-scheme 检测，仅 --prototype 模式下有效）
 /pm-sketch --prototype --auto      → 自动模式：pm-need → premortem → PRD → 原型 零确认一气呵成
 /pm-sketch --wireframe             → 只出线框图
 /pm-sketch --ia                    → 只出信息架构图
@@ -115,7 +118,28 @@ Run 四个子 Skill（按依赖顺序）：
 
 #### 模式 B：HTML 可交互原型（`--prototype`）
 
-生成技术栈自适应的 HTML 原型文件 `docs/pm-context/sketch/prototype.html`。
+根据 PMContext 复杂度自动判断输出模式（见 Step -1），生成自适应的 HTML 原型：
+
+- **简单模式**（单 HTML）：输出 `docs/pm-context/sketch/prototype.html`
+- **复杂模式**（bundle 文件夹）：输出 `docs/pm-context/sketch/prototype/index.html`
+
+**Step -1：复杂度判断（--prototype 模式专用）**
+
+读取 PMContext，判断输出模式：
+
+| 判断维度 | 简单模式信号 | 复杂模式信号 |
+|---------|------------|------------|
+| PMContext `## <页面>` heading 数量 | ≤ 4 | > 4 |
+| 是否含独立「数据模型」章节 | 否 | 是 |
+| 用户角色数（从用户场景推断） | ≤ 2 | > 2 |
+| state.md 中状态节点数 | ≤ 8 | > 8 |
+
+- 全部为简单信号 → **简单模式**（单 HTML，输出路径：`docs/pm-context/sketch/prototype.html`）
+- 任一为复杂信号 → **复杂模式**（bundle 文件夹，输出路径：`docs/pm-context/sketch/prototype/`）
+- `--single` 参数：强制简单模式（覆盖自动判断）
+- `--bundle` 参数：强制复杂模式（覆盖自动判断）
+
+输出复杂度判断摘要：`✅ 原型模式: 简单/复杂（依据：<信号列表>）`
 
 **Step 0：技术栈决策**
 
@@ -167,12 +191,29 @@ Run 四个子 Skill（按依赖顺序）：
 
 **移动端适配**：Flutter/React Native → 输出 `design-spec.md` 替代 HTML 原型
 
+**Step 0.5：PRD 内容读取（--prototype 模式专用）**
+
+读取以下文件并序列化为 `PRD_DATA` JSON 对象，内嵌到 HTML 中：
+
+| 文件 | 读取内容 | 为空时 |
+|------|---------|--------|
+| `docs/pm-context/pm-context.md` | 所有页面 heading 的事实/规则/验收/假设/待确认项 | PRD Panel 展示空状态占位 |
+| `docs/pm-context/prd/ai-prd.md` | 完整文件（文件夹模式）/ 摘要（单HTML模式，截断至 10KB） | 跳过，不影响原型生成 |
+| `docs/pm-context/prd/human-prd.md` | 同上 | 跳过 |
+
+**注意**：此为 pm-sketch 执行时直接读取文件，不调用任何其他 skill。完整 PRD Panel 模板见 [references/prototype-templates.md](references/prototype-templates.md#四prd-panel-html--js)。
+
 **质量清单**（生成后逐项检查，完整清单见 [references/prototype-templates.md](references/prototype-templates.md)）：
 - ✅ 技术栈决策有依据
 - ✅ 使用推荐/检测到的技术栈 CDN 版本
 - ✅ 响应式设计（移动端 ≤ 640px / 桌面端 ≥ 1024px）
 - ✅ 所有图元对应 PMContext 实体/关系
-- ✅ 原型文件 < 200KB（不含 CDN 外部资源）
+- ✅ Design Token 内嵌（CSS 变量，无裸 #hex 色值）
+- ✅ Device Toolbar 可切换三端（1440/820/393px）
+- ✅ PRD Panel 展示 PMContext 批注（事实/规则/验收/假设/待确认）
+- ✅ 每个 `<section>` 页面至少有 1 个 JS 交互事件
+- ✅ 暗色主题适配（@media prefers-color-scheme: dark 或 --dark 参数）
+- ✅ 文件体积合规（简单模式 < 280KB / 复杂模式 index.html < 30KB）
 
 **从 PMContext 到 HTML 图元的映射规则**：
 | PMContext 中的项 | HTML 中的表达 |
@@ -188,7 +229,7 @@ Run 四个子 Skill（按依赖顺序）：
 
 生成后自动输出：
 - `✅ 技术栈: <名称>（<依据>）`
-- `✅ HTML 原型已生成: docs/pm-context/sketch/prototype.html`
+- `✅ HTML 原型已生成: <简单模式: docs/pm-context/sketch/prototype.html | 复杂模式: docs/pm-context/sketch/prototype/index.html>`
 
 ### 3. 审计（仅非自动模式）
 
@@ -221,7 +262,7 @@ Run 四个子 Skill（按依赖顺序）：
 | `--prototype` 模式下无法检测到技术栈（无代码、无 package.json、无依赖） | 按新项目推荐 Vue3 + Vite + TypeScript | 使用 Plain HTML 兜底模板 |
 | `--prototype` 模式下检测到多个冲突框架（如 package.json 同时含 vue 和 react） | 标 `[冲突]` 并列出检测到的框架，推荐使用第一个 | 使用 Plain HTML 兜底模板，避免偏向某一方 |
 | `--prototype` 模式下推荐/检测到 Flutter / React Native（HTML 原型不适用） | 输出 `design-spec.md` 替代 HTML 原型，包含屏幕设计说明 + 组件规范 + 交互描述 | 不生成 prototype.html，在产物清单中标注 |
-| `--prototype` 模式下 HTML 文件生成体量 > 200KB | 拒绝落盘，提示"原型内容过多（N KB），精简后重试" | 退化为只输出 Mermaid 草图，不生成 HTML |
+| `--prototype` 模式下简单模式单 HTML > 280KB，或复杂模式 index.html > 30KB | 提示超限（N KB），自动降级：复杂模式超出则拆分到 bundle 子文件；简单模式超出则提示精简 | 退化为只输出 Mermaid 草图，不生成 HTML |
 | `--prototype` 模式下 CDN 版本不可用（如 unpkg CDN 域名被墙） | 使用备用 CDN（cdnjs / jsdelivr），或退化为 Plain HTML 兜底模板 | 退化为 Plain HTML 无框架版本 |
 | `--auto` 模式下 pm-need 链路失败 | STOP 并输出一站式报告含失败原因 | 已生成部分仍落盘 |
 | PMContext 中 `[冲突]` 项涉及核心图元 | 图元标 `[冲突]` 不强行选定方向 | 在产物清单汇总冲突项供 PM 决策 |

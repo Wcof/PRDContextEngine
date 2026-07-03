@@ -171,7 +171,14 @@ docs/pm-context/
     ia.md                ← 信息架构图
     state.md             ← 状态机图
     flow.md              ← 流程图
-    prototype.html       ← HTML 可交互原型（--prototype 模式）
+    prototype.html       ← HTML 可交互原型（--prototype 简单模式，单文件）
+    prototype/           ← HTML 可交互原型（--prototype 复杂模式，前端 bundle）
+      index.html         ← 入口壳（双击可打开基础版）
+      app.js             ← 完整交互逻辑
+      styles.css         ← Design Token + 响应式
+      prd-data.js        ← PMContext 内容注入
+      mock-data.js       ← 图表/列表 mock 数据
+      README.md          ← 本地启动说明
 ```
 
 ---

@@ -1,6 +1,6 @@
 # 草图 + HTML 原型联动产出示例
 
-> 本文件是 `/pm-sketch` 的 Level 3 渐进披露资源。展示从 PMContext 到 4 类草图 + HTML 原型的完整产出，覆盖简单模式和复杂模式。
+> 本文件是 `/pm-sketch` 的 Level 3 渐进披露资源。展示从 PMContext 到 4 类草图 + HTML 原型的完整产出，覆盖简单模式和 Scaffold 模式。
 
 ---
 
@@ -90,7 +90,7 @@ stateDiagram-v2
 
 ---
 
-## 示例二：复杂模式（bundle 文件夹）
+## 示例二：Scaffold 模式（Vite 工程）
 
 ### 输入：PMContext 片段（企业采购管理系统）
 
@@ -126,10 +126,10 @@ stateDiagram-v2
 
 | 维度 | 信号 | 结果 |
 |------|------|------|
-| 页面 heading 数 | 6（采购需求/供应商/PO/收货/对账/用户管理） | **复杂信号** |
-| 数据模型章节 | 有独立「数据模型」段，含 7 个实体关系 | **复杂信号** |
-| 用户角色数 | 5（采购员/需求人/财务/老板/供应商） | **复杂信号** |
-| **结论** | **复杂模式 → prototype/ 文件夹** | |
+| 页面 heading 数 | 6（采购需求/供应商/PO/收货/对账/用户管理） | **Scaffold 信号** |
+| 数据模型章节 | 有独立「数据模型」段，含 7 个实体关系 | **Scaffold 信号** |
+| 用户角色数 | 5（采购员/需求人/财务/老板/供应商） | **Scaffold 信号** |
+| **结论** | **Scaffold 模式 → prototype/ 工程** | |
 
 ### 产出物清单（`--prototype` 模式）
 
@@ -139,36 +139,53 @@ docs/pm-context/sketch/
 ├── state.md                # 状态机
 ├── flow.md                 # 流程图
 ├── wireframe.md            # 线框
-└── prototype/              # 复杂模式 bundle
-    ├── index.html          # 入口壳（< 30KB）
-    ├── app.js              # 完整交互逻辑
-    ├── styles.css          # Design Token + 响应式
-    ├── prd-data.js         # PMContext 批注数据注入
-    ├── mock-data.js        # 图表/列表 Mock 数据
-    └── README.md           # 本地启动说明
+└── prototype/              # Scaffold 模式工程
+    ├── index.html          # Vite 入口
+    ├── package.json        # React 19 + Vite 6 + Tailwind v4 + TS 5.7
+    ├── vite.config.ts      # React + Tailwind 插件
+    ├── tsconfig.json       # 严格模式 TS
+    ├── README.md           # 本地启动说明
+    └── src/
+        ├── main.tsx        # ReactDOM 挂载
+        ├── App.tsx         # 路由 + 工具条 + DocOverlay + PRD Panel
+        ├── style.css       # @import "tailwindcss"; + Design Token
+        ├── components/     # DeviceToolbar/PrdPanel/DocOverlay/Toast/Modal/PageShell
+        ├── pages/          # PageHome/PageXxx... (按 PMContext 生成)
+        ├── hooks/          # useHashPage.ts (对齐 Axhub)
+        └── data/           # prd-data.ts/pages-config.ts/mock-data.ts
 ```
 
-### prototype/index.html 入口壳
+### prototype/src/App.tsx 入口骨架
 
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>原型: 企业采购管理系统</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="app">
-    <nav id="nav-bar"></nav>
-    <main id="page-content"></main>
-  </div>
-  <script src="prd-data.js"></script>
-  <script src="mock-data.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
+```tsx
+/**
+ * @name 企业采购管理系统
+ */
+import { useHashPage } from './hooks/useHashPage'
+import DeviceToolbar from './components/DeviceToolbar'
+import PrdPanel from './components/PrdPanel'
+import DocOverlay from './components/DocOverlay'
+import { PAGES } from './data/pages-config'
+// 各页面按需 import
+
+export default function App() {
+  const { page } = useHashPage(PAGES[0]?.id || 'home')
+  return (
+    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+      <DeviceToolbar />
+      <nav className="flex gap-4 p-4 border-b border-[var(--color-border)]">
+        {PAGES.map(p => (
+          <a key={p.id} href={`#page=${p.id}`} className={page === p.id ? 'font-semibold text-[var(--color-primary)]' : ''}>{p.title}</a>
+        ))}
+      </nav>
+      <main id="prototype-content" className="mx-auto max-w-7xl p-6">
+        {/* 按 page 渲染对应 PageXxx 组件（L4：角色/权限/四态/错误恢复） */}
+      </main>
+      <PrdPanel />
+      <DocOverlay />
+    </div>
+  )
+}
 ```
 
 ### prototype/README.md
@@ -176,23 +193,26 @@ docs/pm-context/sketch/
 ```markdown
 # 原型预览说明
 
-> 由 `/pm-sketch --prototype --bundle` 生成的 HTML 可交互原型（复杂模式）。
+> 由 `/pm-sketch --prototype` 生成的 Scaffold 模式可交互原型（React + TS + Vite + Tailwind v4）。
 
 ## 本地启动
 
-```bash
-npx serve .
-```
+\`\`\`bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # 生产构建
+npm run typecheck  # tsc --noEmit
+\`\`\`
 
 ## 文件说明
 
-| 文件 | 作用 |
-|------|------|
-| index.html | 入口壳，双击可打开基础版 |
-| app.js | 完整交互逻辑 |
-| styles.css | Design Token + 响应式样式 |
-| prd-data.js | PMContext 内容注入 |
-| mock-data.js | 图表/列表 mock 数据 |
+| 文件/目录 | 作用 |
+|----------|------|
+| src/App.tsx | 主组件：路由 + 工具条 + 文档 overlay + PRD Panel |
+| src/hooks/useHashPage.ts | hash 路由 hook（对齐 Axhub-Make） |
+| src/components/ | DeviceToolbar/PrdPanel/DocOverlay/Toast/Modal/PageShell |
+| src/pages/ | 多页面原型页面组件（L4 交互） |
+| src/data/ | PRD 数据 + 页面配置 + mock 数据 |
 ```
 
 ---
@@ -207,7 +227,7 @@ npx serve .
 | 4 | [假设] 图元标注 | 灰色占位不伪装确认 |
 | 5 | 交互可操作 | 点击/切换/表单 demo 级 |
 | 6 | UTF-8 中文正常 | 无乱码 |
-| 7 | 文件大小合规 | 简单模式 < 280KB / 复杂模式 index.html < 30KB |
+| 7 | 验收合规 | 简单模式 V1 自检 + < 280KB；Scaffold 模式 V2/V3（npm install + tsc + vite build）通过或诚实降级 |
 | 8 | Mermaid 语法正确 | 节点 id 唯一无保留字 |
 | 9 | 异常路径齐全 | 状态机含终态，流程含异常 |
 
@@ -223,8 +243,9 @@ npx serve .
 ## 实战提示
 
 - **`--prototype` 优先于 Mermaid 盲出**：HTML 交互原型比 4 张静态图更能暴露 UX 问题
-- **质量清单过一遍**：HTML 生成后逐项检查（简单模式 < 280KB / 复杂模式 index.html < 30KB）
+- **质量清单过一遍**：HTML 生成后逐项检查（简单模式 V1 + < 280KB；Scaffold 模式 V2/V3 验收闭环）
 - **Mermaid 渲染卡顿**：节点 > 30 时拆成子图或分文件，不要硬塞一个图里
 - **从 PMContext 到 HTML 映射**：页面→section，事实→table，规则→p.rule，验收→ul.acceptance
-- **简单模式 vs 复杂模式的选择**：PMContext 页面 > 4 或含独立数据模型段时自动走复杂模式；
-  也可用 `--single` 强制简单、`--bundle` 强制复杂
+- **简单模式 vs Scaffold 模式的选择**：PMContext 页面 > 4 或含独立数据模型段时自动走 Scaffold 模式；
+  也可用 `--simple` 强制简单、`--scaffold` 强制 Scaffold
+- **Scaffold 模式必须验收**：生成后跑 V2/V3，失败按 V3→V2→V1 降级，不静默撒谎打 ✅

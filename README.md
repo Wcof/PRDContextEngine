@@ -155,7 +155,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，技术栈自动适配） |
+| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，双模式 —— 简单模式 CDN 单 HTML / Scaffold 模式 React+TS+Vite+Tailwind v4 工程） |
 | `/pm-wireframe` | model-invoked | 界面线框图 |
 | `/pm-ia` | model-invoked | 信息架构图 |
 | `/pm-state` | model-invoked | 状态机图 |

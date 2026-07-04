@@ -155,7 +155,7 @@ The following engineering skills come from external sources such as [mattpocock/
 
 | Skill | Invocation | Purpose |
 |---|---|---|
-| `/pm-sketch` | model-invoked | Main entry: all sketches + HTML prototype (`--prototype`, tech-stack auto-adapted) |
+| `/pm-sketch` | model-invoked | Main entry: all sketches + HTML prototype (`--prototype`, dual-mode — Simple CDN single HTML / Scaffold React+TS+Vite+Tailwind v4 project) |
 | `/pm-wireframe` | model-invoked | UI wireframe |
 | `/pm-ia` | model-invoked | Information architecture diagram |
 | `/pm-state` | model-invoked | State machine diagram |

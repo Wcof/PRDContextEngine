@@ -152,7 +152,7 @@ PMContext 已沉淀事实/假设/冲突/待确认。AI PRD 的职责是将这些
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 `/pm-prd --skip-human 会员体系重构` → `prd/ai-prd.md` 概要：
 
@@ -176,17 +176,14 @@ As a 月付用户, I want to upgrade to 年付, so that 节省费用
 [7 条可执行规则...]
 ```
 
+完整 AI PRD 片段示例与可执行规则书写技巧见 [references/agent-prd-example.md](references/agent-prd-example.md)。
+
+**实战铁律**（落盘前对照）：
+- **[待确认] 大于 30% 标 🟡，大于 50% 标 🔴**：前者是草案，后者是不可执行
+- **每条规则必须是可执行的**："确保用户体验良好"不叫规则，"按钮不小于 44px"才叫规则
+- **Agent Context 不可省略**：技术栈/目录结构/关键模块位置是 AI 执行的前提
+
 ### Further Reading
 
 - [A Proven AI PRD Template - Miqdad Jaffer (OpenAI)](https://www.productcompass.pm/p/ai-prd-template)
 - [How to Write a Product Requirements Document? The Best PRD Template.](https://www.productcompass.pm/p/prd-template) — 8 节模板参考
-
-## 产出示例 · 延伸参考 · 实战提示
-
-详见 [references/agent-prd-example.md](references/agent-prd-example.md)（AI PRD 片段示例与可执行规则书写技巧）。
-
-### 实战提示
-
-- **[待确认] 大于 30% 标 🟡，大于 50% 标 🔴**：前者是草案，后者是不可执行
-- **每条规则必须是可执行的**："确保用户体验良好"不叫规则，"按钮不小于 44px"才叫规则
-- **Agent Context 不可省略**：技术栈/目录结构/关键模块位置是 AI 执行的前提

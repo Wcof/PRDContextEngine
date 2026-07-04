@@ -47,5 +47,16 @@ OPTIMIZATION-LOG.md
 *.zip
 *.tar.gz
 
+# Darwin 优化器过程产物（非产品内容，移至 docs/adr 归档）
+DARWIN-EVOLVE-REPORT.md
+DARWIN-OPTIMIZATION-REPORT.md
+
+# evals 运行产物（run-evals.sh 每次重新生成）
+evals/results.json
+evals/results.tsv
+
 # PMSkill 流程链中间工件（构建快照，PMContext 成熟后可清理）
 docs/pm-context/.loop/
+
+# 外部工程技能本地副本（由 skills-lock.json 按需拉取，不入主包）
+vendor-skills/

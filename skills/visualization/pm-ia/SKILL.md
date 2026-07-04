@@ -173,13 +173,9 @@ graph TD
   order -.-> order_item["订单项(引用)"]
 ```
 
-### Further Reading
+完整信息架构图节点/边类型示例与 subgraph 分组技巧见 [references/ia-example.md](references/ia-example.md)。
 
-- [Mermaid graph docs](https://mermaid.js.org/syntax/flowchart.html)
-- [信息架构设计原则 (IA)](https://www.productcompass.pm/p/what-exactly-is-product-discovery)
-
-### 实战提示
-
+**实战铁律**（落盘前对照）：
 - **节点 > 15 个必拆分**：用 `subgraph` 分组按业务域切，不要塞进一张图
 - **[假设] 节点圆角框**：视觉上要一眼看得出哪些是推断的
 - **边只有 2 种**：实线导航/包含、虚线引用——禁止第三种边类型
@@ -196,6 +192,7 @@ graph TD
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/ia-example.md](references/ia-example.md)（信息架构图节点/边类型示例与 subgraph 分组技巧）。
+- [Mermaid graph docs](https://mermaid.js.org/syntax/flowchart.html)
+- [信息架构设计原则 (IA)](https://www.productcompass.pm/p/what-exactly-is-product-discovery)

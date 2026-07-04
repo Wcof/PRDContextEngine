@@ -208,9 +208,7 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 
 PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 
-## 产出示例 · 延伸参考 · 实战提示
-
-详见 [references/pipeline-example.md](references/pipeline-example.md)（一键全链路产出示例与实战提示）。
+完整一键全链路产出示例与实战提示见 [references/pipeline-example.md](references/pipeline-example.md)。
 
 ## 增量更新
 

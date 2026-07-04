@@ -339,14 +339,9 @@ PM: 选B，不过我们暂时不做自动续费，先做一键续费
 - 无自动提醒机制（← 项目扫描: 代码中无提醒模块）
 ```
 
-### Further Reading
+完整 8 维推断产出示例与置信度标注技巧见 [references/inference-dimensions.md](references/inference-dimensions.md)。
 
-- [PM Compass - Continuous Discovery](https://www.productcompass.pm/p/cpdm)
-- [Opportunity Score Framework (Dan Olsen)](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
-- [Kano Model 应用指南](https://www.productcompass.pm/p/prd-template)
-
-### 实战提示
-
+**实战铁律**（落盘前对照）：
 - **P0 三维必须有结论**：用户场景/边界条件/冲突检测是底线，材料不足也须标 `[待确认]`
 - **追问模式默认**：除非 PM 明确说"你直接出结果"，否则默认进入追问模式
 - **ICE/RICE 优先选一个**：用户规模差异大用 RICE，否则用 ICE 更简单
@@ -386,6 +381,8 @@ PMContext 是活文档。若 `pm-context.md` 已存在，Agent 读现有 PMConte
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 | 自主模式下自我追问 loop 落盘对话日志 | 违背 --auto 契约，PM 零介入后不应有对话原文可审 |
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/inference-dimensions.md](references/inference-dimensions.md)（8 维推断产出示例与置信度标注技巧）。
+- [PM Compass - Continuous Discovery](https://www.productcompass.pm/p/cpdm)
+- [Opportunity Score Framework (Dan Olsen)](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
+- [Kano Model 应用指南](https://www.productcompass.pm/p/prd-template)

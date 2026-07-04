@@ -194,7 +194,7 @@ PMContext 的"边界条件"（法规/合规/技术栈约束）是 PESTLE 的 Leg
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## PESTLE 六维扫描（共 18 因素）
@@ -224,12 +224,7 @@ P3（其余）: 13 项 → 监控
 - PESTLE 机会"远程办公" ↔ Ansoff 增长路径"市场渗透"：✅ 呼应
 ```
 
-### Further Reading
-
-- [PESTLE Analysis Framework](https://www.productcompass.pm/p/the-product-frameworks-compendium)
-- [Macro Environment Scanning](https://www.productcompass.pm/p/cpdm)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **落到本产品是底线**：泛泛行业趋势不算，必须标对"本产品"的具体影响
 - **优先级矩阵是核心**：六维因素多，按影响×概率抓高优，不全平均用力
@@ -238,3 +233,8 @@ P3（其余）: 13 项 → 监控
 - **交叉验证防漏冲突**：PESTLE 威胁应反映 SWOT 威胁，不一致标 `[冲突]`
 
 详见 [references/pestle-example.md](references/pestle-example.md)（完整 PESTLE 分析示例含六维详表与战略响应矩阵）。
+
+### Further Reading
+
+- [PESTLE Analysis Framework](https://www.productcompass.pm/p/the-product-frameworks-compendium)
+- [Macro Environment Scanning](https://www.productcompass.pm/p/cpdm)

@@ -172,11 +172,9 @@ Mention they can edit the `## PMSkill` block directly later — re-running `/pm-
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例 · 延伸参考 · 实战提示
+## 产出示例 · 实战提示
 
 详见 [references/setup-walkthrough.md](references/setup-walkthrough.md)（一次典型配置流程示例与避坑提示）。
-
----
 
 ### Further Reading
 

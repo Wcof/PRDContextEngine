@@ -190,7 +190,7 @@ stateDiagram-v2
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员状态机效果：
 
@@ -210,17 +210,15 @@ stateDiagram-v2
   end note
 ```
 
-### Further Reading
-
-- [Mermaid stateDiagram-v2 docs](https://mermaid.js.org/syntax/stateDiagram.html)
-- [状态机设计模式 (UML)](https://en.wikipedia.org/wiki/UML_state_machine)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/state-example.md](references/state-example.md)（状态机图含异常路径与终态标注示例）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **终态不能少**：每个实体必须有明确的终态（`[*]`），否则流程无法结束
 - **异常状态优先画**：失败/超时/取消比正常流转更能暴露设计缺陷
 - **转移条件必须可判定**：写"条件满足后"不叫条件，写"用户点击确认按钮"才叫条件
+
+### Further Reading
+
+- [Mermaid stateDiagram-v2 docs](https://mermaid.js.org/syntax/stateDiagram.html)
+- [状态机设计模式 (UML)](https://en.wikipedia.org/wiki/UML_state_machine)

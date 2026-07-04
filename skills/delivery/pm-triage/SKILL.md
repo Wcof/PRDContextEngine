@@ -169,7 +169,7 @@ brief 必须自包含——agent 读完无需再问即可开工。
 | 把 bug 当 enhancement 凑数 | bug 是坏了必须修，enhancement 是改进，不可混 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员分流片段：
 
@@ -192,13 +192,7 @@ brief 必须自包含——agent 读完无需再问即可开工。
 - 验证: 构造一键续费用例，断言3秒完成+权益更新
 ```
 
-### Further Reading
-
-- [Tracer Bullet Vertical Slices](https://www.productcompass.pm/p/tracer-bullet)
-- [Triage State Machine](https://www.productcompass.pm/p/triage-state-machine)
-- [Writing Agent-Ready Briefs](https://www.productcompass.pm/p/agent-brief)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **垂直切片是底线**：水平切片端到端不可验证，必须穿所有集成层
 - **一 issue 一 category 一 state**：状态机冲突必须问 PM，不静默选
@@ -206,3 +200,9 @@ brief 必须自包含——agent 读完无需再问即可开工。
 - **wontfix 必须给理由**：无理由关闭是黑箱
 - **needs-info 列缺什么**：让上报者猜等于不沟通
 - **bug 与 enhancement 不可混**：bug 是坏了必修，enhancement 是改进
+
+### Further Reading
+
+- [Tracer Bullet Vertical Slices](https://www.productcompass.pm/p/tracer-bullet)
+- [Triage State Machine](https://www.productcompass.pm/p/triage-state-machine)
+- [Writing Agent-Ready Briefs](https://www.productcompass.pm/p/agent-brief)

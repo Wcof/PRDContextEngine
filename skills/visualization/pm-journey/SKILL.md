@@ -173,7 +173,7 @@ flowchart LR
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费旅程图片段：
 
@@ -188,20 +188,18 @@ flowchart LR
 续费页填写信息环节 ← 来源: PMContext 摩擦力"续费太麻烦，要重新填信息"
 ```
 
-### Further Reading
-
-- [User Journey Mapping 101](https://www.productcompass.pm/p/user-journey-mapping-101)
-- [Funnel Analysis 101](https://www.productcompass.pm/p/funnel-analysis)
-- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/journey-example.md](references/journey-example.md)（完整旅程图示例 + 情绪标注技巧）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **情绪是核心信号**：用 emoji + 1-5 分双标注，情绪低谷就是机会点
 - **流失触发点必须显式**：标注在哪一步用户最常流失，这是旅程图最高价值产出
 - **Aha 时刻决定留存**：定位首次体验核心价值的时刻，优化 time-to-value
 - **B2B 可裁剪阶段**：并非所有产品都有"拥护"阶段，按实际裁剪并说明理由
 - **与 `/pm-flow` 互补**：流程图重业务步骤，旅程图重用户体验情绪
+
+### Further Reading
+
+- [User Journey Mapping 101](https://www.productcompass.pm/p/user-journey-mapping-101)
+- [Funnel Analysis 101](https://www.productcompass.pm/p/funnel-analysis)
+- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)

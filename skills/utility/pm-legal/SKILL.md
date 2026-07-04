@@ -115,7 +115,7 @@ PMContext 的"边界条件"段含法规/合规约束（个保法/GDPR/CCPA/行�
 | 删免责声明 | 必须保留"非法律意见"声明，否则法务风险 |
 | 特殊行业用通用模板不加标注 | 医疗/金融/儿童数据等有额外法规要求 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## NDA 草稿 — 双方交互式
@@ -131,15 +131,15 @@ PMContext 的"边界条件"段含法规/合规约束（个保法/GDPR/CCPA/行�
 本 NDA 草稿由 AI 基于输入信息生成，不构成法律意见。请在执业律师审查修改后签署。
 ```
 
-### Further Reading
-
-- [GDPR 官方文本](https://gdpr.eu/)
-- [CCPA 合规指南](https://oag.ca.gov/privacy/ccpa)
-- [个保法（中国）全文](https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **不需律师审查的"标准 NDA"不存在**——每份文档都需法务过目
 - **法域是核心**——不同法域的保密义务/用户权利差异大，必须指定
 - **PMContext 边界条件帮定位**——若 PMContext 含个保法约束，主动提示选中国法域
 - **与 pm-pestle 联动**——Legal 维度的因素应反映在合规差距分析中
+
+### Further Reading
+
+- [GDPR 官方文本](https://gdpr.eu/)
+- [CCPA 合规指南](https://oag.ca.gov/privacy/ccpa)
+- [个保法（中国）全文](https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm)

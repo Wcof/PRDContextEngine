@@ -155,7 +155,7 @@ quadrantChart
 | Opportunity Score 不与 pm-ost 交叉验证 | 两处 Score 不一致是信号，必须标冲突让 PM 裁决 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员机会优先级片段：
 
@@ -173,6 +173,14 @@ quadrantChart
 过度满足区：权益价值不清（重要性中低，可降级）
 ```
 
+**实战铁律**（落盘前对照）：
+
+- **排机会不排功能**：让客户排功能等于交出决策权，先排机会再选方案
+- **单框架评分**：轮内只改一个维度，框架间可对比但分开算
+- **追溯优先于数字**：没依据的分数标 `[假设]`，不靠数字补数据
+- **四象限揭示甜点区**：纯排序丢失二维信息，甜点区是高重要低满足
+- **与 ost 交叉验证**：两处 Opportunity Score 不一致必须标冲突
+
 ### Further Reading
 
 - [Prioritization Frameworks Reference](https://www.productcompass.pm/p/prioritization-frameworks)
@@ -180,11 +188,3 @@ quadrantChart
 - [WSJF for Agile Teams](https://www.productcompass.pm/p/wsjf)
 
 6 框架完整公式、when-to-use、模板详见 [references/priority-frameworks.md](references/priority-frameworks.md)。
-
-### 实战提示
-
-- **排机会不排功能**：让客户排功能等于交出决策权，先排机会再选方案
-- **单框架评分**：轮内只改一个维度，框架间可对比但分开算
-- **追溯优先于数字**：没依据的分数标 `[假设]`，不靠数字补数据
-- **四象限揭示甜点区**：纯排序丢失二维信息，甜点区是高重要低满足
-- **与 ost 交叉验证**：两处 Opportunity Score 不一致必须标冲突

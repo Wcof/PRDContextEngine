@@ -116,7 +116,7 @@ PMContext 提供需求与决策上下文，使纪要中的决策能追溯"对应
 | 转录质量差不标注 | ASR 错误会传播到纪要结论，必须警示 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 会议纪要
@@ -138,12 +138,9 @@ PMContext 提供需求与决策上下文，使纪要中的决策能追溯"对应
 - 续费提醒的触达渠道（短信/邮件/站内）未定
 ```
 
-### Further Reading
+详见 [references/meeting-example.md](references/meeting-example.md)（完整会议纪要示例含决策回灌与行动项转 issue）。
 
-- [Meeting Notes Best Practices](https://www.productcompass.pm/p/meeting-notes)
-- [The Product Manager's Meeting Survival Guide](https://www.productcompass.pm/p/meeting-survival)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **行动项三要素**：owner+截止+动作，缺一不可
 - **决策要明确**：模糊共识标"讨论未决"，不硬造决策
@@ -151,6 +148,7 @@ PMContext 提供需求与决策上下文，使纪要中的决策能追溯"对应
 - **转录质量警示**：ASR 错误多要标注，结论谨慎
 - **联动 pm-triage**：行动项可转 issue 进状态机跟踪
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/meeting-example.md](references/meeting-example.md)（完整会议纪要示例含决策回灌与行动项转 issue）。
+- [Meeting Notes Best Practices](https://www.productcompass.pm/p/meeting-notes)
+- [The Product Manager's Meeting Survival Guide](https://www.productcompass.pm/p/meeting-survival)

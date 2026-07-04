@@ -154,7 +154,7 @@ PMContext 边界条件覆盖时（如合规禁某模型）排除该选项。
 | 只给单一定价不给区间 | 单一价格无弹性空间，必须给可接受区间 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品定价片段：
 
@@ -180,16 +180,16 @@ PMContext 用户场景=高频创作者工具 → 生产力游戏 → 订阅匹�
 | 年订阅¥396(省18%) | 订阅 | 年付预收验证留存信心 |
 ```
 
-### Further Reading
-
-- [Pricing Strategy for PMs](https://www.productcompass.pm/p/pricing-strategy)
-- [Van Westendorp Price Sensitivity Meter](https://www.productcompass.pm/p/van-westendorp)
-- [Monetization Models Compared](https://www.productcompass.pm/p/monetization)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **锚竞品是底线**：无锚点定价是流失利润，竞品矩阵必须 ≥3
 - **WTP 无数据不臆造**：标 `[无WTP数据]` 比编故事诚实，建议补调研
 - **业务游戏决定模型**：注意力/交易/生产力对应不同模型，乱选错位
 - **变现方案必须有验证**：没 skin-in-the-game 验证的是赌注
 - **偏离锚点必须说明**：>30% 偏离标理由，否则收回推荐
+
+### Further Reading
+
+- [Pricing Strategy for PMs](https://www.productcompass.pm/p/pricing-strategy)
+- [Van Westendorp Price Sensitivity Meter](https://www.productcompass.pm/p/van-westendorp)
+- [Monetization Models Compared](https://www.productcompass.pm/p/monetization)

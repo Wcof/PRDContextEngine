@@ -192,7 +192,7 @@ for each XYZ 假设:
 | 8 类风险每类硬凑多条 | 强凑等于稀释，每类 ≥1 真实假设即可，无风险就如实标 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品实验片段：
 
@@ -218,13 +218,7 @@ At least 15% of 月活高频创作者会使用一键续费并完成支付。
 | kill criterion | < 50% 则停，回退 OST 重选方案 |
 ```
 
-### Further Reading
-
-- [The Right It (Alberto Savoia, pretotype)](https://www.productcompass.pm/p/the-right-it)
-- [Continuous Discovery Habits Assumptions (Teresa Torres)](https://www.productcompass.pm/p/cpdm)
-- [XYZ Hypotheses](https://www.productcompass.pm/p/xyz-hypotheses)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **最致命最便宜优先**：先找高影响高风险里最便宜能证伪的假设
 - **skin-in-the-game 是底线**：用户说"会买"≠真会买，真实代价才可靠
@@ -232,3 +226,9 @@ At least 15% of 月活高频创作者会使用一键续费并完成支付。
 - **三视角覆盖**：PM/设计/工程各识别，避免 PM 盲区
 - **kill criterion 必须预设**：没退出条件的实验会无限"再优化"
 - **pretotype ≠ MVP**：pretotype 是最小代价证伪，能用 landing page 别做 MVP
+
+### Further Reading
+
+- [The Right It (Alberto Savoia, pretotype)](https://www.productcompass.pm/p/the-right-it)
+- [Continuous Discovery Habits Assumptions (Teresa Torres)](https://www.productcompass.pm/p/cpdm)
+- [XYZ Hypotheses](https://www.productcompass.pm/p/xyz-hypotheses)

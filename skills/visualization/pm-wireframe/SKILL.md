@@ -186,7 +186,7 @@ flowchart TD
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员中心线框图结构：
 
@@ -205,17 +205,15 @@ flowchart TD
 | 中间 | 会员横幅 | PMContext 会员定义 | 点击"立即续费"→ 续费页 |
 | 底部 | 快捷入口 | [假设] 推断 | 待 PM 补充 |
 
-### Further Reading
-
-- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
-- [线框图设计指南 (NN Group)](https://www.nngroup.com/articles/wireflows/)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/wireframe-example.md](references/wireframe-example.md)（Mermaid 导航流 + 表格布局双维度示例）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **线框图 ≠ 高保真**：不要画颜色、字体、图标细节——留到 HTML 原型阶段
 - **每页独立表格**：多页面合并到一个表格会混淆组件归属
 - **"数据来源"列不能省略**：它是 PM 审查线框图正确性的唯一依据
+
+### Further Reading
+
+- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
+- [线框图设计指南 (NN Group)](https://www.nngroup.com/articles/wireflows/)

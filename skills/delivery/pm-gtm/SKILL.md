@@ -213,7 +213,7 @@ PMContext 中有用户场景、竞品/市场、价值验证度量、边界条件
 | 把增长等同于投广告 | 没有增长循环的 GTM 永远依赖付费获客，CAC 随竞争上涨不可持续 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 GTM 片段：
 
@@ -240,16 +240,16 @@ PMContext 中有用户场景、竞品/市场、价值验证度量、边界条件
 2. 工具内嵌引导（触达高/成本极低/转化高）
 ```
 
-### Further Reading
-
-- [Beachhead Market Strategy (Play Bigger)](https://www.productcompass.pm/p/beachhead)
-- [ICP Framework](https://www.productcompass.pm/p/icp)
-- [Messaging Hierarchy: Information Stairs](https://www.productcompass.pm/p/messaging)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **Beachhead 先于渠道**：没选首攻细分就铺渠道是 GTM 最大反模式
 - **四准则必须评分**：拍脑袋选 Beachhead 等于没选，加权评分才有依据
 - **渠道集中 P0**：P0 渠道 2-3 个集中投入，撒胡椒面哪个都做不深
 - **信息阶梯自下而上构建自上而下宣传**：构建从 Feature 起，宣传从 Identity 起
 - **发布后才是真考验**：留存与扩张度量不能省
+
+### Further Reading
+
+- [Beachhead Market Strategy (Play Bigger)](https://www.productcompass.pm/p/beachhead)
+- [ICP Framework](https://www.productcompass.pm/p/icp)
+- [Messaging Hierarchy: Information Stairs](https://www.productcompass.pm/p/messaging)

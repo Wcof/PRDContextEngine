@@ -134,7 +134,7 @@ GREEN 产出必须过 Step 2.5 至少 4 项检查，不过标 🟡 需精炼。
 | 缺反例黑名单 | 不符合 dim9，skill 无"不要做什么" |
 | 审计三元组写空话 | 判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## RED baseline 记录
@@ -152,13 +152,7 @@ agent 不带 skill 的失败:
 → 补反例: "p-value 未算完不下结论"
 ```
 
-### Further Reading
-
-- [Writing Skills (superpowers)](https://github.com/obra/superpowers)
-- [Anthropic Skill Authoring Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
-- [Writing Great Skills (skills project)](https://github.com/obra/skills)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **RED 先跑**：没 baseline 的 skill 是猜测（Iron Law）
 - **GREEN 针对 RED**：不写泛泛指导
@@ -167,3 +161,9 @@ agent 不带 skill 的失败:
 - **联动 darwin-skill**：本 skill 创建，darwin 优化
 
 详见 [references/skillauthor-example.md](references/skillauthor-example.md)。
+
+### Further Reading
+
+- [Writing Skills (superpowers)](https://github.com/obra/superpowers)
+- [Anthropic Skill Authoring Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+- [Writing Great Skills (skills project)](https://github.com/obra/skills)

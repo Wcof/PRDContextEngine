@@ -225,7 +225,7 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费访谈脚本片段（完整脚本模板与记录模板详见 [references/interview-templates.md](references/interview-templates.md)）：
 
@@ -241,20 +241,18 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 - "你试过什么办法避免重新填信息？" ← 来源: PMContext [假设: 用户流失与续费流程负相关, 6/10]
 ```
 
-### Further Reading
-
-- [The Mom Test (Rob Fitzpatrick)](https://www.momtestbook.com/)
-- [User Interviews: The Ultimate Guide](https://www.productcompass.pm/p/interviewing-customers-the-ultimate)
-- [Continuous Discovery Habits (Teresa Torres)](https://www.productcompass.pm/p/cpdm)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/interview-example.md](references/interview-example.md)（完整访谈脚本示例 + Mom Test 问题改写对照表）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **过去时 + 具体实例是金标准**："上次你具体怎么做的？"远胜"你通常怎么做？"
 - **80/20 听说比**：受访者说 80%，访谈者说 20%，多说多听
 - **"为什么"轻问 2-3 次**：到达根因，但别变成审讯
 - **强情绪 = 真实信号**：受访者兴奋/沮丧/愤怒的地方就是真实痛点所在
 - **访谈结果回灌 `/pm-collect`**：访谈记录是新素材，来源标 `访谈: <编号>`，再 `/pm-refine --incremental` 增量精炼
+
+### Further Reading
+
+- [The Mom Test (Rob Fitzpatrick)](https://www.momtestbook.com/)
+- [User Interviews: The Ultimate Guide](https://www.productcompass.pm/p/interviewing-customers-the-ultimate)
+- [Continuous Discovery Habits (Teresa Torres)](https://www.productcompass.pm/p/cpdm)

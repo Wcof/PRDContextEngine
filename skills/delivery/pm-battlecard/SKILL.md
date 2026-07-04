@@ -152,7 +152,7 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 | 不追溯 PMContext | 对比项悬空，无法验证差异化定位是否对齐 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 竞品 X 公司概览
@@ -175,13 +175,9 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 | "他们更便宜" | "小团队他们便宜，但 >10 人按功能模块算总成本高 2 倍，我们按座位更划算" |
 ```
 
-### Further Reading
+详见 [references/battlecard-example.md](references/battlecard-example.md)（完整作战卡示例含异议话术与赢/输模式）。
 
-- [Competitive Battlecard Template](https://www.productcompass.pm/p/battlecard)
-- [Win/Loss Analysis](https://www.productcompass.pm/p/win-loss-analysis)
-- [Sales Enablement Guide](https://www.productcompass.pm/p/sales-enablement)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **可扫读第一**：销售通话中秒查，表格/粗体/短 bullet
 - **优势附证明**：空话优势销售不敢用，要客户证言/数据
@@ -189,6 +185,8 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 - **地雷凸显弱点**：问能逼出竞品短板的问题
 - **追溯 PMContext**：差异化定位要有 PMContext 依据
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/battlecard-example.md](references/battlecard-example.md)（完整作战卡示例含异议话术与赢/输模式）。
+- [Competitive Battlecard Template](https://www.productcompass.pm/p/battlecard)
+- [Win/Loss Analysis](https://www.productcompass.pm/p/win-loss-analysis)
+- [Sales Enablement Guide](https://www.productcompass.pm/p/sales-enablement)

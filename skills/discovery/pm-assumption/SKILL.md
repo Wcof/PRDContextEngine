@@ -93,7 +93,7 @@ PMContext 各维度隐含假设需显式化。本 skill 提取 PMContext 全维�
 | 不回灌 PMContext 假设清单 | 假设悬空，pm-experiment 无法消费 |
 | 审计三元组写空话 | 判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 8 类风险假设（共 12 条）
@@ -109,12 +109,7 @@ PMContext 各维度隐含假设需显式化。本 skill 提取 PMContext 全维�
    - 最便宜测试: 已有数据查询（<1 人日）
 ```
 
-### Further Reading
-
-- [Continuous Discovery Habits (Torres)](https://www.productcompass.pm/p/cpdm)
-- [Assumption Prioritization Canvas](https://www.productcompass.pm/p/assumption-prioritization-canvas)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **8 类缺一不可**：GTM/Team 常被漏但致命
 - **置信度 <5 进 Top 5**：最不确定的最该测
@@ -122,3 +117,8 @@ PMContext 各维度隐含假设需显式化。本 skill 提取 PMContext 全维�
 - **回灌 PMContext**：pm-experiment 消费假设清单
 
 详见 [references/assumption-example.md](references/assumption-example.md)。
+
+### Further Reading
+
+- [Continuous Discovery Habits (Torres)](https://www.productcompass.pm/p/cpdm)
+- [Assumption Prioritization Canvas](https://www.productcompass.pm/p/assumption-prioritization-canvas)

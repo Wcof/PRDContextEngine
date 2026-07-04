@@ -284,11 +284,11 @@ Run 四个子 Skill（按依赖顺序）：
 
 ---
 
+## 产出示例 · 实战提示
+
+详见 [references/sketch-prototype-example.md](references/sketch-prototype-example.md)（草图 + HTML 原型联动产出示例与 9 项质量检查技巧）。
+
 ### Further Reading
 
 - [Mermaid stateDiagram-v2 docs](https://mermaid.js.org/syntax/stateDiagram.html)
 - [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
-
-## 产出示例 · 延伸参考 · 实战提示
-
-详见 [references/sketch-prototype-example.md](references/sketch-prototype-example.md)（草图 + HTML 原型联动产出示例与 9 项质量检查技巧）。

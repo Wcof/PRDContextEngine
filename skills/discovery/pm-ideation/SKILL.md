@@ -108,7 +108,7 @@ PMContext"用户场景"定义方案方向；"现状平替"定义优化空间；"
 | 跳过对比直接进 pm-experiment（违反 HARD-GATE） | 未审视假设的方案验证=浪费工时，简单方案尤甚 |
 | 审计三元组写空话 | 判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 方案集（5 个）
@@ -121,12 +121,7 @@ PMContext"用户场景"定义方案方向；"现状平替"定义优化空间；"
 | 5 | explore | API 开放 | 社区调研 |
 ```
 
-### Further Reading
-
-- [Continuous Discovery Habits (Torres)](https://www.productcompass.pm/p/cpdm)
-- [Brainstorming Experiments](https://www.productcompass.pm/p/brainstorm-experiments)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **≥5 方案**：单方案=没选择
 - **optimize/explore 各 ≥2**：优化+探索双轨
@@ -134,3 +129,8 @@ PMContext"用户场景"定义方案方向；"现状平替"定义优化空间；"
 - **联动 pm-assumption/pm-experiment**：假设→验证闭环
 
 详见 [references/ideation-example.md](references/ideation-example.md)。
+
+### Further Reading
+
+- [Continuous Discovery Habits (Torres)](https://www.productcompass.pm/p/cpdm)
+- [Brainstorming Experiments](https://www.productcompass.pm/p/brainstorm-experiments)

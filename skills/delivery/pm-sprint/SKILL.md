@@ -207,7 +207,7 @@ Step 5: Verify 回滚 → 如果迭代中发现问题，是否有降级方案？
 | 不追溯 PMContext | 故事悬空，无法验证是否对齐需求 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品迭代计划片段：
 
@@ -227,13 +227,9 @@ Step 5: Verify 回滚 → 如果迭代中发现问题，是否有降级方案？
 让到期会员在 3 次点击内完成续费（对应 PMContext 用户场景"续费流程太麻烦"）
 ```
 
-### Further Reading
+详见 [references/sprint-example.md](references/sprint-example.md)（完整迭代计划示例含依赖图与风险矩阵）。
 
-- [Sprint Planning Guide](https://www.productcompass.pm/p/sprint-planning)
-- [Scrum Guide - Sprint Planning](https://scrumguides.org/)
-- [Velocity and Capacity Estimation](https://www.productcompass.pm/p/velocity-estimation)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **容量按公式**：人数×可用×速率×80%，不要拍脑袋
 - **DoR 是闸门**：没过 DoR 的故事不进迭代，先 refine
@@ -241,6 +237,8 @@ Step 5: Verify 回滚 → 如果迭代中发现问题，是否有降级方案？
 - **外部依赖早对齐**：外部依赖是滑期主因，迭代开始前就对齐
 - **20% buffer 是底线**：满载必爆，留 buffer 应对意外
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/sprint-example.md](references/sprint-example.md)（完整迭代计划示例含依赖图与风险矩阵）。
+- [Sprint Planning Guide](https://www.productcompass.pm/p/sprint-planning)
+- [Scrum Guide - Sprint Planning](https://scrumguides.org/)
+- [Velocity and Capacity Estimation](https://www.productcompass.pm/p/velocity-estimation)

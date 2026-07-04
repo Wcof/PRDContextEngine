@@ -160,7 +160,7 @@ PMContext"用户场景"定义客户细分与价值主张；"价值验证度量"�
 | 不追溯 PMContext | BMC 悬空，无法验证是否对齐用户研究 |
 | 审计三元组写"基于上述依据产出" | 空话，判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 业务游戏：生产力（创作者高效产出内容）
@@ -182,12 +182,7 @@ PMContext"用户场景"定义客户细分与价值主张；"价值验证度量"�
 - 增值服务付费意愿 [假设 6/10] → 回灌 PMContext 假设清单
 ```
 
-### Further Reading
-
-- [Business Model Canvas (Osterwalder)](https://www.productcompass.pm/p/business-model-canvas)
-- [The Three Business Games](https://www.productcompass.pm/p/business-games)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **9 模块缺一不可**：缺则标 `[待确认]` 不留空
 - **业务游戏必选 1**：注意力/交易/生产力，禁混合
@@ -195,3 +190,8 @@ PMContext"用户场景"定义客户细分与价值主张；"价值验证度量"�
 - **假设回灌 PMContext**：BMC 假设进假设清单联动 pm-grill
 
 详见 [references/bm-example.md](references/bm-example.md)。
+
+### Further Reading
+
+- [Business Model Canvas (Osterwalder)](https://www.productcompass.pm/p/business-model-canvas)
+- [The Three Business Games](https://www.productcompass.pm/p/business-games)

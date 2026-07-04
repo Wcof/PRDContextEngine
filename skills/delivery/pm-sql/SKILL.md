@@ -179,7 +179,7 @@ GROUP BY user_id ORDER BY SUM(amount) DESC LIMIT 10;
 | 性能建议堆砌不考虑表大小 | 小表堆索引是过度优化，浪费存储 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 SQL 查询片段：
 
@@ -205,13 +205,9 @@ GROUP BY user_id ORDER BY SUM(amount) DESC LIMIT 10;
 - 抽样核对消费额
 ```
 
-### Further Reading
+详见 [references/sql-example.md](references/sql-example.md)（完整 SQL 查询示例含多方言对照与性能优化案例）。
 
-- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
-- [How to Become a Technology-Literate PM](https://www.productcompass.pm/p/how-to-become-a-technology-literate)
-- [SQL Performance Explained](https://use-the-index-luke.com/)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **先讲逻辑再写 SQL**：PM 能验证逻辑，不能验证语法，逻辑错了 SQL 再漂亮也没用
 - **口径对齐 PMContext**：指标定义不查 PMContext 就是猜，跑对了也是巧合
@@ -219,6 +215,8 @@ GROUP BY user_id ORDER BY SUM(amount) DESC LIMIT 10;
 - **验证脚本必备**：没有验证的 SQL 结果不可信，给抽样核对脚本
 - **性能看表大小**：小表别堆索引，大表必给分区/物化视图方案
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/sql-example.md](references/sql-example.md)（完整 SQL 查询示例含多方言对照与性能优化案例）。
+- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
+- [How to Become a Technology-Literate PM](https://www.productcompass.pm/p/how-to-become-a-technology-literate)
+- [SQL Performance Explained](https://use-the-index-luke.com/)

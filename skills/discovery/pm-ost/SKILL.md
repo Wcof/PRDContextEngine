@@ -202,7 +202,7 @@ flowchart TD
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费 OST 片段：
 
@@ -229,20 +229,18 @@ flowchart TD
 - 成功阈值: ≥ 65%
 ```
 
-### Further Reading
-
-- [The Extended Opportunity Solution Tree](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
-- [Continuous Discovery Habits (Teresa Torres)](https://www.productcompass.pm/p/cpdm)
-- [Product Trio: Beyond the Obvious](https://www.productcompass.pm/p/product-trio)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/ost-example.md](references/ost-example.md)（完整 OST 示例 + Opportunity Score 计算表）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **机会空间先于方案**：OST 的核心纪律，跳过机会直接定方案是最大反模式
 - **客户视角表述机会**："我希望/我挣扎于"而非"做 X 功能"
 - **≥3 方案是底线**：第一个想法几乎从不是最优，对比才有选择
 - **Product Trio 发散**：PM/设计/工程三视角，好点子常来自工程师
 - **实验要有 skin in the game**：偏好有真实代价的实验，而非纯意见验证
+
+### Further Reading
+
+- [The Extended Opportunity Solution Tree](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
+- [Continuous Discovery Habits (Teresa Torres)](https://www.productcompass.pm/p/cpdm)
+- [Product Trio: Beyond the Obvious](https://www.productcompass.pm/p/product-trio)

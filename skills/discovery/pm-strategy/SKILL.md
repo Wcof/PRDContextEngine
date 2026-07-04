@@ -160,7 +160,7 @@ PMContext 中有竞品/市场、用户场景、边界条件、价值验证度量
 | 跳过 Step 1 直接套框架 | 没素材的框架是填空游戏，必须先提取再套用 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品战略分析片段：
 
@@ -184,15 +184,15 @@ PMContext 中有竞品/市场、用户场景、边界条件、价值验证度量
 - Lean Canvas Problem Top1"续费太麻烦" ⊇ SWOT W"续费流失" ✓ 一致
 ```
 
-### Further Reading
-
-- [SWOT to Strategy: Closing the Gap](https://www.productcompass.pm/p/swot-to-strategy)
-- [Porter's Five Forces in Practice](https://www.productcompass.pm/p/porters-five-forces)
-- [Lean Canvas vs Business Model Canvas](https://www.productcompass.pm/p/lean-canvas-vs-bmc)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **追溯优先于框架**：没 PMContext 依据的判断标 `[假设]`，不靠框架补数据
 - **交叉验证是核心价值**：四框架收敛到单一 skill 的意义就在交叉验证冲突
 - **Unfair Advantage 必须难复制**：团队/经验/努力都不是，专利/网络效应/数据壁垒才是
 - **行动三要素**：做什么 + 谁 + 何时度量，缺一不可
+
+### Further Reading
+
+- [SWOT to Strategy: Closing the Gap](https://www.productcompass.pm/p/swot-to-strategy)
+- [Porter's Five Forces in Practice](https://www.productcompass.pm/p/porters-five-forces)
+- [Lean Canvas vs Business Model Canvas](https://www.productcompass.pm/p/lean-canvas-vs-bmc)

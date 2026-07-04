@@ -211,7 +211,7 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 `/pm-premortem 会员体系重构` 产出摘要：
 
@@ -232,18 +232,16 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 - [假设: 用户续费率下降 12% 与定价有关，7/10] → 升级为 Tiger
 ```
 
-### Further Reading
-
-- [How Meta and Instagram Use Pre-Mortems](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)
-- [How to Manage Risks as a Product Manager](https://www.productcompass.pm/p/how-to-manage-risks-as-a-product-manager)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/risk-analysis-example.md](references/risk-analysis-example.md)（Tiger/Paper Tiger/Elephant 三分示例与行动计划模板）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **Tiger 不超过 5 个**：再多行动计划不可执行。按紧急度排序，超出的降级为 Fast-Follow
 - **假设交叉检查是核心**：PMContext 中置信度 ≤ 5 的假设，最可能升级为 Tiger，优先处理
 - **Paper Tiger 也要有解释**："这是个假问题，因为…"——光说"不担心"不解决问题
 - **Pre-Mortem 不是走形式**：如果所有风险都是 Paper Tiger，说明你没认真想失败
+
+### Further Reading
+
+- [How Meta and Instagram Use Pre-Mortems](https://www.productcompass.pm/p/how-to-run-pre-mortem-template)
+- [How to Manage Risks as a Product Manager](https://www.productcompass.pm/p/how-to-manage-risks-as-a-product-manager)

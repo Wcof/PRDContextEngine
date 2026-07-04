@@ -116,7 +116,7 @@ Unlike <competitor>, we <differentiation>.
 | 不追溯 PMContext | 价值主张悬空，无法验证对齐 |
 | 审计三元组写"将 A 转换为 A'" | 同义反复，判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 6 段式价值主张
@@ -139,12 +139,7 @@ Unlike 竞品 X, 我们提供断更预警+素材库而非仅排期.
 | 价格 | ¥30/月 | ¥20/月 | Them |
 ```
 
-### Further Reading
-
-- [Value Proposition Design (Osterwalder)](https://www.productcompass.pm/p/value-proposition-design)
-- [Crossing the Chasm Positioning (Moore)](https://www.productcompass.pm/p/crossing-the-chasm)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **6 段必须具体**：Who 写细分，What before 写平替
 - **Moore 模板不自创**：实证有效，自创易漏要素
@@ -152,3 +147,8 @@ Unlike 竞品 X, 我们提供断更预警+素材库而非仅排期.
 - **追溯 PMContext**：价值主张悬空=没对齐
 
 详见 [references/positioning-example.md](references/positioning-example.md)。
+
+### Further Reading
+
+- [Value Proposition Design (Osterwalder)](https://www.productcompass.pm/p/value-proposition-design)
+- [Crossing the Chasm Positioning (Moore)](https://www.productcompass.pm/p/crossing-the-chasm)

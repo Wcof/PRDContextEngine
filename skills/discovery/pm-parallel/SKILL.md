@@ -129,7 +129,7 @@ PMSkill 多 skill 场景（如 pm-sketch 生成 4 类草图、pm-market 调研�
 | 任务 <2 强并行 | 并行开销 > 收益，串行更优 |
 | 审计三元组写空话 | 判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 并行任务（3 个，独立性 ✅）
@@ -141,12 +141,7 @@ PMSkill 多 skill 场景（如 pm-sketch 生成 4 类草图、pm-market 调研�
 冲突: 0
 ```
 
-### Further Reading
-
-- [Dispatching Parallel Agents (superpowers)](https://github.com/obra/superpowers)
-- [Subagent-Driven Development](https://github.com/obra/superpowers)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **独立性是底线**：共享可变状态=不可并行
 - **输入/输出明确**：避免重叠覆盖
@@ -154,3 +149,8 @@ PMSkill 多 skill 场景（如 pm-sketch 生成 4 类草图、pm-market 调研�
 - **冲突标注**：不静默覆盖
 
 详见 [references/parallel-example.md](references/parallel-example.md)。
+
+### Further Reading
+
+- [Dispatching Parallel Agents (superpowers)](https://github.com/obra/superpowers)
+- [Subagent-Driven Development](https://github.com/obra/superpowers)

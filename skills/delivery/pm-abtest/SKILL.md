@@ -143,7 +143,7 @@ p-value = two-tailed z-test 或 chi-squared
 | 不追溯 PMContext 度量项 | 实验结论悬空，无法回填到假设验证状态 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 A/B 测试分析片段：
 
@@ -173,13 +173,9 @@ p-value = two-tailed z-test 或 chi-squared
 理由：统计+业务双显著，guardrail 无退化。全量发布，监测 2 周。
 ```
 
-### Further Reading
+详见 [references/abtest-example.md](references/abtest-example.md)（完整 A/B 测试分析示例含 Python 计算脚本）。
 
-- [A/B Testing Statistical Significance](https://www.productcompass.pm/p/ab-testing-statistical-significance)
-- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
-- [Sample Ratio Mismatch Detection](https://www.productcompass.pm/p/srm-detection)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **SRM 是第一道闸门**：SRM 存在则一切结论作废，先修分流
 - **统计显著≠业务显著**：p<0.05 但 lift 低于 PMContext 阈值不 ship
@@ -187,6 +183,8 @@ p-value = two-tailed z-test 或 chi-squared
 - **underpowered 不下结论**：样本不足延长实验，不要硬判
 - **结论回填假设**：实验结果要回灌 pm-experiment 的假设验证状态
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/abtest-example.md](references/abtest-example.md)（完整 A/B 测试分析示例含 Python 计算脚本）。
+- [A/B Testing Statistical Significance](https://www.productcompass.pm/p/ab-testing-statistical-significance)
+- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
+- [Sample Ratio Mismatch Detection](https://www.productcompass.pm/p/srm-detection)

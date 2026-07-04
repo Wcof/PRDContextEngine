@@ -119,7 +119,7 @@ PMContext 已沉淀事实/假设/冲突/待确认。Human PRD 的职责是将这
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 `/pm-prd --skip-ai 会员体系重构` → `prd/human-prd.md` 概要：
 
@@ -148,16 +148,14 @@ PMContext 已沉淀事实/假设/冲突/待确认。Human PRD 的职责是将这
 ...
 ```
 
-### Further Reading
-
-- [How to Write a Product Requirements Document? The Best PRD Template.](https://www.productcompass.pm/p/prd-template)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/human-prd-example.md](references/human-prd-example.md)（Human PRD 完整示例与评审指南）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **Human PRD 的核心是决策理由**：评审者最关心"为什么这样做"，不是具体怎么做
 - **[待确认] 显式标注**：不要美化不确定性——诚实的 PRD 更有信任
 - **追溯清单是信任凭证**：每条需求可追溯回 PMContext，评审者确认"确实基于这个输入"
+
+### Further Reading
+
+- [How to Write a Product Requirements Document? The Best PRD Template.](https://www.productcompass.pm/p/prd-template)

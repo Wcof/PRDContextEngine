@@ -186,7 +186,7 @@ Critical gap 回灌 PMContext 风险段。与 pm-premortem 交叉（gap 即上�
 | 把"多余实现"当 gap 严重对待 | 多余实现标 `[冗余]` Low 级，非 Critical |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费对齐审计片段：
 
@@ -211,13 +211,7 @@ Critical gap 回灌 PMContext 风险段。与 pm-premortem 交叉（gap 即上�
 - 验证：构造支付失败用例，断言权益未变更
 ```
 
-### Further Reading
-
-- [Intended vs Implemented (pm-ai-shipping)](https://www.productcompass.pm/p/intended-vs-implemented)
-- [Auditing AI-Built Code](https://www.productcompass.pm/p/audit-ai-code)
-- [Intent Models for Code Review](https://www.productcompass.pm/p/intent-models)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **意图模型是核心**：generic scanner 无意图模型，意图差距只有 PRD 能定
 - **hand-wavy 作废**：发现必须指 file:line + 意图条款，否则无效
@@ -225,3 +219,9 @@ Critical gap 回灌 PMContext 风险段。与 pm-premortem 交叉（gap 即上�
 - **修复必须具体**：指文件+逻辑，"加强校验"是空话
 - **验证必须可执行**：测试用例/断言，"人工检查"不算
 - **Critical 回灌风险段**：不回灌上线会漏，必须入 PMContext 风险
+
+### Further Reading
+
+- [Intended vs Implemented (pm-ai-shipping)](https://www.productcompass.pm/p/intended-vs-implemented)
+- [Auditing AI-Built Code](https://www.productcompass.pm/p/audit-ai-code)
+- [Intent Models for Code Review](https://www.productcompass.pm/p/intent-models)

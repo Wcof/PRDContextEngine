@@ -142,7 +142,7 @@ Key Results:
 | 不对齐公司战略 | 团队 OKR 必须 ladder up 到公司目标，否则各自为战 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 OKR 候选片段：
 
@@ -162,13 +162,9 @@ Key Results:
 放弃套 B（留存导向，与公司增长战略不一致）、套 C（体验导向，KR 可测性弱）。
 ```
 
-### Further Reading
+详见 [references/okr-example.md](references/okr-example.md)（完整三套 OKR 候选对比示例含 KR/KPI/NSM 关系矩阵）。
 
-- [Radical Focus - Christina Wodtke](https://www.productcompass.pm/p/radical-focus)
-- [OKR vs KPI vs NSM 关系](https://www.productcompass.pm/p/okr-kpi-nsm)
-- [Stretch Goals and OKR Confidence](https://www.productcompass.pm/p/stretch-goals)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **Objective 定性 KR 定量**：Objective 写"让用户 X"，KR 写"从 X 到 Y"
 - **信心度 60-70% 是甜点**：太低冒险太高没挑战
@@ -176,6 +172,8 @@ Key Results:
 - **对齐 pm-metrics NSM**：KR 应引用 NSM 或其 input metric，不一致标冲突
 - **三套候选要差异化**：增长/留存/体验三种导向，不要三套雷同
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/okr-example.md](references/okr-example.md)（完整三套 OKR 候选对比示例含 KR/KPI/NSM 关系矩阵）。
+- [Radical Focus - Christina Wodtke](https://www.productcompass.pm/p/radical-focus)
+- [OKR vs KPI vs NSM 关系](https://www.productcompass.pm/p/okr-kpi-nsm)
+- [Stretch Goals and OKR Confidence](https://www.productcompass.pm/p/stretch-goals)

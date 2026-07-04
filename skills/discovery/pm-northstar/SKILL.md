@@ -128,7 +128,7 @@ NSM 与 OKR：KR 可表达 NSM 的预期变化（如"NSM 从 X 到 Y"）。
 | 不澄清 NSM/OKR 关系 | OKR 的 KR 可表达 NSM 变化，混淆会重复设指标 |
 | 审计三元组写空话 | 判定 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 业务游戏：生产力
@@ -144,12 +144,7 @@ NSM 与 OKR：KR 可表达 NSM 的预期变化（如"NSM 从 X 到 Y"）。
 ## NSM 与 OKR: Q3 KR1 = NSM 从 3.2 到 4.5
 ```
 
-### Further Reading
-
-- [North Star Framework 101](https://learn.productcompass.pm/nsm101)
-- [The Three Business Games](https://www.productcompass.pm/p/business-games)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **NSM 单一**：多 NSM=没 NSM
 - **客户中心非收入**：收入是结果
@@ -158,3 +153,8 @@ NSM 与 OKR：KR 可表达 NSM 的预期变化（如"NSM 从 X 到 Y"）。
 - **联动 pm-okr**：KR 表达 NSM 变化
 
 详见 [references/northstar-example.md](references/northstar-example.md)。
+
+### Further Reading
+
+- [North Star Framework 101](https://learn.productcompass.pm/nsm101)
+- [The Three Business Games](https://www.productcompass.pm/p/business-games)

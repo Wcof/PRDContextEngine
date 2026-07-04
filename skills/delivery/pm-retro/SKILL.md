@@ -178,7 +178,7 @@ P0（高影响×高易度）立即做，P1 排期，P2 backlog。
 | Sailboat 格式省略 Island（目标） | 没目标的船不知道开哪，Island 是 Sailboat 锚点 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员 V1 迭代回顾片段：
 
@@ -199,16 +199,16 @@ P0（高影响×高易度）立即做，P1 排期，P2 backlog。
 - 经验: 访谈 <10 次置信度虚高 | 来源: 会员V1.retro | 置信度: 中
 ```
 
-### Further Reading
-
-- [Sprint Retrospective Formats](https://www.productcompass.pm/p/retro-formats)
-- [Action Items That Stick](https://www.productcompass.pm/p/action-items)
-- [Agile Retrospectives Primer](https://www.productcompass.pm/p/agile-retro)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **行动三要素是底线**：owner/截止/度量缺一不可，否则是愿望
 - **经验必须可复用**：写"X 场景做 Y"具体规律，禁"加强 X"空话
 - **主题基于频次**：主观挑主题会漏团队真实痛点
 - **`.loop/` 是金矿**：工件暴露流程瓶颈，比反馈更客观
 - **经验必须回灌**：不回灌等于没复盘，下次还踩同样的坑
+
+### Further Reading
+
+- [Sprint Retrospective Formats](https://www.productcompass.pm/p/retro-formats)
+- [Action Items That Stick](https://www.productcompass.pm/p/action-items)
+- [Agile Retrospectives Primer](https://www.productcompass.pm/p/agile-retro)

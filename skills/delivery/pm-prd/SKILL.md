@@ -95,7 +95,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 `/pm-prd 会员体系重构` 产出两份文件：
 
@@ -104,17 +104,15 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 | AI PRD | `prd/ai-prd.md` | 6 条可执行规则、4 个用户故事、7 条验收标准、Agent Context（技术栈/目录结构） |
 | Human PRD | `prd/human-prd.md` | 决策理由表、"为什么现在做"背景、3 项 [待确认] 标注、追溯清单 |
 
+详见 [references/dual-form-example.md](references/dual-form-example.md)（双形态 PRD 同源骨架对比示例）。
+
+**实战铁律**（落盘前对照）：
+
+- **优先跑 `--auto`**：PMContext 不存在时自动链路远比手动快
+- **审计摘要要读**：黑名单把 `[待确认]` 写成确定项是最高频错误
+
 ### Further Reading
 
 - [PM Compass 8-section PRD Template](https://www.productcompass.pm/p/prd-template)
 - [AI PRD Template - Miqdad Jaffer (OpenAI)](https://www.productcompass.pm/p/ai-prd-template)
 - [An Introduction to the Product Trio](https://www.productcompass.pm/p/product-trio)
-
-## 产出示例 · 延伸参考 · 实战提示
-
-详见 [references/dual-form-example.md](references/dual-form-example.md)（双形态 PRD 同源骨架对比示例）。
-
-### 实战提示
-
-- **优先跑 `--auto`**：PMContext 不存在时自动链路远比手动快
-- **审计摘要要读**：黑名单把 `[待确认]` 写成确定项是最高频错误

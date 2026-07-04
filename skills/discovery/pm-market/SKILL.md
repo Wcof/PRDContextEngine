@@ -194,7 +194,7 @@ SOM = 可获用户数 × ARPU × 年
 | 跳过交叉验证直接出规模 | 交叉验证是双算法意义，跳过等于单算法 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品市场分析片段：
 
@@ -217,13 +217,7 @@ SOM = 可获用户数 × ARPU × 年
 [无反馈数据] — 建议先 /pm-collect 收集用户 reviews
 ```
 
-### Further Reading
-
-- [TAM/SAM/SOM Done Right](https://www.productcompass.pm/p/tam-sam-som)
-- [Competitive Analysis Three Layers](https://www.productcompass.pm/p/competitor-analysis)
-- [Sentiment Analysis for PMs](https://www.productcompass.pm/p/sentiment-analysis)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **双算法是底线**：单算法 TAM 无法交叉验证，必须自上而下+自下而上
 - **差异 >30% 标存疑**：不静默取平均，列假设差异点让 PM 核查
@@ -231,3 +225,9 @@ SOM = 可获用户数 × ARPU × 年
 - **无数据不臆造 sentiment**：标 `[无反馈数据]` 比编故事诚实
 - **SOM 必须有路径**：不是许愿份额，要有可获路径（渠道/触达）
 - **与 pm-strategy 交叉**：Porter 替代品 ⊆ 本 skill 替代品层
+
+### Further Reading
+
+- [TAM/SAM/SOM Done Right](https://www.productcompass.pm/p/tam-sam-som)
+- [Competitive Analysis Three Layers](https://www.productcompass.pm/p/competitor-analysis)
+- [Sentiment Analysis for PMs](https://www.productcompass.pm/p/sentiment-analysis)

@@ -140,7 +140,7 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 | 利益相关者凭空列不追溯 | 必须从边界条件/组织推断或标 `[假设]` |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品愿景片段：
 
@@ -165,16 +165,16 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 - 监督：边缘用户（低权低利，监控变化）
 ```
 
-### Further Reading
-
-- [Product Vision That Inspires](https://www.productcompass.pm/p/product-vision)
-- [Stakeholder Mapping for PMs](https://www.productcompass.pm/p/stakeholder-map)
-- [Power/Interest Grid in Practice](https://www.productcompass.pm/p/power-interest-grid)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **愿景三要素缺一不可**：情感+可实现+方向，缺一是口号或待办
 - **阶梯必须可度量**：数字/覆盖率/份额，禁"成为领先"
 - **网格每象限有策略**：只标象限名等于没画，必须具体人+沟通
 - **沟通三要素**：渠道/频率/信息，缺一无法执行
 - **与战略/GTM 交叉**：愿景 ⊇ 战略方向 ⊇ GTM 1 年目标
+
+### Further Reading
+
+- [Product Vision That Inspires](https://www.productcompass.pm/p/product-vision)
+- [Stakeholder Mapping for PMs](https://www.productcompass.pm/p/stakeholder-map)
+- [Power/Interest Grid in Practice](https://www.productcompass.pm/p/power-interest-grid)

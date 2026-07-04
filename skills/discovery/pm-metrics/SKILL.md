@@ -178,7 +178,7 @@ flowchart TD
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费场景 NSM 框架：
 
@@ -205,20 +205,18 @@ flowchart TD
 | 续费页停留时长 | 用户在续费页平均停留时间 | 时长短→流程顺畅 | PMContext [假设, 7/10] |
 ```
 
-### Further Reading
-
-- [The North Star Framework 101](https://www.productcompass.pm/p/the-north-star-framework-101)
-- [AARRR (Pirate) Metrics](https://www.productcompass.pm/p/aarrr-pirate-metrics)
-- [Google HEART Framework](https://www.productcompass.pm/p/the-google-heart-framework)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/metrics-example.md](references/metrics-example.md)（完整 NSM 框架示例 + 三业务游戏 NSM 对照表）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **客户中心是底线**：NSM 反映客户价值，营收/LTV/DAU 都是结果指标，不是 NSM
 - **单一 NSM 聚焦团队**：多个 NSM 等于没 NSM，团队需要单一北极星
 - **Input Metrics 是杠杆**：短期可动的 Input Metrics 是团队日常发力点
 - **七准则是质量门**：任一不满足换候选，不要硬塞
 - **与 PMContext 价值验证度量互补**：PMContext 的度量是功能级，NSM 是产品级
+
+### Further Reading
+
+- [The North Star Framework 101](https://www.productcompass.pm/p/the-north-star-framework-101)
+- [AARRR (Pirate) Metrics](https://www.productcompass.pm/p/aarrr-pirate-metrics)
+- [Google HEART Framework](https://www.productcompass.pm/p/the-google-heart-framework)

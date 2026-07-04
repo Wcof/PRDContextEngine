@@ -190,7 +190,7 @@ flowchart TD
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 | 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费流程图效果：
 
@@ -211,17 +211,15 @@ flowchart TD
   classDef active fill:#e1f5fe
 ```
 
-### Further Reading
-
-- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
-- [BPMN 2.0 流程图规范 (OMG)](https://www.omg.org/spec/BPMN/2.0/)
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/flow-example.md](references/flow-example.md)（流程图判断节点 + 循环退出条件示例）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **判断必须画双向**：`yes` 和 `no` 都必须有出口，单向判断是 50% 的流程图
 - **异常路径用 subroutine 形状区分**：`[[异常节点]]` 让异常路径一目了然
 - **循环必须配退出条件**：不要画死循环——标注"最多重试 3 次"或"30 分钟超时"
+
+### Further Reading
+
+- [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
+- [BPMN 2.0 流程图规范 (OMG)](https://www.omg.org/spec/BPMN/2.0/)

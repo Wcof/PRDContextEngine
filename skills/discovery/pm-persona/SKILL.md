@@ -140,7 +140,7 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 | 不追溯 PMContext | persona 悬空，无法验证是否对齐用户研究 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 persona 片段：
 
@@ -169,13 +169,9 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 - 反对2: "月费 ¥30 对自由职业有压力" ← PMContext 边界条件"价格敏感"
 ```
 
-### Further Reading
+详见 [references/persona-example.md](references/persona-example.md)（完整 3 persona 示例含互斥校验与访谈联动）。
 
-- [User Persona Best Practices](https://www.productcompass.pm/p/user-persona)
-- [JTBD Framework](https://www.productcompass.pm/p/jtbd)
-- [Persona vs Segment](https://www.productcompass.pm/p/persona-vs-segment)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **行为/JTBD 聚类非 demographics**：demographics 不驱动产品策略
 - **≥3 persona**：少于 3 漏关键群，多于 7 无法聚焦
@@ -184,6 +180,8 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 - **互斥是底线**：重叠 persona 说明维度混淆，重聚类
 - **具体命名**：小林/老王 比 用户A/B 有代入感
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/persona-example.md](references/persona-example.md)（完整 3 persona 示例含互斥校验与访谈联动）。
+- [User Persona Best Practices](https://www.productcompass.pm/p/user-persona)
+- [JTBD Framework](https://www.productcompass.pm/p/jtbd)
+- [Persona vs Segment](https://www.productcompass.pm/p/persona-vs-segment)

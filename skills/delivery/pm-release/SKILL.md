@@ -163,7 +163,7 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 | 声称"测试场景已覆盖"未跑验证（违反 verification-before-completion Iron Law） | 声称完成而未跑测试命令验证=说谎非效率。NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE——发布说明"测试通过"必须有测试命令输出: 0 failures 为证，"WWA 三性达标"必须有逐项核对证据 |
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员发布包片段：
 
@@ -188,16 +188,16 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 - 三性: 独立✓ 有价值✓ 可测✓
 ```
 
-### Further Reading
-
-- [Release Notes That Users Read](https://www.productcompass.pm/p/release-notes)
-- [Test Scenarios from Stories](https://www.productcompass.pm/p/test-scenarios)
-- [WWA Backlog Format](https://www.productcompass.pm/p/wwa)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **发布说明用户语言**：用户不看技术术语，"一键续费"非"重构令牌"
 - **测试场景必追溯故事**：无故事来源的场景是猜的
 - **WWA 三性自检**：独立/有价值/可测，缺一标 `[待确认]`
 - **三件套缺一不可**：发布说明+测试场景+WWA，缺一是赌博
 - **技术变更不进用户清单**：除非影响用户行为
+
+### Further Reading
+
+- [Release Notes That Users Read](https://www.productcompass.pm/p/release-notes)
+- [Test Scenarios from Stories](https://www.productcompass.pm/p/test-scenarios)
+- [WWA Backlog Format](https://www.productcompass.pm/p/wwa)

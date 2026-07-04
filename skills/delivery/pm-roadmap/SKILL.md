@@ -127,7 +127,7 @@ Enable [客户细分 from PMContext 用户场景] to [客户成果] so that [业
 | 多 initiative 转同一 outcome 不合并 | 重复 outcome 浪费资源，应合并或区分细分 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 ```markdown
 ## 原 roadmap（output）
@@ -144,13 +144,9 @@ Enable [客户细分 from PMContext 用户场景] to [客户成果] so that [业
 - "高级搜索筛选"可能有更好替代：智能分类标签（更低实现成本）→ 建议先做标签再评估筛选
 ```
 
-### Further Reading
+详见 [references/roadmap-example.md](references/roadmap-example.md)（完整 roadmap 转换示例含战略对齐与替代方案）。
 
-- [Outcome vs Output Roadmap](https://www.productcompass.pm/p/outcome-roadmap)
-- [Roadmaps That Don't Suck](https://www.productcompass.pm/p/roadmaps)
-- [Strategic Roadmapping](https://www.productcompass.pm/p/strategic-roadmap)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **outcome 三段式**：Enable X to Y so that Z，缺一段不完整
 - **度量必附**：没度量的 outcome 无法验证，从 PMContext 价值验证度量提取
@@ -158,6 +154,8 @@ Enable [客户细分 from PMContext 用户场景] to [客户成果] so that [业
 - **追溯 PMContext**：outcome 悬空=没对齐需求
 - **合并重复 outcome**：多 initiative 同 outcome 应合并或区分细分
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/roadmap-example.md](references/roadmap-example.md)（完整 roadmap 转换示例含战略对齐与替代方案）。
+- [Outcome vs Output Roadmap](https://www.productcompass.pm/p/outcome-roadmap)
+- [Roadmaps That Don't Suck](https://www.productcompass.pm/p/roadmaps)
+- [Strategic Roadmapping](https://www.productcompass.pm/p/strategic-roadmap)

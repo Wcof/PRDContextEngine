@@ -150,7 +150,7 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 | 跳过功能采纳曲线只看留存 | 采纳曲线揭示功能与留存的因果关系，单看留存漏掉原因 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品队列分析片段：
 
@@ -175,13 +175,9 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 2. 定量：onboarding 改版 A/B 测试（pm-abtest，主指标 D7 留存）
 ```
 
-### Further Reading
+详见 [references/cohort-example.md](references/cohort-example.md)（完整队列分析示例含 Python 计算脚本与可视化）。
 
-- [Cohort Analysis 101: Reduce Churn](https://www.productcompass.pm/p/cohort-analysis)
-- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
-- [Are You Tracking the Right Metrics?](https://www.productcompass.pm/p/are-you-tracking-the-right-metrics)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **队列维度从 PMContext 推导**：不要默认按 signup 月份，按用户场景选最有意义的维度
 - **≥3 队列才谈模式**：少于 3 个队列是点不是线，不下趋势结论
@@ -189,6 +185,8 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 - **采纳曲线揭示原因**：留存下降常伴随功能采纳下降，双曲线对比找根因
 - **联动定性+定量**：异常队列的验证靠访谈+实验双轨
 
-## 产出示例 · 延伸参考 · 实战提示
+### Further Reading
 
-详见 [references/cohort-example.md](references/cohort-example.md)（完整队列分析示例含 Python 计算脚本与可视化）。
+- [Cohort Analysis 101: Reduce Churn](https://www.productcompass.pm/p/cohort-analysis)
+- [The Product Analytics Playbook: AARRR, HEART, Cohorts & Funnels](https://www.productcompass.pm/p/the-product-analytics-playbook-aarrr)
+- [Are You Tracking the Right Metrics?](https://www.productcompass.pm/p/are-you-tracking-the-right-metrics)

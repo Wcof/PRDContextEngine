@@ -169,7 +169,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 | 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员续费用户故事示例：
 
@@ -187,20 +187,18 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 6. 整个流程 ≤ 3 次点击 ← PMContext [假设, 7/10]
 ```
 
-### Further Reading
-
-- [How to Write User Stories: The Ultimate Guide](https://www.productcompass.pm/p/how-to-write-user-stories)
-- [INVEST in Good User Stories](https://www.agilealliance.org/glossary/invest/)
-- [3 C's of User Stories (Ron Jeffries)](https://ronjeffries.com/articles/x0023c/) 
-
-## 产出示例 · 延伸参考 · 实战提示
-
 详见 [references/stories-example.md](references/stories-example.md)（完整用户故事集示例 + INVEST 校验对照表）。
 
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **验收标准 4-6 条是甜区**：< 4 边界模糊，> 6 故事过大
 - **"作为...我想要...以便..."是黄金句式**：角色 + 动作 + 价值三者缺一不可
 - **验收必须可观察**：用"展示""激活""提示"等可验证动词，不用"体验好""流畅"等主观词
 - **与 AI PRD 互补**：AI PRD 重实施规则，用户故事重用户价值和验收边界
 - **INVEST 校验是质量门**：任一准则不满足，拆分或重写，不要硬塞
+
+### Further Reading
+
+- [How to Write User Stories: The Ultimate Guide](https://www.productcompass.pm/p/how-to-write-user-stories)
+- [INVEST in Good User Stories](https://www.agilealliance.org/glossary/invest/)
+- [3 C's of User Stories (Ron Jeffries)](https://ronjeffries.com/articles/x0023c/)

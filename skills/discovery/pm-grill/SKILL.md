@@ -189,7 +189,7 @@ for each 承重假设分支（按依赖排序）:
 | 与 pm-premortem 混用 | grill 攻当下承重假设逻辑，premortem 倒推失败叙事，定位不同 |
 | 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
 
-## 产出示例
+## 产出示例 · 实战提示
 
 会员产品 grill 片段：
 
@@ -219,13 +219,7 @@ for each 承重假设分支（按依赖排序）:
    - 最便宜测试：1 条 SQL 查询
 ```
 
-### Further Reading
-
-- [Strategy Red-Team: Attack Assumptions Before Reality](https://www.productcompass.pm/p/strategy-red-team)
-- [The Premortem vs The Red-Team](https://www.productcompass.pm/p/premortem-vs-redteam)
-- [Relentless Interview for Plans (grilling)](https://www.productcompass.pm/p/grilling)
-
-### 实战提示
+**实战铁律**（落盘前对照）：
 
 - **只攻承重假设**：若假则计划死，装饰性假设不浪费时间
 - **steelman 是底线**：攻稻草人无效，先述最强版再攻那个最强版
@@ -233,3 +227,9 @@ for each 承重假设分支（按依赖排序）:
 - **5 个致命胜过 20 条通用**：目标是更锐利决策非更长清单
 - **最便宜测试优先**：能用对话/查询别做 MVP，本周能跑的最便宜最该先做
 - **与 experiment 衔接**：grill 找致命缺口，experiment 设计完整验证闭环
+
+### Further Reading
+
+- [Strategy Red-Team: Attack Assumptions Before Reality](https://www.productcompass.pm/p/strategy-red-team)
+- [The Premortem vs The Red-Team](https://www.productcompass.pm/p/premortem-vs-redteam)
+- [Relentless Interview for Plans (grilling)](https://www.productcompass.pm/p/grilling)

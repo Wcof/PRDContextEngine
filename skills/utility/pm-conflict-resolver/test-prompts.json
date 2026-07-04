@@ -1,0 +1,5 @@
+[
+  {"id":1,"prompt":"/pm-conflict-resolver node3-prd 报错：字段 'payment_flow' 引用的状态 'pending_review' 在 node2-domain.json 中不存在","expected":"只读 node3-prd.json + node2-domain.json，输出最小 diff 修复状态引用，写入 conflict-log.json"},
+  {"id":2,"prompt":"/pm-conflict-resolver node5-tech 报错，但 node2-domain.json 缺失","expected":"🔴 STOP：提示先跑对应上游节点，不臆造"},
+  {"id":3,"prompt":"/pm-conflict-resolver node3-prd 报错，修复会同时波及 node2-domain 和 node2-collect 两个上游","expected":"🔴 标 [冲突] 交 PM 裁决，不扩大改动面"}
+]

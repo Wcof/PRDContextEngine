@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "skills": ["pm-conflict-resolver"],
+    "query": "/pm-conflict-resolver node3-prd 报错：字段 payment_flow 引用的状态 pending_review 在 node2-domain.json 中不存在",
+    "files": [],
+    "expected_behavior": [
+      "仅读取报错节点上下文 + node2-domain.json，不读全局 PMContext",
+      "输出最小 diff（before=pending_review → after=submitted）而非重写 node3-prd.json",
+      "差分写入 docs/pm-context/.loop/conflict-log.json",
+      "提示重跑受影响下游集合，其余分片保持 Frozen"
+    ]
+  },
+  {
+    "id": 2,
+    "skills": ["pm-conflict-resolver"],
+    "query": "/pm-conflict-resolver node5-tech 报错，但 node2-domain.json 缺失",
+    "files": [],
+    "expected_behavior": [
+      "🔴 STOP：提示先跑对应上游节点（node2-domain）",
+      "不臆造上游 JSON 内容",
+      "不进入差分修复流程"
+    ]
+  },
+  {
+    "id": 3,
+    "skills": ["pm-conflict-resolver"],
+    "query": "/pm-conflict-resolver node3-prd 报错，修复会同时波及 node2-domain 和 node2-collect 两个上游",
+    "files": [],
+    "expected_behavior": [
+      "检测到 diff 波及 >1 个上游节点",
+      "🔴 标 [冲突] 交 PM 裁决，不扩大改动面",
+      "不自行修改多个上游分片"
+    ]
+  }
+]

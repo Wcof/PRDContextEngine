@@ -182,6 +182,10 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 4. 自动调用 `/pm-sketch --prototype --auto` 生成全部草图 + HTML 原型
 5. 最终输出一站式报告（含风险摘要）：
 
+## 产出示例 · 实战提示
+
+`/pm-need 会员续费体验优化 --auto` 一键全链路产出报告片段：
+
 ```markdown
 ## PMSkill 自动完成报告
 

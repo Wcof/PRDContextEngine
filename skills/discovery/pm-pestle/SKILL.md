@@ -1,6 +1,6 @@
 ---
 name: pm-pestle
-description: 从 PMContext 生成 PESTLE 宏观环境分析——政治/经济/社会/技术/法律/环境六维，每维 3-5 因素 × 影响×概率优先级矩阵 × 战略响应（机会利用/威胁缓解/合规适应）× 监控领先指标，每判断追溯 PMContext。Use when the user asks for macro environment or PESTLE analysis, mentions PESTLE、宏观环境、macro environment、外部环境分析、external factors、政治经济社术法律环境、market entry risk、scenario planning、regulatory roadmap.
+description: 从 PMContext 生成 PESTLE 宏观环境分析——政治/经济/社会/技术/法律/环境六维，每维 3-5 因素 × 影响×概率优先级矩阵 × 战略响应（机会利用/威胁缓解/合规适应）× 监控领先指标，每判断追溯 PMContext。Use when the user asks for macro environment or PESTLE analysis, mentions PESTLE、宏观环境、外部环境分析、macro environment.
 ---
 
 # /pm-pestle

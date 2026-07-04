@@ -1,7 +1,7 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-49-blue.svg)](#skill-list)
+[![Skills](https://img.shields.io/badge/Skills-50-blue.svg)](#skill-list)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
@@ -13,7 +13,7 @@ From fuzzy ideas or user requests, a single command completes the full pipeline:
 
 ## Overview
 
-PMSkill encapsulates the core workflows of product managers in Agent environments into 49 callable Skills, covering three domains: requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
+PMSkill encapsulates the core workflows of product managers in Agent environments into 50 callable core Skills, covering three domains: requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
 
 ### Key Features
 
@@ -107,6 +107,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-ideation` | model-invoked | Solution divergence (optimize + explore) |
 | `/pm-parallel` | model-invoked | Parallel agent dispatch |
 | `/pm-skillauthor` | model-invoked | TDD-style skill authoring |
+| `/pm-pestle` | model-invoked | PESTLE macro-environment analysis (6 dims × impact×probability matrix) |
 
 ### Delivery — Delivery
 
@@ -134,6 +135,21 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-meeting` | model-invoked | Meeting notes structuring |
 | `/pm-roadmap` | model-invoked | output → outcome roadmap conversion |
 | `/pm-battlecard` | model-invoked | Competitive battle card |
+| `/pm-stakeholder` | model-invoked | Stakeholder map (Power×Interest quadrants + comms plan) |
+
+### Utility — Utilities
+
+| Skill | Invocation | Purpose |
+|---|---|---|
+| `/pm-legal` | model-invoked | Product compliance docs (NDA / privacy policy / compliance gap analysis) |
+
+### Optional External Dependencies (not shipped with the main package)
+
+The following engineering skills come from external sources such as [mattpocock/skills](https://github.com/mattpocock/skills) and are unrelated to PMSkill's "PM requirement → prototype" scope. They are **not shipped with the main package**; install on demand via `skills-lock.json`:
+
+`ask-matt`, `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `implement`, `improve-codebase-architecture`, `prototype`, `research`, `tdd`, `teach`, `to-issues`, `to-prd`, `triage`, `writing-great-skills`.
+
+> The "core Skills" count above (50) includes only the `pm-*` series under `skills/`; this block is not counted in the badge.
 
 ### Visualization — Visualization
 

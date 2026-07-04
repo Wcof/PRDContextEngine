@@ -1,6 +1,6 @@
 ---
 name: pm-stakeholder
-description: 从 PMContext 构建干系人地图——Power×Interest 四象限分类（Manage Closely/Keep Satisfied/Keep Informed/Monitor）+ 每象限沟通策略（频率/渠道/关键信息/忽视风险）+ 冲突干系人对标 + 沟通计划表，每干系人追溯 PMContext。Use when preparing for launch, aligning cross-functional teams, or the user mentions 干系人、stakeholder、利益相关方、沟通计划、communication plan、Power Interest、stakeholder map、干系人管理、cross-functional alignment、launch readiness、干系人分析.
+description: 从 PMContext 构建干系人地图——Power×Interest 四象限分类（Manage Closely/Keep Satisfied/Keep Informed/Monitor）+ 每象限沟通策略（频率/渠道/关键信息/忽视风险）+ 冲突干系人对标 + 沟通计划表，每干系人追溯 PMContext。Use when preparing for launch, aligning cross-functional teams, or the user mentions 干系人、stakeholder、沟通计划、stakeholder map.
 ---
 
 # /pm-stakeholder

@@ -1,7 +1,7 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-49-blue.svg)](#skill-清单)
+[![Skills](https://img.shields.io/badge/Skills-50-blue.svg)](#skill-清单)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
@@ -13,7 +13,7 @@
 
 ## 概述
 
-PMSkill 将产品经理在 Agent 中的核心工作流程封装为 49 个可调用的 Skill，覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
+PMSkill 将产品经理在 Agent 中的核心工作流程封装为 50 个可调用的核心 Skill，覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
 
 ### 核心特性
 
@@ -107,6 +107,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-ideation` | model-invoked | 方案发散（optimize + explore） |
 | `/pm-parallel` | model-invoked | 并行 agent 分派 |
 | `/pm-skillauthor` | model-invoked | TDD 范式撰写 skill |
+| `/pm-pestle` | model-invoked | PESTLE 宏观环境分析（六维 × 影响×概率矩阵） |
 
 ### Delivery — 交付
 
@@ -134,6 +135,21 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-meeting` | model-invoked | 会议纪要结构化 |
 | `/pm-roadmap` | model-invoked | output → outcome roadmap 转换 |
 | `/pm-battlecard` | model-invoked | 竞品作战卡 |
+| `/pm-stakeholder` | model-invoked | 干系人地图（Power×Interest 四象限 + 沟通计划） |
+
+### Utility — 工具
+
+| Skill | 调用方式 | 作用 |
+|---|---|---|
+| `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
+
+### 可选外部依赖（不随主包发布）
+
+下列工程技能来自 [mattpocock/skills](https://github.com/mattpocock/skills) 等外部源，与 PMSkill "产品经理需求→原型" 的定位无关，**不随主包发布**。需要时通过 `skills-lock.json` 按需拉取安装：
+
+`ask-matt`、`code-review`、`codebase-design`、`diagnosing-bugs`、`domain-modeling`、`grill-me`、`grill-with-docs`、`grilling`、`handoff`、`implement`、`improve-codebase-architecture`、`prototype`、`research`、`tdd`、`teach`、`to-issues`、`to-prd`、`triage`、`writing-great-skills`。
+
+> 上方"核心 Skill"统计（50 个）仅含 `skills/` 目录下的 `pm-*` 系列；本块不计入徽章数字。
 
 ### Visualization — 可视化
 

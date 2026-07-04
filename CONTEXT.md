@@ -35,6 +35,8 @@ _Avoid_: 只写文档不协作的 PM、纯对接工程的 PM
 ## 信息缺口
 ## Skill 调用关系
 
+> Harness/Skill 边界见 [docs/adr/0009-harness-skill-boundary.md](docs/adr/0009-harness-skill-boundary.md)。冻结/差分持久化、CoT flush、双通道 Pinned-Sliding、会话 fork 隔离属 Harness 控制层职责，不由 SKILL.md 承载。
+
 | Skill | 调用方式 | 可被编排 |
 |---|---|---|
 | `/pm-need` | user-invoked | —（人类入口，编排下游 pm-prd/pm-sketch/pm-premortem） |
@@ -43,6 +45,7 @@ _Avoid_: 只写文档不协作的 PM、纯对接工程的 PM
 | `/pm-sketch` | model-invoked | 可被 pm-need --auto 编排 |
 | `/pm-aiprd` `/pm-humanprd` | model-invoked | 被 pm-prd 编排 |
 | `/pm-wireframe` `/pm-ia` `/pm-state` `/pm-flow` `/pm-journey` | model-invoked | 被 pm-sketch 编排 |
+| `/pm-conflict-resolver` | model-invoked | 被 pm-need 在节点失败时编排 |
 | 其余 pm-* | model-invoked | Agent 自主触发或人工显式调用 |
 
 调用规则：user-invoked 不可调用另一 user-invoked skill；user-invoked 可编排 model-invoked 子 skill。所有 user-invoked 技能支持 `--auto` 零确认。

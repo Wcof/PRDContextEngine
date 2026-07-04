@@ -142,6 +142,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | Skill | 调用方式 | 作用 |
 |---|---|---|
 | `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
+| `/pm-conflict-resolver` | model-invoked | 局部退火——节点报错时只对报错上下文+上游节点 JSON 做最小差分修复，不重写全局 PMContext |
 
 ### 可选外部依赖（不随主包发布）
 

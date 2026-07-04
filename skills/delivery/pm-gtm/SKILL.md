@@ -1,6 +1,6 @@
 ---
 name: pm-gtm
-description: 从 PMContext 生成 GTM（走向市场）策略——Beachhead 首攻细分选择（四准则评分）+ ICP 画像 + 渠道矩阵 + 信息阶梯 messaging + 发布时间线 + 增长循环五型设计（Viral/Usage/Collaboration/UGC/Referral）+ 成功度量。Use when the user asks for go-to-market or launch strategy, mentions GTM、走向市场、上市策略、发布策略、beachhead、首攻市场、ICP、理想客户画像、launch plan、go-to-market、渠道策略、messaging、增长循环、growth loop、飞轮、flywheel、viral loop、K 因子、referral.
+description: 从 PMContext 生成 GTM（走向市场）策略——Beachhead 首攻细分选择（四准则评分）+ ICP 画像 + 渠道矩阵 + 信息阶梯 messaging + 发布时间线 + 增长循环五型设计（Viral/Usage/Collaboration/UGC/Referral）+ 成功度量。Use when the user asks for go-to-market or launch strategy, mentions GTM、走向市场、beachhead、go-to-market.
 ---
 
 # /pm-gtm

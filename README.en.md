@@ -112,7 +112,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | Invocation | Purpose |
 |---|---|---|
-| `/pm-prd` | user-invoked | Orchestrate dual-form PRD output (`--auto` / `--skip-ai` / `--skip-human`) |
+| `/pm-prd` | model-invoked | Orchestrate dual-form PRD output (`--auto` / `--skip-ai` / `--skip-human`) |
 | `/pm-aiprd` | model-invoked | AI PRD (executable rules + Agent Context) |
 | `/pm-humanprd` | model-invoked | Human PRD (review-friendly) |
 | `/pm-premortem` | model-invoked | Pre-Mortem risk analysis |
@@ -139,7 +139,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | Invocation | Purpose |
 |---|---|---|
-| `/pm-sketch` | user-invoked | Main entry: all sketches + HTML prototype (`--prototype`, tech-stack auto-adapted) |
+| `/pm-sketch` | model-invoked | Main entry: all sketches + HTML prototype (`--prototype`, tech-stack auto-adapted) |
 | `/pm-wireframe` | model-invoked | UI wireframe |
 | `/pm-ia` | model-invoked | Information architecture diagram |
 | `/pm-state` | model-invoked | State machine diagram |

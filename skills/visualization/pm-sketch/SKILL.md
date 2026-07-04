@@ -1,7 +1,6 @@
 ---
 name: pm-sketch
 description: 从 PMContext 生成全部草图（线框/信息架构/状态机/流程图）+ HTML 可交互原型（--prototype）。支持 --auto 零确认模式与单图模式（--wireframe/--ia/--state/--flow）。Use when generating sketches or prototypes from PMContext, or the user mentions 草图、sketch、线框、原型、可视化、prototype、交互原型、Mermaid.
-disable-model-invocation: true
 ---
 
 # /pm-sketch

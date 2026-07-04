@@ -112,7 +112,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-prd` | user-invoked | 编排双形态 PRD 输出（`--auto` / `--skip-ai` / `--skip-human`） |
+| `/pm-prd` | model-invoked | 编排双形态 PRD 输出（`--auto` / `--skip-ai` / `--skip-human`） |
 | `/pm-aiprd` | model-invoked | 给 AI 的 PRD（可执行规则 + Agent Context） |
 | `/pm-humanprd` | model-invoked | 给人的 PRD（评审友好） |
 | `/pm-premortem` | model-invoked | Pre-Mortem 风险分析 |
@@ -139,7 +139,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-sketch` | user-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，技术栈自动适配） |
+| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，技术栈自动适配） |
 | `/pm-wireframe` | model-invoked | 界面线框图 |
 | `/pm-ia` | model-invoked | 信息架构图 |
 | `/pm-state` | model-invoked | 状态机图 |

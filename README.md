@@ -144,14 +144,6 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
 | `/pm-conflict-resolver` | model-invoked | 局部退火——节点报错时只对报错上下文+上游节点 JSON 做最小差分修复，不重写全局 PMContext |
 
-### 可选外部依赖（不随主包发布）
-
-下列工程技能来自 [mattpocock/skills](https://github.com/mattpocock/skills) 等外部源，与 PMSkill "产品经理需求→原型" 的定位无关，**不随主包发布**。需要时通过 `skills-lock.json` 按需拉取安装：
-
-`ask-matt`、`code-review`、`codebase-design`、`diagnosing-bugs`、`domain-modeling`、`grill-me`、`grill-with-docs`、`grilling`、`handoff`、`implement`、`improve-codebase-architecture`、`prototype`、`research`、`tdd`、`teach`、`to-issues`、`to-prd`、`triage`、`writing-great-skills`。
-
-> 上方"核心 Skill"统计（50 个）仅含 `skills/` 目录下的 `pm-*` 系列；本块不计入徽章数字。
-
 ### Visualization — 可视化
 
 | Skill | 调用方式 | 作用 |

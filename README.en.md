@@ -144,14 +144,6 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | `/pm-legal` | model-invoked | Product compliance docs (NDA / privacy policy / compliance gap analysis) |
 | `/pm-conflict-resolver` | model-invoked | Local annealing — on node failure, do minimal diff repair on error context + upstream node JSON only, no global PMContext rewrite |
 
-### Optional External Dependencies (not shipped with the main package)
-
-The following engineering skills come from external sources such as [mattpocock/skills](https://github.com/mattpocock/skills) and are unrelated to PMSkill's "PM requirement → prototype" scope. They are **not shipped with the main package**; install on demand via `skills-lock.json`:
-
-`ask-matt`, `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `implement`, `improve-codebase-architecture`, `prototype`, `research`, `tdd`, `teach`, `to-issues`, `to-prd`, `triage`, `writing-great-skills`.
-
-> The "core Skills" count above (50) includes only the `pm-*` series under `skills/`; this block is not counted in the badge.
-
 ### Visualization — Visualization
 
 | Skill | Invocation | Purpose |

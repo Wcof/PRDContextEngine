@@ -45,6 +45,7 @@ _Avoid_: 只写文档不协作的 PM、纯对接工程的 PM
 | `/pm-sketch` | model-invoked | 可被 pm-need --auto 编排 |
 | `/pm-aiprd` `/pm-humanprd` | model-invoked | 被 pm-prd 编排 |
 | `/pm-wireframe` `/pm-ia` `/pm-state` `/pm-flow` `/pm-journey` | model-invoked | 被 pm-sketch 编排 |
+| `/pm-conflict-resolver` | model-invoked | 被 pm-need 在节点失败时编排 |
 | 其余 pm-* | model-invoked | Agent 自主触发或人工显式调用 |
 
 调用规则：user-invoked 不可调用另一 user-invoked skill；user-invoked 可编排 model-invoked 子 skill。所有 user-invoked 技能支持 `--auto` 零确认。

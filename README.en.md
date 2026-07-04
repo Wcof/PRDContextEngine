@@ -142,6 +142,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 | Skill | Invocation | Purpose |
 |---|---|---|
 | `/pm-legal` | model-invoked | Product compliance docs (NDA / privacy policy / compliance gap analysis) |
+| `/pm-conflict-resolver` | model-invoked | Local annealing — on node failure, do minimal diff repair on error context + upstream node JSON only, no global PMContext rewrite |
 
 ### Optional External Dependencies (not shipped with the main package)
 

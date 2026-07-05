@@ -51,7 +51,7 @@ PMContext 中有竞品/市场、用户场景、边界条件、价值验证度量
 
 ### Step 1: 读取 PMContext 提取战略素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "竞品/市场" → SWOT O/T、Porter 五力、Ansoff 新市场判断
 - "用户场景"+"现状平替与摩擦力" → SWOT S/W、Lean Canvas Problem、Porter 替代品
 - "边界条件" → Porter 进入壁垒、Ansoff 约束、Lean Canvas Unfair Advantage

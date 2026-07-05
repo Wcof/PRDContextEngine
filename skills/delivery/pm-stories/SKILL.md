@@ -19,7 +19,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 
 ## Instructions
 
-- [ ] PMContext 已读取且非空（不存在则 STOP 提示运行 /pm-need）
+- [ ] PMContext 已读取且非空（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`，从 `<产物目录>/pm-context.md` 读；不存在则 STOP 提示运行 /pm-need）
 - [ ] "用户场景"维度已提取（用户角色 + 场景）
 - [ ] 各页面/功能"规则"已提取（作为故事业务逻辑）
 - [ ] 各页面/功能"验收"已提取（作为验收标准来源）
@@ -54,7 +54,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 
 ### Step 1: 读取 PMContext 提取故事素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景"维度 → 用户角色 + 场景
 - 各页面/功能"规则" → 故事业务逻辑
 - 各页面/功能"验收" → 验收标准来源
@@ -93,7 +93,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 
 ### Step 5: 写入产物
 
-写入 `docs/pm-context/stories.md`，格式：
+写入 `<产物目录>/stories.md`（默认 `docs/pm-context/stories.md`），格式：
 
 ```markdown
 # 用户故事
@@ -132,12 +132,19 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 ### US-2: ...
 ```
 
-**🔴 CHECKPOINT** — 输出产物路径 + 角色数 + 故事数 + 验收标准总数 + `[假设]` 项数。等待 PM 确认或自动进入下一步（`--auto` 模式）。
+### Step 6: 与草图产物对照差分（若 sketch 已存在）
+
+若 `<产物目录>/sketch/` 目录存在（即 pm-sketch 已先于本 skill 跑过），读取其产物清单（wireframe/ia/state/flow/prototype），在 stories.md 末尾追加"**与草图对照差分**"章节：
+- 列出 stories 中有但草图无对应页面的故事 → 标 `[待确认]` 提示 PM 补 PMContext 页面定义后重跑 sketch
+- 列出草图中有但 stories 无对应故事的页面 → 标 `[假设]` 提示 PM 补故事或确认该页面无独立故事价值
+- 双方都没有的孤立项不列入，只列单向差分
+
+**🔴 CHECKPOINT** — 输出产物路径 + 角色数 + 故事数 + 验收标准总数 + `[假设]` 项数 + 与草图差分项数。等待 PM 确认或自动进入下一步（`--auto` 模式）。
 
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/stories-step6.md`（故事追溯映射 + 审计三元组）
+- `docs/pm-context/.loop/stories-step6.md`（故事追溯映射 + 审计三元组 + 与草图差分结果）
 
 ## 关联增强
 
@@ -147,7 +154,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `docs/pm-context/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
+| `<产物目录>/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | PMContext 中"用户场景"维度为空 | **🔴 STOP**：输出"用户场景未精炼，先运行 `/pm-refine`" | 不臆造用户角色 |
 | 某功能在 PMContext 中无"验收"项 | 该功能故事验收标准标 `[假设]` 并提示 PM 补充 | 不阻塞，但故事顶部加 ⚠️ |
 | 故事不满足 INVEST 的 Independent | 拆分为更小故事，标注依赖关系 | 仍无法独立则合并为更大故事并说明 |

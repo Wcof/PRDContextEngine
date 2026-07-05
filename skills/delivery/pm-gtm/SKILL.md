@@ -55,7 +55,7 @@ PMContext 中有用户场景、竞品/市场、价值验证度量、边界条件
 
 ### Step 1: 读取 PMContext 提取 GTM 素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景" → ICP demographics/behaviors/JTBD
 - "竞品/市场" → Beachhead 可赢性、渠道空白
 - "价值验证度量" → GTM 成功度量

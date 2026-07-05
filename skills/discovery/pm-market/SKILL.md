@@ -52,7 +52,7 @@ PMContext 中有竞品/市场、用户场景、现状平替与摩擦力。本 sk
 
 ### Step 1: 读取 PMContext 提取市场素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "竞品/市场" → TAM 行业规模数据、竞品清单
 - "用户场景" → SAM 目标细分特征
 - "现状平替与摩擦力" → SOM 可获份额约束、替代品

@@ -51,7 +51,7 @@ PMContext 中有"价值验证度量"维度和用户场景。本 skill 提取这�
 
 ### Step 1: 读取 PMContext 提取度量素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量"维度 → NSM 候选
 - "用户场景"维度 → 业务游戏分类依据
 - "现状平替与摩擦力" → 度量基线参考

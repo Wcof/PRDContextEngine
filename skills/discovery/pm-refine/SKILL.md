@@ -56,7 +56,7 @@ Agent 对每个维度**先尝试从已有材料推断**：
 - [ ] 无来源的项自动标 [假设]
 - [ ] [冲突] 项保留双方不单方面裁决
 - [ ] 信息缺口清单完整记录所有 [待确认] 项
-- [ ] PMContext 落盘到 `docs/pm-context/pm-context.md`
+- [ ] PMContext 落盘到**配置块声明的产物目录下的 `pm-context.md`**（默认 `docs/pm-context/pm-context.md`，先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在则回退默认）
 
 ## Thinking Protocol
 
@@ -150,7 +150,7 @@ PM 可在任何时候退出追问模式：
 **落盘规则**：
 - 只写已确认项（PM 已回答的问题回填项）
 - 未问维度不写
-- 落盘路径：直接写入 `docs/pm-context/pm-context.md`
+- 落盘路径：直接写入**配置块声明的产物目录下的 `pm-context.md`**（默认 `docs/pm-context/pm-context.md`，先读 `## PMSkill` 块取 `产物目录`，块不存在则回退默认）
 
 ### 审计门（追问模式）
 
@@ -159,7 +159,7 @@ PM 可在任何时候退出追问模式：
 ```markdown
 ## 审计摘要
 
-**PMContext 已落盘：** `docs/pm-context/pm-context.md`
+**PMContext 已落盘：** `<产物目录>/pm-context.md`（默认 `docs/pm-context/pm-context.md`）
 
 ### 置信度分布
 | 类别 | 数量 | 占比 |
@@ -212,7 +212,7 @@ PM 未参与精炼过程，审计门**展示完整置信度**：
 ```markdown
 ## 审计摘要
 
-**PMContext 已落盘：** `docs/pm-context/pm-context.md`
+**PMContext 已落盘：** `<产物目录>/pm-context.md`（默认 `docs/pm-context/pm-context.md`）
 
 ### 置信度分布
 | 类别 | 数量 | 占比 |
@@ -310,7 +310,7 @@ Agent **必须**对每个维度尝试推断，不可跳过。**🔴 规则：若
 
 ## 产物
 
-沉淀为 `docs/pm-context/pm-context.md`，单文件自包含，按业务领域组织 heading。完整模板、标记规则、增量更新规则详见 [references/pm-context-template.md](references/pm-context-template.md)。
+沉淀为**配置块声明的产物目录下的 `pm-context.md`**（默认 `docs/pm-context/pm-context.md`，先读 `## PMSkill` 块取 `产物目录`，块不存在则回退默认），单文件自包含，按业务领域组织 heading。完整模板、标记规则、增量更新规则详见 [references/pm-context-template.md](references/pm-context-template.md)。
 
 ## 产出示例
 
@@ -380,9 +380,7 @@ PMContext 是活文档。若 `pm-context.md` 已存在，Agent 读现有 PMConte
 | 置信度 7 的推断不标 `[假设]` | 置信度 8 以下按规则必须标 `[假设]`，否则 PM 会误认为事实 |
 | 无来源的项不自动标 `[假设]` | 每项必须有来源。无来源=假设，这是追溯纪律的底线 |
 | 忽略来源标注使下游无法追溯 | ai-prd 和 human-prd 都依赖 PMContext 中的来源标记做追溯 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | 自主模式下自我追问 loop 落盘对话日志 | 违背 --auto 契约，PM 零介入后不应有对话原文可审 |
 
 ### Further Reading

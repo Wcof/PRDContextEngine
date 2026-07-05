@@ -6,4 +6,4 @@
 2. 每项标注四态之一：事实 / `[假设]` / `[待确认]` / `[冲突]`
 3. 置信度 < 8 一律标 `[假设]`；无来源的项自动标 `[假设]`
 4. --auto 模式 PM 零介入，未补全维度标 `[待确认]` 不臆造
-5. PMContext 落盘到 `docs/pm-context/pm-context.md`，单文件自包含
+5. PMContext 落盘到**配置块声明的产物目录下的 `pm-context.md`**（默认 `docs/pm-context/pm-context.md`，以 `## PMSkill` 块的 `产物目录` 项为准），单文件自包含

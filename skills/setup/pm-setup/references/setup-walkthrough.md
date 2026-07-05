@@ -31,8 +31,9 @@ Step 3: Confirm
   展示待写入的 ## PMSkill 块，用户确认
 
 Step 4: Write
-  编辑 CLAUDE.md，追加 ## PMSkill 块
+  编辑 CLAUDE.md，追加 ## PMSkill 块（含 setup 状态行）
   创建 docs/pm-context/ 目录
+  落 docs/pm-context/.pmskill-setup.stamp 凭据（YAML）
 ```
 
 ### 场景 B：CLAUDE.md 和 AGENTS.md 同时存在
@@ -68,11 +69,12 @@ Step 2: Ask
 - 领域术语：见 CONTEXT.md（若不存在，由 /pm-need 在首次澄清时沉淀）
 - 产物目录：docs/pm-context/
 - PMContext（唯一 Entity）：docs/pm-context/pm-context.md
-- 下游 View：PRD（`prd/ai-prd.md` / `prd/human-prd.md`）、草图（`sketch/*.md`）均从 PMContext 派生
+- 下游 View：PRD（`prd/ai-prd.md` / `prd/human-prd.md`）、用户故事（`stories.md`）、草图（`sketch/*.md`）均从 PMContext 派生
 - 风险标记：[待确认] / [假设] / [冲突] 写在正文里，无需独立检查报告
 - 知识库：无
 - 无 hook：/pm-collect 从对话上下文 + 项目扫描 + 知识库搜索收集，不拦截 Agent 会话
 - 语言：中文
+- setup 状态：未运行 PMContext（请先 `/pm-need <需求>`；本块由 /pm-setup 写入，pm-need 首次运行后会更新此行）
 ```
 
 ## 避坑提示
@@ -83,7 +85,7 @@ Step 2: Ask
 | 重复追加 PMSkill 块 | 已存在则原位更新，不追加重复块 |
 | 知识库路径不存在 | 当场提示，不写入错误路径 |
 | 产物目录在 gitignore 中 | 明示"PMSkill 产物不会进版本库"，问用户三选一 |
-| 运行多次 /pm-setup | 幂等：已存在的块覆盖更新，目录不重复创建 |
+| 运行多次 /pm-setup | 安全重运行：块覆盖更新，**用户手改内容会丢失**——二次 setup 前建议先备份块；stamp 覆盖时保留 pmcontext_exists 真值 |
 
 ## 延伸参考
 

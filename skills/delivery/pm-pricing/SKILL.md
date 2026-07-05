@@ -54,7 +54,7 @@ PMContext 中有竞品/市场、用户场景、价值验证度量、边界条件
 
 ### Step 1: 读取 PMContext 提取定价素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "竞品/市场" → 竞品定价锚点
 - "用户场景"+"价值验证度量" → WTP 价值依据
 - "边界条件" → 成本结构、合规约束

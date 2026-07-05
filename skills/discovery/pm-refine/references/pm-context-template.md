@@ -1,6 +1,6 @@
 # PMContext 产物模板
 
-`docs/pm-context/pm-context.md` 单文件自包含，按业务领域组织 heading。
+`<产物目录>/pm-context.md`（默认 `docs/pm-context/pm-context.md`，以 `## PMSkill` 块的 `产物目录` 项为准）单文件自包含，按业务领域组织 heading。
 
 ## 模板
 

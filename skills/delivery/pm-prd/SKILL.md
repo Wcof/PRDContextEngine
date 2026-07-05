@@ -19,7 +19,7 @@ PMContext 已沉淀了事实/假设/冲突/待确认的结构化上下文。PRD 
 
 ### 1. 读取 PMContext
 
-从 `docs/pm-context/pm-context.md` 读取。若不存在：
+先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`（块不存在回退默认 `docs/pm-context/`），从 `<产物目录>/pm-context.md` 读取。若不存在：
 - 有 `$ARGUMENTS` → 调用 `/pm-need $ARGUMENTS`，完成后回到本流程
 - 无 `$ARGUMENTS` → 🔴 STOP：输出"未找到 PMContext，先运行 `/pm-need <需求>`"
 
@@ -74,7 +74,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `docs/pm-context/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
+| `<产物目录>/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | PMContext 不存在但有 `$ARGUMENTS` | 自动调用 `/pm-need $ARGUMENTS` 生成 PMContext，结束后回到 PRD 生成 | pm-need 失败则 STOP 并提示失败原因 |
 | pm-aiprd 生成失败 | 单独输出 human-prd，标注 `ai-prd 生成失败: <原因>` | 不阻塞，提示用户单独重跑 `/pm-aiprd` |
 | pm-humanprd 生成失败 | 单独输出 ai-prd，标注 `human-prd 生成失败: <原因>` | 不阻塞，提示用户单独重跑 `/pm-humanprd` |
@@ -92,9 +92,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 | 在 human-prd 中塞 Agent Context | 人类读者看不懂技术细节 |
 | 自动模式不输出置信度分布 | PM 事后无法判断哪些部分需要复核 |
 | `--auto` 模式遇到子 skill 失败就全链路回滚 | 其他成功部分仍落盘，失败项单独标注 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 
 ## 产出示例 · 实战提示
 

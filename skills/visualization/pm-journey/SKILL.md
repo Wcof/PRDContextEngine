@@ -53,7 +53,7 @@ PMContext 中有用户场景定义、边界条件（异常路径）、现状平�
 
 ### Step 1: 读取 PMContext 提取旅程素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景"维度：谁在什么场景下用
 - "边界条件"中的异常路径 → 流失触发点
 - "现状平替与摩擦力" → 痛点
@@ -153,7 +153,7 @@ flowchart LR
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `docs/pm-context/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
+| `<产物目录>/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | PMContext 中"用户场景"维度为空 | **🔴 STOP**：输出"用户场景未精炼，先运行 `/pm-refine`" | 不臆造用户画像 |
 | 某阶段在 PMContext 中无对应素材 | 该阶段标 `[假设]` 并标注"需 PM 补充该阶段信息" | 不阻塞，但旅程图顶部加 ⚠️ |
 | 情绪无法从 PMContext 推断 | 标 `[假设]` 情绪并标注"需访谈验证" | 不阻塞，提示 PM 用 `/pm-interview` 验证 |

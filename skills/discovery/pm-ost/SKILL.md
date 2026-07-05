@@ -55,7 +55,7 @@ PMContext 中有用户场景、现状平替与摩擦力。本 skill 提取这些
 
 ### Step 1: 读取 PMContext 提取 OST 素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量"维度 → 期望结果
 - "用户场景" + "现状平替与摩擦力" → 机会
 - "边界条件" → 方案约束

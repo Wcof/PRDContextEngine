@@ -52,7 +52,7 @@ PMContext"用户场景"定义客户细分与价值主张；"价值验证度量"�
 
 ### Step 1: 读取 PMContext + 业务游戏分类
 
-读取 `docs/pm-context/pm-context.md`。按 PMContext 用户场景分类：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。按 PMContext 用户场景分类：
 
 | 游戏类型 | 判定 | NSM 方向 |
 |---------|------|---------|

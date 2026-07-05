@@ -49,7 +49,7 @@ description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态
 
 ### Step 1: 盘点 PMContext 状态
 
-读取 `docs/pm-context/pm-context.md`（若存在），提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）（若存在），提取：
 - 需求名和概述
 - 置信度分布（事实/[假设]/[待确认]/[冲突] 占比）
 - 信息缺口清单

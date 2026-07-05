@@ -53,7 +53,7 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 
 ### Step 1: 读取 PMContext 提取访谈素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景"维度：谁在什么场景下用？达到什么目的？
 - "现状平替与摩擦力"维度：用户目前用什么土办法？最痛苦的点？
 - "边界条件"中的异常场景

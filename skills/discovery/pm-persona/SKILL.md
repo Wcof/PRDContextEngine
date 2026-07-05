@@ -52,7 +52,7 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 
 ### Step 1: 读取 PMContext 提取 persona 素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景" → persona 的 behaviors + JTBD
 - "现状平替与摩擦力" → 未满足需求
 - "边界条件" → 反对意见/约束
@@ -120,7 +120,7 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `docs/pm-context/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
+| `<产物目录>/pm-context.md` 不存在 | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | PMContext "用户场景"为空 | **🔴 STOP**：输出"无用户场景，先运行 `/pm-collect` 补用户研究" | 不臆造 persona |
 | 反馈数据不足以提取引言 | 标 `[假设]` 引言，提示补访谈 | 不编造引言 |
 | persona 数 < 3 | 放宽聚类粒度重新分 | 仍不足则标 `[待确认]` 需补用户研究 |

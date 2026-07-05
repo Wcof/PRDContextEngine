@@ -19,7 +19,7 @@ description: 从 PMContext 构建干系人地图——Power×Interest 四象限�
 
 ## Instructions
 
-读取 `docs/pm-context/pm-context.md`。若不存在，提示先运行 `/pm-need`。
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。若不存在，提示先运行 `/pm-need`。
 
 - [ ] PMContext 已读取且非空
 - [ ] 干系人已从 PMContext 提取（决策者/审批方/依赖方/受影响方/反对者）
@@ -59,7 +59,7 @@ description: 从 PMContext 构建干系人地图——Power×Interest 四象限�
 
 ### 1. 读取 PMContext 提取干系人
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "规则" → 审批方/合规方（如"需法务审批"→法务）
 - "边界条件" → 决策者/签批方（如"预算上限"→财务/赞助人）
 - "用户场景" → 受影响方（如"现有用户迁移"→客服/运营）

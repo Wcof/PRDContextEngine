@@ -21,7 +21,7 @@ description: 主动深度扫描 URL、项目源码、git 历史、知识库和�
 - [ ] 项目深扫描完成（目录结构/git commits/TODO-FIXME/配置文件/docs/）
 - [ ] 知识库按需搜索（若已配置）
 - [ ] 四源材料按类型聚合为单 md 并去重，建立材料间关联
-- [ ] 整理后材料落盘到 `docs/pm-context/collect/`
+- [ ] 整理后材料落盘到**配置块声明的产物目录下的 `collect/`**（默认 `docs/pm-context/collect/`，先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认）
 
 ## Thinking Protocol
 
@@ -50,7 +50,7 @@ description: 主动深度扫描 URL、项目源码、git 历史、知识库和�
 
 ## 扫描 Pipeline
 
-按优先级顺序执行 4 个来源的扫描。每个来源扫描完成后立即写入对应章节到聚合材料中，但**暂不落盘**——待所有来源扫描完成后一次性写入 `docs/pm-context/collect/`。
+按优先级顺序执行 4 个来源的扫描。每个来源扫描完成后立即写入对应章节到聚合材料中，但**暂不落盘**——待所有来源扫描完成后一次性写入**配置块声明的产物目录下的 `collect/`**（默认 `docs/pm-context/collect/`）。
 
 ### 1. 对话上下文（最高优先级，最直接）
 
@@ -155,7 +155,7 @@ done
 - 矛盾的信息 → 标注 `矛盾：材料 A 说 X，材料 B 说 ¬X`
 - 关联关系是双向的——A 关联 B 同时 B 也关联 A
 
-输出到 `docs/pm-context/collect/` 目录，按材料类型聚合为一个 md 文件：
+输出到**配置块声明的产物目录下的 `collect/`**（默认 `docs/pm-context/collect/`）目录，按材料类型聚合为一个 md 文件：
 
 ```markdown
 # <类型名>（如：会议纪要、项目扫描发现、网页抓取）
@@ -183,10 +183,11 @@ done
 
 步骤 1（理解）产出完成后，写入中间工件：
 ```bash
-mkdir -p docs/pm-context/.loop/
+# 产物目录以 ## PMSkill 块的 `产物目录` 项为准（默认 docs/pm-context/）
+mkdir -p <产物目录>.loop/
 # 写入问题重构 + 四源材料聚合结果 + 材料间关联 + 审计三元组
 ```
-落盘路径：`docs/pm-context/.loop/collect-step1.md`
+落盘路径：`<产物目录>.loop/collect-step1.md`（默认 `docs/pm-context/.loop/collect-step1.md`）
 
 ## 完成信号
 
@@ -202,7 +203,7 @@ mkdir -p docs/pm-context/.loop/
 |---------|---------|-----------|
 | **🔴 STOP**：无任何收集输入（无 URL/无项目路径/无知识库/无对话上下文） | 提示 PM 至少提供一种输入源 | 不阻塞，提示后退出 |
 | **🔴 STOP**：所有源扫描后材料总量 < 3 条 | 🟡 WARNING + 🔴 CHECKPOINT 提示 PM 是否继续 | PM 选继续则进入 refine；选补充则等 PM 加材料 |
-| `docs/pm-context/collect/` 目录不存在 | 自动创建 | 不阻塞 |
+| `<产物目录>/collect/` 目录不存在 | 自动创建 | 不阻塞 |
 | URL 抓取失败（死链/超时/403） | 重试 1 次，仍失败则记入"抓取失败清单" | 不阻塞，标到信息缺口 |
 | 项目深扫描某子项失败（如非 git 仓库） | 跳过该子项，标注"非 git 仓库，跳过 git 元数据" | 不阻塞，继续其他子项 |
 | 知识库路径无效（pm-setup 配置的路径不存在） | 提示"知识库路径无效，跳过知识库扫描" | 不阻塞，标到信息缺口 |
@@ -222,9 +223,7 @@ mkdir -p docs/pm-context/.loop/
 | 忽略 git commit history | commit message 中蕴含了产品决策和演进 |
 | 扫描到 TODO/FIXME 但不标注其产品含义 | PM 需要知道这些标记对应的功能方向 |
 | 四源材料不去重导致 refine 重复推断 | 去重是 collect 的职责，重复材料增加 refine 成本 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 
 ## 产出示例 · 实战提示
 

@@ -54,7 +54,7 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 
 ### Step 1: 读取 PMContext 提取愿景素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量" → 愿景可实现性依据
 - "用户场景" → 愿景情感来源（用户渴望）
 - "边界条件" → 利益相关者约束（预算/合规/组织）

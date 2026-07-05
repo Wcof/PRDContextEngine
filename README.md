@@ -18,11 +18,12 @@ PMSkill 将产品经理在 Agent 中的核心工作流程封装为 50 个可调�
 ### 核心特性
 
 - **单一数据源**：PMContext 是唯一 Entity，PRD 与草图均为其下游 View，下游 Skill 读取一个文件即可获得全貌。
-- **全链路自动化**：一条命令完成 collect → refine → PRD → 原型，支持零确认 `--auto` 模式。
+- **全链路自动化**：一条命令完成 collect → refine → PRD → 用户故事 → 原型，支持零确认 `--auto` 模式。
 - **双形态 PRD**：面向 AI 的可执行 PRD（含 Agent Context）与面向人类的评审友好 PRD。
 - **技术栈感知**：HTML 原型根据项目实际技术栈自动适配，断网可预览。
 - **渐进披露**：Level 1/2/3 三层加载，按需引用，控制 Token 开销。
 - **可追溯性**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯。
+- **配置可循**：`/pm-setup` 落 `.pmskill-setup.stamp` 凭据，下游 Skill 读 `## PMSkill` 块取产物目录，块与 stamp 互校，不硬编码路径。
 
 ---
 
@@ -51,9 +52,10 @@ npx skills@latest add Wcof/PMSkill --all
 
 ```text
 /pm-need              # 收集材料 → refine 追问 → 审计门
-/pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 原型
+/pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 用户故事 → 原型
 /pm-prd               # 从 PMContext 生成 PRD（给 AI + 给人）
 /pm-prd --auto        # 零确认：直接出 PRD
+/pm-stories           # 从 PMContext 生成用户故事/功能清单（3C + INVEST）
 /pm-sketch            # 生成全部草图
 /pm-sketch --prototype # 生成草图 + HTML 可交互原型
 ```
@@ -69,10 +71,10 @@ npx skills@latest add Wcof/PMSkill --all
         │                                   │
   ┌─────┴─────┐                    ┌────────┴────────┐
   │           │                    │                 │
-/pm-prd  /pm-premortem       /pm-sketch      /pm-sketch --prototype
+/pm-prd  /pm-premortem       /pm-stories        /pm-sketch --prototype
   │           │                    │                 │
   ▼           ▼                    ▼                 ▼
-prd/*.md  premortem.md       sketch/*.md     prototype.html
+prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
 ```
 
 ---
@@ -83,7 +85,7 @@ prd/*.md  premortem.md       sketch/*.md     prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-setup` | user-invoked | 首次配置项目（产物目录 / 语言 / 知识库 / Agent 规则） |
+| `/pm-setup` | user-invoked | 首次配置项目（产物目录 / 语言 / 知识库 / Agent 规则），落 `.pmskill-setup.stamp` 凭据 |
 
 ### Discovery — 需求发现
 

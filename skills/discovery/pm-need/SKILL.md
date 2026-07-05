@@ -64,8 +64,8 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 | 编排步骤 1 | 调用 /pm-collect 承载步骤 1（理解） |
 | 编排步骤 2-4 | 调用 /pm-refine 承载步骤 2-4（建模/方案/权衡） |
 | 编排步骤 5 | --auto 模式下调用 /pm-premortem 承载步骤 5（风险） |
-| 编排步骤 6 | 调用 /pm-prd + /pm-sketch 承载步骤 6（交付） |
-| Wipe-on-Entry | 非 --incremental 入口调用时，自动清空 `docs/pm-context/.loop/` |
+| 编排步骤 6 | 调用 /pm-prd + /pm-stories + /pm-sketch 承载步骤 6（交付：PRD → 用户故事 → 草图） |
+| Wipe-on-Entry | 非 --incremental 入口调用时，自动清空**配置块声明的产物目录下的 `.loop/`**（默认 `docs/pm-context/.loop/`） |
 
 子 Skill 各自写入 `.loop/` 中间工件并执行 Thinking Protocol。本 Skill 不重复子 Skill 的产出约束。
 
@@ -76,6 +76,7 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 - `--auto` 模式下步骤 5（premortem）强制编入主链路
 - 正常模式下步骤 5 可在步骤 6 之后或独立调用
 - 任一子 Skill 失败不阻塞其他子 Skill，失败项单独标注
+- 调 `/pm-sketch` 时显式传 `--no-fallback`，防止 sketch 回链 need 形成递归（sketch 失败模式表已据此条件化回链）
 
 ## 流程
 
@@ -83,8 +84,9 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 
 若本次调用**不是** `--incremental` 模式：
 ```bash
-rm -rf docs/pm-context/.loop/
-mkdir -p docs/pm-context/.loop/
+# 产物目录以 ## PMSkill 块的 `产物目录` 项为准（默认 docs/pm-context/）
+rm -rf <产物目录>.loop/
+mkdir -p <产物目录>.loop/
 ```
 清空上一轮中间工件，开启干净的思考循环。
 
@@ -168,7 +170,7 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 ```markdown
 ## 审计摘要
 
-**PMContext 已落盘：** `docs/pm-context/pm-context.md`
+**PMContext 已落盘：** `<产物目录>/pm-context.md`（默认 `docs/pm-context/pm-context.md`）
 
 ### 置信度分布
 | 类别 | 数量 | 占比 |
@@ -190,7 +192,7 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 
 ### 下一步
 - **通过审计** → 调用 `/pm-prd` 生成 PRD
-- **零确认模式** → 自动进入 `/pm-prd --auto` → `/pm-sketch --prototype --auto`
+- **零确认模式** → 自动进入 `/pm-prd --auto` → `/pm-stories --auto` → `/pm-sketch --prototype --auto`
 - **补充材料** → 提供新材料后重新调用 `/pm-need`（增量更新）
 - **修改 PMContext** → 直接编辑 `pm-context.md`，然后调用 `/pm-prd`
 ```
@@ -203,8 +205,9 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 1. 输出简短审计摘要（1-2 行）
 2. 自动调用 `/pm-premortem` 生成风险分析（步骤 5 强制编入主链路）
 3. 自动调用 `/pm-prd --auto` 生成 PRD
-4. 自动调用 `/pm-sketch --prototype --auto` 生成全部草图 + HTML 原型
-5. 最终输出一站式报告（含风险摘要）：
+4. 自动调用 `/pm-stories --auto` 生成用户故事（功能清单）
+5. 自动调用 `/pm-sketch --prototype --auto` 生成全部草图 + HTML 原型
+6. 最终输出一站式报告（含风险摘要）：
 
 ## 产出示例 · 实战提示
 
@@ -218,14 +221,16 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 - refine: Z 个推断维度
 - premortem: N 个 Tiger / M 个 Paper Tiger / K 个 Elephant
 - PRD: ai-prd.md + human-prd.md
+- stories: N 个用户故事 + M 条验收标准
 - 原型: prototype.html + 4 个 Mermaid 草图
 
 ### 产出物
-- 📄 PMContext: docs/pm-context/pm-context.md
-- 📄 AI PRD: docs/pm-context/prd/ai-prd.md
-- 📄 Human PRD: docs/pm-context/prd/human-prd.md
-- 🎨 HTML 原型: docs/pm-context/sketch/prototype.html
-- 📊 Mermaid 草图: sketch/\*.md (wireframe/ia/state/flow)
+- 📄 PMContext: <产物目录>/pm-context.md（默认 docs/pm-context/pm-context.md）
+- 📄 AI PRD: <产物目录>/prd/ai-prd.md
+- 📄 Human PRD: <产物目录>/prd/human-prd.md
+- 📄 用户故事: <产物目录>/stories.md
+- 🎨 HTML 原型: <产物目录>/sketch/prototype.html
+- 📊 Mermaid 草图: <产物目录>/sketch/\*.md (wireframe/ia/state/flow)
 
 ### 置信度
 - 事实: X%
@@ -252,9 +257,10 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
 | `--auto` 模式下 collect 失败 | 不暂停，记录失败项到一站式报告的"失败清单" | refine 用已有材料继续，标到信息缺口 |
-| `--auto` 模式下 refine 失败 | 不暂停，输出"refine 失败: <原因>"，PMContext 用 collect 原材料兜底 | 不阻塞 PRD 生成，但 PRD 标注"基于未精炼材料" |
-| `--auto` 模式下 pm-prd 失败 | 不暂停，记录失败项，继续尝试 pm-sketch | 已生成 PMContext 仍落盘 |
-| `--auto` 模式下 pm-sketch 失败 | 不暂停，一站式报告中标注草图失败原因 | 已生成 PRD 仍落盘 |
+| `--auto` 模式下 refine 失败 | 不暂停，输出"refine 失败: <原因>"，PMContext 用 collect 原材料**兜底落盘为 `<产物目录>/pm-context.md`**（顶部标 `🔴 未精炼——refine 失败兜底`），下游 prd/sketch 读到此文件不会 STOP；不得只在内存兜底 | 不阻塞 PRD 生成，但 PRD 标注"基于未精炼材料" |
+| `--auto` 模式下 pm-prd 失败 | 不暂停，记录失败项，继续尝试 pm-stories/pm-sketch | 已生成 PMContext 仍落盘 |
+| `--auto` 模式下 pm-stories 失败 | 不暂停，记录失败项到一站式报告的"失败清单"，继续 pm-sketch | 已生成 PRD 仍落盘，stories 单独标注"未生成" |
+| `--auto` 模式下 pm-sketch 失败 | 不暂停，一站式报告中标注草图失败原因 | 已生成 PMContext/PRD/stories 仍落盘 |
 | `--incremental` 模式但 PMContext 不存在 | 退化为全新创建模式，提示"PMContext 不存在，改为全新创建" | 不阻塞 |
 | PMContext 已存在且未指定 `--incremental` | 先输出"PMContext 已存在，是否覆盖？覆盖将丢失历史推断" | 用户选否则退出；选是则全新走完流程 |
 | `$ARGUMENTS` 为空且无 PMContext | **🔴 STOP**：输出"请提供需求描述: `/pm-need <需求>`" | 不阻塞，提示后退出 |
@@ -270,9 +276,7 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | `--auto` 模式 refine 还逐维追问 PM | 违背零确认契约——--auto 就是让 PM 零介入 |
 | 零确认模式不输出置信度分布 | PM 事后无法判断哪些需复核 |
 | URL 抓取失败静默跳过 | 关键材料缺失导致 PMContext 质量下降 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | `--auto` 遇子 skill 失败就全链路回滚 | 已生成部分仍落盘，失败项单独标注 |
 | 🔴 高熵输入且无背景源时，禁止直接生成 PMContext JSON（避免带病执行导致后期大面积返工） | 高熵无背景源必须先举手，否则下游 PRD/草图基于带病 PMContext 大面积返工 |
 

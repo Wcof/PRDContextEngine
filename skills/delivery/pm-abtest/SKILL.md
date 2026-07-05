@@ -53,7 +53,7 @@ PMContext 中"价值验证度量"定义了实验应移动的指标与阈值；"�
 
 ### Step 1: 读取 PMContext 提取实验素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量" → 实验主指标（primary metric）+ 阈值
 - "边界条件" → guardrail 指标（revenue/engagement/latency 等）
 - "用户场景" → 实验人群定义

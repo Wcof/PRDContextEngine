@@ -50,7 +50,7 @@ PMContext 中有用户场景、摩擦力、价值验证度量、边界条件。�
 
 ### Step 1: 读取 PMContext 提取待排序项
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "用户场景"+"摩擦力" → 机会清单（默认排序对象）
 - "价值验证度量" → Impact/重要性 依据
 - "边界条件" → Effort/可行性 依据

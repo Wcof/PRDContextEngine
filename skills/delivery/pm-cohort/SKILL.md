@@ -54,7 +54,7 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 
 ### Step 1: 读取 PMContext 提取队列素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量" → 留存指标（7 日/30 日/周留存等）+ 阈值
 - "用户场景" → 队列划分维度候选（signup 时间/渠道/首次行为等）
 - "边界条件" → 功能采纳预期阈值

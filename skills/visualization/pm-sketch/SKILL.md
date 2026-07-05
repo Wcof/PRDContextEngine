@@ -25,7 +25,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ## Instructions
 
-读取 `docs/pm-context/pm-context.md`。若不存在：
+读取 `<产物目录>/pm-context.md`（先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。若不存在：
 - 如果有 `$ARGUMENTS` → 自动调用 `/pm-need $ARGUMENTS` 全链路后回到草图生成
 - 如果没有 → 🔴 STOP：提示先运行 `/pm-need`
 
@@ -83,7 +83,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ### 1. 读取 PMContext + 建立 Entity Dictionary
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`，提取：
 - 用户场景与目标
 - 所有页面/功能定义（事实、规则、验收）
 - 实体/关系定义
@@ -299,12 +299,17 @@ Scaffold 模式：
 
 `--prototype` 模式下，PRD Panel 注入的 PMContext 批注（事实/规则/验收/假设/待确认，含 `source` 原文段落供 D1 展开）与草图图元构成双向追溯：图元 → PMContext heading UUID → PRD Panel 同名锚点。D2 文档 overlay 提供文件树（业务依据 `docs/pm-context/` + 视觉依据 `docs/design/DESIGN.md` 分区显示）+ `<pre>` 原文渲染，供 PM 随时核对依据。DESIGN.md 与 PMContext 双源冲突标 `[冲突]` 不强行收敛。
 
+**与用户故事（stories.md）对照差分**：若 `<产物目录>/stories.md` 存在（即 pm-stories 已先于本 skill 跑过），读取其故事清单，在草图交付物清单中追加"**与 stories 对照差分**"行：
+- 列出 stories 中有但 PMContext 无对应页面定义的故事 → 标 `[待确认]` 提示 PM 补 PMContext 页面定义后重跑 sketch
+- 列出 sketch 中有但 stories 无对应故事的页面 → 标 `[假设]` 提示 PM 补故事或确认该页面无独立故事价值
+- 双方都没有的孤立项不列入，只列单向差分
+
 ## 失败模式
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `docs/pm-context/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
-| PMContext 不存在但有 `$ARGUMENTS` 或 `--auto` | 自动调用 `/pm-need --auto $ARGUMENTS` 生成 PMContext，结束后回到草图生成 | pm-need 失败则 STOP 并提示失败原因 |
+| `<产物目录>/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
+| PMContext 不存在但有 `$ARGUMENTS` 或 `--auto` | 自动调用 `/pm-need --auto $ARGUMENTS`（**仅当本次未被 pm-need 编排时**——即未收到 `--no-fallback` 标）生成 PMContext，结束后回到草图生成 | pm-need 失败则 STOP 并提示失败原因 |
 | PMContext 中无页面/实体定义 | 跳过 wireframe/ia，只生成 state/flow（若有规则线索）；顶部加 `⚠️ 跳过 N 个图：PMContext 缺页面/实体定义` | 不阻塞，记入信息缺口清单 |
 | 任一子 skill（pm-wireframe/ia/state/flow）失败 | 不阻塞其他子 skill，记录失败项到产物清单的"失败清单"章节 | 其他成功草图仍落盘 |
 | `--prototype` 模式下无法检测到技术栈（无代码、无 package.json、无依赖） | 简单模式：按新项目推荐 Vue3 + Vite + TypeScript；Scaffold 模式：固定 React + TS + Vite + Tailwind v4，不检测 | 简单模式使用 Plain HTML 兜底模板 |
@@ -329,9 +334,7 @@ Scaffold 模式：
 | 新项目不推荐技术栈 | PM 需要技术方向建议来评估可行性和资源 |
 | 草图嵌入 PRD 文件 | 草图是独立 View，不应嵌套 |
 | `--auto` 遇子 skill 失败就全链路回滚 | 其他成功部分仍落盘，失败项单独标注 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | Scaffold 模式生成后不运行验收即打 ✅ 标记完成 | 系统性撒谎——PM 拿到一个 `npm install` 都跑不起来的工程，毁信任 |
 | 简单模式超 280KB 不拆分不提示 | 体积门是质量底线，超限静默输出等于隐藏已知缺陷 |
 | Scaffold 模式没有 package.json / vite.config.ts 就输出 `.tsx` 文件 | 与工程脚手架承诺不符，用户拿到的是不可运行的碎片 |

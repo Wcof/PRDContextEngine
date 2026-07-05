@@ -56,7 +56,7 @@ output-focused roadmap 制造虚假精确，让团队围绕功能而非成果对
 
 ### Step 1: 读取 PMContext 与原始 roadmap
 
-读取 `docs/pm-context/pm-context.md` + 用户提供的原始 roadmap（功能清单）。
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`） + 用户提供的原始 roadmap（功能清单）。
 
 若 PMContext 不存在 → **🔴 STOP**：提示先运行 `/pm-need`。
 若用户未提供原始 roadmap → 提示提供，不臆造功能清单。

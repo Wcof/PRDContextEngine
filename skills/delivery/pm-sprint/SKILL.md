@@ -53,7 +53,7 @@ PMContext 衍生的 pm-stories 产物是 backlog 来源；pm-prioritize 产物�
 
 ### Step 1: 读取 PMContext 与产物
 
-读取 `docs/pm-context/pm-context.md` + `pm-stories` 产物（backlog）+ `pm-prioritize` 产物（优先级）。
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`） + `pm-stories` 产物（backlog）+ `pm-prioritize` 产物（优先级）。
 
 若 PMContext 不存在 → **🔴 STOP**：提示先运行 `/pm-need`。
 若 pm-stories 产物不存在 → 提示先运行 `/pm-stories`。

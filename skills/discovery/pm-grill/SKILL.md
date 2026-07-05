@@ -53,7 +53,7 @@ PMContext 是被审对象。本 skill 是 PMContext 的质量门，不产出新 
 
 ### Step 1: 读取 PMContext 提取承重假设
 
-读取 `docs/pm-context/pm-context.md`，列出它断言为真的一切（关于用户/市场/约束/机制/时间线/度量）。分离**承重假设**（若假则计划死）与装饰性假设。只攻击承重假设。
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），列出它断言为真的一切（关于用户/市场/约束/机制/时间线/度量）。分离**承重假设**（若假则计划死）与装饰性假设。只攻击承重假设。
 
 若 PMContext 不存在 → **🔴 STOP**：提示先运行 `/pm-need`。
 

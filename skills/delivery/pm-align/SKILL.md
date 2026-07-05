@@ -52,7 +52,7 @@ PMContext + `docs/pm-context/prd/ai-prd.md`（AI PRD 含可执行规则+验收�
 
 ### Step 1: 提取文档化意图
 
-读取 `docs/pm-context/pm-context.md` + `docs/pm-context/prd/ai-prd.md`，列出"文档化意图"清单：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`） + `<产物目录>/prd/ai-prd.md`，列出"文档化意图"清单：
 
 | 意图ID | 类型 | 内容 | 来源 |
 |---|---|---|---|

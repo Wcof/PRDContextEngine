@@ -59,7 +59,7 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 
 ### Step 1: 读取 PMContext + 确认目标竞品
 
-读取 `docs/pm-context/pm-context.md`，从"竞品/市场"层选目标竞品（或用户指定）。
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），从"竞品/市场"层选目标竞品（或用户指定）。
 
 若 PMContext 不存在 → **🔴 STOP**：提示先运行 `/pm-need`。
 

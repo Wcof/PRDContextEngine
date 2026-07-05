@@ -129,22 +129,38 @@ The block:
 - 知识库：<用户指定路径，或"无">
 - 无 hook：/pm-collect 从对话上下文 + 项目扫描 + 知识库搜索收集，不拦截 Agent 会话
 - 语言：<用户选择>
+- setup 状态：未运行 PMContext（请先 `/pm-need <需求>`；本块由 /pm-setup 写入，pm-need 首次运行后会更新此行）
 ```
 
 创建产物目录（若不存在）：
 
-- `docs/pm-context/` — 空目录即可，`/pm-need` 首次运行时创建 `pm-context.md`
+- `docs/pm-context/` — 穁目录即可，`/pm-need` 首次运行时创建 `pm-context.md`
+
+落 stamp 凭据（机器可读，供下游 Agent 与本块互校）：
+
+- 路径：`<产物目录>/.pmskill-setup.stamp`
+- 格式 YAML：
+```yaml
+setup_time: <ISO8601 本地时间>
+product_dir: <产物目录>
+language: <用户选择>
+agent_rules_file: <CLAUDE.md 或 AGENTS.md>
+kb: <用户指定路径，或"无">
+pmcontext_exists: false
+```
+stamp 一经落盘即 Frozen，仅 /pm-need 首次成功生成 PMContext 后更新 `pmcontext_exists: true`；二次 /pm-setup 覆盖更新 stamp 时保留 pmcontext_exists 真值。
 
 ### 5. Done
 
 Tell the user setup is complete and which PMSkill commands will now read from this config:
 
-- `/pm-need` → 写入 `docs/pm-context/pm-context.md`
-- `/pm-prd` → 从 PMContext 生成 `prd/ai-prd.md` / `prd/human-prd.md`
-- `/pm-sketch` → 从 PMContext 生成 `sketch/*.md`（wireframe/ia/state/flow）+ HTML 原型（`--prototype`）
-- 零确认模式：`/pm-need <需求描述> --auto` 可一键全自动完成收集 → PMContext → PRD → 原型
+- `/pm-need` → 写入 `<产物目录>/pm-context.md`
+- `/pm-prd` → 从 PMContext 生成 `<产物目录>/prd/ai-prd.md` / `<产物目录>/prd/human-prd.md`
+- `/pm-stories` → 从 PMContext 生成 `<产物目录>/stories.md`（用户故事/功能清单）
+- `/pm-sketch` → 从 PMContext 生成 `<产物目录>/sketch/*.md`（wireframe/ia/state/flow）+ HTML 原型（`--prototype`）
+- 零确认模式：`/pm-need <需求描述> --auto` 可一键全自动完成收集 → PMContext → PRD → 用户故事 → 原型
 
-Mention they can edit the `## PMSkill` block directly later — re-running `/pm-setup` is only necessary if they want to switch产物目录、改语言、或换 Agent 规则落点。
+Mention they can edit the `## PMSkill` block directly later — re-running `/pm-setup` is only necessary if they want to switch产物目录、改语言、或换 Agent 规则落点。已落 stamp 凭据 `<产物目录>/.pmskill-setup.stamp`，下游 Agent 与本块互校用。
 
 ## 失败模式
 
@@ -156,6 +172,7 @@ Mention they can edit the `## PMSkill` block directly later — re-running `/pm-
 | 用户指定知识库路径不存在 | 当场提示"路径不存在"，要求重新输入或跳过 | 不写入错误路径，跳过知识库配置 |
 | 用户指定产物目录在 gitignore 中（如 `docs/`） | 明示"该目录会被 git 忽略，PMSkill 产物不会进版本库" | 问用户接受现状 / 改路径 / 改 gitignore 三选一 |
 | 产物目录已存在且含旧 PMContext | 不覆盖，提示"已有 PMSkill 产物，是否复用？" | 复用则跳过目录创建；不复用则备份后重建 |
+| stamp 文件已存在且 `pmcontext_exists: true` | 二次 /pm-setup 覆盖 stamp 时保留 `pmcontext_exists: true` 真值，仅更新 setup_time 与配置项 | 不臆改已生成 PMContext 状态 |
 | Agent 类型无法从会话环境推断 | 问用户当前 Agent 类型（Claude Code/Codex/Trae） | 不臆造，落点改为问用户选择 CLAUDE.md 或 AGENTS.md |
 | 用户中途放弃（连续 3 次无回应） | 保存已收集配置到 `.pmskill-setup.tmp`，提示"可下次 `/pm-setup --resume` 继续" | 不写入部分配置到 Agent 文件 |
 
@@ -168,9 +185,7 @@ Mention they can edit the `## PMSkill` block directly later — re-running `/pm-
 | 重复注册 PMSkill 块 | 已存在则覆盖更新而非追加 |
 | 预判模板偏好 | pm-setup 只配置目录/语言/知识库路径 |
 | 注册 hook | /pm-collect 从对话+扫描+知识库收集，不需要拦截 |
-| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度，判定为 Failure |
-| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑，判定为 Failure |
-| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 |
+| 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 
 ## 产出示例 · 实战提示
 

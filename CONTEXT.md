@@ -39,9 +39,10 @@ _Avoid_: 只写文档不协作的 PM、纯对接工程的 PM
 
 | Skill | 调用方式 | 可被编排 |
 |---|---|---|
-| `/pm-need` | user-invoked | —（人类入口，编排下游 pm-prd/pm-sketch/pm-premortem） |
+| `/pm-need` | user-invoked | —（人类入口，编排下游 pm-prd/pm-stories/pm-sketch/pm-premortem） |
 | `/pm-setup` | user-invoked | —（首次配置，独立运行） |
 | `/pm-prd` | model-invoked | 可被 pm-need --auto 编排 |
+| `/pm-stories` | model-invoked | 可被 pm-need --auto 编排（在 pm-prd 之后、pm-sketch 之前） |
 | `/pm-sketch` | model-invoked | 可被 pm-need --auto 编排 |
 | `/pm-aiprd` `/pm-humanprd` | model-invoked | 被 pm-prd 编排 |
 | `/pm-wireframe` `/pm-ia` `/pm-state` `/pm-flow` `/pm-journey` | model-invoked | 被 pm-sketch 编排 |
@@ -155,5 +156,16 @@ docs/pm-context/sketch/prototype/
 |--------|------------|
 | Scaffold 模式生成后不运行验收即打 ✅ 标记完成 | 系统性撒谎——PM 拿到一个 npm install 都跑不起来的工程 |
 | 简单模式超 280KB 不拆分不提示 | 体积门是质量底线，超限静默输出等于隐藏缺陷 |
-
 ```
+
+## 审计三元组反模式（共享定义）
+
+下列三条反模式在所有 PMSkill 的"不要做什么"表中统一引用本节，不重复展开：
+
+| 反模式 | 为什么不要做 | 判定 |
+|--------|------------|------|
+| 审计三元组转换操作写"将 A 转换为 A'" | 同义反复，无推理密度 | Failure |
+| 审计三元组转换操作写"基于上述依据产出" | 空话，未阐明具体推导逻辑 | Failure |
+| 审计三元组转换操作写"经过分析得到" | 空话，必须写明是同义词推导/多对多实体映射/边界隔离分析之一 | Failure |
+
+各 skill 反例表中该三条统一改为"审计三元组反模式——见 CONTEXT.md『审计三元组反模式（共享定义）』"。

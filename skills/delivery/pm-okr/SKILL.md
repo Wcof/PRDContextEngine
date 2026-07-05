@@ -53,7 +53,7 @@ PMContext 中"价值验证度量"定义了可测指标与阈值（KR 候选来�
 
 ### Step 1: 读取 PMContext 提取 OKR 素材
 
-读取 `docs/pm-context/pm-context.md`，提取：
+读取 `<产物目录>/pm-context.md`（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`），提取：
 - "价值验证度量" → KR 候选指标 + 阈值
 - "用户场景" → Objective 方向（为谁解决什么）
 - "全局约束" → 时间窗（季度）+ 资源边界

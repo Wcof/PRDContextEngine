@@ -96,6 +96,9 @@ mkdir -p <产物目录>.loop/
 
 🔴 CHECKPOINT：生成任何 PMContext JSON 之前，先对输入需求做熵检。
 
+**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在，读取其 `pmcontext_exists` 字段——为 `true` 且本次非 `--incremental` 时提示"已有 PMContext，是否覆盖？"；为 `false` 或 stamp 缺失则继续。stamp 与 `## PMSkill` 块的 setup 状态行互校，不一致时以 stamp 为准（机器可读优先）。
+
+
 **高熵判定**（命中任意一条即为高熵）：
 - 需求描述 < 20 tokens
 - 缺少「用户 / 场景 / 目标」三要素中任意一个
@@ -208,6 +211,7 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 4. 自动调用 `/pm-stories --auto` 生成用户故事（功能清单）
 5. 自动调用 `/pm-sketch --prototype --auto` 生成全部草图 + HTML 原型
 6. 最终输出一站式报告（含风险摘要）：
+7. **回更新 setup 凭据**：PMContext 成功落盘后，回更新 `<产物目录>/.pmskill-setup.stamp` 的 `pmcontext_exists: true`（若 stamp 缺失则跳过，setup 块为准）；同时把 Agent 规则文件中 `## PMSkill` 块的 setup 状态行从"未运行 PMContext"改为"已生成 PMContext（<时间>）"——stamp 与块同步，下游互校不脱节
 
 ## 产出示例 · 实战提示
 

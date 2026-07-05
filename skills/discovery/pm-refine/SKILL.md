@@ -57,6 +57,7 @@ Agent 对每个维度**先尝试从已有材料推断**：
 - [ ] [冲突] 项保留双方不单方面裁决
 - [ ] 信息缺口清单完整记录所有 [待确认] 项
 - [ ] PMContext 落盘到**配置块声明的产物目录下的 `pm-context.md`**（默认 `docs/pm-context/pm-context.md`，先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在则回退默认）
+- [ ] **stamp 互校**：落盘后回更新 `<产物目录>/.pmskill-setup.stamp` 的 `pmcontext_exists: true`（若 stamp 缺失则不创建，setup 块为准）
 
 ## Thinking Protocol
 

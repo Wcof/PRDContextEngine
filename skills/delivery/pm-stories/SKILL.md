@@ -20,6 +20,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 ## Instructions
 
 - [ ] PMContext 已读取且非空（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`，从 `<产物目录>/pm-context.md` 读；不存在则 STOP 提示运行 /pm-need）
+- [ ] **stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准"
 - [ ] "用户场景"维度已提取（用户角色 + 场景）
 - [ ] 各页面/功能"规则"已提取（作为故事业务逻辑）
 - [ ] 各页面/功能"验收"已提取（作为验收标准来源）

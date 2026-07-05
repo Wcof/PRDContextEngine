@@ -19,7 +19,7 @@ PMContext 已沉淀了事实/假设/冲突/待确认的结构化上下文。PRD 
 
 ### 1. 读取 PMContext
 
-先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`（块不存在回退默认 `docs/pm-context/`），从 `<产物目录>/pm-context.md` 读取。若不存在：
+先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`（块不存在回退默认 `docs/pm-context/`），从 `<产物目录>/pm-context.md` 读取。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准，建议重跑 setup 更新 stamp"。若不存在：
 - 有 `$ARGUMENTS` → 调用 `/pm-need $ARGUMENTS`，完成后回到本流程
 - 无 `$ARGUMENTS` → 🔴 STOP：输出"未找到 PMContext，先运行 `/pm-need <需求>`"
 

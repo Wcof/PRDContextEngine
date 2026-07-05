@@ -25,7 +25,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ## Instructions
 
-读取 `<产物目录>/pm-context.md`（先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。若不存在：
+读取 `<产物目录>/pm-context.md`（先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准"。若不存在：
 - 如果有 `$ARGUMENTS` → 自动调用 `/pm-need $ARGUMENTS` 全链路后回到草图生成
 - 如果没有 → 🔴 STOP：提示先运行 `/pm-need`
 

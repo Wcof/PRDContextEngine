@@ -1,6 +1,8 @@
 ---
 name: pm-pricing
 description: 从 PMContext 生成定价与变现策略——定价模型选择（订阅/买断/用量/免费增值/Freemium）+ 竞品定价矩阵 + 支付意愿估算（Van Westendorp 四问）+ 价格弹性 + 3-5 变现方案（受众匹配/风险/验证实验）。Use when the user asks for pricing or monetization strategy, mentions 定价、pricing、变现、支付意愿、WTP、价格弹性.
+metadata:
+  internal: true
 ---
 
 # /pm-pricing

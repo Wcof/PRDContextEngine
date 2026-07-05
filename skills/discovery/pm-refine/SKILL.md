@@ -1,6 +1,8 @@
 ---
 name: pm-refine
 description: 对已收集材料精炼澄清，区分事实/假设/冲突/待确认并标记置信度，沉淀成 PMContext 单文件。**追问模式（默认）**：逐维向 PM 提问确认，每问附三段式推荐答案。**自主推断模式（--auto）**：Agent 自主推断，PM 零介入。Use when materials exist and need clarification, or the user wants to sharpen requirements, mentions 推断、refine、澄清、需求梳理、8 维推断、结构化、PMContext、置信度、信息缺口.
+metadata:
+  internal: true
 ---
 
 # /pm-refine

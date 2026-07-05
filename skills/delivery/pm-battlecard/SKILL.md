@@ -1,6 +1,8 @@
 ---
 name: pm-battlecard
 description: 从 PMContext 与竞品调研生成销售就绪竞品作战卡——公司概览+快速对比表+我方优势+对方优势+异议处理+地雷问题+赢/输模式，每对比项附 PMContext 追溯。Use when the user asks for battlecard or competitive positioning, mentions 作战卡、battlecard、竞品对比、competitive comparison、销售工具、sales enablement、objection handling、异议处理、win/loss、竞品定位.
+metadata:
+  internal: true
 ---
 
 # /pm-battlecard

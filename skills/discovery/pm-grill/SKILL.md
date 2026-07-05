@@ -1,6 +1,8 @@
 ---
 name: pm-grill
 description: 对 PMContext 做 relentless 质询压力测试——红队攻击承重假设（steelman-then-attack 三段式：先述最强版本再攻击）+ 八维置信度盘问 + 用户/市场/可行性/度量四面逼问，产出致命缺口清单与最便宜证伪测试。Use when the user asks to stress-test or pressure-test PMContext, mentions 质询、压力测试、红队、red team、grill、盘问、挑刺、stress test、challenge assumptions、攻击假设、承重假设、kill criteria、最便宜测试、steelman.
+metadata:
+  internal: true
 ---
 
 # /pm-grill

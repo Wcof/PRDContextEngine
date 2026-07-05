@@ -66,8 +66,8 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ```
 /pm-sketch                         → 正常模式：出全部四种 Mermaid 草图，停在审计门
-/pm-sketch --prototype             → HTML 可交互原型（自动判断简单/Scaffold 模式）
-/pm-sketch --prototype --simple    → 强制简单模式（CDN 单 HTML < 280KB）
+/pm-sketch --prototype             → HTML 可交互原型（自动判断简单/Scaffold 模式；Step -0.5 命中前端框架声明时硬触发 Scaffold）
+/pm-sketch --prototype --simple    → 强制简单模式（CDN 单 HTML < 280KB）——**仅当 PMContext §8 无前端框架声明时有效**；§8 含 Vue/React/Next/Nuxt/Svelte/Angular/Electron 或 Vite+TypeScript 时此 flag 视为无效，仍走 Scaffold（防 Agent 自降级）
 /pm-sketch --prototype --scaffold  → 强制 Scaffold 模式（React + TS + Vite + Tailwind v4 工程）
 /pm-sketch --prototype --dark      → 暗色主题（覆盖 prefers-color-scheme 检测，仅 --prototype 模式下有效）
 /pm-sketch --prototype --design <path> → 指定 DESIGN.md 路径（视觉事实源，默认扫描 docs/design/DESIGN.md）
@@ -130,6 +130,22 @@ Run 四个子 Skill（按依赖顺序）：
 
 - **简单模式 (Simple / CDN 模式)**：单 HTML，CDN 引框架，L3 交互，< 280KB。输出 `docs/pm-context/sketch/prototype.html`
 - **Scaffold 模式**：可运行前端工程脚手架（React + TS + Vite + Tailwind v4），L4 交互，无体积上限，纯前端 mock。输出 `docs/pm-context/sketch/prototype/`
+
+**Step -0.5：PMContext §8 技术栈硬门（--prototype 模式专用，先于 Step -1 跑）**
+
+扫描 PMContext §8（技术栈段）全文，匹配前端框架声明清单：
+
+| 信号（命中任一即硬触发 Scaffold） | 说明 |
+|---|---|
+| `Vue` / `React` / `Next` / `Nuxt` / `Svelte` / `Angular` / `Electron`（单独出现即触发） | 前端框架名，工程化诉求明确 |
+| `Vite` + `TypeScript` 同时出现 | 工程化构建链组合信号 |
+
+**不触发的样式工具**（单独出现不触发）：`Tailwind` `UnoCSS` `Less` `Sass`——它们 CDN 也能用，不构成工程化诉求。
+
+**硬门规则**：
+- 命中任一信号 → **强制 Scaffold 模式**，跳过 Step -1 的简单信号判断；`--simple` flag 视为无效，仍走 Scaffold（防 Agent 自降级——AiGateway 事故根因）
+- 未命中 → 进 Step -1 正常复杂度判断
+- 输出：`✅ 技术栈硬门: 命中 <信号列表> → 强制 Scaffold | 未命中 → 进 Step -1`
 
 **Step -1：复杂度判断（--prototype 模式专用）**
 
@@ -335,6 +351,7 @@ Scaffold 模式：
 | 草图嵌入 PRD 文件 | 草图是独立 View，不应嵌套 |
 | `--auto` 遇子 skill 失败就全链路回滚 | 其他成功部分仍落盘，失败项单独标注 |
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
+| PMContext §8 含前端框架声明（Vue/React/Next/Nuxt/Svelte/Angular/Electron，或 Vite+TypeScript）时降级到简单模式 | Agent 偷懒自降级——AiGateway 事故就是此失守，PMContext 明写 Vue 3+Vite 却产出 HTML 壳子；Step -0.5 硬门兜底，`--simple` flag 此场景视为无效 |
 | Scaffold 模式生成后不运行验收即打 ✅ 标记完成 | 系统性撒谎——PM 拿到一个 `npm install` 都跑不起来的工程，毁信任 |
 | 简单模式超 280KB 不拆分不提示 | 体积门是质量底线，超限静默输出等于隐藏已知缺陷 |
 | Scaffold 模式没有 package.json / vite.config.ts 就输出 `.tsx` 文件 | 与工程脚手架承诺不符，用户拿到的是不可运行的碎片 |

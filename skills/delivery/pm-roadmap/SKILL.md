@@ -1,6 +1,10 @@
 ---
 name: pm-roadmap
 description: 从 PMContext 把 output-focused roadmap（功能清单）转成 outcome-focused roadmap（客户+业务成果）——每 initiative 重写为"Enable [segment] to [customer outcome] so that [business impact]"格式 + 关键度量 + 依赖排序，每 outcome 附 PMContext 追溯。Use when the user asks for roadmap or outcome transformation, mentions roadmap、路线图、outcome roadmap、成果导向、outcome-focused、output to outcome、战略路线图、strategic roadmap、initiative transformation.
+metadata:
+  internal: true
+metadata:
+  internal: true
 ---
 
 # /pm-roadmap

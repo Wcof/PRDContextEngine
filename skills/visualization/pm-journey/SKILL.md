@@ -1,6 +1,8 @@
 ---
 name: pm-journey
 description: 从 PMContext 生成客户旅程地图——Mermaid 图表达七阶段（认知→拥护）+ 每阶段触点/行为/情绪/痛点/机会，标注 Aha 时刻/关键时刻/流失触发点。Use when the user asks for customer journey or user journey, mentions 客户旅程、journey map、用户旅程、体验地图、touchpoint、触点、情绪曲线、onboarding 痛点、流失点、aha moment.
+metadata:
+  internal: true
 ---
 
 # /pm-journey

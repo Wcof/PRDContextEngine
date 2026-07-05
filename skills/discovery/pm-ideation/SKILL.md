@@ -1,6 +1,8 @@
 ---
 name: pm-ideation
 description: 从 PMContext 按新旧场景 brainstorm 假设与实验方案——现有产品新方案（optimize）vs 新产品新方案（explore）+ 每方案给最便宜验证 + 联动 pm-assumption/pm-experiment。Use when the user asks for brainstorm or ideation, mentions 头脑风暴、brainstorm、ideation、创意、实验方案、experiment ideas、新旧场景、optimize vs explore、方案发散.
+metadata:
+  internal: true
 ---
 
 # /pm-ideation

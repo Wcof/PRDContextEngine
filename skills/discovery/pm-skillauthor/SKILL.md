@@ -1,6 +1,8 @@
 ---
 name: pm-skillauthor
 description: 用 TDD 范式（RED-GREEN-REFACTOR）为 PMSkill 写新 skill——先跑 baseline 看 agent 不带 skill 怎么错的（RED）→ 写 SKILL.md（GREEN）→ 闭漏洞（REFACTOR），符合 Anthropic skill 规范。Use when the user asks to write or create a new skill, mentions 写 skill、create skill、author skill、新 skill、skill 编写、TDD for skills、RED GREEN REFACTOR、skill development.
+metadata:
+  internal: true
 ---
 
 # /pm-skillauthor

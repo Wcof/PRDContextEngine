@@ -1,6 +1,8 @@
 ---
 name: pm-legal
 description: 从 PMContext 生成产品合规文档——NDA 保密协议模板（双方/单方/交互式三选一）+ 隐私政策纲要（数据采集/处理/跨境/GDPR/CCPA/个保法）+ 合规差距分析（产品特征→适用法规→合规行动），每条款标注需法务审查。Use when the user asks for legal docs or compliance, mentions NDA、保密协议、隐私政策、合规、compliance、法务审查.
+metadata:
+  internal: true
 ---
 
 # /pm-legal

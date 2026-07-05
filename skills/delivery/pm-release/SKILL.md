@@ -1,6 +1,8 @@
 ---
 name: pm-release
 description: 从 PMContext 与产物生成发布包——用户向发布说明（按新功能/改进/修复分类）+ 测试场景（从用户故事导出，含目标/起始条件/角色/步骤/预期）+ WWA 格式 backlog（Why-What-Acceptance，独立/有价值/可测）+ 发布就绪 Gate Function 验证（evidence-before-assertions，4 项新鲜证据）。Use when the user asks for release notes or test scenarios or backlog, mentions 发布说明、release notes、测试场景、WWA、backlog、发布就绪.
+metadata:
+  internal: true
 ---
 
 # /pm-release

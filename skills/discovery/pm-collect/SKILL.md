@@ -1,6 +1,8 @@
 ---
 name: pm-collect
 description: 主动深度扫描 URL、项目源码、git 历史、知识库和对话上下文，收集材料按类型聚合去重落盘，只整理不改写。Use when materials are needed before refining, or the user mentions 收集材料、collect feedback、扫描项目、调研、meeting notes、raw context、竞品分析、用户反馈、抓取 URL.
+metadata:
+  internal: true
 ---
 
 # /pm-collect

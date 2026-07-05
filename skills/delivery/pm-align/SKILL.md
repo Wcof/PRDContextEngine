@@ -1,6 +1,8 @@
 ---
 name: pm-align
 description: 审计已实现代码与 PMContext/AI PRD 的意图差距——定义"文档化意图"与"实现证据"，逐项比对找出 generic scanner 漏掉的意图-实现 gap，按影响分级，每 gap 给修复建议与验证方式。Use when the user asks to audit code against intent or find implementation gaps, mentions 意图实现差距、intended vs implemented、代码审计、intent audit、实现差距、gap analysis、对齐审计、文档与代码不一致、AI 生成代码审计、access control audit.
+metadata:
+  internal: true
 ---
 
 # /pm-align

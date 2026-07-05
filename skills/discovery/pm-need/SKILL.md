@@ -32,8 +32,12 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 /pm-need <需求描述> --auto             → 零确认模式：collect → refine → PRD → 原型，不暂停
 /pm-need --collect-only                → 只收集，不精炼（debug 用）
 /pm-need --refine-only                 → 只精炼，不收集（已有材料时用）
-/pm-need --incremental                 → 增量更新已有 PMContext
 ```
+
+**入口自动判 0→1 vs 增量**（无 flag，扫产物目录）：
+- `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**（全新 collect → refine → 落盘）
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**（扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段 Frozen 不动；合并走 `/pm-conflict-resolver` 内联调）
+- `$ARGUMENTS` 显式指了具体段（如 `--update §8` 或 `--update GAP-01`）→ **定点增量**（仅重跑指定段）
 
 `$ARGUMENTS` 为 PM 的需求描述，可包含：
 - 一句话需求（如"我需要做个大屏"）
@@ -65,7 +69,7 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 | 编排步骤 2-4 | 调用 /pm-refine 承载步骤 2-4（建模/方案/权衡） |
 | 编排步骤 5 | --auto 模式下调用 /pm-premortem 承载步骤 5（风险） |
 | 编排步骤 6 | 调用 /pm-prd + /pm-stories + /pm-sketch 承载步骤 6（交付：PRD → 用户故事 → 草图） |
-| Wipe-on-Entry | 非 --incremental 入口调用时，自动清空**配置块声明的产物目录下的 `.loop/`**（默认 `docs/pm-context/.loop/`） |
+| Wipe-on-Entry | **0→1 全链路**模式（PMContext 不存在或为空）调用时，自动清空**配置块声明的产物目录下的 `.loop/`**（默认 `docs/pm-context/.loop/`）；**增量模式**跳过 Wipe，保留 `.loop/` 供差分推断消费 |
 
 子 Skill 各自写入 `.loop/` 中间工件并执行 Thinking Protocol。本 Skill 不重复子 Skill 的产出约束。
 
@@ -80,9 +84,14 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 
 ## 流程
 
-### 0. Wipe-on-Entry（非 --incremental）
+### 0. 入口模式自判 + Wipe-on-Entry
 
-若本次调用**不是** `--incremental` 模式：
+**自动判 0→1 vs 增量**（无 flag，扫产物目录）：
+- `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**：执行 Wipe-on-Entry
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**：跳过 Wipe，扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段（无标记）**Frozen 不动**；合并走 `/pm-conflict-resolver` 内联调
+- `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）→ **定点增量**：仅重跑指定段，其余 Frozen
+
+**0→1 全链路**模式：
 ```bash
 # 产物目录以 ## PMSkill 块的 `产物目录` 项为准（默认 docs/pm-context/）
 rm -rf <产物目录>.loop/
@@ -90,13 +99,17 @@ mkdir -p <产物目录>.loop/
 ```
 清空上一轮中间工件，开启干净的思考循环。
 
-若 `--incremental` 模式：跳过 Wipe，保留 `.loop/` 供差分推断消费。
+**增量模式**：跳过 Wipe，保留 `.loop/` 供差分推断消费。增量合并纪律：
+- collect 只扫描与标记项相关的新增材料，不重扫全量
+- refine 只推断标记项 + 用户显式指定的段，不重推已确认段
+- 合并必须走 `/pm-conflict-resolver` 内联调——pm-need 不直接改 PMContext 已确认段
+- resolver 仅改有标记的段，无标记段 Frozen 不得动（硬保）
 
 ### Step 0.5 输入信息熵自检（--auto 模式强制）
 
 🔴 CHECKPOINT：生成任何 PMContext JSON 之前，先对输入需求做熵检。
 
-**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在，读取其 `pmcontext_exists` 字段——为 `true` 且本次非 `--incremental` 时提示"已有 PMContext，是否覆盖？"；为 `false` 或 stamp 缺失则继续。stamp 与 `## PMSkill` 块的 setup 状态行互校，不一致时以 stamp 为准（机器可读优先）。
+**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在，读取其 `pmcontext_exists` 字段——为 `true` 且本次**非增量模式**时提示"已有 PMContext，本次将覆盖走 0→1 全链路"并等确认；为 `false` 或 stamp 缺失则继续。stamp 与 `## PMSkill` 块的 setup 状态行互校，不一致时以 stamp 为准（机器可读优先）。**增量模式**下 stamp 仅作旁证，不触发覆盖确认——入口已自动判增量。
 
 
 **高熵判定**（命中任意一条即为高熵）：
@@ -247,14 +260,17 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 
 完整一键全链路产出示例与实战提示见 [references/pipeline-example.md](references/pipeline-example.md)。
 
-## 增量更新
+## 增量更新（入口自动判，无 flag）
 
-若 `pm-context.md` 已存在，且未指定 `--incremental` 时：
-- 先输出"PMContext 已存在，是否覆盖？覆盖将丢失历史推断"
-- 若确认 → 全新走完全流程
-- 若否 → 退出
+`pm-need` 入口扫产物目录自动判模式——`<产物目录>/pm-context.md` 不存在或为空 = 0→1 全链路；存在且非空 = 增量模式。**不再问"是否覆盖"**——0→1 vs 增量由文件现状硬判，不靠用户记 flag。
 
-`--incremental` 模式：collect 只扫描新增材料，refine 只推断新增部分，增量写入。
+**增量模式纪律**（ Frozen 段保护）：
+- 扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + `## 信息缺口` 段，仅对这些项重跑 collect/refine
+- 已确认段（无上述标记的段）= **Frozen**，pm-need 不得直接改
+- 合并必须走 `/pm-conflict-resolver` 内联调——resolver 是 PMContext 差分修改的唯一合法主体（`.atomcode.md` 项目约定）
+- resolver 仅改有标记的段，无标记段 Frozen 硬保；合并后相应标记清除（`[待确认]` → 事实，`[假设]` → 事实或保留并升级置信度，`[冲突]` → 选定方向并清除）
+- `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）= **定点增量**，仅重跑指定段，其余 Frozen
+- 增量落盘后回更新 stamp 的 `pmcontext_exists: true` + `## PMSkill` 块 setup 状态行时间戳
 
 ## 失败模式
 
@@ -265,8 +281,8 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | `--auto` 模式下 pm-prd 失败 | 不暂停，记录失败项，继续尝试 pm-stories/pm-sketch | 已生成 PMContext 仍落盘 |
 | `--auto` 模式下 pm-stories 失败 | 不暂停，记录失败项到一站式报告的"失败清单"，继续 pm-sketch | 已生成 PRD 仍落盘，stories 单独标注"未生成" |
 | `--auto` 模式下 pm-sketch 失败 | 不暂停，一站式报告中标注草图失败原因 | 已生成 PMContext/PRD/stories 仍落盘 |
-| `--incremental` 模式但 PMContext 不存在 | 退化为全新创建模式，提示"PMContext 不存在，改为全新创建" | 不阻塞 |
-| PMContext 已存在且未指定 `--incremental` | 先输出"PMContext 已存在，是否覆盖？覆盖将丢失历史推断" | 用户选否则退出；选是则全新走完流程 |
+| 增量模式但 PMContext 不存在 | 退化为 0→1 全链路，提示"PMContext 不存在，改为全新创建" | 不阻塞 |
+| 0→1 全链路模式且 PMContext 已存在 | 入口已自动判为增量，不触发覆盖确认；仅当用户显式 `--force-new` flag 时才覆盖走 0→1，并提示"将丢失历史推断" | 不阻塞 |
 | `$ARGUMENTS` 为空且无 PMContext | **🔴 STOP**：输出"请提供需求描述: `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | `--collect-only` 和 `--refine-only` 同时使用 | **🔴 STOP**：输出"两个模式冲突，只能选一个" | 不阻塞，改为默认全流程 |
 

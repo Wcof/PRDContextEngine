@@ -1,6 +1,8 @@
 ---
 name: pm-parallel
 description: 当 PMSkill 工作面临 ≥2 个独立任务（如多 skill 并行生成、多竞品调研）时，分派并行子 agent 执行——任务分片 + 独立性校验 + 结果合并 + 冲突标 [冲突]。Use when the user asks for parallel agent dispatch or concurrent tasks, mentions 并行、parallel、并发、concurrent、多 agent、dispatch agents、subagent、任务分片、task partition、独立性校验.
+metadata:
+  internal: true
 ---
 
 # /pm-parallel

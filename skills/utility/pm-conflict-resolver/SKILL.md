@@ -1,6 +1,8 @@
 ---
 name: pm-conflict-resolver
 description: 局部退火——某节点报错时只对「报错上下文 + 其依赖的上游节点 JSON」做最小差分修复，不重写全局 PMContext。Use when a downstream node fails and needs局部回退, or the user mentions 局部退火、冲突解决、partial backtracking、节点报错、局部修复.
+metadata:
+  internal: true
 ---
 
 # /pm-conflict-resolver

@@ -1,6 +1,8 @@
 ---
 name: pm-businessmodel
 description: 从 PMContext 生成商业模式画布（BMC 9 模块）+ 业务游戏分类（注意力/交易/生产力）+ 收入流与成本结构 + 假设标注，每模块附 PMContext 追溯。Use when the user asks for business model or revenue model, mentions 商业模式、business model、BMC、商业模式画布、business model canvas、收入模型、revenue model、如何赚钱、monetization model、key partners、价值主张、客户细分.
+metadata:
+  internal: true
 ---
 
 # /pm-businessmodel

@@ -1,6 +1,8 @@
 ---
 name: pm-assumption
 description: 从 PMContext 识别风险假设——8 类风险（Value/Usability/Viability/Feasibility/Ethics/GTM/Strategy/Team）× 置信度 × 优先级 + 每假设给最便宜测试，与 pm-experiment/pm-grill 联动。Use when the user asks for assumption identification or risk mapping, mentions 假设识别、assumption、风险假设、risk assumption、identify assumptions、prioritize assumptions、8 类风险、assumption mapping、risk category.
+metadata:
+  internal: true
 ---
 
 # /pm-assumption

@@ -1,6 +1,8 @@
 ---
 name: pm-humanprd
 description: 从 PMContext 生成 Human PRD——决策理由 + 自然语言叙事 + 追溯清单，评审友好。由 /pm-prd 编排调用，支持 --auto 零确认模式（不暂停直接落盘）。Use when the user asks for a human-readable PRD or review document, mentions Human PRD、给人的 PRD、评审、review、决策理由、human-prd、产品评审会、 stakeholder review、业务方反馈.
+metadata:
+  internal: true
 ---
 
 # /pm-humanprd

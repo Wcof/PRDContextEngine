@@ -1,6 +1,8 @@
 ---
 name: pm-metrics
 description: 首次从 PMContext 定义北极星指标 + 3-5 个 Input Metrics 组成的指标星座——分类业务游戏（注意力/交易/生产力）+ 七准则校验 + 指标树 Mermaid 图。Use when the user needs initial north star and metrics framework setup, mentions 北极星指标、north star、NSM、input metric、指标体系、metrics framework、OMTM、核心指标、价值度量、指标星座.
+metadata:
+  internal: true
 ---
 
 # /pm-metrics

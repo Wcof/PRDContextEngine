@@ -1,6 +1,8 @@
 ---
 name: pm-cohort
 description: 从 PMContext 与用户行为数据做队列（cohort）分析——按 signup/激活事件分队列 + 留存曲线 + 功能采纳曲线 + 异常队列定位 + 跟进研究建议，每结论附 PMContext 度量追溯。Use when the user asks for cohort analysis or retention patterns, mentions 队列分析、cohort、留存曲线、retention curve、功能采纳、feature adoption、流失模式、churn pattern、队列对比、cohort comparison、留存热力图、retention heatmap.
+metadata:
+  internal: true
 ---
 
 # /pm-cohort

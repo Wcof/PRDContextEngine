@@ -1,6 +1,8 @@
 ---
 name: pm-ost
 description: 从 PMContext 生成机会方案树（OST）——Mermaid graph 表达四层结构（期望结果→机会→方案→实验），含机会优先级评分（Importance × (1-Satisfaction)）+ 每机会 ≥3 方案对比。Use when the user asks for opportunity solution tree or discovery structuring, mentions 机会方案树、OST、opportunity solution tree、Teresa Torres、continuous discovery、机会优先级、方案对比、assumption testing.
+metadata:
+  internal: true
 ---
 
 # /pm-ost

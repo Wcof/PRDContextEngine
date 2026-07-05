@@ -1,6 +1,8 @@
 ---
 name: pm-stories
-description: 从 PMContext 生成用户故事——3C 框架（Card/Conversation/Confirmation）+ INVEST 准则 + 验收标准，每个故事追溯到 PMContext 项。Use when the user asks for user stories or backlog items, mentions 用户故事、user story、backlog、3C、INVEST、验收标准、acceptance criteria、story point、sprint backlog.
+description: 从 PMContext 生成用户故事——3C 桑架（Card/Conversation/Confirmation）+ INVEST 准则 + 验收标准，每个故事追溯到 PMContext 项。Use when the user asks for user stories or backlog items, mentions 用户故事、user story、backlog、3C、INVEST、验收标准、acceptance criteria、story point、sprint backlog.
+metadata:
+  internal: true
 ---
 
 # /pm-stories

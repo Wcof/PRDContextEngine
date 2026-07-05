@@ -1,6 +1,10 @@
 ---
 name: pm-abtest
 description: 从 PMContext 与实验数据做 A/B 测试统计分析——样本量/时长/SRM 验证 + 显著性计算（p 值/CI/lift）+ guardrail 检查 + ship/extend/stop 决策，每结论附 PMContext 度量追溯。Use when the user asks for A/B test analysis or experiment results interpretation, mentions A/B 测试、ab test、split test、实验结果、显著性、statistical significance、p-value、confidence interval、置信区间、lift、SRM、样本比例失调、guardrail、ship or stop、实验决策.
+metadata:
+  internal: true
+metadata:
+  internal: true
 ---
 
 # /pm-abtest

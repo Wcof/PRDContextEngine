@@ -1,7 +1,7 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-50-blue.svg)](#skill-清单)
+[![Skills](https://img.shields.io/badge/Skills-5%20visible%20%2F%2051%20total-blue.svg)](#skill-清单)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
@@ -13,14 +13,15 @@
 
 ## 概述
 
-PMSkill 将产品经理在 Agent 中的核心工作流程封装为 50 个可调用的核心 Skill，覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
+PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **51 个 Skill**——5 个 User-facing（斜杠菜单可见，人类主动触发）+ 46 个 Engine（由 AI 按语义 `use_skill` 调起，默认隐藏不噪音）。覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
 
 ### 核心特性
 
 - **单一数据源**：PMContext 是唯一 Entity，PRD 与草图均为其下游 View，下游 Skill 读取一个文件即可获得全貌。
 - **全链路自动化**：一条命令完成 collect → refine → PRD → 用户故事 → 原型，支持零确认 `--auto` 模式。
 - **双形态 PRD**：面向 AI 的可执行 PRD（含 Agent Context）与面向人类的评审友好 PRD。
-- **技术栈感知**：HTML 原型根据项目实际技术栈自动适配，断网可预览。
+- **技术栈硬约束**：PMContext §8 声明前端框架（Vue/React/Next/Nuxt/Svelte/Angular/Electron 或 Vite+TypeScript）即升格为硬契约——pm-aiprd 转写「技术栈契约」段，pm-sketch Step -0.5 硬触发 Scaffold 模式，防 Agent 偷懒自降级到 HTML 壳子。
+- **增量更新自判**：`/pm-need` 入口扫产物目录自动判 0→1 vs 增量——PMContext 空 = 全链路，非空 = 仅扫 `[待确认]` `[假设]` `[冲突]` 标记段重跑，已确认段 Frozen 不动，合并走 `/pm-conflict-resolver` 内联调。
 - **渐进披露**：Level 1/2/3 三层加载，按需引用，控制 Token 开销。
 - **可追溯性**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯。
 - **配置可循**：`/pm-setup` 落 `.pmskill-setup.stamp` 凭据，下游 Skill 读 `## PMSkill` 块取产物目录，块与 stamp 互校，不硬编码路径。
@@ -51,13 +52,14 @@ npx skills@latest add Wcof/PMSkill --all
 ### 4. 分步执行
 
 ```text
-/pm-need              # 收集材料 → refine 追问 → 审计门
+/pm-need              # 收集材料 → refine 追问 → 审计门（PMContext 空 = 0→1 全链路；非空 = 增量仅扫标记段）
 /pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 用户故事 → 原型
+/pm-need --update §8  # 定点增量：仅重跑指定段，其余 Frozen
 /pm-prd               # 从 PMContext 生成 PRD（给 AI + 给人）
 /pm-prd --auto        # 零确认：直接出 PRD
 /pm-stories           # 从 PMContext 生成用户故事/功能清单（3C + INVEST）
 /pm-sketch            # 生成全部草图
-/pm-sketch --prototype # 生成草图 + HTML 可交互原型
+/pm-sketch --prototype # 生成草图 + HTML 可交互原型（PMContext §8 含前端框架声明时硬触发 Scaffold）
 ```
 
 ---
@@ -81,6 +83,8 @@ prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
 
 ## Skill 清单
 
+**斜杠可见 = 5 个 User-facing**（默认对人类菜单可见）；**Engine = 46 个**（`metadata.internal: true`，默认隐藏由 AI `use_skill` 调起，`INSTALL_INTERNAL_SKILLS=1` 可显式列出）。下方按领域分桶列出全部 51 个，括号标可见性。
+
 ### Setup — 初始化
 
 | Skill | 调用方式 | 作用 |
@@ -91,7 +95,7 @@ prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动；`--auto` 零确认直达 PRD + 原型 |
+| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动；`--auto` 零确认直达 PRD + 原型；**入口自判 0→1 vs 增量**（PMContext 空 = 全链路，非空 = 仅扫标记段，已确认段 Frozen） |
 | `/pm-collect` | model-invoked | 主动深扫描（代码 / git / URL / 知识库），4 源去重 |
 | `/pm-refine` | model-invoked | 8 维度推断（P0 用户场景 / 边界 / 冲突 → P1 优先级 / 术语 / 摩擦力 → P2 技术约束 / 度量） |
 | `/pm-interview` | model-invoked | 结构化用户访谈脚本（JTBD + The Mom Test） |
@@ -277,7 +281,9 @@ bash evals/run-evals.sh --live
 
 ## 常见问题
 
-**PMContext 可以更新吗？** 可以。PMContext 是活文档，再次调用 `/pm-refine` 仅推断新增部分并增量写入。
+**PMContext 可以更新吗？** 可以。`/pm-need` 入口扫产物目录自判——PMContext 空 = 0→1 全链路；非空 = 增量模式，仅扫 `[待确认]` `[假设]` `[冲突]` 标记段重跑 collect/refine，已确认段 Frozen 不动，合并走 `/pm-conflict-resolver` 内联调。`/pm-need --update §8` 定点增量指定段。
+
+**斜杠菜单看不到某些 skill？** 46 个 Engine Skill 标了 `metadata.internal: true`，默认隐藏由 AI 按语义 `use_skill` 调起。`INSTALL_INTERNAL_SKILLS=1 npx skills add Wcof/PMSkill --list` 可显式列出；或 `--skill <name>` 按名取。
 
 **可以跳过 collect 直接 refine 吗？** 可以。`/pm-collect` 与 `/pm-refine` 均可独立调用。
 

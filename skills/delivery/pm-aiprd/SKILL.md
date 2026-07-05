@@ -1,6 +1,8 @@
 ---
 name: pm-aiprd
 description: 从 PMContext 生成 AI PRD——可执行规则 + 数据模型 + Agent Context + 验收标准 + 风险项，每条需求附 PMContext 追溯标记。由 /pm-prd 编排调用，支持 --auto 零确认模式（不暂停直接落盘）。Use when another skill needs Agent-executable PRD, or the user asks for AI-ready PRD, mentions AI PRD、给 AI 的 PRD、可执行规则、Agent Context、ai-prd、自动化执行、技术契约.
+metadata:
+  internal: true
 ---
 
 # /pm-aiprd
@@ -23,7 +25,8 @@ PMContext 已沉淀事实/假设/冲突/待确认。AI PRD 的职责是将这些
 
 - [ ] PMContext 已读取且非空
 - [ ] 概述/页面定义/全局约束/假设清单/风险项/信息缺口全部提取
-- [ ] Agent Context（技术栈/目录结构/关键模块）已确认
+- [ ] **技术栈硬约束转写**：扫 PMContext §8（技术栈段），若含前端框架声明（Vue/React/Next/Nuxt/Svelte/Angular/Electron，或 Vite+TypeScript 同时出现），转写为 AI PRD 的「技术栈契约」段——从 PMContext 的"建议"升格为 Agent 必须遵守的硬约束，下游 pm-sketch 据此触发 Scaffold 模式
+- [ ] Agent Context（技术栈/目录结构/关键模块）已确认——技术栈段必须承接 §8，不得空泛或省略
 - [ ] [待确认] 项隔离不进入用户故事
 - [ ] 每条用户故事和规则后追加 `← PMContext: <章节>` 追溯标记
 - [ ] 输出生成摘要：用户故事数/规则数 + [待确认]占比+警示
@@ -149,6 +152,7 @@ PMContext 已沉淀事实/假设/冲突/待确认。AI PRD 的职责是将这些
 | 忽略边界场景（d3 缺失） | 执行 Agent 遇到异常路径会不知所措 |
 | 把 Agent Context 塞给人类读者（human-prd 与 ai-prd 内容互换） | AI 要的东西和人要看的不同 |
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
+| PMContext §8 含前端框架声明但 AI PRD 未承接为「技术栈契约」段 | 下游 pm-sketch 失去硬触发依据，Agent 会自降级到简单模式 HTML 壳子——AiGateway 事故就是此失守 |
 
 ## 产出示例 · 实战提示
 

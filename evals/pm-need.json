@@ -81,5 +81,43 @@
       "不举手、不打扰用户，直接全速 auto",
       "依次调用 collect → refine → premortem → prd → sketch"
     ]
+  },
+  {
+    "id": 8,
+    "skills": ["pm-need"],
+    "query": "/pm-need 增加「积分商城」页面",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "读取 PMContext 发现「积分商城」无对应 heading → 判为新增型",
+      "追加新 ## 积分商城 段（走 collect→refine 只针对新段）",
+      "已有段（用户登录 / 会员权益）字节级不变，保持 Frozen",
+      "新段初始标 [假设]/[待确认] 直至确认",
+      "不静默跳过也不得整份重写"
+    ]
+  },
+  {
+    "id": 9,
+    "skills": ["pm-need"],
+    "query": "/pm-need --update §会员权益 年付改为季付",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "识别 --update §会员权益 指向已确认段 → 判为调整型",
+      "仅「会员权益」段显式解冻重跑 refine",
+      "未指定的段（用户登录等）仍 Frozen 不动",
+      "合并走 /pm-conflict-resolver 内联调",
+      "输出增量处理摘要"
+    ]
+  },
+  {
+    "id": 10,
+    "skills": ["pm-need"],
+    "query": "/pm-need 修改会员权益年付定价",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "读取 PMContext 发现「会员权益」为已确认段",
+      "无 --update 标志 → 提示「该需求命中已确认段 §会员权益，如需修改请用 /pm-need --update §会员权益 <调整内容>」",
+      "不擅自修改 Frozen 段",
+      "不静默跳过"
+    ]
   }
 ]

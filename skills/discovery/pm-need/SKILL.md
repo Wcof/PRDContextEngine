@@ -30,14 +30,25 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 ```
 /pm-need <需求描述>                    → 正常模式：collect → refine → 🛑 审计门
 /pm-need <需求描述> --auto             → 零确认模式：collect → refine → PRD → 原型，不暂停
+/pm-need --update §<段名> <调整内容>     → 定点增量：仅重跑指定段（已确认段显式解冻），其余 Frozen
 /pm-need --collect-only                → 只收集，不精炼（debug 用）
 /pm-need --refine-only                 → 只精炼，不收集（已有材料时用）
 ```
 
-**入口自动判 0→1 vs 增量**（无 flag，扫产物目录）：
+**入口自动判 0→1 vs 增量模式（三条路径）**（无 flag，扫产物目录 + `$ARGUMENTS` 语义）：
+
 - `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**（全新 collect → refine → 落盘）
-- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**（扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段 Frozen 不动；合并走 `/pm-conflict-resolver` 内联调）
-- `$ARGUMENTS` 显式指了具体段（如 `--update §8` 或 `--update GAP-01`）→ **定点增量**（仅重跑指定段）
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**，按 `$ARGUMENTS` 语义分派三条路径：
+
+  | 增量类型 | 触发条件 | 行为 |
+  |---------|---------|------|
+  | **补全型（已有）** | 无显式段、有标记项/信息缺口 | 仅重跑 `[待确认]`/`[假设]`/`[冲突]` + 信息缺口段，Frozen 段不动 |
+  | **新增型（新增）** | `$ARGUMENTS` 描述了 PMContext 中**不存在对应 heading** 的新功能/新页面 | **追加新 `## <页面>` 段**（走 collect→refine 只针对新段），已有段全部 Frozen 不动；新段初始标 `[假设]`/`[待确认]` 直至确认 |
+  | **调整型（新增）** | `$ARGUMENTS` 显式 `--update §N` / `--update <页面名>` 指向**已确认段** | 该段**显式解冻**，重跑 refine，合并走 `/pm-conflict-resolver`；未指定的段仍 Frozen |
+
+- **新增判定规则**：读取现有 PMContext 全部 heading，将 `$ARGUMENTS` 需求与 heading 做匹配——无匹配 heading = 新增型（追加新段）；匹配到已确认段且用户要改 = 需 `--update` 显式解冻，否则提示「该需求命中已确认段 §N，如需修改请用 `/pm-need --update §N <调整内容>`」
+- **不得**因为「新需求无对应标记项」就静默什么都不做，也不得整份重写
+- `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）→ **定点增量**：仅重跑指定段，其余 Frozen
 
 `$ARGUMENTS` 为 PM 的需求描述，可包含：
 - 一句话需求（如"我需要做个大屏"）
@@ -264,13 +275,23 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 
 `pm-need` 入口扫产物目录自动判模式——`<产物目录>/pm-context.md` 不存在或为空 = 0→1 全链路；存在且非空 = 增量模式。**不再问"是否覆盖"**——0→1 vs 增量由文件现状硬判，不靠用户记 flag。
 
-**增量模式纪律**（ Frozen 段保护）：
-- 扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + `## 信息缺口` 段，仅对这些项重跑 collect/refine
-- 已确认段（无上述标记的段）= **Frozen**，pm-need 不得直接改
+增量模式细分为**三条合法路径**，入口按 `$ARGUMENTS` 语义分派：
+
+| 增量类型 | 触发 | 行为 |
+|---|---|---|
+| **补全型（已有）** | 无显式段、有标记项/信息缺口 | 仅重跑 `[待确认]`/`[假设]`/`[冲突]` + 信息缺口段，Frozen 段不动 |
+| **新增型（新增）** | `$ARGUMENTS` 描述了 PMContext 中**不存在对应 heading** 的新功能/新页面 | **追加新 `## <页面>` 段**（走 collect→refine 只针对新段），已有段全部 Frozen 不动；新段初始标 `[假设]`/`[待确认]` 直至确认 |
+| **调整型（新增）** | `$ARGUMENTS` 显式 `--update §N` / `--update <页面名>` 指向**已确认段** | 该段**显式解冻**，重跑 refine，合并走 `/pm-conflict-resolver`；未指定的段仍 Frozen |
+
+**增量模式纪律**（Frozen 段保护）：
+- 读取现有 PMContext 全部 heading，将 `$ARGUMENTS` 需求与 heading 做匹配
+- 无匹配 heading = 新增型：追加新 `## <页面>` 段，其余 Frozen，新段初始标 `[假设]`/`[待确认]`
+- 匹配到已确认段且用户要改 = 需 `--update` 显式解冻，否则提示「该需求命中已确认段 §N，如需修改请用 `/pm-need --update §N <调整内容>`」
+- 补全型：扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + `## 信息缺口` 段，仅对这些项重跑 collect/refine
+- 已确认段（无上述标记的段）= **Frozen**，pm-need 不得直接改；调整型 `--update` 显式解冻后走 `/pm-conflict-resolver` 合并
 - 合并必须走 `/pm-conflict-resolver` 内联调——resolver 是 PMContext 差分修改的唯一合法主体（`.atomcode.md` 项目约定）
 - resolver 仅改有标记的段，无标记段 Frozen 硬保；合并后相应标记清除（`[待确认]` → 事实，`[假设]` → 事实或保留并升级置信度，`[冲突]` → 选定方向并清除）
-- `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）= **定点增量**，仅重跑指定段，其余 Frozen
-- 增量落盘后回更新 stamp 的 `pmcontext_exists: true` + `## PMSkill` 块 setup 状态行时间戳
+- 增量落盘后回更新 stamp 的 `pmcontext_exists: true` + `## PMSkill` 块 setup 状态行时间戳；`--update` 定点增量同样保留其余分片 Frozen
 
 ## 失败模式
 
@@ -285,6 +306,9 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | 0→1 全链路模式且 PMContext 已存在 | 入口已自动判为增量，不触发覆盖确认；仅当用户显式 `--force-new` flag 时才覆盖走 0→1，并提示"将丢失历史推断" | 不阻塞 |
 | `$ARGUMENTS` 为空且无 PMContext | **🔴 STOP**：输出"请提供需求描述: `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | `--collect-only` 和 `--refine-only` 同时使用 | **🔴 STOP**：输出"两个模式冲突，只能选一个" | 不阻塞，改为默认全流程 |
+| **增量模式下新需求无任何对应 heading** | 判为新增型，追加新 `## <页面>` 段，其余 Frozen | 不静默跳过 |
+| **用户要改已确认段但未加 `--update`** | 提示「命中已确认段 §N，用 `/pm-need --update §N` 解冻修改」 | 不擅自改 Frozen 段 |
+| **`--update` 指向不存在的段** | STOP 提示可用段清单 | 不臆造段 |
 
 ## 不要做什么（反例黑名单）
 

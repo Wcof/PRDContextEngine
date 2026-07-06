@@ -37,14 +37,14 @@
 | Skill | 评估文件 | 场景数 |
 |---|---|---|
 | pm-setup | [pm-setup.json](pm-setup.json) | 3 |
-| pm-need | [pm-need.json](pm-need.json) | 4 |
+| pm-need | [pm-need.json](pm-need.json) | 10 |
 | pm-collect | [pm-collect.json](pm-collect.json) | 3 |
-| pm-refine | [pm-refine.json](pm-refine.json) | 3 |
+| pm-refine | [pm-refine.json](pm-refine.json) | 5 |
 | pm-prd | [pm-prd.json](pm-prd.json) | 3 |
 | pm-aiprd | [pm-aiprd.json](pm-aiprd.json) | 3 |
 | pm-humanprd | [pm-humanprd.json](pm-humanprd.json) | 3 |
 | pm-premortem | [pm-premortem.json](pm-premortem.json) | 3 |
-| pm-sketch | [pm-sketch.json](pm-sketch.json) | 3 |
+| pm-sketch | [pm-sketch.json](pm-sketch.json) | 9 |
 | pm-wireframe | [pm-wireframe.json](pm-wireframe.json) | 3 |
 | pm-ia | [pm-ia.json](pm-ia.json) | 3 |
 | pm-state | [pm-state.json](pm-state.json) | 3 |
@@ -67,6 +67,7 @@
 | pm-skillauthor | [pm-skillauthor.json](pm-skillauthor.json) | 3 |
 | pm-pestle | [pm-pestle.json](pm-pestle.json) | 3 |
 | pm-legal | (存放于 `skills/utility/pm-legal/evals/`，3 场景) | 3 |
+| pm-conflict-resolver | [pm-conflict-resolver.json](pm-conflict-resolver.json) | 3 |
 
 ## 评估驱动开发循环
 

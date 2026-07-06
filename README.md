@@ -71,13 +71,31 @@ npx skills@latest add Wcof/PMSkill --all
         │
   /pm-need ─── {--auto: 零确认} ───→ PMContext (唯一 Entity)
         │                                   │
-  ┌─────┴─────┐                    ┌────────┴────────┐
-  │           │                    │                 │
+  ┌─────┴─────┐                    ┌────────┴─────────────────┐
+  │           │                    │                          │
 /pm-prd  /pm-premortem       /pm-stories        /pm-sketch --prototype
-  │           │                    │                 │
-  ▼           ▼                    ▼                 ▼
+  │           │                    │                          │
+  ▼           ▼                    ▼                          ▼
 prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
+                                                  (简单模式: 单文件)
+                                                  (Scaffold: prototype/ 工程)
 ```
+
+### ⚠️ pm-sketch 产出定位
+
+`/pm-sketch --prototype` 产出为**前端原型（mock）**，纯前端实现，不输出后端 API、数据 schema 或生产代码。Scaffold 模式为可运行 React + TS + Vite + Tailwind v4 工程，L4 交互（角色/权限/四态/错误恢复），但仍是**原型级可点 mock**，非生产实现。
+
+### 增量迭代使用说明
+
+PMSkill 支持增量迭代，无需每次全量重做：
+
+| 场景 | 命令 | 行为 |
+|------|------|------|
+| 新增功能/页面 | `/pm-need 增加「XXX」页面` | 自动判为新增型，追加新 `## <页面>` 段，已有段 Frozen 不动 |
+| 调整已确认需求 | `/pm-need --update §<页面名> <调整内容>` | 仅该段显式解冻重跑，其余 Frozen |
+| 补充信息缺口 | `/pm-need 补充<具体缺口>` | 走补全型，仅扫标记段重跑 |
+| 新增页面后更新原型 | `/pm-sketch --prototype` | 目标已有时自动进增量原型模式，仅生成新页面，不覆盖已有页 |
+| 强制全量重生成 | `/pm-sketch --prototype --rebuild` | 覆盖已有原型 |
 
 ---
 

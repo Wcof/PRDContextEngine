@@ -17,7 +17,7 @@
     "query": "/pm-sketch --prototype",
     "files": ["fixtures/pm-context.md"],
     "expected_behavior": [
-      "生成 HTML 可交互原型（简单模式: prototype.html / 复杂模式: prototype/index.html）",
+      "生成 HTML 可交互原型（简单模式: prototype.html / Scaffold 模式: prototype/ 工程目录）",
       "完成技术栈决策（新项目推荐 / 老项目检测），输出技术栈名称与依据",
       "原型使用推荐/检测到的技术栈 CDN 版本（Vue3 / React / Plain HTML 兜底）",
       "通过质量检查（语义化标签/响应式/图元追溯/技术栈适配）",
@@ -53,21 +53,59 @@
     "query": "/pm-sketch --prototype",
     "files": ["fixtures/pm-context-complex.md"],
     "expected_behavior": [
-      "自动判断为复杂模式（PMContext 含数据模型段且页面 > 4），输出 prototype/ 文件夹",
-      "prototype/index.html 双击可打开基础版（L1，无 JS 报错）",
-      "prototype/README.md 含本地启动命令（npx serve . 或 python http.server）",
-      "prototype/prd-data.js 含 PMContext 所有页面的事实/规则/验收批注数据"
+      "自动判断为 Scaffold 模式（PMContext 含数据模型段且页面 > 4），输出 prototype/ 工程目录",
+      "prototype/index.tsx 顶部含中文 @name 注释，作为入口组件",
+      "prototype/README.md 含本地启动命令（npm install / npm run dev）",
+      "prototype/src/data/prd-data.ts 含 PMContext 所有页面的事实/规则/验收批注数据",
+      "prototype/src/data/pages-config.ts 含页面配置列表",
+      "执行 V2/V3 验收或诚实降级输出错误清单"
     ]
   },
   {
     "id": 6,
     "skills": ["pm-sketch"],
-    "query": "/pm-sketch --prototype --bundle（PMContext 为简单项目，仅 3 个页面 heading）",
+    "query": "/pm-sketch --prototype --scaffold（PMContext 为简单项目，仅 3 个页面 heading）",
     "files": ["fixtures/pm-context.md"],
     "expected_behavior": [
-      "尽管 PMContext 属于简单项目，--bundle 参数强制输出 prototype/ 文件夹",
-      "复杂度判断摘要中标注：强制 bundle 模式（用户指定 --bundle）",
+      "尽管 PMContext 属于简单项目，--scaffold 参数强制输出 prototype/ 工程目录",
+      "复杂度判断摘要中标注：强制 Scaffold 模式（用户指定 --scaffold）",
       "prototype/index.html 含完整可打开入口"
+    ]
+  },
+  {
+    "id": 7,
+    "skills": ["pm-sketch"],
+    "query": "/pm-sketch --prototype",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "输出 ✅ 反空壳体检 块，包含页面覆盖率和每页交互元素计数",
+      "页面覆盖率指标：已实现页面数 ≥ PMContext 中 ## <页面> heading 数（2/2）",
+      "每个 <section> 至少 1 个绑定 JS 事件的交互元素",
+      "每个页面的规则 → <p class=\"rule\"> 可见，验收 → <ul class=\"acceptance\"> 可见"
+    ]
+  },
+  {
+    "id": 8,
+    "skills": ["pm-sketch"],
+    "query": "/pm-sketch --prototype",
+    "files": ["fixtures/pm-context-with-dense-content.md"],
+    "expected_behavior": [
+      "尽管 heading=3（≤4），因单页规则条数 >8 且验收条数 >10，判为 Scaffold 模式",
+      "输出复杂度判断摘要含依据：<命中信号列表 + 综合分>",
+      "输出 prototype/ 工程目录而非单 HTML"
+    ]
+  },
+  {
+    "id": 9,
+    "skills": ["pm-sketch"],
+    "query": "/pm-sketch --prototype（增量场景：目标已存在 + PMContext 新增一页）",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "目标产物已存在时自动进入增量原型模式",
+      "仅生成 PMContext 有但原型无的新页面",
+      "输出 ✅ 原型增量: 新增页面 <列表> | 保留页面 <数量>",
+      "已有页面不被重写覆盖",
+      "更新路由/菜单以纳入新页面"
     ]
   }
 ]

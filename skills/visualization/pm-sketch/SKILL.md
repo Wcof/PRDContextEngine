@@ -69,6 +69,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 /pm-sketch --prototype             → HTML 可交互原型（自动判断简单/Scaffold 模式；Step -0.5 命中前端框架声明时硬触发 Scaffold）
 /pm-sketch --prototype --simple    → 强制简单模式（CDN 单 HTML < 280KB）——**仅当 PMContext §8 无前端框架声明时有效**；§8 含 Vue/React/Next/Nuxt/Svelte/Angular/Electron 或 Vite+TypeScript 时此 flag 视为无效，仍走 Scaffold（防 Agent 自降级）
 /pm-sketch --prototype --scaffold  → 强制 Scaffold 模式（React + TS + Vite + Tailwind v4 工程）
+/pm-sketch --prototype --rebuild      → 全量重生成原型（覆盖已有页面，非 --auto 时需确认）
 /pm-sketch --prototype --dark      → 暗色主题（覆盖 prefers-color-scheme 检测，仅 --prototype 模式下有效）
 /pm-sketch --prototype --design <path> → 指定 DESIGN.md 路径（视觉事实源，默认扫描 docs/design/DESIGN.md）
 /pm-sketch --prototype --auto      → 自动模式：pm-need → premortem → PRD → 原型 零确认一气呵成
@@ -149,7 +150,7 @@ Run 四个子 Skill（按依赖顺序）：
 
 **Step -1：复杂度判断（--prototype 模式专用）**
 
-读取 PMContext，判断输出模式：
+读取 PMContext，判断输出模式。**heading 计数容错**：解析 `## <页面>` heading 时，遇到异常/损坏字符（如乱码、不可见字符）不会导致漏计页面——按行首 `^## ` 正则匹配，跳过无法渲染为合法页面名的 entry；若损坏字符导致段无法解析，该段计入"未解析段"清单并在判断摘要中公示。
 
 | 判断维度 | 简单模式信号 | Scaffold 模式信号 |
 |---------|------------|----------------|
@@ -157,15 +158,19 @@ Run 四个子 Skill（按依赖顺序）：
 | 是否含独立「数据模型」章节 | 否 | 是 |
 | 用户角色数（从用户场景推断） | ≤ 2 | > 2 |
 | state.md 中状态节点数 | ≤ 8 | > 8 |
+| **各页 `### 规则` 条数（新增）** | ≤ 8 | > 8 |
+| **各页 `### 验收` 条数（新增）** | ≤ 10 | > 10 |
+| **flow.md 步骤数（新增）** | ≤ 10 | > 10 |
 
 - 全部为简单信号 → **简单模式**（CDN 单 HTML，输出路径：`docs/pm-context/sketch/prototype.html`）
 - 任一为 Scaffold 信号 → **Scaffold 模式**（Vite 工程，输出路径：`docs/pm-context/sketch/prototype/`）
-- `--simple` 参数：强制简单模式（覆盖自动判断）
-- `--scaffold` 参数：强制 Scaffold 模式（覆盖自动判断）
+- 判定规则：**任一 Scaffold 触发 → Scaffold；否则计算综合复杂度分，业务信号总量过阈值也升 Scaffold**。歧义时**保守偏 Scaffold**。
 
-输出复杂度判断摘要：`✅ 原型模式: 简单/Scaffold（依据：<信号列表>）`
+输出复杂度判断摘要：`✅ 原型模式: 简单/Scaffold（依据: <命中信号列表 + 综合分>）`
 
 **Step 0：技术栈决策（按模式分区）**
+
+**模板强制加载指令（所有模式，防即兴空壳）**：生成原型前必须先读取 `references/prototype-templates.md` 对应模式模板；未读取禁止生成。
 
 技术栈决策按模式分区，两模式不再共用同一选型逻辑：
 
@@ -238,7 +243,11 @@ DESIGN.md 存在时严格按它派生 CSS token；缺失字段逐字段回退默
 
 **质量清单**（生成后逐项检查，分模式完整清单见 [references/prototype-templates.md](references/prototype-templates.md#十三质量清单分模式)）：
 
-简单模式：
+简单模式 V1 硬校验（不满足禁止打 ✅，必须降级并列出缺失）：
+- ✅ 页面覆盖率闸：原型内 `<section>`（或路由目标页）数量 **≥ PMContext `## <页面>` heading 数**。每个 PMContext 页面必须有对应可导航目标页
+- ✅ 每页内容密度闸：每个页面 `<section>` 内**非导航业务元素**（表单项 / 表格 / 列表 / 卡片 / 按钮，排除顶栏与菜单）节点数 **≥ 5**。不足 5 个须标注原因
+- ✅ 交互底线闸（L3）：每个 `<section>` 至少 1 个绑定 JS 事件的交互元素；hash 路由的每个目标页必须存在对应 section（不得指向空锚点）
+- ✅ PMContext 映射闸：每个页面的「规则 / 验收」必须在对应页面渲染出可见元素（规则→`p.rule`，验收→`ul.acceptance`），不得只渲染标题
 - ✅ 技术栈决策有依据（CDN 选型）
 - ✅ 单 HTML < 280KB（超限自动拆分懒加载）
 - ✅ Design Token CSS 变量（来自 DESIGN.md 或默认，无裸 #hex）
@@ -246,9 +255,16 @@ DESIGN.md 存在时严格按它派生 CSS token；缺失字段逐字段回退默
 - ✅ Device Toolbar 三端切换（1440/820/393px）
 - ✅ PRD Panel 展示 PMContext 批注（D1 可展开原文）
 - ✅ 文档 overlay 可展开查看 PMContext / DESIGN.md
-- ✅ 每个 `<section>` 至少 1 个 JS 交互（L3 底线）
 - ✅ 暗色主题适配
-- ✅ V1 自检通过
+- ✅ V1 自检通过：反空壳体检（见下方输出块）
+
+**V1 反空壳自检输出块**（`--auto` 也必须打印，即使不暂停）：
+```
+✅ 反空壳体检:
+   - 页面覆盖率: 已实现 <M> / PMContext <N> 个页面
+   - 每页交互元素计数: [页面A: x, 页面B: y, ...]
+   - 未达标页面: <列表 或 无>
+```
 
 Scaffold 模式：
 - ✅ 目录结构对齐（package.json / vite.config.ts / tsconfig.json / src/components / src/pages / src/hooks）
@@ -288,6 +304,25 @@ Scaffold 模式：
 - `✅ 技术栈: <名称>（<依据>）`
 - `✅ HTML 原型已生成: <简单模式: docs/pm-context/sketch/prototype.html | Scaffold 模式: docs/pm-context/sketch/prototype/>`
 - `✅ 验收: <V1 自检通过 | V2 验收通过 | V3 验收通过 | ⚠️ 未验收，错误清单见 ...>`（仅 --prototype 模式）
+
+**增量原型模式（`--prototype` 专用，按页增量，不覆盖已开发页面）**
+
+**入口自判**：若目标产物已存在（简单模式 `sketch/prototype.html`，Scaffold 模式 `sketch/prototype/`），进入**增量原型模式**（除非用户显式 `--rebuild`）。
+
+**增量纪律**：
+1. 读取现有原型的**页面清单**：简单模式扫描已有 `<section id>` / 路由表；Scaffold 模式扫描 `src/pages/*` 文件名
+2. 与当前 PMContext 页面 diff：
+   - 只为「PMContext 有但原型无」的新页面生成新 section/page 文件
+   - 「两边都有」的页面默认保留，除非该页对应 PMContext 段本轮被 `--update` 改动（则只重生成该页）
+3. 更新路由/菜单以纳入新页面；**不得删除或推倒重来用户已开发页面**
+4. Scaffold 优势：`src/pages/<pageId>.tsx` 分文件天然支持按页增量；单 HTML 增量按 section 锚点合并
+
+**增量原型验收级别**：增量原型按"改动页数 / 文件数"套用现有 Acceptance Tier（改动 >3 页或文件 >5 → V3；否则 V2；简单模式增量仍为 V1），避免"只加一页也全量 V3"或"增量后不验收"。
+
+输出：
+```
+✅ 原型增量: 新增页面 <列表> | 保留页面 <数量> | 因 --update 重生成 <列表>
+```
 
 ### 3. 审计（仅非自动模式）
 
@@ -338,6 +373,9 @@ Scaffold 模式：
 | `--auto` 模式下 pm-need 链路失败 | STOP 并输出一站式报告含失败原因 | 已生成部分仍落盘 |
 | PMContext 中 `[冲突]` 项涉及核心图元 | 图元标 `[冲突]` 不强行选定方向 | 在产物清单汇总冲突项供 PM 决策 |
 | PMContext 品牌色与 DESIGN.md 冲突 | `--color-primary` 用 DESIGN.md 值（视觉事实源优先），PMContext 值写入 `--color-primary-alt` 并标 `[冲突]` | 不强行收敛，在产物清单标注冲突项 |
+| **`--prototype` 目标已存在且未加 `--rebuild`** | 进增量原型模式，仅加新页/改动页 | 不整体覆盖 |
+| **现有原型页面与 PMContext 页面无法对齐** | 标 `[待确认]` 列出对不齐页面，保留旧页 | 不静默删页 |
+| **用户显式 `--rebuild`** | 全量重生成并提示「将覆盖已开发页面」 | 需确认（非 --auto 时） |
 
 ## 不要做什么（反例黑名单）
 
@@ -357,6 +395,11 @@ Scaffold 模式：
 | Scaffold 模式没有 package.json / vite.config.ts 就输出 `.tsx` 文件 | 与工程脚手架承诺不符，用户拿到的是不可运行的碎片 |
 | 简单模式和 Scaffold 模式共用同一套 Design Token 模板 | 两模式 token 引入方式不同（inline vs CSS file + Tailwind），混用导致 Scaffold 工程出现 CDN script tag |
 | V3 验收失败后直接跳过不降级（静默改打 ✅） | 与降级链契约矛盾，V3 失败应诚实降级，不得撒谎 |
+| **简单模式只输出路由骨架不渲染页面内容（空壳）** | 违反 L3 底线，等于交付未实施的需求，判定 Failure |
+| **页面覆盖率 < PMContext 页面数仍打 ✅** | 系统性撒谎，PM 拿到缺页原型 |
+| **每页业务元素 < 5 且未标注原因** | 页面等于空壳，必须降级并记入信息缺口 |
+| **Scaffold 模式增量迭代时全量重生成原型覆盖已开发页面** | 摧毁用户迭代成果，等于不支持增量 |
+| **新增页面时不更新菜单/路由** | 新页面不可达，等于没加 |
 
 ---
 

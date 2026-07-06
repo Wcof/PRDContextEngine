@@ -1,7 +1,7 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-50-blue.svg)](#skill-list)
+[![Skills](https://img.shields.io/badge/Skills-5%20visible%20%2F%2051%20total-blue.svg)](#skill-list)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
@@ -13,7 +13,7 @@ From fuzzy ideas or user requests, a single command completes the full pipeline:
 
 ## Overview
 
-PMSkill encapsulates the core workflows of product managers in Agent environments into 50 callable core Skills, covering three domains: requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
+PMSkill encapsulates the core workflows of product managers in Agent environments into **51 Skills** — 5 User-facing (visible in the slash menu, triggered by humans) + 46 Engine (invoked by AI via `use_skill`, hidden by default). Covering requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
 
 ### Key Features
 
@@ -67,13 +67,31 @@ Fuzzy ideas / user requests
         │
   /pm-need ─── {--auto: zero-confirm} ───→ PMContext (sole Entity)
         │                                   │
-  ┌─────┴─────┐                    ┌────────┴────────┐
-  │           │                    │                 │
-/pm-prd  /pm-premortem       /pm-sketch      /pm-sketch --prototype
-  │           │                    │                 │
-  ▼           ▼                    ▼                 ▼
-prd/*.md  premortem.md       sketch/*.md     prototype.html
+  ┌─────┴─────┐                    ┌────────┴─────────────────┐
+  │           │                    │                          │
+/pm-prd  /pm-premortem       /pm-stories        /pm-sketch --prototype
+  │           │                    │                          │
+  ▼           ▼                    ▼                          ▼
+prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
+                                                  (Simple: single file)
+                                                  (Scaffold: prototype/ directory)
 ```
+
+### ⚠️ pm-sketch Output Positioning
+
+`/pm-sketch --prototype` produces **frontend prototypes (mock)** only — pure frontend implementation, no backend API, data schema, or production code. Scaffold mode generates a runnable React + TS + Vite + Tailwind v4 project with L4 interactions (roles/permissions/four-states/error recovery), but remains a **prototype-level clickable mock**, not a production implementation.
+
+### Incremental Iteration Usage
+
+PMSkill supports incremental iteration without full regeneration each time:
+
+| Scenario | Command | Behavior |
+|----------|---------|----------|
+| New feature/page | `/pm-need Add "XXX" page` | Auto-detected as "add" type, appends new `## <page>` section, existing sections stay Frozen |
+| Adjust confirmed requirement | `/pm-need --update §<page-name> <changes>` | Only that section is thawed and rerun, others remain Frozen |
+| Fill information gap | `/pm-need Fill <specific gap>` | "Complete" type: only scans marked sections |
+| Update prototype after adding page | `/pm-sketch --prototype` | Auto-enters incremental mode when target exists, only generates new pages without overwriting existing ones |
+| Force full regeneration | `/pm-sketch --prototype --rebuild` | Overwrites existing prototype (requires confirmation outside --auto) |
 
 ---
 

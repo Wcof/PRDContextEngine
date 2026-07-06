@@ -107,7 +107,7 @@ for sc in data:
     skills = sc.get("skills", [])
     skill = skills[0] if skills else "?"
     query = sc.get("query", "")
-    query_short = query[:40].replace("\t", " ")
+    query_short = query[:40].replace("\t", " ").replace("\n", " ")
     eb = sc.get("expected_behavior", [])
     files = sc.get("files", [])
     issues = []

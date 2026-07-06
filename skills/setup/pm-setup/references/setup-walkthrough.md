@@ -70,6 +70,7 @@ Step 2: Ask
 - 产物目录：docs/pm-context/
 - PMContext（唯一 Entity）：docs/pm-context/pm-context.md
 - 下游 View：PRD（`prd/ai-prd.md` / `prd/human-prd.md`）、用户故事（`stories.md`）、草图（`sketch/*.md`）均从 PMContext 派生
+- 汇总文档（可选）：`SUMMARY-需求.md` / `SUMMARY-交付.md` / `SUMMARY-可视化.md` / `SUMMARY-验证.md` / `INDEX.md` 由 `/pm-summary` 把散件拼装成几份大文档，原产物不动
 - 风险标记：[待确认] / [假设] / [冲突] 写在正文里，无需独立检查报告
 - 知识库：无
 - 无 hook：/pm-collect 从对话上下文 + 项目扫描 + 知识库搜索收集，不拦截 Agent 会话

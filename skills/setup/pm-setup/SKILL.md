@@ -62,6 +62,7 @@ Default: `docs/pm-context/`. 若用户自定义，记录其路径。目录内约
 - `prd/ai-prd.md` / `prd/human-prd.md` — 给 AI / 给人的 PRD（下游 View）
 - `sketch/wireframe.md` / `sketch/ia.md` / `sketch/state.md` / `sketch/flow.md` — 草图（下游 View）
 - `collect/` — `/pm-collect` 整理后的材料（按类型聚合为单 md）
+- `SUMMARY-*.md` / `INDEX.md` — 由 `/pm-summary` 把散件产出按阅读主题拼装成几份大文档（可选，PM 想一份读全时手动触发，原产物不动只叠加）
 
 **Section B — 语言偏好.**
 
@@ -158,6 +159,7 @@ Tell the user setup is complete and which PMSkill commands will now read from th
 - `/pm-prd` → 从 PMContext 生成 `<产物目录>/prd/ai-prd.md` / `<产物目录>/prd/human-prd.md`
 - `/pm-stories` → 从 PMContext 生成 `<产物目录>/stories.md`（用户故事/功能清单）
 - `/pm-sketch` → 从 PMContext 生成 `<产物目录>/sketch/*.md`（wireframe/ia/state/flow）+ HTML 原型（`--prototype`）
+- `/pm-summary` → 把散件产出按阅读主题拼装成 `<产物目录>/SUMMARY-*.md` + `INDEX.md`（可选，手动触发，原产物不动）
 - 零确认模式：`/pm-need <需求描述> --auto` 可一键全自动完成收集 → PMContext → PRD → 用户故事 → 原型
 
 Mention they can edit the `## PMSkill` block directly later — re-running `/pm-setup` is only necessary if they want to switch产物目录、改语言、或换 Agent 规则落点。已落 stamp 凭据 `<产物目录>/.pmskill-setup.stamp`，下游 Agent 与本块互校用。

@@ -1,7 +1,7 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-5%20visible%20%2F%2051%20total-blue.svg)](#skill-清单)
+[![Skills](https://img.shields.io/badge/Skills-6%20visible%20%2F%2052%20total-blue.svg)](#skill-清单)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
@@ -13,7 +13,7 @@
 
 ## 概述
 
-PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **51 个 Skill**——5 个 User-facing（斜杠菜单可见，人类主动触发）+ 46 个 Engine（由 AI 按语义 `use_skill` 调起，默认隐藏不噪音）。覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
+PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **52 个 Skill**——6 个 User-facing（斜杠菜单可见，人类主动触发）+ 46 个 Engine（由 AI 按语义 `use_skill` 调起，默认隐藏不噪音）。覆盖需求发现、交付与可视化三大领域。所有 Skill 遵循 [Anthropic Agent Skills 规范](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)，采用 YAML frontmatter 渐进披露与第三人称触发描述。
 
 ### 核心特性
 
@@ -101,7 +101,7 @@ PMSkill 支持增量迭代，无需每次全量重做：
 
 ## Skill 清单
 
-**斜杠可见 = 5 个 User-facing**（默认对人类菜单可见）；**Engine = 46 个**（`metadata.internal: true`，默认隐藏由 AI `use_skill` 调起，`INSTALL_INTERNAL_SKILLS=1` 可显式列出）。下方按领域分桶列出全部 51 个，括号标可见性。
+**斜杠可见 = 6 个 User-facing**（默认对人类菜单可见）；**Engine = 46 个**（`metadata.internal: true`，默认隐藏由 AI `use_skill` 调起，`INSTALL_INTERNAL_SKILLS=1` 可显式列出）。下方按领域分桶列出全部 52 个，括号标可见性。
 
 ### Setup — 初始化
 
@@ -167,6 +167,7 @@ PMSkill 支持增量迭代，无需每次全量重做：
 |---|---|---|
 | `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
 | `/pm-conflict-resolver` | model-invoked | 局部退火——节点报错时只对报错上下文+上游节点 JSON 做最小差分修复，不重写全局 PMContext |
+| `/pm-summary` | user-invoked | 把已落盘的散件产出按阅读主题汇总成几份大文档（需求/交付/可视化/验证 + 总索引），原产物不动只叠加拼装，幂等可重刷 |
 
 ### Visualization — 可视化
 
@@ -225,7 +226,14 @@ docs/pm-context/
       prd-data.js        ← PMContext 内容注入
       mock-data.js       ← 图表/列表 mock 数据
       README.md          ← 本地启动说明
+  SUMMARY-需求.md        ← 汇总：需求主题（pm-summary 生成，可选）
+  SUMMARY-交付.md        ← 汇总：交付主题（pm-summary 生成，可选）
+  SUMMARY-可视化.md      ← 汇总：可视化主题（pm-summary 生成，可选）
+  SUMMARY-验证.md        ← 汇总：验证与复盘主题（pm-summary 生成，可选）
+  INDEX.md               ← 总索引（pm-summary 生成，可选）
 ```
+
+> 汇总文档（`SUMMARY-*.md` / `INDEX.md`）由 `/pm-summary` 把散件产出按阅读主题拼装成几份大文档，原产物不动只叠加，幂等可重刷。PM 想一份读全某主题时用 `/pm-summary`，找具体原文走总索引回锚点。
 
 ---
 

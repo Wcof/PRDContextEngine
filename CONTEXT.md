@@ -35,6 +35,10 @@ _Avoid_: --incremental flag（已删，入口自判）
 PMContext §8 若含前端框架声明（Vue/React/Next/Nuxt/Svelte/Angular/Electron，或 Vite+TypeScript 同时出现），即从 PMContext 的"建议"升格为下游 skill 必须遵守的硬约束——下游据此触发 Scaffold 模式，防 Agent 自降级到简单模式。样式工具（Tailwind/UnoCSS/Less/Sass）单独出现不触发。
 _Avoid_: 技术栈建议（弱语气已废除，凡声明即硬约束）
 
+**汇总文档（Summary）**:
+`/pm-summary` 是只读汇总层，按阅读主题把散件产出拼装成几份大文档——`SUMMARY-需求.md`（上下文+市场+用户+战略+指标+风险）、`SUMMARY-交付.md`（PRD+故事+发布+roadmap+OKR+sprint+干系人）、`SUMMARY-可视化.md`（线框+IA+状态机+流程+旅程+实体字典）、`SUMMARY-验证.md`（实验+A/B+队列+审计+回顾+合规）、`INDEX.md`（总索引，每份原产物一行：路径+标题+来源 skill+摘要+已汇总到哪份）。落到产物目录最外层，与 `pm-context.md` 同级。原产物零改动——不改写只嵌入、每段标来源锚点、缺失不臆造、幂等可重刷。不进 auto 链路，PM 主动触发；conflict-resolver 仍改原产物不改汇总。
+_Avoid_: 汇总报告、总览文档（弱语气已废除，按阅读主题拼装是硬约定）
+
 
 ## PMContext 模板
 

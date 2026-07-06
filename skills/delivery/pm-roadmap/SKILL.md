@@ -47,7 +47,7 @@ output-focused roadmap 制造虚假精确，让团队围绕功能而非成果对
 | 4. 权衡 | 每 initiative 的 outcome 推导 + 替代方案考量 | 不回灌（产出 View） |
 | 6. 交付 | outcome roadmap 文档 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/roadmap-step4.md`、`.loop/roadmap-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/04-roadmap-tradeoff.md`、`process/06-roadmap-delivery.md`。
 
 **产出约束**：
 - 每 initiative 必须用 `Enable [segment] to [customer outcome] so that [business impact]` 格式重写
@@ -103,8 +103,8 @@ Enable [客户细分 from PMContext 用户场景] to [客户成果] so that [业
 ## 流程链落盘
 
 步骤 4、6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/roadmap-step4.md`（outcome 推导+权衡 + 审计三元组）
-- `docs/pm-context/.loop/roadmap-step6.md`（roadmap 文档 + 审计三元组）
+- `docs/pm-context/process/04-roadmap-tradeoff.md`（outcome 推导+权衡 + 审计三元组）
+- `docs/pm-context/process/06-roadmap-delivery.md`（roadmap 文档 + 审计三元组）
 
 ## 关联增强
 

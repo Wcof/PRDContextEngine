@@ -43,7 +43,7 @@ PMContext 中"价值验证度量"定义了实验应移动的指标与阈值；"�
 | 5. 风险 | guardrail 退化检查 + SRM 验证（实验效度风险） | 回灌实验结论到决策日志 |
 | 6. 交付 | ship/extend/stop 决策建议 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/abtest-step5.md`、`.loop/abtest-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/05-abtest-risk.md`、`process/06-abtest-delivery.md`。
 
 **产出约束**：
 - 样本量必须用公式 `n = ((Z_α/2 + Z_β)² × 2 × p × (1-p)) / MDE²` 验证是否达到 80% power（Z_β 对应 80% power = 0.84），不足则标 🔴 underpowered
@@ -114,8 +114,8 @@ p-value = two-tailed z-test 或 chi-squared
 ## 流程链落盘
 
 步骤 5-6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/abtest-step5.md`（guardrail+SRM 验证 + 审计三元组）
-- `docs/pm-context/.loop/abtest-step6.md`（决策矩阵 + 审计三元组）
+- `docs/pm-context/process/05-abtest-risk.md`（guardrail+SRM 验证 + 审计三元组）
+- `docs/pm-context/process/06-abtest-delivery.md`（决策矩阵 + 审计三元组）
 
 ## 关联增强
 

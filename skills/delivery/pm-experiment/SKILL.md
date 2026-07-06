@@ -45,7 +45,7 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 | 2. 建模 | Impact×Risk 矩阵排序 | 不回灌（产出 View） |
 | 3. 方案 | XYZ 假设 + pretotype 实验 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/experiment-step1.md` 至 `step3.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-experiment-understand.md` 至 `03-experiment-options.md`。
 
 **产出约束**：
 - 假设必须可证伪（"Fails if ___"形式），禁"市场可能不接受"等不可证伪表述
@@ -156,9 +156,9 @@ for each XYZ 假设:
 ## 流程链落盘
 
 步骤 1-3 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/experiment-step1.md`（8 类假设 + 审计三元组）
-- `docs/pm-context/.loop/experiment-step2.md`（Impact×Risk 矩阵 + 审计三元组）
-- `docs/pm-context/.loop/experiment-step3.md`（XYZ+pretotype + 审计三元组）
+- `docs/pm-context/process/01-experiment-understand.md`（8 类假设 + 审计三元组）
+- `docs/pm-context/process/02-experiment-model.md`（Impact×Risk 矩阵 + 审计三元组）
+- `docs/pm-context/process/03-experiment-options.md`（XYZ+pretotype + 审计三元组）
 
 ## 关联增强
 

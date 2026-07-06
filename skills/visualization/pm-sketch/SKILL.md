@@ -35,6 +35,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 - [ ] 调用 /pm-ia 生成信息架构图
 - [ ] 调用 /pm-state 生成状态机图
 - [ ] 调用 /pm-flow 生成流程图
+- [ ] 调用 /pm-journey 生成客户旅程图（与流程图同源，刻画跨页面/跨状态的用户动线）
 - [ ] HTML 原型前已完成模式判断（简单/Scaffold，Step -1）
 - [ ] 简单模式：技术栈决策完成（新项目推荐 / 老项目检测）；Scaffold 模式：固定 React + TS + Vite + Tailwind v4
 - [ ] DESIGN.md 派生 Token 已生成（存在则派生，不存在回退默认）
@@ -48,9 +49,9 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 | 步骤 | 本 Skill 的职责 | 产出（是否回灌 PMContext） |
 |------|---------------|--------------------------|
-| 6. 交付（草图） | 编排 4 个子 Skill 生成全部草图，确保每个图元追溯到 PMContext 实体/关系 | 不回灌（产出 View） |
+| 6. 交付（草图） | 编排 5 个子 Skill 生成全部草图（IA/State/Flow/Wireframe/Journey），确保每个图元追溯到 PMContext 实体/关系 | 不回灌（产出 View） |
 
-执行时依次调用 /pm-ia → /pm-state → /pm-flow → /pm-wireframe。子 Skill 各自写入 `.loop/` 中间工件。
+执行时依次调用 /pm-ia → /pm-state → /pm-flow → /pm-wireframe → /pm-journey。子 Skill 各自写入 `process/` 中间工件。
 
 **产出约束**：
 - 每个图元必须对应 PMContext 中的实体/关系，无法对应的标 `[假设]`
@@ -117,11 +118,12 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 #### 模式 A：Mermaid 草图（默认）
 
-Run 四个子 Skill（按依赖顺序）：
+Run 五个子 Skill（按依赖顺序）：
 1. `/pm-ia` → 信息架构：实体/页面关系
 2. `/pm-state` → 状态机：状态转移
 3. `/pm-flow` → 流程：步骤与分支
 4. `/pm-wireframe` → 线框：页面布局
+5. `/pm-journey` → 客户旅程：跨页面/跨状态的用户动线
 
 若 PMContext 中没有页面定义，信息架构图以实体关系为主体，跳过线框。
 

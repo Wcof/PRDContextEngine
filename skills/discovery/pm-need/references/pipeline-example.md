@@ -77,7 +77,7 @@ Paper Tiger 2 个 / Elephant 1 个
 |------|---------|
 | 一键全链路 | `/pm-need <需求> --auto` |
 | 先调研再决定 | `/pm-need --collect-only` → 看材料 → `/pm-need --refine-only` |
-| 增量更新 | `/pm-need --incremental`（不清空 .loop/，不覆盖旧事实） |
+| 增量更新 | `/pm-need --incremental`（不清空 process/，不覆盖旧事实） |
 | 审计入口 | 一站式报告中的置信度分布：[待确认] > 30% 建议 PM 先审 |
 | 只出 PRD | `/pm-prd --auto` |
 | 只出草图 | `/pm-sketch --prototype` |

@@ -25,13 +25,13 @@ Desktop.ini
 .env.local
 
 # Non-shipped local files (kept locally, not tracked)
-docs/
-!evals/fixtures/mock-project/docs/
+docs/remediation-plan.md
+docs/github-project-kit.md
+docs/pm测试集.json
 .github/
 .codex-plugin/
 .claude-plugin/
 CHANGELOG.md
-!evals/fixtures/mock-project/docs/CHANGELOG.md
 CLAUDE.md
 CONTEXT.md
 CONTRIBUTING.md
@@ -55,8 +55,14 @@ DARWIN-OPTIMIZATION-REPORT.md
 evals/results.json
 evals/results.tsv
 
-# PMSkill 流程链中间工件（构建快照，PMContext 成熟后可清理）
-docs/pm-context/.loop/
-
 # 外部工程技能本地副本（由 skills-lock.json 按需拉取，不入主包）
 vendor-skills/
+
+# —— 放行规则（后写胜前写）——
+# 已被上方忽略但需追踪的待放行文件
+!evals/fixtures/mock-project/docs/
+!evals/fixtures/mock-project/docs/CHANGELOG.md
+
+# 仍忽略：技术缓存与归档（不进版本库）
+docs/pm-context/.cache/
+docs/pm-context/process/.archive/

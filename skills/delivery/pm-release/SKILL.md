@@ -40,7 +40,7 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 |------|---------------|--------------------------|
 | 闭环 | 发布说明+测试场景+WWA backlog | 不回灌（产出交付件） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/release-close.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-release-delivery.md`。
 
 **产出约束**：
 - 发布说明必须用户语言（"现在你可以一键续费"非"重构支付令牌"）
@@ -133,7 +133,7 @@ PMContext + 产物（pm-stories 用户故事、pm-prd、pm-ost）是发布包素
 ## 流程链落盘
 
 闭环步骤产出完成后，写入中间工件：
-- `docs/pm-context/.loop/release-close.md`（发布说明+测试场景+WWA + 审计三元组）
+- `docs/pm-context/process/06-release-delivery.md`（发布说明+测试场景+WWA + 审计三元组）
 
 ## 关联增强
 

@@ -40,7 +40,7 @@ PMContext 的"边界条件"（法规/合规/技术栈约束）是 PESTLE 的 Leg
 | 1. 理解 | 从 PMContext 边界条件/用户场景/竞品提取宏观素材 | 不回灌（产出 View） |
 | 2. 建模 | 六维因素结构化 + 优先级矩阵 + 战略响应 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/pestle-step1.md`、`.loop/pestle-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-pestle-understand.md`、`process/02-pestle-model.md`。
 
 **产出约束**：
 - 每因素必须标注对"本产品"的具体影响，禁泛泛行业趋势（"AI 发展"不算，"AI 发展使我们竞品的推荐算法超越我们"算）
@@ -165,8 +165,8 @@ PMContext 的"边界条件"（法规/合规/技术栈约束）是 PESTLE 的 Leg
 ## 流程链落盘
 
 步骤 1、2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/pestle-step1.md`（六维素材提取 + 审计三元组）
-- `docs/pm-context/.loop/pestle-step2.md`（优先级矩阵 + 战略响应 + 审计三元组）
+- `docs/pm-context/process/01-pestle-understand.md`（六维素材提取 + 审计三元组）
+- `docs/pm-context/process/02-pestle-model.md`（优先级矩阵 + 战略响应 + 审计三元组）
 
 ## 关联增强
 

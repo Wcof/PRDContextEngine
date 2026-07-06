@@ -41,8 +41,8 @@ metadata:
 |------|---------------|--------------------------|
 | 6. 交付（对齐） | 从 PMContext 提取干系人，Power×Interest 分类，产出沟通计划 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/stakeholder-step6.md`。
-每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `.loop/`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-stakeholder-delivery.md`。
+每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `process/`。
 
 **产出约束**：
 - 干系人必须从 PMContext 提取，禁凭空列"CEO/CTO"通用角色——必须对应当前产品的具体决策者/审批方
@@ -113,7 +113,7 @@ metadata:
 ## 流程链落盘
 
 步骤 6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/stakeholder-step6.md`（干系人清单+四象限+沟通计划+审计三元组）
+- `docs/pm-context/process/06-stakeholder-delivery.md`（干系人清单+四象限+沟通计划+审计三元组）
 
 产物主文件落盘路径：`docs/pm-context/stakeholder-map.md`
 

@@ -43,7 +43,7 @@ PMContext 中有用户场景、竞品/市场、价值验证度量、边界条件
 | 2. 建模 | Beachhead 选择 + ICP 画像 | 不回灌（产出 View） |
 | 3. 方案 | 渠道矩阵 + messaging + 时间线 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/gtm-step2.md`、`.loop/gtm-step3.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-gtm-model.md`、`process/03-gtm-options.md`。
 
 **产出约束**：
 - Beachhead 必须是单一细分（非"中小企业"等宽泛表述），用四准则评分选定
@@ -180,8 +180,8 @@ PMContext 中有用户场景、竞品/市场、价值验证度量、边界条件
 ## 流程链落盘
 
 步骤 2-3 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/gtm-step2.md`（Beachhead+ICP + 审计三元组）
-- `docs/pm-context/.loop/gtm-step3.md`（渠道+messaging+时间线 + 审计三元组）
+- `docs/pm-context/process/02-gtm-model.md`（Beachhead+ICP + 审计三元组）
+- `docs/pm-context/process/03-gtm-options.md`（渠道+messaging+时间线 + 审计三元组）
 
 ## 关联增强
 

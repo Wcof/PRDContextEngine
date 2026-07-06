@@ -41,7 +41,7 @@ PMContext 衍生的 pm-stories 产物是 backlog 来源；pm-prioritize 产物�
 | 4. 权衡 | 容量 vs 故事范围权衡 + 风险权衡 | 不回灌（产出 View） |
 | 6. 交付 | 迭代计划文档 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/sprint-step4.md`、`.loop/sprint-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/04-sprint-tradeoff.md`、`process/06-sprint-delivery.md`。
 
 **产出约束**：
 - 容量必须用公式估算：`人数 × 可用% × 历史速率 - 20% buffer`，禁拍脑袋
@@ -176,8 +176,8 @@ Step 5: Verify 回滚 → 如果迭代中发现问题，是否有降级方案？
 ## 流程链落盘
 
 步骤 4、6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/sprint-step4.md`（容量权衡+风险 + 审计三元组）
-- `docs/pm-context/.loop/sprint-step6.md`（迭代计划 + 审计三元组）
+- `docs/pm-context/process/04-sprint-tradeoff.md`（容量权衡+风险 + 审计三元组）
+- `docs/pm-context/process/06-sprint-delivery.md`（迭代计划 + 审计三元组）
 
 ## 关联增强
 

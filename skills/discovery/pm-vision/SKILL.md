@@ -42,7 +42,7 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 | 1. 理解 | 从 PMContext 提取价值/情感/约束 | 不回灌（产出 View） |
 | 2. 建模 | 愿景陈述+阶梯+网格+沟通计划 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/vision-step1.md`、`.loop/vision-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-vision-understand.md`、`process/02-vision-model.md`。
 
 **产出约束**：
 - 愿景必须三要素齐全（情感激励+可实现+明确方向），缺一标 `[待补]`
@@ -110,8 +110,8 @@ PMContext 中有用户场景、价值验证度量、边界条件、竞品/市场
 ## 流程链落盘
 
 步骤 1-2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/vision-step1.md`（愿景素材 + 审计三元组）
-- `docs/pm-context/.loop/vision-step2.md`（愿景+阶梯+网格+沟通 + 审计三元组）
+- `docs/pm-context/process/01-vision-understand.md`（愿景素材 + 审计三元组）
+- `docs/pm-context/process/02-vision-model.md`（愿景+阶梯+网格+沟通 + 审计三元组）
 
 ## 关联增强
 

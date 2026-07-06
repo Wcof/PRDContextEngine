@@ -1,4 +1,4 @@
-# PMSkill 评估结果 — mode=dry-run generated=2026-07-06T02:57:53Z
+# PMSkill 评估结果 — mode=dry-run generated=2026-07-06T09:14:04Z
 skill	scenario_id	query	expected_count	status	note
 pm-abtest	1	control 5023/617 转化，variant 4987/688 转化，	5	PASS	5 条 expected_behavior
 pm-abtest	2	control 1000/variant 1000 跑 3 天，5%/5.5%，	3	PASS	3 条 expected_behavior
@@ -49,6 +49,8 @@ pm-need	7	/pm-need 我需要一个面向中小电商卖家的库存同步工具�
 pm-need	8	/pm-need 增加「积分商城」页面	5	PASS	5 条 expected_behavior
 pm-need	9	/pm-need --update §会员权益 年付改为季付	5	PASS	5 条 expected_behavior
 pm-need	10	/pm-need 修改会员权益年付定价	4	PASS	4 条 expected_behavior
+pm-need	11	/pm-need 我想做个会员体系重构 --auto	5	PASS	5 条 expected_behavior
+pm-need	12	/pm-need 缺过程文档的场景（人为删一个 process 文件后跑 --a	4	PASS	4 条 expected_behavior
 pm-northstar	1	PMContext 有价值度量，深化北极星	5	PASS	5 条 expected_behavior
 pm-northstar	2	想设 3 个北极星	2	PASS	2 条 expected_behavior
 pm-northstar	3	NSM 选月收入行吗	2	PASS	2 条 expected_behavior
@@ -93,6 +95,7 @@ pm-sketch	6	/pm-sketch --prototype --scaffold（PMCont	3	PASS	3 条 expected_beh
 pm-sketch	7	/pm-sketch --prototype	4	PASS	4 条 expected_behavior
 pm-sketch	8	/pm-sketch --prototype	3	PASS	3 条 expected_behavior
 pm-sketch	9	/pm-sketch --prototype（增量场景：目标已存在 + PMCo	5	PASS	5 条 expected_behavior
+pm-sketch	10	/pm-sketch --auto（过程文档显性化校验）	4	PASS	4 条 expected_behavior
 pm-skillauthor	1	写一个新 skill 教 agent 做 X	4	PASS	4 条 expected_behavior
 pm-skillauthor	2	直接写 SKILL.md 不跑 baseline	2	PASS	2 条 expected_behavior
 pm-skillauthor	3	GREEN 写让 agent 更好地做 X	2	PASS	2 条 expected_behavior

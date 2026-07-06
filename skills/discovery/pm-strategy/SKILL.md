@@ -40,7 +40,7 @@ PMContext 中有竞品/市场、用户场景、边界条件、价值验证度量
 | 1. 理解 | 从 PMContext 竞品/市场/边界条件提取战略素材 | 不回灌（产出 View） |
 | 2. 建模 | 套用战略框架结构化判断 + 行动建议 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/strategy-step1.md`、`.loop/strategy-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-strategy-understand.md`、`process/02-strategy-model.md`。
 
 **产出约束**：
 - 每条判断必须追溯到 PMContext 项，凭空判断标 `[假设]` 并提示先运行 /pm-collect 补竞品数据
@@ -131,8 +131,8 @@ PMContext 中有竞品/市场、用户场景、边界条件、价值验证度量
 ## 流程链落盘
 
 步骤 1-2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/strategy-step1.md`（战略素材提取 + 审计三元组）
-- `docs/pm-context/.loop/strategy-step2.md`（四框架结构化 + 行动建议 + 审计三元组）
+- `docs/pm-context/process/01-strategy-understand.md`（战略素材提取 + 审计三元组）
+- `docs/pm-context/process/02-strategy-model.md`（四框架结构化 + 行动建议 + 审计三元组）
 
 ## 关联增强
 

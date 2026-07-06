@@ -119,5 +119,30 @@
       "不擅自修改 Frozen 段",
       "不静默跳过"
     ]
+  },
+  {
+    "id": 11,
+    "skills": ["pm-need"],
+    "query": "/pm-need 我想做个会员体系重构 --auto",
+    "files": [],
+    "expected_behavior": [
+      "全链路结束后 docs/pm-context/process/ 下生成全部过程文档（01-collect-understand / 02-refine-model / 03-refine-options / 04-refine-tradeoff / 05-premortem-risk / 06-*-delivery），非隐藏目录",
+      "打印产物完整性体检块（含 PMContext / 过程文档 M/预期 N / 结果文档 / 缺失清单 四行）",
+      "PMContext（docs/pm-context/pm-context.md）存在且非空",
+      ".loop/ 路径不再被写入（已迁移至 process/）",
+      "重跑时 process/ 旧文件归档到 process/.archive/<timestamp>/ 而非 rm 删除"
+    ]
+  },
+  {
+    "id": 12,
+    "skills": ["pm-need"],
+    "query": "/pm-need 缺过程文档的场景（人为删一个 process 文件后跑 --auto）",
+    "files": [],
+    "expected_behavior": [
+      "产物完整性体检块检测到缺失项 → 报 🔴",
+      "体检块缺失清单列出具体缺失文件名",
+      "不静默打完成标记，提示 PM 是哪个 Skill 未落盘 + 重跑命令",
+      "PMContext 缺失时体检报 🔴 并提示「Sole Entity 缺失，链路中断，请重跑 /pm-need」"
+    ]
   }
 ]

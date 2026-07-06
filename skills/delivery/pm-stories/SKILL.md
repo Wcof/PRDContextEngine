@@ -43,7 +43,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 |------|---------------|--------------------------|
 | 6. 交付（用户故事） | 从 PMContext 用户场景/规则/验收拆解为 3C+INVEST 故事 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/stories-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-stories-delivery.md`。
 
 **产出约束**：
 - 每个故事必须对应 PMContext 中的具体项，在"来源"列标注
@@ -147,7 +147,7 @@ PMContext 中有用户场景定义、业务规则、验收项。本 skill 提取
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/stories-step6.md`（故事追溯映射 + 审计三元组 + 与草图差分结果）
+- `docs/pm-context/process/06-stories-delivery.md`（故事追溯映射 + 审计三元组 + 与草图差分结果）
 
 ## 关联增强
 

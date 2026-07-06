@@ -40,7 +40,7 @@ PMContext + `docs/pm-context/prd/ai-prd.md`（AI PRD 含可执行规则+验收�
 |------|---------------|--------------------------|
 | 质量门 | 提取意图+采集证据+比对+分级+修复 | 回灌：Critical gap 标入 PMContext 风险段 |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/align-quality.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/align-quality.md`。
 
 **产出约束**：
 - 意图必须有文档来源（PRD 规则/验收标准/边界条件），无文档的标 `[非文档化意图]` 不臆造
@@ -156,7 +156,7 @@ L2/L3 意图在 Step 3 比对时优先检：generic scanner 无意图模型只�
 ## 流程链落盘
 
 质量门步骤产出完成后，写入中间工件：
-- `docs/pm-context/.loop/align-quality.md`（意图+证据+gap+修复 + 审计三元组）
+- `docs/pm-context/process/align-quality.md`（意图+证据+gap+修复 + 审计三元组）
 
 ## 关联增强
 

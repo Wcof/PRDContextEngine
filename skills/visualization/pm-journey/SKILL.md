@@ -41,7 +41,7 @@ PMContext 中有用户场景定义、边界条件（异常路径）、现状平�
 |------|---------------|--------------------------|
 | 6. 交付（旅程图） | 从 PMContext 用户场景/边界/摩擦力提取旅程阶段，生成旅程地图 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/journey-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-sketch-journey.md`。
 
 **产出约束**：
 - 每个阶段必须对应 PMContext 中的具体项，在"来源"列标注
@@ -145,7 +145,7 @@ flowchart LR
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/journey-step6.md`（阶段追溯映射 + 审计三元组）
+- `docs/pm-context/process/06-sketch-journey.md`（阶段追溯映射 + 审计三元组）
 
 ## 关联增强
 

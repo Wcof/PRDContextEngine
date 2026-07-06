@@ -107,5 +107,17 @@
       "已有页面不被重写覆盖",
       "更新路由/菜单以纳入新页面"
     ]
+  },
+  {
+    "id": 10,
+    "skills": ["pm-sketch"],
+    "query": "/pm-sketch --auto（过程文档显性化校验）",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": [
+      "4 个子 Skill 各自的过程工件落盘到 docs/pm-context/process/06-sketch-{wireframe,ia,state,flow}.md（非 .loop/）",
+      "process/ 下文件无点前缀、显性可见",
+      ".loop/ 路径不再被写入（已迁移至 process/）",
+      "草图主文件仍落 sketch/*.md，过程工件仅记图元追溯 + 审计三元组"
+    ]
   }
 ]

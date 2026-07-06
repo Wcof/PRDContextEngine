@@ -41,7 +41,7 @@ PMContext 中"价值验证度量"定义了可测指标与阈值（KR 候选来�
 | 4. 权衡 | 三套 OKR 候选对比 + 信心度评估 | 回灌选定 OKR 到决策日志 |
 | 6. 交付 | 最终 OKR 文档 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/okr-step4.md`、`.loop/okr-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/04-okr-tradeoff.md`、`process/06-okr-delivery.md`。
 
 **产出约束**：
 - Objective 必须定性、鼓舞、有时间窗（如"Q3 让新用户在 20 分钟内体验到核心价值"），禁写成指标
@@ -112,8 +112,8 @@ Key Results:
 ## 流程链落盘
 
 步骤 4、6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/okr-step4.md`（三套对比+选定 + 审计三元组）
-- `docs/pm-context/.loop/okr-step6.md`（最终 OKR + 审计三元组）
+- `docs/pm-context/process/04-okr-tradeoff.md`（三套对比+选定 + 审计三元组）
+- `docs/pm-context/process/06-okr-delivery.md`（最终 OKR + 审计三元组）
 
 ## 关联增强
 

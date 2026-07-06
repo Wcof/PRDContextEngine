@@ -42,7 +42,7 @@ PMContext + 产物（pm-prd/pm-stories/pm-release）是分流素材。本 skill 
 |------|---------------|--------------------------|
 | 调度 | 分类+状态分流+垂直切片+agent brief | 不回灌（产出交付调度件） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/triage-dispatch.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/triage-dispatch.md`。
 
 **产出约束**：
 - 每 issue 仅一 category + 一 state，冲突标 `[状态冲突]` 问 PM
@@ -140,7 +140,7 @@ brief 必须自包含——agent 读完无需再问即可开工。
 ## 流程链落盘
 
 调度步骤产出完成后，写入中间工件：
-- `docs/pm-context/.loop/triage-dispatch.md`（分流+切片+brief + 审计三元组）
+- `docs/pm-context/process/triage-dispatch.md`（分流+切片+brief + 审计三元组）
 
 ## 关联增强
 

@@ -40,7 +40,7 @@ PMContext 中有"价值验证度量"维度和用户场景。本 skill 提取这�
 |------|---------------|--------------------------|
 | 4. 权衡（度量） | 从 PMContext 价值验证度量定义 NSM + Input Metrics | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/metrics-step4.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/04-metrics-tradeoff.md`。
 
 **产出约束**：
 - NSM 必须通过七准则全部校验，任一不满足换候选
@@ -148,7 +148,7 @@ flowchart TD
 ## 流程链落盘
 
 步骤 4（权衡）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/metrics-step4.md`（指标追溯映射 + 审计三元组）
+- `docs/pm-context/process/04-metrics-tradeoff.md`（指标追溯映射 + 审计三元组）
 
 ## 关联增强
 

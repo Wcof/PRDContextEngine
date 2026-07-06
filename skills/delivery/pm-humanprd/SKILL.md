@@ -38,7 +38,7 @@ PMContext 已沉淀事实/假设/冲突/待确认。Human PRD 的职责是将这
 |------|---------------|--------------------------|
 | 6. 交付（Human PRD） | 从 PMContext 生成给人评审的 PRD，突出决策理由与业务价值，每项追溯到步骤 4 的决策理由 + 步骤 5 的风险已处理 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/humanprd-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-humanprd-delivery.md`。
 
 **产出约束**：
 - 必须产出**决策理由清单**：每个权衡点选了哪个方案、为什么、代价是什么
@@ -52,7 +52,7 @@ PMContext 已沉淀事实/假设/冲突/待确认。Human PRD 的职责是将这
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/humanprd-step6.md`（决策理由清单 + 追溯映射 + 审计三元组）
+- `docs/pm-context/process/06-humanprd-delivery.md`（决策理由清单 + 追溯映射 + 审计三元组）
 
 ## 产物
 

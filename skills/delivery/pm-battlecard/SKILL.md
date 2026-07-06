@@ -46,7 +46,7 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 | 2. 建模 | 竞品能力建模 + 差异化定位 | 不回灌（产出 View） |
 | 6. 交付 | 销售就绪作战卡 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/battlecard-step2.md`、`.loop/battlecard-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-battlecard-model.md`、`process/06-battlecard-delivery.md`。
 
 **产出约束**：
 - 对比表必须 ≥5 能力维度，每维度标"Us/Them/Tie"胜负
@@ -123,8 +123,8 @@ PMContext"竞品/市场"定义竞品三层（直接/间接/替代）与差异化
 ## 流程链落盘
 
 步骤 2、6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/battlecard-step2.md`（竞品建模+对比 + 审计三元组）
-- `docs/pm-context/.loop/battlecard-step6.md`（作战卡 + 审计三元组）
+- `docs/pm-context/process/02-battlecard-model.md`（竞品建模+对比 + 审计三元组）
+- `docs/pm-context/process/06-battlecard-delivery.md`（作战卡 + 审计三元组）
 
 ## 关联增强
 

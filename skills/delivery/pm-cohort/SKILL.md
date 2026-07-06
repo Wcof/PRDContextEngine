@@ -42,7 +42,7 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 | 2. 建模 | 队列划分 + 留存/采纳曲线计算 | 回灌异常队列发现到信息缺口 |
 | 5. 风险 | 异常队列定位 + 流失风险预警 | 回灌风险项到决策日志 |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/cohort-step2.md`、`.loop/cohort-step5.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-cohort-model.md`、`process/05-cohort-risk.md`。
 
 **产出约束**：
 - 队列划分维度必须从 PMContext 用户场景推导，禁拍脑袋选维度
@@ -121,8 +121,8 @@ PMContext 中"价值验证度量"定义了留存指标（如 7 日/30 日留存�
 ## 流程链落盘
 
 步骤 2、5 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/cohort-step2.md`（队列划分+留存/采纳曲线 + 审计三元组）
-- `docs/pm-context/.loop/cohort-step5.md`（异常队列+风险预警 + 审计三元组）
+- `docs/pm-context/process/02-cohort-model.md`（队列划分+留存/采纳曲线 + 审计三元组）
+- `docs/pm-context/process/05-cohort-risk.md`（异常队列+风险预警 + 审计三元组）
 
 ## 关联增强
 

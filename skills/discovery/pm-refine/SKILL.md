@@ -71,9 +71,9 @@ Agent 对每个维度**先尝试从已有材料推断**：
 | 3. 方案 | 发散 ≥2 个方案候选（激进 vs 保守），每个候选必须覆盖步骤 2 领域模型中的全部实体 | 回灌优先级+技术约束+方案候选 |
 | 4. 权衡 | 产出决策表：每个权衡点选了哪个方案、为什么、代价是什么；项目上下文中的物理约束（如硬件规格、延迟要求等）作为 trade-off 输入 | 回灌决策日志 |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/refine-step2.md`、`.loop/refine-step3.md`、`.loop/refine-step4.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-refine-model.md`、`process/03-refine-options.md`、`process/04-refine-tradeoff.md`。
 达阈值的关键信息自动回灌到 PMContext 对应 heading（不开新 heading、走现有标记体系）。
-每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `.loop/`，摘要回灌决策日志。
+每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `process/`，摘要回灌决策日志。
 
 **产出约束**：
 
@@ -206,7 +206,7 @@ Agent 在内部完成"自我追问 loop"——对每个维度自问自答，模�
 5. 完全缺失 → 标 `[待确认]` 记入信息缺口
 6. 材料矛盾 → 标 `[冲突]`
 
-**不落盘对话日志**：自我追问 loop 是隐式推理（对齐心智链不落盘纪律），结论走现有 `.loop/refine-step2/3/4.md` 路径，**不新增** `.loop/refine-discuss-*.md`。审计三元组已提供可追溯性，无需对话原文。
+**不落盘对话日志**：自我追问 loop 是隐式推理（对齐心智链不落盘纪律），结论走现有 `process/02-refine-model.md` / `03-refine-options.md` / `04-refine-tradeoff.md` 路径，**不新增** `process/refine-discuss-*.md`。审计三元组已提供可追溯性，无需对话原文。
 
 ### 审计门（自主模式）
 
@@ -284,9 +284,9 @@ Agent **必须**对每个维度尝试推断，不可跳过。**🔴 规则：若
 ## 流程链落盘
 
 每个步骤产出完成后，写入中间工件：
-- 步骤 2（建模）→ `docs/pm-context/.loop/refine-step2.md`（领域模型片段 + 审计三元组）
-- 步骤 3（方案）→ `docs/pm-context/.loop/refine-step3.md`（方案候选集 + 适用条件 + 审计三元组）
-- 步骤 4（权衡）→ `docs/pm-context/.loop/refine-step4.md`（决策表 + 审计三元组）
+- 步骤 2（建模）→ `docs/pm-context/process/02-refine-model.md`（领域模型片段 + 审计三元组）
+- 步骤 3（方案）→ `docs/pm-context/process/03-refine-options.md`（方案候选集 + 适用条件 + 审计三元组）
+- 步骤 4（权衡）→ `docs/pm-context/process/04-refine-tradeoff.md`（决策表 + 审计三元组）
 
 **原子叠加**：自主推断模式下步骤 2-4 的回灌在 LLM 上下文内做原子级叠加，不逐步 I/O 写 `pm-context.md`。仅在 /pm-refine 执行完毕时做单次批量落盘 PMContext。
 

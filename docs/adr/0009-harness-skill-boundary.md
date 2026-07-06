@@ -44,7 +44,7 @@ PMSkill 此前在 SKILL.md / 约定文件里反复堆叠"运行时控制层"语�
 ## References
 
 - ADR 0004: PMContext Sole Entity
-- ADR 0008: PM Thinking Loop Internalization（心智链不落盘、流程链落盘 `.loop/`）
+- ADR 0008: PM Thinking Loop Internalization（心智链不落盘、流程链落盘 `.loop/`）——注：流程链落盘路径已于 ADR 0016 迁至显性 `process/`，`.loop/` 部分被推翻
 - `.atomcode.md` — 结构化分片 + Frozen 契约
 - `skills/*/PINNED.md` — 双通道置顶契约
 - `skills/utility/pm-conflict-resolver/SKILL.md` — 自包含输入 + 局部退火契约

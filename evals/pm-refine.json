@@ -61,8 +61,8 @@
       "进入自主推断模式，PM 零介入",
       "内部完成自我追问 loop，不外显为对话",
       "8 维推断全覆盖，推断不了的标 [待确认] 记入信息缺口",
-      "产出落盘路径为 `.loop/refine-step2.md / step3.md / step4.md`",
-      "不新增 `.loop/refine-discuss-*.md`",
+      "产出落盘路径为 `process/02-refine-model.md / 03-refine-options.md / 04-refine-tradeoff.md`",
+      "不新增 `process/refine-discuss-*.md`",
       "审计门展示完整置信度分布（追问模式无 PM 参与）"
     ]
   }

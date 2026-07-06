@@ -80,9 +80,9 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 | 编排步骤 2-4 | 调用 /pm-refine 承载步骤 2-4（建模/方案/权衡） |
 | 编排步骤 5 | --auto 模式下调用 /pm-premortem 承载步骤 5（风险） |
 | 编排步骤 6 | 调用 /pm-prd + /pm-stories + /pm-sketch 承载步骤 6（交付：PRD → 用户故事 → 草图） |
-| Wipe-on-Entry | **0→1 全链路**模式（PMContext 不存在或为空）调用时，自动清空**配置块声明的产物目录下的 `.loop/`**（默认 `docs/pm-context/.loop/`）；**增量模式**跳过 Wipe，保留 `.loop/` 供差分推断消费 |
+| 入口归档（非 --incremental） | **0→1 全链路**模式（PMContext 不存在或为空）调用时，自动归档**配置块声明的产物目录下的 `process/` 历史过程文档到 `process/.archive/<timestamp>/`**（默认 `docs/pm-context/process/`），并清空技术缓存 `.cache/`；**增量模式**跳过归档，保留 `process/` 与 `.cache/` 供差分推断消费 |
 
-子 Skill 各自写入 `.loop/` 中间工件并执行 Thinking Protocol。本 Skill 不重复子 Skill 的产出约束。
+子 Skill 各自写入 `process/` 中间工件并执行 Thinking Protocol。本 Skill 不重复子 Skill 的产出约束。
 
 **编排纪律**：
 - 步骤必须按 1→2→3→4→5→6 顺序执行，不可跳步
@@ -95,22 +95,31 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 
 ## 流程
 
-### 0. 入口模式自判 + Wipe-on-Entry
+### 0. 入口模式自判 + 入口归档（非 --incremental）
 
 **自动判 0→1 vs 增量**（无 flag，扫产物目录）：
-- `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**：执行 Wipe-on-Entry
-- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**：跳过 Wipe，扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段（无标记）**Frozen 不动**；合并走 `/pm-conflict-resolver` 内联调
+- `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**：执行入口归档
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**：跳过归档，扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段（无标记）**Frozen 不动**；合并走 `/pm-conflict-resolver` 内联调
 - `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）→ **定点增量**：仅重跑指定段，其余 Frozen
 
-**0→1 全链路**模式：
+**0→1 全链路**模式（入口归档而非删除）：
 ```bash
 # 产物目录以 ## PMSkill 块的 `产物目录` 项为准（默认 docs/pm-context/）
-rm -rf <产物目录>.loop/
-mkdir -p <产物目录>.loop/
+# 过程文档不删除，先归档保留历史供审计
+if [ -d <产物目录>process ] && [ "$(ls -A <产物目录>process 2>/dev/null)" ]; then
+  ts=$(date +%Y%m%d-%H%M%S)
+  mkdir -p <产物目录>process/.archive/$ts
+  # 归档除 README.md 外的过程文档
+  find <产物目录>process -maxdepth 1 -type f ! -name README.md \
+    -exec mv {} <产物目录>process/.archive/$ts/ \;
+fi
+mkdir -p <产物目录>process
+# 仅清空纯技术缓存（断点续跑 JSON 分片）
+rm -rf <产物目录>.cache/ && mkdir -p <产物目录>.cache/
 ```
-清空上一轮中间工件，开启干净的思考循环。
+归档上一轮过程文档供事后审计，清空技术缓存开启干净的思考循环。
 
-**增量模式**：跳过 Wipe，保留 `.loop/` 供差分推断消费。增量合并纪律：
+**增量模式**：跳过归档，保留 `process/` 与 `.cache/` 供差分推断消费。增量合并纪律：
 - collect 只扫描与标记项相关的新增材料，不重扫全量
 - refine 只推断标记项 + 用户显式指定的段，不重推已确认段
 - 合并必须走 `/pm-conflict-resolver` 内联调——pm-need 不直接改 PMContext 已确认段
@@ -137,7 +146,7 @@ mkdir -p <产物目录>.loop/
 
 ### 节点路由（--auto）
 
-各节点产出独立落盘为 `.loop/nodeN-*.json`（分片冻结）。
+各节点产出独立落盘为 `.cache/nodeN-*.json`（分片冻结，技术缓存不进版本库）。
 下游节点失败时，路由指向 `/pm-conflict-resolver`（而非回到起点），
 修复后仅重跑「受影响下游集合」，其余分片 Frozen。
 
@@ -323,6 +332,33 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | `--auto` 遇子 skill 失败就全链路回滚 | 已生成部分仍落盘，失败项单独标注 |
 | 🔴 高熵输入且无背景源时，禁止直接生成 PMContext JSON（避免带病执行导致后期大面积返工） | 高熵无背景源必须先举手，否则下游 PRD/草图基于带病 PMContext 大面积返工 |
+
+## 产物完整性体检（全链路结束强制执行）
+
+**触发时机**：`--auto` 链路一气呵成末尾 / 正常模式审计门输出前，**两种模式都必须执行并打印体检块**。
+
+**必须存在清单**（缺任一 → 报 🔴，不得标完成）：
+
+- [ ] `docs/pm-context/pm-context.md` 存在且非空 ← **最高优先，Sole Entity 绝不能缺**
+- [ ] `process/01-collect-understand.md`
+- [ ] `process/02-refine-model.md` + `03-refine-options.md` + `04-refine-tradeoff.md`
+- [ ] （`--auto` 链路）`process/05-premortem-risk.md`
+- [ ] （走了 PRD 链路）`prd/ai-prd.md` + `prd/human-prd.md` + `process/06-aiprd-delivery.md` + `process/06-humanprd-delivery.md`
+- [ ] （`--auto` 链路 / 走了 stories）`docs/pm-context/stories.md` + `process/06-stories-delivery.md`
+- [ ] （走了 sketch 链路）`sketch/*.md`（wireframe/ia/state/flow/journey）+ `process/06-sketch-*.md`（含 `06-sketch-journey.md`）
+
+**强制打印体检块**（格式固定，PM 一眼可见缺失项）：
+
+```markdown
+✅ 产物完整性体检
+  - PMContext:   已生成 / 🔴 缺失
+  - 过程文档:    已生成 M / 预期 N（列出缺失项: <文件名清单 或 无>）
+  - 结果文档:    PRD ✅/🔴 / Stories ✅/🔴 / Sketch ✅/🔴
+  - 缺失清单:    <列表 或 无>
+  - 缺失归因:    <哪个 Skill 未落盘 / 推断未启动 / 失败被跳过>
+```
+
+**🔴 STOP 规则**：任一 🔴 → **不得打完成标记**，提示 PM 是哪个 Skill 未落盘，并指出重跑命令（如「缺 `process/05-premortem-risk.md` → 重跑 `/pm-premortem`」）。PMContext 缺失为最高优先 🔴，须立即提示「Sole Entity 缺失，链路中断，请重跑 `/pm-need`」。
 
 ---
 

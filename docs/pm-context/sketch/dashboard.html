@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMSkill 质量看板</title>
+<style>
+  :root { --bg: #f8f9fa; --card: #fff; --text: #1a1a2e; --muted: #6b7280; --accent: #2563eb; --red: #ef4444; --amber: #f59e0b; --green: #22c55e; --border: #e5e7eb; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); padding: 24px; line-height: 1.5; }
+
+  .header { max-width:1200px; margin:0 auto 32px; }
+  .header h1 { font-size:28px; font-weight:700; letter-spacing:-0.5px; }
+  .header .subtitle { color:var(--muted); font-size:14px; margin-top:4px; display:flex; gap:16px; flex-wrap:wrap; }
+  .header .subtitle span { display:inline-flex; align-items:center; gap:4px; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:600; }
+  .badge-setup { background:#dbeafe; color:#1d4ed8; }
+  .badge-discovery { background:#e0e7ff; color:#4338ca; }
+  .badge-delivery { background:#fce7f3; color:#be185d; }
+  .badge-visualization { background:#d1fae5; color:#059669; }
+
+  .controls { max-width:1200px; margin:0 auto 24px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .controls .filter-btn { padding:8px 16px; border-radius:8px; border:1px solid var(--border); background:var(--card); cursor:pointer; font-size:13px; font-weight:500; transition:all .15s; }
+  .controls .filter-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .controls .filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .controls .sort-label { font-size:13px; color:var(--muted); margin-left:auto; }
+
+  .grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
+
+  .card { background:var(--card); border-radius:12px; border:1px solid var(--border); padding:20px; transition:box-shadow .2s,transform .15s; }
+  .card:hover { box-shadow:0 4px 12px rgba(0,0,0,.08); transform:translateY(-1px); }
+  .card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+  .card-title { font-size:16px; font-weight:600; }
+  .card-title .skill-type { font-size:11px; font-weight:400; color:var(--muted); margin-left:6px; }
+  .card-buckets { display:flex; gap:4px; flex-wrap:wrap; margin-top:4px; }
+
+  .score-ring { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex-shrink:0; position:relative; }
+  .score-ring.low { background:#fef2f2; color:var(--red); border:3px solid var(--red); }
+  .score-ring.mid { background:#fffbeb; color:var(--amber); border:3px solid var(--amber); }
+  .score-ring.high { background:#f0fdf4; color:var(--green); border:3px solid var(--green); }
+
+  .dim-bar { margin-bottom:6px; }
+  .dim-bar .dim-label { display:flex; justify-content:space-between; font-size:12px; margin-bottom:2px; }
+  .dim-bar .dim-label .dim-name { font-weight:500; }
+  .dim-bar .dim-label .dim-score { color:var(--muted); }
+  .dim-bar .bar-track { height:6px; background:#f3f4f6; border-radius:3px; overflow:hidden; }
+  .dim-bar .bar-fill { height:100%; border-radius:3px; transition:width .4s ease; }
+  .dim-bar .bar-fill.d1 { background:#6366f1; }
+  .dim-bar .bar-fill.d2 { background:#8b5cf6; }
+  .dim-bar .bar-fill.d3 { background:#ec4899; }
+  .dim-bar .bar-fill.d4 { background:#f43f5e; }
+  .dim-bar .bar-fill.d5 { background:#f97316; }
+  .dim-bar .bar-fill.d6 { background:#eab308; }
+  .dim-bar .bar-fill.d7 { background:#22c55e; }
+  .dim-bar .bar-fill.d8 { background:#14b8a6; }
+  .dim-bar .bar-fill.d9 { background:#3b82f6; }
+
+  .weakness-list { display:flex; gap:4px; flex-wrap:wrap; margin-top:8px; }
+  .weakness-tag { display:inline-flex; align-items:center; gap:2px; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:500; background:#fef2f2; color:var(--red); }
+
+  .summary-bar { max-width:1200px; margin:24px auto 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+  .summary-item { background:var(--card); border-radius:10px; border:1px solid var(--border); padding:16px; text-align:center; }
+  .summary-item .value { font-size:24px; font-weight:700; }
+  .summary-item .label { font-size:12px; color:var(--muted); margin-top:2px; }
+
+  .footer { max-width:1200px; margin:32px auto 0; text-align:center; font-size:12px; color:var(--muted); border-top:1px solid var(--border); padding-top:16px; }
+
+  @media (max-width:640px) { .grid { grid-template-columns:1fr; } body { padding:16px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 PMSkill 质量看板</h1>
+  <div class="subtitle">
+    <span>📅 2026-06-28</span>
+    <span>⚡ 13 个 skill</span>
+    <span>📁 数据源: results.tsv (v2 优化后)</span>
+    <span>🔄 评分: darwin-skill 9维 rubric</span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="filter-btn active" data-filter="all">全部 (13)</button>
+  <button class="filter-btn" data-filter="setup">🛠️ Setup (1)</button>
+  <button class="filter-btn" data-filter="discovery">🔍 Discovery (3)</button>
+  <button class="filter-btn" data-filter="delivery">📦 Delivery (4)</button>
+  <button class="filter-btn" data-filter="visualization">🎨 Visualization (5)</button>
+  <span class="sort-label">⬆️ 升序 · 最弱在前</span>
+</div>
+
+<div class="grid" id="skillGrid">
+  <!-- 由 JS 动态渲染 -->
+</div>
+
+<div class="summary-bar" id="summaryBar">
+  <!-- 由 JS 动态渲染 -->
+</div>
+
+<div class="footer">
+  PMSkill Quality Dashboard · 自动生成自 darwin-skill Baseline 评估 · 数据来源: results.tsv
+</div>
+
+<script>
+// ============================================================
+// 数据：来自 baseline 评估的 13 个 skill
+// ============================================================
+const DIM_NAMES = { d1:'Frontmatter', d2:'工作流', d3:'失败模式', d4:'检查点', d5:'具体性', d6:'资源整合', d7:'架构', d8:'实测', d9:'反例' };
+const DIM_WEIGHTS = { d1:7, d2:12, d3:12, d4:6, d5:17, d6:4, d7:12, d8:23, d9:6 };
+const BUCKET_LABELS = { setup:'🛠️ Setup', discovery:'🔍 Discovery', delivery:'📦 Delivery', visualization:'🎨 Visualization' };
+
+const skillsData = [
+  { name:'pm-prd', bucket:'delivery', type:'user-invoked', total:80.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:7, d9:7 }, desc:'从 PMContext 生成 PRD（编排器）' },
+  { name:'pm-sketch', bucket:'visualization', type:'user-invoked', total:81.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:7, d9:7 }, desc:'从 PMContext 生成草图 + HTML 原型' },
+  { name:'pm-humanprd', bucket:'delivery', type:'model-invoked', total:81.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:7, d9:7 }, desc:'给人阅读的 PRD' },
+  { name:'pm-ia', bucket:'visualization', type:'model-invoked', total:80.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:7, d9:7 }, desc:'信息架构图' },
+  { name:'pm-state', bucket:'visualization', type:'model-invoked', total:79.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:6, d9:7 }, desc:'状态机图' },
+  { name:'pm-flow', bucket:'visualization', type:'model-invoked', total:79.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:6, d9:7 }, desc:'流程图' },
+  { name:'pm-wireframe', bucket:'visualization', type:'model-invoked', total:80.0, dims:{ d1:8, d2:8, d3:8, d4:7, d5:8, d6:8, d7:8, d8:7, d9:7 }, desc:'界面线框图' },
+  { name:'pm-aiprd', bucket:'delivery', type:'model-invoked', total:83.0, dims:{ d1:8, d2:9, d3:8, d4:7, d5:9, d6:8, d7:8, d8:7, d9:7 }, desc:'给 AI 执行的 PRD' },
+  { name:'pm-collect', bucket:'discovery', type:'model-invoked', total:83.0, dims:{ d1:8, d2:9, d3:8, d4:7, d5:9, d6:8, d7:8, d8:7, d9:7 }, desc:'项目深扫描 & 材料收集' },
+  { name:'pm-setup', bucket:'setup', type:'user-invoked', total:83.0, dims:{ d1:8, d2:9, d3:8, d4:7, d5:9, d6:8, d7:8, d8:7, d9:7 }, desc:'PMSkill 初始化配置' },
+  { name:'pm-need', bucket:'discovery', type:'user-invoked', total:88.0, dims:{ d1:8, d2:9, d3:8, d4:8, d5:9, d6:8, d7:9, d8:8, d9:8 }, desc:'一键全自动：collect→refine→PRD→原型' },
+  { name:'pm-premortem', bucket:'delivery', type:'model-invoked', total:86.0, dims:{ d1:8, d2:9, d3:8, d4:8, d5:9, d6:8, d7:8, d8:8, d9:8 }, desc:'Pre-Mortem 风险分析' },
+  { name:'pm-refine', bucket:'discovery', type:'model-invoked', total:90.0, dims:{ d1:9, d2:9, d3:9, d4:8, d5:9, d6:9, d7:9, d8:8, d9:8 }, desc:'自主推断澄清，沉淀 PMContext' },
+];
+
+// ============================================================
+// 工具函数
+// ============================================================
+function scoreRing(total) {
+  if (total < 60) return 'low';
+  if (total < 75) return 'mid';
+  return 'high';
+}
+
+function getWeaknesses(dims, n=3) {
+  const entries = Object.entries(dims).map(([k,v]) => ({ dim:k, score:v, weight:DIM_WEIGHTS[k], name:DIM_NAMES[k] }));
+  entries.sort((a,b) => (a.score / a.weight) - (b.score / b.weight));
+  return entries.slice(0, n);
+}
+
+// ============================================================
+// 渲染
+// ============================================================
+function render(filter='all') {
+  const grid = document.getElementById('skillGrid');
+
+  const filtered = filter === 'all'
+    ? skillsData
+    : skillsData.filter(s => s.bucket === filter);
+
+  // 分数升序排序
+  filtered.sort((a,b) => a.total - b.total);
+
+  grid.innerHTML = filtered.map(skill => {
+    const weaknesses = getWeaknesses(skill.dims, 3);
+    const ring = scoreRing(skill.total);
+
+    const dimBars = Object.entries(skill.dims).map(([dim, val]) => {
+      const w = DIM_WEIGHTS[dim];
+      const pct = Math.round((val / 10) * 100);
+      return `
+        <div class="dim-bar">
+          <div class="dim-label">
+            <span class="dim-name">${DIM_NAMES[dim]}</span>
+            <span class="dim-score">${val}/${w}</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill ${dim}" style="width:${pct}%"></div></div>
+        </div>
+      `;
+    }).join('');
+
+    const weaknessTags = weaknesses.map(w =>
+      `<span class="weakness-tag">${w.name} ${w.score}/${w.weight}</span>`
+    ).join('');
+
+    return `
+      <div class="card" data-bucket="${skill.bucket}">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              ${skill.name}
+              <span class="skill-type">${skill.type}</span>
+            </div>
+            <div class="card-buckets">
+              <span class="badge badge-${skill.bucket}">${BUCKET_LABELS[skill.bucket]}</span>
+            </div>
+          </div>
+          <div class="score-ring ${ring}">${skill.total}</div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">${skill.desc}</div>
+        ${dimBars}
+        <div class="weakness-list">${weaknessTags}</div>
+      </div>
+    `;
+  }).join('');
+
+  // 更新摘要统计
+  renderSummary();
+}
+
+function renderSummary() {
+  const bar = document.getElementById('summaryBar');
+  const avg = skillsData.reduce((s,sk) => s+sk.total, 0) / skillsData.length;
+  const lowest = Math.min(...skillsData.map(s=>s.total));
+  const highest = Math.max(...skillsData.map(s=>s.total));
+  const needOptimize = skillsData.filter(s => s.total < 65).length;
+
+  bar.innerHTML = `
+    <div class="summary-item"><div class="value" style="color:var(--accent)">${avg.toFixed(1)}</div><div class="label">平均分</div></div>
+    <div class="summary-item"><div class="value" style="color:var(--red)">${lowest}</div><div class="label">最低分</div></div>
+    <div class="summary-item"><div class="value" style="color:var(--green)">${highest}</div><div class="label">最高分</div></div>
+    <div class="summary-item"><div class="value" style="color:${needOptimize>0?'var(--amber)':'var(--green)'}">${needOptimize}</div><div class="label">需优化 (＜65分)</div></div>
+  `;
+}
+
+// ============================================================
+// 交互
+// ============================================================
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+
+// 初始渲染
+render('all');
+</script>
+</body>
+</html>

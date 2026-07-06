@@ -47,7 +47,7 @@ PMContext 中有状态/规则定义。本 skill 提取状态和转移，画状�
 |------|---------------|--------------------------|
 | 6. 交付（状态机） | 从 PMContext 规则/数据模型提取状态和转移，生成状态机图 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/state-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-sketch-state.md`。
 
 **产出约束**：
 - 每个状态和转移必须对应 PMContext 中的具体项，在"来源"列标注
@@ -149,7 +149,7 @@ stateDiagram-v2
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/state-step6.md`（图元追溯映射 + 审计三元组）
+- `docs/pm-context/process/06-sketch-state.md`（图元追溯映射 + 审计三元组）
 
 ## 关联增强
 

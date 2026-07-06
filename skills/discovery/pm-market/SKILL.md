@@ -40,7 +40,7 @@ PMContext 中有竞品/市场、用户场景、现状平替与摩擦力。本 sk
 | 1. 理解 | 从 PMContext 竞品/市场提取市场素材 | 不回灌（产出 View） |
 | 2. 建模 | 双算法规模 + 三层竞品矩阵 + 情感分析 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/market-step1.md`、`.loop/market-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-market-understand.md`、`process/02-market-model.md`。
 
 **产出约束**：
 - TAM/SAM/SOM 必须双算法（自上而下 + 自下而上），单算法结果标 `[单算法存疑]`
@@ -164,8 +164,8 @@ SOM = 可获用户数 × ARPU × 年
 ## 流程链落盘
 
 步骤 1-2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/market-step1.md`（市场素材提取 + 审计三元组）
-- `docs/pm-context/.loop/market-step2.md`（双算法+竞品矩阵+情感 + 审计三元组）
+- `docs/pm-context/process/01-market-understand.md`（市场素材提取 + 审计三元组）
+- `docs/pm-context/process/02-market-model.md`（双算法+竞品矩阵+情感 + 审计三元组）
 
 ## 关联增强
 

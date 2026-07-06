@@ -40,7 +40,7 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 |------|---------------|--------------------------|
 | 2. 建模 | 从用户场景聚类成立体 persona | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/persona-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-persona-model.md`。
 
 **产出约束**：
 - persona 必须 ≥3 个（少于 3 说明聚类粗糙），≤7 个（多于 7 无法聚焦）
@@ -112,7 +112,7 @@ PMContext"用户场景"定义谁在什么场景下用什么达到什么目的；
 ## 流程链落盘
 
 步骤 2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/persona-step2.md`（persona 聚类+五维 + 审计三元组）
+- `docs/pm-context/process/02-persona-model.md`（persona 聚类+五维 + 审计三元组）
 
 ## 关联增强
 

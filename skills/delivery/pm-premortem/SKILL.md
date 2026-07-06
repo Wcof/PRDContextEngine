@@ -40,9 +40,9 @@ description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（�
 |------|---------------|--------------------------|
 | 5. 风险 | 假设上线失败倒推风险，按步骤 4 决策逐条检查"如果这个决策错了会怎样"，产出 Tiger/Paper Tiger/Elephant 三分 + 行动计划 | 回灌假设清单升级 |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/premortem-step5.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/05-premortem-risk.md`。
 达阈值的关键信息自动回灌到 PMContext 对应 heading（不开新 heading、走现有标记体系）。
-每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `.loop/`，摘要回灌决策日志。
+每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `process/`，摘要回灌决策日志。
 
 **产出约束**：
 - 必须产出**风险清单**：按步骤 4 的决策逐条检查"如果这个决策错了会怎样"
@@ -171,7 +171,7 @@ Pre-Mortem 第 1-6 步回答"会出什么坏结果"。本步回答"哪个承重�
 ## 流程链落盘
 
 步骤 5（风险）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/premortem-step5.md`（风险清单 + Tiger/Paper Tiger/Elephant 分类 + 行动计划 + 假设交叉检查 + 审计三元组）
+- `docs/pm-context/process/05-premortem-risk.md`（风险清单 + Tiger/Paper Tiger/Elephant 分类 + 行动计划 + 假设交叉检查 + 审计三元组）
 
 产物主文件落盘路径：`docs/pm-context/premortem.md`
 

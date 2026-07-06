@@ -7,7 +7,7 @@
     "expected_behavior": [
       "仅读取报错节点上下文 + node2-domain.json，不读全局 PMContext",
       "输出最小 diff（before=pending_review → after=submitted）而非重写 node3-prd.json",
-      "差分写入 docs/pm-context/.loop/conflict-log.json",
+      "差分写入 docs/pm-context/process/conflict-log.json",
       "提示重跑受影响下游集合，其余分片保持 Frozen"
     ]
   },

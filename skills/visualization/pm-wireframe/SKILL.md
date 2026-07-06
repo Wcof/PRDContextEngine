@@ -47,7 +47,7 @@ PMContext 中有页面/功能定义。本 skill 将页面定义转化为导航�
 |------|---------------|--------------------------|
 | 6. 交付（线框） | 从 PMContext 页面定义生成导航图+布局表格，每个组件标注数据来源 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/wireframe-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/06-sketch-wireframe.md`。
 
 **产出约束**：
 - 每个页面和组件必须对应 PMContext 中的具体项，在"数据来源"列标注
@@ -148,7 +148,7 @@ flowchart TD
 ## 流程链落盘
 
 步骤 6（交付）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/wireframe-step6.md`（图元追溯映射 + 审计三元组）
+- `docs/pm-context/process/06-sketch-wireframe.md`（图元追溯映射 + 审计三元组）
 
 ## 关联增强
 

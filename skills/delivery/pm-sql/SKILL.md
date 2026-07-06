@@ -42,7 +42,7 @@ PMContext 中"价值验证度量"定义了核心指标的计算口径（如"活�
 | 2. 建模 | 业务问题→查询逻辑映射 + schema 实体关系建模 | 不回灌（产出 View） |
 | 6. 交付 | 生产可用 SQL + 验证脚本 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/sql-step2.md`、`.loop/sql-step6.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-sql-model.md`、`process/06-sql-delivery.md`。
 
 **产出约束**：
 - 查询逻辑必须先用自然语言解释（"先算 X，再 join Y，最后按 Z 聚合"），禁直接甩 SQL
@@ -149,8 +149,8 @@ GROUP BY user_id ORDER BY SUM(amount) DESC LIMIT 10;
 ## 流程链落盘
 
 步骤 2、6 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/sql-step2.md`（schema 建模+查询逻辑 + 审计三元组）
-- `docs/pm-context/.loop/sql-step6.md`（SQL+验证脚本 + 审计三元组）
+- `docs/pm-context/process/02-sql-model.md`（schema 建模+查询逻辑 + 审计三元组）
+- `docs/pm-context/process/06-sql-delivery.md`（SQL+验证脚本 + 审计三元组）
 
 ## 关联增强
 

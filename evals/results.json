@@ -1,7 +1,7 @@
 {
   "mode": "dry-run",
-  "total": 108,
-  "pass": 108,
+  "total": 111,
+  "pass": 111,
   "partial": 0,
   "fail": 0,
   "scenarios": [
@@ -398,6 +398,22 @@
       "note": "4 条 expected_behavior"
     },
     {
+      "skill": "pm-need",
+      "scenario_id": "11",
+      "query": "/pm-need 我想做个会员体系重构 --auto",
+      "expected_count": 5,
+      "status": "PASS",
+      "note": "5 条 expected_behavior"
+    },
+    {
+      "skill": "pm-need",
+      "scenario_id": "12",
+      "query": "/pm-need 缺过程文档的场景（人为删一个 process 文件后跑 --a",
+      "expected_count": 4,
+      "status": "PASS",
+      "note": "4 条 expected_behavior"
+    },
+    {
       "skill": "pm-northstar",
       "scenario_id": "1",
       "query": "PMContext 有价值度量，深化北极星",
@@ -748,6 +764,14 @@
       "expected_count": 5,
       "status": "PASS",
       "note": "5 条 expected_behavior"
+    },
+    {
+      "skill": "pm-sketch",
+      "scenario_id": "10",
+      "query": "/pm-sketch --auto（过程文档显性化校验）",
+      "expected_count": 4,
+      "status": "PASS",
+      "note": "4 条 expected_behavior"
     },
     {
       "skill": "pm-skillauthor",

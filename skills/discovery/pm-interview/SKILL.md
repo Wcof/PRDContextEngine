@@ -42,7 +42,7 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 |------|---------------|--------------------------|
 | 1. 理解（访谈准备） | 从 PMContext 用户场景/摩擦力提取访谈目标，生成结构化脚本 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/interview-step1.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-interview-understand.md`。
 
 **产出约束**：
 - 访谈目标必须对应 PMContext 中的信息缺口或待验证假设
@@ -196,7 +196,7 @@ PMContext 中有用户场景定义和现状平替/摩擦力描述。本 skill �
 ## 流程链落盘
 
 步骤 1（理解）产出完成后，写入中间工件：
-- `docs/pm-context/.loop/interview-step1.md`（访谈目标追溯映射 + 审计三元组）
+- `docs/pm-context/process/01-interview-understand.md`（访谈目标追溯映射 + 审计三元组）
 
 ## 关联增强
 

@@ -42,7 +42,7 @@ PMContext 中有竞品/市场、用户场景、价值验证度量、边界条件
 | 1. 理解 | 从 PMContext 提取竞品定价/用户价值/成本 | 不回灌（产出 View） |
 | 2. 建模 | 定价模型+WTP+弹性+变现方案 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/pricing-step1.md`、`.loop/pricing-step2.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-pricing-understand.md`、`process/02-pricing-model.md`。
 
 **产出约束**：
 - 定价模型必须按业务游戏分类（注意力/交易/生产力）匹配，禁凭感觉选
@@ -124,8 +124,8 @@ PMContext 边界条件覆盖时（如合规禁某模型）排除该选项。
 ## 流程链落盘
 
 步骤 1-2 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/pricing-step1.md`（定价素材 + 审计三元组）
-- `docs/pm-context/.loop/pricing-step2.md`（模型+矩阵+WTP+弹性+方案 + 审计三元组）
+- `docs/pm-context/process/01-pricing-understand.md`（定价素材 + 审计三元组）
+- `docs/pm-context/process/02-pricing-model.md`（模型+矩阵+WTP+弹性+方案 + 审计三元组）
 
 ## 关联增强
 

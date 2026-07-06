@@ -196,6 +196,18 @@ PMSkill 支持增量迭代，无需每次全量重做：
 docs/pm-context/
   pm-context.md          ← 唯一 Entity（源）
   collect/               ← 整理后的原始材料
+  process/               ← 过程文档（显性，进版本库，供 PM 全程审计）
+    README.md            ← 过程文档索引（阅读顺序）
+    01-collect-understand.md  ← 问题重构 + 四源材料聚合
+    02-refine-model.md         ← 领域模型（实体/关系/不变量）
+    03-refine-options.md       ← 方案候选（激进 vs 保守）
+    04-refine-tradeoff.md      ← 决策表（选了什么/为什么/代价）
+    05-premortem-risk.md       ← 风险清单 + Tiger 三分 + 行动计划
+    06-*-delivery.md           ← 各交付 Skill 的交付物与追溯
+    06-sketch-*.md             ← 4 个子草图 Skill 的图元追溯
+    conflict-log.json          ← 局部退火差分修复日志
+    .archive/<timestamp>/      ← 重跑归档区（不进版本库）
+  .cache/                ← 纯技术缓存（断点续跑 JSON 分片，不进版本库，重跑时清空）
   prd/
     ai-prd.md            ← 给 AI 的 PRD（Agent 可执行）
     human-prd.md         ← 给人的 PRD（评审友好）
@@ -204,6 +216,7 @@ docs/pm-context/
     ia.md                ← 信息架构图
     state.md             ← 状态机图
     flow.md              ← 流程图
+    journey.md           ← 客户旅程图（跨页面/跨状态的用户动线）
     prototype.html       ← HTML 可交互原型（--prototype 简单模式，单文件）
     prototype/           ← HTML 可交互原型（--prototype 复杂模式，前端 bundle）
       index.html         ← 入口壳（双击可打开基础版）
@@ -308,6 +321,8 @@ bash evals/run-evals.sh --live
 **`--auto` 与正常模式的区别？** 正常模式产出 PMContext 后停在审计门等待 PM 确认；`--auto` 不等待，一气呵成全部落盘，并出具一站式报告供事后审计。
 
 **支持哪些 Agent？** 所有 skills-compatible runtime，安装命令自动适配。
+
+**过程文档在哪看？** `docs/pm-context/process/` 显性落盘全部过程文档（问题重构 / 领域模型 / 决策表 / 风险清单 / 交付物清单 / 图元追溯），进版本库，PM 可全程审计。重跑时历史版本归档到 `process/.archive/<timestamp>/` 而非删除。纯技术缓存在 `../.cache/`（断点续跑 JSON 分片，不进版本库，重跑时清空）。详见 [docs/adr/0016-explicit-process-artifacts.md](docs/adr/0016-explicit-process-artifacts.md)。
 
 ---
 

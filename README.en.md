@@ -190,6 +190,18 @@ PMSkill supports incremental iteration without full regeneration each time:
 docs/pm-context/
   pm-context.md          ← Sole Entity (source)
   collect/               ← Organized raw materials
+  process/               ← Process artifacts (explicit, version-controlled, auditable)
+    README.md            ← Process artifacts index (reading order)
+    01-collect-understand.md  ← Problem reframing + 4-source materials
+    02-refine-model.md         ← Domain model (entities/relations/invariants)
+    03-refine-options.md       ← Solution candidates (aggressive vs conservative)
+    04-refine-tradeoff.md      ← Decision table (what/why/cost)
+    05-premortem-risk.md       ← Risk list + Tiger triage + action plan
+    06-*-delivery.md           ← Delivery artifacts & traceability
+    06-sketch-*.md             ← 4 sub-sketch skills' element traceability
+    conflict-log.json          ← Local backtracking diff repair log
+    .archive/<timestamp>/      ← Re-run archive (not version-controlled)
+  .cache/                ← Pure technical cache (resumption JSON shards, not version-controlled, cleared on re-run)
   prd/
     ai-prd.md            ← AI PRD (Agent-executable)
     human-prd.md         ← Human PRD (review-friendly)
@@ -198,6 +210,7 @@ docs/pm-context/
     ia.md                ← Information architecture
     state.md             ← State machine
     flow.md              ← Flowchart
+    journey.md           ← Customer journey map (cross-page/cross-state user flow)
     prototype.html       ← Interactive HTML prototype (--prototype mode)
 ```
 
@@ -293,6 +306,8 @@ Supports all skills-compatible runtimes: Claude Code, Codex, Cursor, Trae, OpenC
 **What's the difference between `--auto` and normal mode?** Normal mode pauses at the audit gate after producing PMContext for PM confirmation; `--auto` lands everything in one pass and produces a one-stop report for post-hoc audit.
 
 **Which Agents are supported?** All skills-compatible runtimes; the install command auto-adapts.
+
+**Where can I find the process artifacts?** `docs/pm-context/process/` explicitly lands all process artifacts (problem reframing / domain model / decision table / risk list / delivery list / element traceability), version-controlled and auditable by PM throughout. On re-run, historical versions are archived to `process/.archive/<timestamp>/` rather than deleted. Pure technical cache lives in `../.cache/` (resumption JSON shards, not version-controlled, cleared on re-run). See [docs/adr/0016-explicit-process-artifacts.md](docs/adr/0016-explicit-process-artifacts.md).
 
 ---
 

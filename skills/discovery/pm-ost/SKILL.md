@@ -43,7 +43,7 @@ PMContext 中有用户场景、现状平替与摩擦力。本 skill 提取这些
 | 2. 建模 | 从 PMContext 用户场景/摩擦力映射机会空间 | 不回灌（产出 View） |
 | 3. 方案 | 每机会发散 ≥3 方案 + 实验设计 | 不回灌（产出 View） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/ost-step2.md`、`.loop/ost-step3.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/02-ost-model.md`、`process/03-ost-options.md`。
 
 **产出约束**：
 - 期望结果必须单一可量化（来自 PMContext 价值验证度量）
@@ -172,8 +172,8 @@ flowchart TD
 ## 流程链落盘
 
 步骤 2-3 产出完成后，写入中间工件：
-- `docs/pm-context/.loop/ost-step2.md`（机会空间映射 + 审计三元组）
-- `docs/pm-context/.loop/ost-step3.md`（方案对比 + 实验设计 + 审计三元组）
+- `docs/pm-context/process/02-ost-model.md`（机会空间映射 + 审计三元组）
+- `docs/pm-context/process/03-ost-options.md`（方案对比 + 实验设计 + 审计三元组）
 
 ## 关联增强
 

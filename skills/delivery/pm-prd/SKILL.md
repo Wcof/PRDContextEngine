@@ -51,7 +51,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 |------|---------------|--------------------------|
 | 6. 交付（编排） | 编排 /pm-aiprd 和 /pm-humanprd 生成双形态 PRD，确保两种 PRD 同源同骨架 | 不回灌（产出 View） |
 
-执行时依次调用 /pm-aiprd → /pm-humanprd。子 Skill 各自写入 `.loop/` 中间工件。
+执行时依次调用 /pm-aiprd → /pm-humanprd。子 Skill 各自写入 `process/` 中间工件。
 达阈值的关键信息自动回灌到 PMContext 对应 heading（不开新 heading、走现有标记体系）。
 
 **产出约束**：

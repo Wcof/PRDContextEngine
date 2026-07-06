@@ -33,9 +33,9 @@ metadata:
 |------|---------------|--------------------------|
 | 1. 理解 | 将用户输入重述为结构化问题陈述（谁/什么/为什么/约束），从 四源收集材料并建立关联 | 不回灌（收集原始材料） |
 
-执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `.loop/collect-step1.md`。
+执行时必须依次完成上述步骤，不可跳步。步骤产出写入 `process/01-collect-understand.md`。
 达阈值的关键信息自动回灌到 PMContext 对应 heading（不开新 heading、走现有标记体系）。
-每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `.loop/`，摘要回灌决策日志。
+每项产出必须附带审计三元组（依据集 → 工具/技术 → 产出），完整版落 `process/`，摘要回灌决策日志。
 
 **产出约束**：
 - 必须产出**问题重构**：把 `$ARGUMENTS` 重述为结构化问题陈述——谁（目标用户）、什么（核心诉求）、为什么（业务动机）、约束（已知限制）
@@ -186,10 +186,10 @@ done
 步骤 1（理解）产出完成后，写入中间工件：
 ```bash
 # 产物目录以 ## PMSkill 块的 `产物目录` 项为准（默认 docs/pm-context/）
-mkdir -p <产物目录>.loop/
+mkdir -p <产物目录>process/
 # 写入问题重构 + 四源材料聚合结果 + 材料间关联 + 审计三元组
 ```
-落盘路径：`<产物目录>.loop/collect-step1.md`（默认 `docs/pm-context/.loop/collect-step1.md`）
+落盘路径：`<产物目录>process/01-collect-understand.md`（默认 `docs/pm-context/process/01-collect-understand.md`）
 
 ## 完成信号
 

@@ -15,7 +15,7 @@ metadata:
 
 ## Context
 
-auto 模式下各节点产出独立落盘为 `.loop/nodeN-*.json` 分片（Frozen）。当某节点报错，传统做法是回到 `/pm-need` 起点重跑全链路——代价高且会覆盖已 Frozen 的健康分片。本 skill 只对报错节点 + 其依赖的上游节点 JSON 做最小差分修复，其余分片保持 Frozen。
+auto 模式下各节点产出独立落盘为 `.cache/nodeN-*.json` 分片（Frozen）。当某节点报错，传统做法是回到 `/pm-need` 起点重跑全链路——代价高且会覆盖已 Frozen 的健康分片。本 skill 只对报错节点 + 其依赖的上游节点 JSON 做最小差分修复，其余分片保持 Frozen。
 
 ## Instructions
 
@@ -24,17 +24,17 @@ auto 模式下各节点产出独立落盘为 `.loop/nodeN-*.json` 分片（Froze
    - 该节点依赖的上游节点 JSON（如 node2-domain.json）
    - 禁止读取全局 `docs/pm-context/pm-context.md`
 2. 只在这两个局部上下文内做微调，输出「最小差分（diff）」而非重写。
-3. 差分写入 `docs/pm-context/.loop/conflict-log.json`，记录：受影响字段 / 修改前后值 / 受影响下游节点清单。
+3. 差分写入 `docs/pm-context/process/conflict-log.json`，记录：受影响字段 / 修改前后值 / 受影响下游节点清单。
 4. 修完只提示重跑「受影响下游集合」，其余分片保持 Frozen。
 
-### `.loop/` 分片结构
+### `.cache/` 分片结构（技术缓存，不进版本库；conflict-log.json 落 `process/` 进版本库）
 
 | 分片 | 产出节点 | 内容 |
 |------|---------|------|
 | `node2-domain.json` | pm-refine 步骤 2（建模） | 领域模型片段（实体/关系/不变量） |
 | `node3-prd.json` | pm-prd | PRD 规则与验收（可执行片段） |
 | `node5-tech.json` | pm-sketch / 技术约束节点 | 技术约束与资源约束 |
-| `conflict-log.json` | 本 skill | 差分修复日志（受影响字段/前后值/受影响下游） |
+| `conflict-log.json`（落 `process/`） | 本 skill | 差分修复日志（受影响字段/前后值/受影响下游） |
 
 > 分片一经落盘即 Frozen（见 `.atomcode.md` 约定），仅本 skill 可对其做差分修改。
 

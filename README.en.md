@@ -293,6 +293,18 @@ GitHub Actions (`.github/workflows/ci.yml`) runs `--dry-run` structural validati
 
 ## Compatibility
 
+Two runtime capability tiers:
+
+| runtime | metadata.internal hiding | `use_skill` auto-orchestration | `disable-model-invocation` | `--auto` full chain | network |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| **Claude Code / npx-skills / Codex / Cursor etc.** | ✅ | ✅ | ✅ | ✅ works | ✅ can fetch |
+| **Plain Claude API** | ❌ only name/description | ❌ orchestration fields ignored | ❌ | ⚠️ Skills fire as standalone; PM must chain manually | ❌ sandboxed, no network |
+
+Degraded behavior under plain API:
+- 46 Engine Skills become API-visible (metadata.internal ignored → increased noise)
+- Orchestration fields (disable-model-invocation, use_skill) ignored; Skills fire as standalone, `/pm-need --auto` chain must be wired by PM manually
+- Sandboxed without network/package install; `/pm-collect` URL fetch / online scan degrades to "scan provided materials + conversation context only", no silent fake-success
+
 Supports all skills-compatible runtimes: Claude Code, Codex, Cursor, Trae, OpenClaw, Hermes, etc. The install command auto-adapts; no manual path specification required.
 
 ---

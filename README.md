@@ -306,6 +306,18 @@ bash evals/run-evals.sh --live
 
 ## 兼容性
 
+两类 runtime 能力区分：
+
+| runtime | metadata.internal 隐藏 | `use_skill` 自动编排 | `disable-model-invocation` | `--auto` 全链路 | 网络权限 |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| **Claude Code / npx-skills / Codex / Cursor 等** | ✅ | ✅ | ✅ | ✅ 可跑通 | ✅ 可联网抓取 |
+| **纯 Claude API** | ❌ 仅认 name/description | ❌ 编排字段被忽略 | ❌ | ⚠️ Skill 按独立能力触发，链路需手动串 | ❌ 沙箱无网络 |
+
+纯 API 环境下降级表现：
+- 46 个 Engine Skill 因 `metadata.internal` 被忽略，全部对 API �可见（噪音增加）
+- 编排字段（`disable-model-invocation`、`use_skill`）被忽略，Skill 按独立能力触发，`/pm-need --auto` 链路需 PM 手动串联各 Skill
+- 沙箱无网络、不能装包，`/pm-collect` 的 URL 抓取/联网扫描降级为「仅扫描已提供材料 + 对话上下文」，不静默假装抓取成功
+
 支持所有 skills-compatible runtime：Claude Code、Codex、Cursor、Trae、OpenClaw、Hermes 等。安装命令自动适配，无需手动指定路径。
 
 ---

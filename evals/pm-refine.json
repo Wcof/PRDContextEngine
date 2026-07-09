@@ -65,5 +65,19 @@
       "不新增 `process/refine-discuss-*.md`",
       "审计门展示完整置信度分布（追问模式无 PM 参与）"
     ]
+  },
+  {
+    "id": 6,
+    "skills": ["pm-refine"],
+    "query": "帮我梳理这些需求材料（追问模式）",
+    "files": ["fixtures/collect-sample.md"],
+    "expected_behavior": [
+      "追问前先建决策依赖树落 `process/02-refine-deps-tree.md`——扫 8 维依赖前件，默认骨架按材料覆写，含拓扑序 + Mermaid 树状图",
+      "按拓扑序遍历而非 P0→P1→P2 固定序——下游维度等上游确认后再问，前件未确认走下游时标'前置未定，置信度受限'不阻塞",
+      "一次只问 1 个问题，附三段式推荐答案（推荐/依据/备选），推荐依据引用前件分支已确认的结论",
+      "PM 确认的术语同步追加到 `process/02-refine-glossary.md`——只记 PM 确认版 Definition + 来源锚点回 PMContext + 状态（事实/[假设]/[待确认]），幂等不重复追加",
+      "glossary 含推断痕迹（如未问维度预填的术语标 [待确认]），与 PMContext §7 终态沉淀不重复——§7 只含最终采信版",
+      "PM 说「停」时已问维度落盘、未问维度标 [待确认]，依赖树下游因前件未问也一并标 [待确认]"
+    ]
   }
 ]

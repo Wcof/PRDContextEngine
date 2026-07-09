@@ -1,13 +1,13 @@
 ---
 name: pm-summary
-description: 把已落盘的零散产出按阅读主题汇总成几份大文档——需求全貌/交付包/可视化合集/验证复盘/总索引，原产物不动只叠加拼装。Use when the user mentions 汇总、总览、整理成大文档、找不到文档、汇总报告、summary、rollup、compile docs, or asks "我想一份看全".
+description: 把已落盘的零散产出按阅读主题汇总成几份大文档——需求全貌/交付包/可视化合集/验证复盘/总索引，原产物不动只叠加拼装。既可由 PM 手动触发，也可作为 /pm-need --auto 或增量 Fan-out 的只读终局汇总器。Use when the user mentions 汇总、总览、整理成大文档、找不到文档、汇总报告、summary、rollup、compile docs, or asks "我想一份看全".
 ---
 
 # /pm-summary
 
 > 你是一位文档主编，正把 PMSkill 散落的产出重新拼装成几份能从头读到尾的大文档。**你不写新内容、不改原产物——你只按阅读主题重新编排已有产出，每段都标注来源锚点，让读者一份搜全、一键回溯。**
 
-从已落盘的原产物按主题汇总成几份大文档，落到产物目录最外层。**只读不写原产物**——原 skill 的落盘协议、Frozen 段、增量更新、conflict-resolver 全不动，本 skill 是纯叠加层。
+从已落盘的原产物按主题汇总成几份大文档，落到产物目录最外层。**只读不写原产物**——原 skill 的落盘协议、Frozen 段、增量更新、conflict-resolver 全不动，本 skill 是纯叠加层。可手动运行，也可由 `/pm-need --auto` / 增量 Fan-out 在链路末尾自动运行，职责只是把散件文档合并成几份整体文档。
 
 ## Purpose
 
@@ -15,13 +15,13 @@ description: 把已落盘的零散产出按阅读主题汇总成几份大文档�
 
 ## Context
 
-PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全堆在 `docs/pm-context/` 根或固定子目录（`prd/`、`sketch/`、`collect/`、`process/`）。跑完一个需求链路后散落 30+ 文件，PM 想一份看全某主题（如"交付"=PRD+故事+roadmap+OKR+sprint）需要手动开多个文件。本 skill 是只读的汇总层，按主题重新编排已有产出，不改原产物、不改原 skill 协议。
+PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全堆在 `docs/pm-context/` 根或固定子目录（`prd/`、`sketch/`、`collect/`、`process/`）。跑完一个需求链路后散落 30+ 文件，PM 想一份看全某主题（如"交付"=PRD+故事+roadmap+OKR+sprint）需要手动开多个文件。本 skill 是只读的汇总层，按主题重新编排已有产出，不改原产物、不改原 skill 协议。为避免用户跑完 0→1 后只看到零碎散件，`/pm-need --auto` 和增量 Fan-out 末尾默认调用本 skill 刷新 5 份汇总。
 
 ## Instructions
 
 - [ ] 产物目录已确认（先读 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）
 - [ ] 已扫描产物目录下所有 `.md` 原产物，建立"原产物 → 主题"映射表
-- [ ] 用户已指定要刷哪几份汇总（默认全刷 5 份；`--topic <主题>` 只刷指定份；`--list` 仅列将刷的份不落盘）
+- [ ] 用户已指定要刷哪几份汇总（默认全刷 5 份；`--auto` 也全刷且不询问；`--topic <主题>` 只刷指定份；`--list` 仅列将刷的份不落盘）
 - [ ] 每份汇总顶部含本份目录 + 每段含来源锚点（`> 来源: <原产物路径>#<锚点>`）
 - [ ] 原产物不存在的主题段标 `⚠️ 未生成（先跑 /<skill-name>）`，不臆造内容
 - [ ] 汇总文档落到产物目录**最外层**（与 `pm-context.md` 同级，不在子目录），命名 `SUMMARY-<主题>.md` / `INDEX.md`
@@ -30,7 +30,7 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 
 ## Thinking Protocol
 
-本 Skill 不承载 PM Thinking Loop 的任何步骤。`/pm-summary` 是只读汇总 skill，不参与需求推断链路，不回灌 PMContext。
+本 Skill 不承载 PM Thinking Loop 的任何步骤。`/pm-summary` 是只读汇总 skill，不参与需求推断链路，不回灌 PMContext。被 `/pm-need --auto` 或增量 Fan-out 调用时，也只作为终局文档拼装器运行，不成为新的推理节点。
 
 ### Step 1: 扫描原产物建立映射
 
@@ -110,7 +110,7 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 | `<产物目录>/SUMMARY-验证.md` | 验证主题汇总 |
 | `<产物目录>/INDEX.md` | 总索引（所有原产物一行一录） |
 
-**幂等覆盖**：重跑时覆盖刷旧汇总，不保留旧版本，不追加。
+**幂等覆盖**：重跑时覆盖刷旧汇总，不保留旧版本，不追加。`--auto` 模式必须同样覆盖刷新，确保 SUMMARY/INDEX 不滞后于刚更新的 PMContext/PRD/原型。
 
 **INDEX.md 结构**：
 
@@ -175,6 +175,8 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 👉 提示：原产物未改动，汇总文档可随时 `/pm-summary` 重刷
 ```
 
+**`--auto` 模式**：由 `/pm-need` 编排调用时使用，全刷 5 份、不追问、不改原产物；若某主题暂无原产物则写跳过清单，不让链路失败。
+
 **`--topic <主题>` 模式**：只刷指定份（`需求`/`交付`/`可视化`/`验证`/`索引` 五选一），其余不动。
 
 **`--list` 模式**：只扫不写，输出"将刷的份 + 每份将含的原产物 + 跳过清单"，PM 确认后再正式跑。
@@ -188,7 +190,7 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 - **与原产物的追溯关系**：每段标来源锚点，读者从汇总段一键回原产物对应 heading，原产物改动后重刷汇总即同步
 - **与 pm-setup 的产物目录约定**：本 skill 读 `## PMSkill` 块取 `产物目录`，与所有下游 skill 同入口
 - **与 conflict-resolver 的边界**：conflict-resolver 做原产物的差分修改；本 skill 只读不写原产物，与 conflict-resolver 无交集
-- **重刷时机**：原产物有改动（跑过新 skill、增量更新、conflict-resolver 修过）后重刷汇总即同步，无需特殊触发
+- **重刷时机**：原产物有改动（跑过新 skill、增量更新、conflict-resolver 修过）后重刷汇总即同步；`/pm-need --auto` 与增量 Fan-out 会自动重刷，手动 `/pm-summary` 用于事后补刷
 
 ## 失败模式
 
@@ -213,7 +215,7 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 | 写原产物路径（`prd/`、`sketch/`、`collect/`、`process/`） | 本 skill 是只读汇总层，写原产物会破坏 Frozen 段、增量更新、conflict-resolver 协议 |
 | 把汇总文档落到子目录 | 汇总必须在最外层，与 `pm-context.md` 同级，方便 PM 一眼找到 |
 | 不标来源锚点 | 不标来源读者无法回原文核对，汇总就变成"断链摘录" |
-| 跑进 auto 链路 | 汇总是 PM 主动行为，不应被 `/pm-need --auto` 编排，避免每次链路都刷汇总 |
+| 把汇总当作新的推理节点 | 汇总只能只读拼装既有原产物，不能回灌 PMContext、不能触发 collect/refine、不能修改 Frozen 段 |
 | 审计三元组反模式——见 CONTEXT.md『审计三元组反模式（共享定义）』 | 同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 
 ## 产出示例 · 实战提示
@@ -227,6 +229,7 @@ PMSkill 的产出按 skill 拍平落盘——每个 skill 一个独立 md，全�
 - **缺失比编造好**——跳过清单列未生成项，比补一段"我猜这里应该是 XXX"有用十倍
 - **重刷幂等**——PM 随时 `/pm-summary` 重刷，旧汇总覆盖不留痕，不需要 `--force`
 - **汇总不是替代品**——汇总帮找东西，原产物仍是各 skill 的权威源，conflict-resolver 仍改原产物不改汇总
+- **auto 只读终局器**——被 `/pm-need --auto` 调用时只覆盖 SUMMARY/INDEX，不参与 PMContext 推理，不制造新的事实
 
 ### Further Reading
 

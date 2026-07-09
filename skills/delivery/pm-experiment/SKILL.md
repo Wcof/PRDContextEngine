@@ -3,8 +3,6 @@ name: pm-experiment
 description: 从 PMContext 生成假设验证闭环——8 类风险识别假设（Value/Usability/Viability/Feasibility/Ethics/GTM/Strategy/Team）+ Impact×Risk 矩阵优先级 + XYZ 假设 + pretotype 实验设计（含 skin-in-the-game）。Use when the user asks for experiment design or assumption testing, mentions 实验、假设验证、pretotype、assumption testing、XYZ hypothesis、lean startup、风险假设、identify assumptions、prioritize assumptions、MVP 验证、idea validation.
 metadata:
   internal: true
-metadata:
-  internal: true
 ---
 
 # /pm-experiment

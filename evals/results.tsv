@@ -1,4 +1,4 @@
-# PMSkill 评估结果 — mode=dry-run generated=2026-07-06T12:09:56Z
+# PMSkill 评估结果 — mode=dry-run generated=2026-07-08T10:56:21Z
 skill	scenario_id	query	expected_count	status	note
 pm-abtest	1	control 5023/617 转化，variant 4987/688 转化，	5	PASS	5 条 expected_behavior
 pm-abtest	2	control 1000/variant 1000 跑 3 天，5%/5.5%，	3	PASS	3 条 expected_behavior
@@ -39,18 +39,19 @@ pm-ideation	3	5 个都是优化现有功能	2	PASS	2 条 expected_behavior
 pm-meeting	1	60 分钟会议转录，出结构化纪要	3	PASS	3 条 expected_behavior
 pm-meeting	2	会议讨论了但没明确结论	2	PASS	2 条 expected_behavior
 pm-meeting	3	行动项没说谁负责	2	PASS	2 条 expected_behavior
-pm-need	1	/pm-need 我想做个会员体系重构 --auto	5	PASS	5 条 expected_behavior
+pm-need	1	/pm-need 我想做个会员体系重构 --auto	6	PASS	6 条 expected_behavior
 pm-need	2	/pm-need 做个数据大屏，参考 https://example.com/s	5	PASS	5 条 expected_behavior
 pm-need	3	/pm-need	3	PASS	3 条 expected_behavior
 pm-need	4	/pm-need 会员体系 --collect-only --refine-on	3	PASS	3 条 expected_behavior
 pm-need	5	/pm-need 做个东西 --auto	4	PASS	4 条 expected_behavior
 pm-need	6	/pm-need 做个东西 --auto 自主	4	PASS	4 条 expected_behavior
 pm-need	7	/pm-need 我需要一个面向中小电商卖家的库存同步工具，解决多平台库存手动对	3	PASS	3 条 expected_behavior
-pm-need	8	/pm-need 增加「积分商城」页面	5	PASS	5 条 expected_behavior
+pm-need	8	/pm-need 增加「积分商城」页面	6	PASS	6 条 expected_behavior
 pm-need	9	/pm-need --update §会员权益 年付改为季付	5	PASS	5 条 expected_behavior
 pm-need	10	/pm-need 修改会员权益年付定价	4	PASS	4 条 expected_behavior
-pm-need	11	/pm-need 我想做个会员体系重构 --auto	5	PASS	5 条 expected_behavior
+pm-need	11	/pm-need 我想做个会员体系重构 --auto	6	PASS	6 条 expected_behavior
 pm-need	12	/pm-need 缺过程文档的场景（人为删一个 process 文件后跑 --a	4	PASS	4 条 expected_behavior
+pm-need	13	/pm-need 增加「数据看板」页面（已有 PMContext + 已有 pr	5	PASS	5 条 expected_behavior
 pm-northstar	1	PMContext 有价值度量，深化北极星	5	PASS	5 条 expected_behavior
 pm-northstar	2	想设 3 个北极星	2	PASS	2 条 expected_behavior
 pm-northstar	3	NSM 选月收入行吗	2	PASS	2 条 expected_behavior
@@ -80,6 +81,7 @@ pm-refine	2	两份材料对「是否支持年付」说法矛盾	4	PASS	4 条 exp
 pm-refine	3	已有 pm-context.md，做增量推断	4	PASS	4 条 expected_behavior
 pm-refine	4	帮我梳理这些需求材料	8	PASS	8 条 expected_behavior
 pm-refine	5	帮我梳理这些需求材料 --auto	6	PASS	6 条 expected_behavior
+pm-refine	6	帮我梳理这些需求材料（追问模式）	6	PASS	6 条 expected_behavior
 pm-roadmap	1	Q2 roadmap: 搜索筛选/AI推荐/仪表盘改版，转 outcome 导向	4	PASS	4 条 expected_behavior
 pm-roadmap	2	没给原始 roadmap 帮我做	2	PASS	2 条 expected_behavior
 pm-roadmap	3	搜索筛选和 AI 推荐都转'让用户找到素材'行吗	3	PASS	3 条 expected_behavior
@@ -87,15 +89,18 @@ pm-setup	1	我要开始用 PMSkill，帮我配置	5	PASS	5 条 expected_behavior
 pm-setup	2	我的项目里 CLAUDE.md 和 AGENTS.md 同时存在，配置写哪个？	5	PASS	5 条 expected_behavior
 pm-setup	3	把知识库设成 /nonexistent/path	4	PASS	4 条 expected_behavior
 pm-sketch	1	/pm-sketch --auto	4	PASS	4 条 expected_behavior
-pm-sketch	2	/pm-sketch --prototype	5	PASS	5 条 expected_behavior
+pm-sketch	2	/pm-sketch --prototype	6	PASS	6 条 expected_behavior
 pm-sketch	3	脱离 PMContext 凭感觉画图	3	PASS	3 条 expected_behavior
 pm-sketch	4	/pm-sketch --prototype	4	PASS	4 条 expected_behavior
 pm-sketch	5	/pm-sketch --prototype	6	PASS	6 条 expected_behavior
 pm-sketch	6	/pm-sketch --prototype --scaffold（PMCont	3	PASS	3 条 expected_behavior
-pm-sketch	7	/pm-sketch --prototype	4	PASS	4 条 expected_behavior
+pm-sketch	7	/pm-sketch --prototype	6	PASS	6 条 expected_behavior
 pm-sketch	8	/pm-sketch --prototype	3	PASS	3 条 expected_behavior
-pm-sketch	9	/pm-sketch --prototype（增量场景：目标已存在 + PMCo	5	PASS	5 条 expected_behavior
+pm-sketch	9	/pm-sketch --prototype（增量场景：目标已存在 + PMCo	6	PASS	6 条 expected_behavior
 pm-sketch	10	/pm-sketch --auto（过程文档显性化校验）	4	PASS	4 条 expected_behavior
+pm-sketch	11	/pm-sketch --prototype（runtime 暴露 Pencil	5	PASS	5 条 expected_behavior
+pm-sketch	12	/pm-sketch --prototype（DeepSeek/弱执行模型容易只	5	PASS	5 条 expected_behavior
+pm-sketch	13	/pm-sketch --prototype（内置设计风格增强 + Pencil	5	PASS	5 条 expected_behavior
 pm-skillauthor	1	写一个新 skill 教 agent 做 X	4	PASS	4 条 expected_behavior
 pm-skillauthor	2	直接写 SKILL.md 不跑 baseline	2	PASS	2 条 expected_behavior
 pm-skillauthor	3	GREEN 写让 agent 更好地做 X	2	PASS	2 条 expected_behavior

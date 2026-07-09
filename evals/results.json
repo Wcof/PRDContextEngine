@@ -1,7 +1,7 @@
 {
   "mode": "dry-run",
-  "total": 111,
-  "pass": 111,
+  "total": 116,
+  "pass": 116,
   "partial": 0,
   "fail": 0,
   "scenarios": [
@@ -321,9 +321,9 @@
       "skill": "pm-need",
       "scenario_id": "1",
       "query": "/pm-need 我想做个会员体系重构 --auto",
-      "expected_count": 5,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "5 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-need",
@@ -377,9 +377,9 @@
       "skill": "pm-need",
       "scenario_id": "8",
       "query": "/pm-need 增加「积分商城」页面",
-      "expected_count": 5,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "5 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-need",
@@ -401,9 +401,9 @@
       "skill": "pm-need",
       "scenario_id": "11",
       "query": "/pm-need 我想做个会员体系重构 --auto",
-      "expected_count": 5,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "5 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-need",
@@ -412,6 +412,14 @@
       "expected_count": 4,
       "status": "PASS",
       "note": "4 条 expected_behavior"
+    },
+    {
+      "skill": "pm-need",
+      "scenario_id": "13",
+      "query": "/pm-need 增加「数据看板」页面（已有 PMContext + 已有 pr",
+      "expected_count": 5,
+      "status": "PASS",
+      "note": "5 条 expected_behavior"
     },
     {
       "skill": "pm-northstar",
@@ -646,6 +654,14 @@
       "note": "6 条 expected_behavior"
     },
     {
+      "skill": "pm-refine",
+      "scenario_id": "6",
+      "query": "帮我梳理这些需求材料（追问模式）",
+      "expected_count": 6,
+      "status": "PASS",
+      "note": "6 条 expected_behavior"
+    },
+    {
       "skill": "pm-roadmap",
       "scenario_id": "1",
       "query": "Q2 roadmap: 搜索筛选/AI推荐/仪表盘改版，转 outcome 导向",
@@ -705,9 +721,9 @@
       "skill": "pm-sketch",
       "scenario_id": "2",
       "query": "/pm-sketch --prototype",
-      "expected_count": 5,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "5 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-sketch",
@@ -745,9 +761,9 @@
       "skill": "pm-sketch",
       "scenario_id": "7",
       "query": "/pm-sketch --prototype",
-      "expected_count": 4,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "4 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-sketch",
@@ -761,9 +777,9 @@
       "skill": "pm-sketch",
       "scenario_id": "9",
       "query": "/pm-sketch --prototype（增量场景：目标已存在 + PMCo",
-      "expected_count": 5,
+      "expected_count": 6,
       "status": "PASS",
-      "note": "5 条 expected_behavior"
+      "note": "6 条 expected_behavior"
     },
     {
       "skill": "pm-sketch",
@@ -772,6 +788,30 @@
       "expected_count": 4,
       "status": "PASS",
       "note": "4 条 expected_behavior"
+    },
+    {
+      "skill": "pm-sketch",
+      "scenario_id": "11",
+      "query": "/pm-sketch --prototype（runtime 暴露 Pencil",
+      "expected_count": 5,
+      "status": "PASS",
+      "note": "5 条 expected_behavior"
+    },
+    {
+      "skill": "pm-sketch",
+      "scenario_id": "12",
+      "query": "/pm-sketch --prototype（DeepSeek/弱执行模型容易只",
+      "expected_count": 5,
+      "status": "PASS",
+      "note": "5 条 expected_behavior"
+    },
+    {
+      "skill": "pm-sketch",
+      "scenario_id": "13",
+      "query": "/pm-sketch --prototype（内置设计风格增强 + Pencil",
+      "expected_count": 5,
+      "status": "PASS",
+      "note": "5 条 expected_behavior"
     },
     {
       "skill": "pm-skillauthor",

@@ -1,9 +1,13 @@
 [
   {
     "id": 1,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --auto",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "调用 /pm-wireframe /pm-ia /pm-state /pm-flow 四个子 skill",
       "四个草图均落盘到 docs/pm-context/sketch/",
@@ -13,20 +17,27 @@
   },
   {
     "id": 2,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "生成 HTML 可交互原型（简单模式: prototype.html / Scaffold 模式: prototype/ 工程目录）",
       "完成技术栈决策（新项目推荐 / 老项目检测），输出技术栈名称与依据",
       "原型使用推荐/检测到的技术栈 CDN 版本（Vue3 / React / Plain HTML 兜底）",
       "通过质量检查（语义化标签/响应式/图元追溯/技术栈适配）",
-      "草图与 HTML 原型平级，HTML 不替代 Mermaid"
+      "草图与 HTML 原型平级，HTML 不替代 Mermaid",
+      "生成原型前先写 docs/pm-context/sketch/prototype-content-plan.json，且页面数据不能只有 id/title"
     ]
   },
   {
     "id": 3,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "脱离 PMContext 凭感觉画图",
     "files": [],
     "expected_behavior": [
@@ -37,9 +48,13 @@
   },
   {
     "id": 4,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "生成的 HTML 原型含 Device Toolbar（Desktop/Tablet/Mobile 三个切换按钮）",
       "生成的 HTML 原型含 PRD Panel（展示 PMContext 事实/规则/验收/假设条目）",
@@ -49,9 +64,13 @@
   },
   {
     "id": 5,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype",
-    "files": ["fixtures/pm-context-complex.md"],
+    "files": [
+      "fixtures/pm-context-complex.md"
+    ],
     "expected_behavior": [
       "自动判断为 Scaffold 模式（PMContext 含数据模型段且页面 > 4），输出 prototype/ 工程目录",
       "prototype/index.tsx 顶部含中文 @name 注释，作为入口组件",
@@ -63,9 +82,13 @@
   },
   {
     "id": 6,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype --scaffold（PMContext 为简单项目，仅 3 个页面 heading）",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "尽管 PMContext 属于简单项目，--scaffold 参数强制输出 prototype/ 工程目录",
       "复杂度判断摘要中标注：强制 Scaffold 模式（用户指定 --scaffold）",
@@ -74,21 +97,31 @@
   },
   {
     "id": 7,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "输出 ✅ 反空壳体检 块，包含页面覆盖率和每页交互元素计数",
       "页面覆盖率指标：已实现页面数 ≥ PMContext 中 ## <页面> heading 数（2/2）",
       "每个 <section> 至少 1 个绑定 JS 事件的交互元素",
-      "每个页面的规则 → <p class=\"rule\"> 可见，验收 → <ul class=\"acceptance\"> 可见"
+      "每个页面的规则 → <p class=\"rule\"> 可见，验收 → <ul class=\"acceptance\"> 可见",
+      "每个页面 section 带 data-trace-page，且至少 3 个业务元素带 data-trace-ref",
+      "路由空壳检测通过：不得出现仅标题/菜单/TODO/占位的页面"
     ]
   },
   {
     "id": 8,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype",
-    "files": ["fixtures/pm-context-with-dense-content.md"],
+    "files": [
+      "fixtures/pm-context-with-dense-content.md"
+    ],
     "expected_behavior": [
       "尽管 heading=3（≤4），因单页规则条数 >8 且验收条数 >10，判为 Scaffold 模式",
       "输出复杂度判断摘要含依据：<命中信号列表 + 综合分>",
@@ -97,27 +130,87 @@
   },
   {
     "id": 9,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --prototype（增量场景：目标已存在 + PMContext 新增一页）",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "目标产物已存在时自动进入增量原型模式",
       "仅生成 PMContext 有但原型无的新页面",
       "输出 ✅ 原型增量: 新增页面 <列表> | 保留页面 <数量>",
       "已有页面不被重写覆盖",
-      "更新路由/菜单以纳入新页面"
+      "更新路由/菜单以纳入新页面",
+      "增量时若发现已有原型是路由空壳，先补实已有页面业务内容，再追加新页面"
     ]
   },
   {
     "id": 10,
-    "skills": ["pm-sketch"],
+    "skills": [
+      "pm-sketch"
+    ],
     "query": "/pm-sketch --auto（过程文档显性化校验）",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
-      "4 个子 Skill 各自的过程工件落盘到 docs/pm-context/process/06-sketch-{wireframe,ia,state,flow}.md（非 .loop/）",
+      "5 个子 Skill 各自的过程工件落盘到 docs/pm-context/process/06-sketch-{wireframe,ia,state,flow,journey}.md（非 .loop/）",
       "process/ 下文件无点前缀、显性可见",
       ".loop/ 路径不再被写入（已迁移至 process/）",
       "草图主文件仍落 sketch/*.md，过程工件仅记图元追溯 + 审计三元组"
+    ]
+  },
+  {
+    "id": 11,
+    "skills": [
+      "pm-sketch"
+    ],
+    "query": "/pm-sketch --prototype（runtime 暴露 Pencil MCP）",
+    "files": [
+      "fixtures/pm-context.md"
+    ],
+    "expected_behavior": [
+      "先执行 Step -0.75 Pencil MCP 实现门，检测 runtime 工具/能力清单中是否有可用 Pencil MCP",
+      "若 Pencil MCP 具备 create/update 与 export/persist 能力，使用 MCP 生成/更新原型系统，而不是直接走本地 HTML/Scaffold",
+      "写入 docs/pm-context/sketch/pencil/pencil-prototype-manifest.json，包含 pages/components/interactions/exports/status/fallback_reason",
+      "若未检测到、MCP 缺持久化能力或调用失败，诚实输出 fallback 原因并继续原有 Step -0.5/Step -1 本地技术栈",
+      "不得在未看到 MCP 工具清单时声称已使用 Pencil MCP"
+    ]
+  },
+  {
+    "id": 12,
+    "skills": [
+      "pm-sketch"
+    ],
+    "query": "/pm-sketch --prototype（DeepSeek/弱执行模型容易只出单 HTML 路由壳）",
+    "files": [
+      "fixtures/pm-context.md"
+    ],
+    "expected_behavior": [
+      "先执行 Step -0.9 原型内容编译门，写 prototype-content-plan.json，包含 pages/facts/rules/acceptances/fields/actions/states",
+      "Simple/Scaffold/Pencil 均只能从 prototype-content-plan 渲染页面，禁止另起只有 id/title 的 routes 数组",
+      "每个 route 对应的 section/component 渲染场景、事实、规则、验收、workbench、actions 至少 5 类业务区域",
+      "每页至少 1 个真实绑定事件的交互元素，且每页 ≥3 个 data-trace-ref 指回 PMContext",
+      "V1 反空壳体检输出路由空壳检测结果；失败时不得打 ✅，必须回修或升 Scaffold"
+    ]
+  },
+  {
+    "id": 13,
+    "skills": [
+      "pm-sketch"
+    ],
+    "query": "/pm-sketch --prototype（内置设计风格增强 + Pencil MCP brief 校验）",
+    "files": [
+      "fixtures/pm-context.md"
+    ],
+    "expected_behavior": [
+      "先读取 references/design-style.md，输出一行 Design Read，并写 docs/pm-context/sketch/prototype-design-profile.json",
+      "prototype-design-profile.json 包含 style_family、design_variance/motion_intensity/visual_density、tokens、layout_patterns、interaction_patterns、anti_patterns_banned",
+      "Pencil MCP 命中时 brief 必须同时携带 prototype-content-plan.json 与 prototype-design-profile.json，manifest 必须记录 design_profile、style_family、ue_coverage",
+      "Simple 模式必须把 design profile 转为 :root / dark token 和页面布局骨架；Scaffold 模式必须把 design profile 转入 src/style.css 和组件布局/UE 规则",
+      "若未写 design profile、套默认紫蓝渐变/毛玻璃/三空卡，或为了好看删掉 data-trace-ref，均不得打 ✅"
     ]
   }
 ]

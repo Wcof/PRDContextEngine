@@ -33,12 +33,13 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 /pm-need --update §<段名> <调整内容>     → 定点增量：仅重跑指定段（已确认段显式解冻），其余 Frozen
 /pm-need --collect-only                → 只收集，不精炼（debug 用）
 /pm-need --refine-only                 → 只精炼，不收集（已有材料时用）
+/pm-need <增量需求> --context-only     → 只更新 PMContext，不级联刷新 PRD/原型/汇总
 ```
 
 **入口自动判 0→1 vs 增量模式（三条路径）**（无 flag，扫产物目录 + `$ARGUMENTS` 语义）：
 
 - `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**（全新 collect → refine → 落盘）
-- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**，按 `$ARGUMENTS` 语义分派三条路径：
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**，必须先走「Argument-first 增量路由」：先解析本次 `$ARGUMENTS` 是否是新增/调整/补全，再决定扫哪些段；不得只因为现有 PMContext 没有 `[待确认]` 标记就静默退出。按 `$ARGUMENTS` 语义分派三条路径：
 
   | 增量类型 | 触发条件 | 行为 |
   |---------|---------|------|
@@ -49,6 +50,7 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 - **新增判定规则**：读取现有 PMContext 全部 heading，将 `$ARGUMENTS` 需求与 heading 做匹配——无匹配 heading = 新增型（追加新段）；匹配到已确认段且用户要改 = 需 `--update` 显式解冻，否则提示「该需求命中已确认段 §N，如需修改请用 `/pm-need --update §N <调整内容>`」
 - **不得**因为「新需求无对应标记项」就静默什么都不做，也不得整份重写
 - `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）→ **定点增量**：仅重跑指定段，其余 Frozen
+- **增量后视图级联**：只要本次增量改动了 PMContext，默认刷新下游 View：`/pm-prd --auto --incremental` → `/pm-stories --auto --incremental` → `/pm-sketch --prototype --auto --incremental --no-fallback` → `/pm-summary --auto`；仅当用户显式 `--context-only` 时跳过下游刷新。
 
 `$ARGUMENTS` 为 PM 的需求描述，可包含：
 - 一句话需求（如"我需要做个大屏"）
@@ -79,7 +81,7 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 | 编排步骤 1 | 调用 /pm-collect 承载步骤 1（理解） |
 | 编排步骤 2-4 | 调用 /pm-refine 承载步骤 2-4（建模/方案/权衡） |
 | 编排步骤 5 | --auto 模式下调用 /pm-premortem 承载步骤 5（风险） |
-| 编排步骤 6 | 调用 /pm-prd + /pm-stories + /pm-sketch 承载步骤 6（交付：PRD → 用户故事 → 草图） |
+| 编排步骤 6 | 调用 /pm-prd + /pm-stories + /pm-sketch + /pm-summary 承载步骤 6（交付：PRD → 用户故事 → 草图/原型 → 主题汇总） |
 | 入口归档（非 --incremental） | **0→1 全链路**模式（PMContext 不存在或为空）调用时，自动归档**配置块声明的产物目录下的 `process/` 历史过程文档到 `process/.archive/<timestamp>/`**（默认 `docs/pm-context/process/`），并清空技术缓存 `.cache/`；**增量模式**跳过归档，保留 `process/` 与 `.cache/` 供差分推断消费 |
 
 子 Skill 各自写入 `process/` 中间工件并执行 Thinking Protocol。本 Skill 不重复子 Skill 的产出约束。
@@ -92,6 +94,7 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 - 正常模式下步骤 5 可在步骤 6 之后或独立调用
 - 任一子 Skill 失败不阻塞其他子 Skill，失败项单独标注
 - 调 `/pm-sketch` 时显式传 `--no-fallback`，防止 sketch 回链 need 形成递归（sketch 失败模式表已据此条件化回链）
+- 调 `/pm-summary --auto` 仅作为只读终局汇总器，不参与 PM Thinking Loop，不修改任何原产物；汇总失败只标失败项，不回滚 PMContext/PRD/原型
 
 ## 流程
 
@@ -99,8 +102,9 @@ PM 面对模糊想法或用户诉求，需要快速转化为结构化产品上�
 
 **自动判 0→1 vs 增量**（无 flag，扫产物目录）：
 - `<产物目录>/pm-context.md` 不存在或为空 → **0→1 全链路**：执行入口归档
-- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**：跳过归档，扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段，仅对这些项重跑 collect/refine；已确认段（无标记）**Frozen 不动**；合并走 `/pm-conflict-resolver` 内联调
+- `<产物目录>/pm-context.md` 存在且非空 → **增量模式**：跳过归档，先执行 Argument-first 增量路由：读取 `$ARGUMENTS` → 匹配现有 heading → 判定新增型/调整型/补全型。只有当 `$ARGUMENTS` 为空或明确是补全时，才扫 PMContext 内 `[待确认]` `[假设]` `[冲突]` 标记 + 信息缺口段；不得把「无标记」误判为「无事可做」。已确认段（无标记）**Frozen 不动**；合并走 `/pm-conflict-resolver` 内联调
 - `$ARGUMENTS` 显式指了具体段（如 `--update §8` / `--update GAP-01`）→ **定点增量**：仅重跑指定段，其余 Frozen
+- 增量落盘后默认执行 Downstream Fan-out：刷新 PRD / stories / sketch prototype / summary，让 0→1 后再次 `/pm-need 增加页面` 能直接把新页面带进原型；`--context-only` 才只改 PMContext
 
 **0→1 全链路**模式（入口归档而非删除）：
 ```bash
@@ -242,9 +246,10 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 2. 自动调用 `/pm-premortem` 生成风险分析（步骤 5 强制编入主链路）
 3. 自动调用 `/pm-prd --auto` 生成 PRD
 4. 自动调用 `/pm-stories --auto` 生成用户故事（功能清单）
-5. 自动调用 `/pm-sketch --prototype --auto` 生成全部草图 + HTML 原型
-6. 最终输出一站式报告（含风险摘要）：
-7. **回更新 setup 凭据**：PMContext 成功落盘后，回更新 `<产物目录>/.pmskill-setup.stamp` 的 `pmcontext_exists: true`（若 stamp 缺失则跳过，setup 块为准）；同时把 Agent 规则文件中 `## PMSkill` 块的 setup 状态行从"未运行 PMContext"改为"已生成 PMContext（<时间>）"——stamp 与块同步，下游互校不脱节
+5. 自动调用 `/pm-sketch --prototype --auto --no-fallback` 生成全部草图 + 交互原型
+6. 自动调用 `/pm-summary --auto` 生成 `SUMMARY-需求.md` / `SUMMARY-交付.md` / `SUMMARY-可视化.md` / `SUMMARY-验证.md` / `INDEX.md`，把散件文档拼成几份整体文档
+7. 最终输出一站式报告（含风险摘要）：
+8. **回更新 setup 凭据**：PMContext 成功落盘后，回更新 `<产物目录>/.pmskill-setup.stamp` 的 `pmcontext_exists: true`（若 stamp 缺失则跳过，setup 块为准）；同时把 Agent 规则文件中 `## PMSkill` 块的 setup 状态行从"未运行 PMContext"改为"已生成 PMContext（<时间>）"——stamp 与块同步，下游互校不脱节
 
 ## 产出示例 · 实战提示
 
@@ -259,15 +264,15 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 - premortem: N 个 Tiger / M 个 Paper Tiger / K 个 Elephant
 - PRD: ai-prd.md + human-prd.md
 - stories: N 个用户故事 + M 条验收标准
-- 原型: prototype.html + 4 个 Mermaid 草图
+- 原型: prototype.html / prototype/ / pencil/ + 5 个 Mermaid 草图
 
 ### 产出物
 - 📄 PMContext: <产物目录>/pm-context.md（默认 docs/pm-context/pm-context.md）
 - 📄 AI PRD: <产物目录>/prd/ai-prd.md
 - 📄 Human PRD: <产物目录>/prd/human-prd.md
 - 📄 用户故事: <产物目录>/stories.md
-- 🎨 HTML 原型: <产物目录>/sketch/prototype.html
-- 📊 Mermaid 草图: <产物目录>/sketch/\*.md (wireframe/ia/state/flow)
+- 🎨 交互原型: <产物目录>/sketch/prototype.html 或 sketch/prototype/ 或 sketch/pencil/
+- 📊 Mermaid 草图: <产物目录>/sketch/\*.md (wireframe/ia/state/flow/journey)
 
 ### 置信度
 - 事实: X%
@@ -276,9 +281,28 @@ PMContext 落盘后，输出审计摘要。审计门格式由 `/pm-refine` 根�
 - [冲突]: X%
 ```
 
-PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
+PM 可直接查看交互原型预览，也可事后审计 PMContext 和 PRD。
 
 完整一键全链路产出示例与实战提示见 [references/pipeline-example.md](references/pipeline-example.md)。
+
+### 4.5 增量模式的 Downstream Fan-out（0→1 后继续迭代的关键）
+
+当 PMContext 已存在且本次 `/pm-need <增量需求>` 成功产生 delta 时，`pm-need` 不得停在“PMContext 已更新”就结束，否则 PRD/原型/汇总会变旧。默认级联刷新：
+
+```text
+PMContext delta
+  → /pm-prd --auto --incremental
+  → /pm-stories --auto --incremental
+  → /pm-sketch --prototype --auto --incremental --no-fallback
+  → /pm-summary --auto
+```
+
+**级联纪律**：
+- 仅把 delta 影响的段传给下游，但下游必须能读取完整 PMContext 作为上下文。
+- `/pm-sketch --incremental` 必须复用已有原型，新增页面只追加页面/路由/菜单/数据，保留已有页面文件；除非用户显式 `--rebuild`。
+- `/pm-summary --auto` 最后重刷汇总层，覆盖旧 SUMMARY/INDEX，原产物不动。
+- 用户显式 `--context-only` → 只更新 PMContext，不做 Fan-out，并在报告里标「下游 View 可能已过期」。
+- 任何下游失败只进入失败清单；已完成的 PMContext delta 不回滚。
 
 ## 增量更新（入口自动判，无 flag）
 
@@ -315,7 +339,7 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | 0→1 全链路模式且 PMContext 已存在 | 入口已自动判为增量，不触发覆盖确认；仅当用户显式 `--force-new` flag 时才覆盖走 0→1，并提示"将丢失历史推断" | 不阻塞 |
 | `$ARGUMENTS` 为空且无 PMContext | **🔴 STOP**：输出"请提供需求描述: `/pm-need <需求>`" | 不阻塞，提示后退出 |
 | `--collect-only` 和 `--refine-only` 同时使用 | **🔴 STOP**：输出"两个模式冲突，只能选一个" | 不阻塞，改为默认全流程 |
-| **增量模式下新需求无任何对应 heading** | 判为新增型，追加新 `## <页面>` 段，其余 Frozen | 不静默跳过 |
+| **增量模式下新需求无任何对应 heading** | 判为新增型，追加新 `## <页面>` 段，其余 Frozen，并触发 Downstream Fan-out 更新 PRD/stories/sketch/summary | 不静默跳过 |
 | **用户要改已确认段但未加 `--update`** | 提示「命中已确认段 §N，用 `/pm-need --update §N` 解冻修改」 | 不擅自改 Frozen 段 |
 | **`--update` 指向不存在的段** | STOP 提示可用段清单 | 不臆造段 |
 
@@ -332,6 +356,8 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | `--auto` 遇子 skill 失败就全链路回滚 | 已生成部分仍落盘，失败项单独标注 |
 | 🔴 高熵输入且无背景源时，禁止直接生成 PMContext JSON（避免带病执行导致后期大面积返工） | 高熵无背景源必须先举手，否则下游 PRD/草图基于带病 PMContext 大面积返工 |
+| 0→1 后再次 `/pm-need 增加页面` 只改 PMContext、不刷新原型 | 会造成用户感知“无法继续增量迭代”，必须默认 Downstream Fan-out，除非 `--context-only` |
+| 增量路由先扫标记再看用户输入 | 无标记的已完成项目会被误判为无事可做；必须 Argument-first |
 
 ## 产物完整性体检（全链路结束强制执行）
 
@@ -346,6 +372,7 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 - [ ] （走了 PRD 链路）`prd/ai-prd.md` + `prd/human-prd.md` + `process/06-aiprd-delivery.md` + `process/06-humanprd-delivery.md`
 - [ ] （`--auto` 链路 / 走了 stories）`docs/pm-context/stories.md` + `process/06-stories-delivery.md`
 - [ ] （走了 sketch 链路）`sketch/*.md`（wireframe/ia/state/flow/journey）+ `process/06-sketch-*.md`（含 `06-sketch-journey.md`）
+- [ ] （全链路 / 增量 Fan-out）`SUMMARY-需求.md` + `SUMMARY-交付.md` + `SUMMARY-可视化.md` + `SUMMARY-验证.md` + `INDEX.md`
 
 **强制打印体检块**（格式固定，PM 一眼可见缺失项）：
 
@@ -353,7 +380,7 @@ PM 可直接查看 HTML 原型预览，也可事后审计 PMContext 和 PRD。
 ✅ 产物完整性体检
   - PMContext:   已生成 / 🔴 缺失
   - 过程文档:    已生成 M / 预期 N（列出缺失项: <文件名清单 或 无>）
-  - 结果文档:    PRD ✅/🔴 / Stories ✅/🔴 / Sketch ✅/🔴
+  - 结果文档:    PRD ✅/🔴 / Stories ✅/🔴 / Sketch ✅/🔴 / Summary ✅/🔴
   - 缺失清单:    <列表 或 无>
   - 缺失归因:    <哪个 Skill 未落盘 / 推断未启动 / 失败被跳过>
 ```

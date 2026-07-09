@@ -1,22 +1,287 @@
-# HTML 原型模板集
+# 交互原型模板集
 
-> 由 `/pm-sketch --prototype` 根据模式与技术栈决策结果选用。详见 `SKILL.md` 的「Step -1：复杂度判断」「Step 0：技术栈决策」「DESIGN.md 派生 Token 协议」节。
+> 由 `/pm-sketch --prototype` 根据 Pencil MCP 实现门与本地模式/技术栈决策结果选用。详见 `SKILL.md` 的「Step -0.85：设计风格编译门」「Step -0.75：Pencil MCP 实现门」「Step -1：复杂度判断」「Step 0：技术栈决策」「DESIGN.md 派生 Token 协议」节。
 
 ## 模式总览
 
-| 维度 | 简单模式 (Simple / CDN) | Scaffold 模式 (Vite 工程) |
-|------|------------------------|--------------------------|
-| 产物 | 单 HTML `docs/pm-context/sketch/prototype.html` | 工程目录 `docs/pm-context/sketch/prototype/` |
-| 技术栈 | Vue3 / React / Plain HTML（CDN，Step 0 检测/推荐） | 固定 React + TS + Vite + Tailwind v4 |
-| 体积门 | 单 HTML < 280KB（超限自动拆分懒加载） | 无上限 |
-| 交互底线 | L3（hash 多页路由 + 表单跳转 + 状态切换） | L4（L3 + 角色/权限/四态/错误恢复） |
-| 数据嵌入 | E1 静态嵌入（强制） | E1（默认）+ E2 fetch（V3 验收可选） |
-| 验收级别 | V1（AI 自检 + 体积检查） | V2 / V3（按 Acceptance Tier） |
-| 文档预览 | 内联 overlay（E1） | DocOverlay 组件（E1 + 可选 E2） |
+| 维度 | Pencil MCP 模式 | 简单模式 (Simple / CDN) | Scaffold 模式 (Vite 工程) |
+|------|-----------------|------------------------|--------------------------|
+| 产物 | `docs/pm-context/sketch/pencil/` + `pencil-prototype-manifest.json` | 单 HTML `docs/pm-context/sketch/prototype.html` | 工程目录 `docs/pm-context/sketch/prototype/` |
+| 实现方式 | 调用 runtime 暴露的 Pencil MCP create/update/export/persist 能力 | Vue3 / React / Plain HTML（CDN，Step 0 检测/推荐） | 固定 React + TS + Vite + Tailwind v4 |
+| 体积门 | 由 MCP 导出格式决定；必须有 manifest 和导出/持久化证明 | 单 HTML < 280KB（超限自动拆分懒加载） | 无上限 |
+| 交互底线 | 页面 screen + 可点 flow/state edge + manifest traceability | L3（hash 多页路由 + 表单跳转 + 状态切换） | L4（L3 + 角色/权限/四态/错误恢复） |
+| 数据嵌入 | 以 MCP artifact + manifest 保存输入映射 | E1 静态嵌入（强制） | E1（默认）+ E2 fetch（V3 验收可选） |
+| 验收级别 | MCP 质量门（页面覆盖/交互覆盖/导出持久化） | V1（AI 自检 + 体积检查） | V2 / V3（按 Acceptance Tier） |
+| 文档预览 | manifest 记录 PMContext/DESIGN/PRD 输入；MCP 支持则生成文档 screen | 内联 overlay（E1） | DocOverlay 组件（E1 + 可选 E2） |
+| 视觉/UE | brief 必须携带 `prototype-design-profile.json` | `:root` token + 页面布局骨架来自 design profile | `src/style.css` token + 组件布局/动效策略来自 design profile |
 
-两模式共享的公共组件：Design Token、Device Toolbar、PRD Panel、文档 overlay、Toast / Modal。简单模式内联实现，Scaffold 模式拆为独立 React 组件。
+Pencil MCP 模式是 `--prototype` 的优先实现通道；未命中、用户显式 `--no-mcp`、MCP 缺导出/持久化能力或调用失败时，回退到原有 Simple/Scaffold 本地实现。Simple/Scaffold 共享的公共组件：Design Token、Device Toolbar、PRD Panel、文档 overlay、Toast / Modal。简单模式内联实现，Scaffold 模式拆为独立 React 组件。
 
 ---
+
+## 负一、Design Style Profile（视觉/UE 数据契约）
+
+所有 `--prototype` 模式在进入 Pencil MCP / Simple / Scaffold 前，必须读取 `references/design-style.md` 并写 `docs/pm-context/sketch/prototype-design-profile.json`。此文件是视觉事实源的编译结果，不能只停留在提示词里。
+
+### -1.1 最小 schema
+
+```ts
+type PrototypeDesignProfile = {
+  mode: 'prototype-design-profile'
+  design_read: string
+  style_family: 'Enterprise Calm' | 'AI Native Dark' | 'Data Cockpit' | 'Premium Consumer' | 'Trust First' | 'Developer Tool' | string
+  secondary_style?: string
+  dials: { design_variance: number; motion_intensity: number; visual_density: number }
+  tokens: {
+    theme: 'light' | 'dark' | 'auto'
+    accent: string
+    radius_scale: string
+    shadow_style: string
+    type_scale: string
+    spacing_scale: string
+  }
+  layout_patterns: string[]
+  interaction_patterns: string[]
+  anti_patterns_banned: string[]
+}
+```
+
+### -1.2 消费规则
+
+- Pencil MCP：把完整 `PrototypeDesignProfile` 放进 MCP brief；manifest 写 `design_profile`、`style_family`、`ue_coverage`。
+- Simple：把 tokens 映射为 `:root` / `[data-theme=dark]` CSS 变量；按 `layout_patterns` 选择页面骨架。
+- Scaffold：把 tokens 写入 `src/style.css`；按 `layout_patterns` 分配页面组件，按 `interaction_patterns` 实现状态反馈、错误恢复和审计抽屉。
+- 与 DESIGN.md 冲突时，DESIGN.md 是视觉事实源，profile 记录 `[冲突]` 与 fallback，不得静默改色。
+
+### -1.3 反默认审美闸
+
+若原型出现以下任一项，V1/V2/V3 均不得打 ✅：
+
+- 没有 `prototype-design-profile.json`
+- 只有默认紫蓝渐变、毛玻璃和三张空卡片
+- 所有页面长得一样，只替换标题
+- 假截图/假图表没有真实可点交互或 trace
+- 为了视觉效果删掉 PMContext 规则/验收/状态
+
+---
+
+## 零、Pencil MCP Manifest 模板
+
+当 `/pm-sketch --prototype` 检测到可用 Pencil MCP 时，不直接生成本地 HTML/Scaffold，而是调用 MCP 创建或更新原型系统，并在本地写 manifest 作为可审计证据。manifest 是 Pencil MCP 模式的硬交付物。
+
+```json
+{
+  "mode": "pencil-mcp",
+  "server": "<detected pencil mcp server/tool>",
+  "inputs": [
+    "docs/pm-context/pm-context.md",
+    "docs/pm-context/sketch/entity-dictionary.md",
+    "docs/pm-context/prd/ai-prd.md",
+    "docs/pm-context/prd/human-prd.md",
+    "docs/design/DESIGN.md?",
+    "docs/pm-context/sketch/prototype-content-plan.json",
+    "docs/pm-context/sketch/prototype-design-profile.json"
+  ],
+  "design_profile": "docs/pm-context/sketch/prototype-design-profile.json",
+  "style_family": "<selected style family>",
+  "ue_coverage": {
+    "primary_cta_pages": 0,
+    "state_feedback_pages": 0,
+    "rule_visible_pages": 0,
+    "error_recovery_pages": 0
+  },
+  "pages": [
+    {
+      "pmcontext_heading": "<PMContext page heading>",
+      "screen_id": "<pencil screen id>",
+      "trace_uuid": "<entity/page UUID>",
+      "assumption_status": "fact | [假设] | [待确认] | [冲突]"
+    }
+  ],
+  "components": [
+    {"name": "<component name>", "source": "<PMContext rule/acceptance/source anchor>"}
+  ],
+  "interactions": [
+    {"from": "<screen id>", "to": "<screen id>", "source": "<state/flow edge>"}
+  ],
+  "exports": ["<local export path or remote artifact id>"],
+  "status": "passed",
+  "fallback_reason": ""
+}
+```
+
+### 0.1 Pencil MCP 输入包
+
+传给 MCP 的 brief 必须包含：
+
+- 页面清单：PMContext `## <页面>` heading、事实、规则、验收、风险标记。
+- Entity Dictionary：规范名、UUID、禁用同义词。
+- 行为线索：state/flow/journey 的关键节点与边。
+- 文档源：PMContext、AI PRD、Human PRD、DESIGN.md（如有）。
+- 质量门：页面覆盖、交互覆盖、规则/验收可见、导出/持久化。
+- 视觉/UE profile：`prototype-design-profile.json` 的 style_family、dials、tokens、layout_patterns、interaction_patterns、anti_patterns_banned。
+
+### 0.2 Pencil MCP fallback manifest
+
+若检测到 Pencil MCP 但调用失败，仍写 manifest 记录失败，然后回退本地实现：
+
+```json
+{
+  "mode": "pencil-mcp",
+  "server": "<detected pencil mcp server/tool>",
+  "inputs": ["docs/pm-context/pm-context.md"],
+  "design_profile": "docs/pm-context/sketch/prototype-design-profile.json",
+  "style_family": "<selected style family>",
+  "ue_coverage": {},
+  "pages": [],
+  "components": [],
+  "interactions": [],
+  "exports": [],
+  "status": "fallback-local",
+  "fallback_reason": "<MCP missing export capability | MCP call failed | coverage gate failed>"
+}
+```
+
+---
+
+## 零点五、Prototype Content Plan（反空壳数据契约）
+
+`/pm-sketch --prototype` 在调用 Pencil MCP 或生成本地 HTML/Scaffold 之前，必须先写 `docs/pm-context/sketch/prototype-content-plan.json`。后续模板只能从该文件渲染页面，不能临时拼一个只有 `id/title` 的 routes 数组。
+
+### 0.5.1 页面数据最小 schema
+
+```ts
+type PrototypePage = {
+  heading: string
+  page_id: string
+  primary_job: string
+  scenario: string
+  facts: string[]
+  rules: string[]
+  acceptances: string[]
+  fields: Array<{ name: string; kind?: 'text' | 'select' | 'number' | 'date' | 'table'; source: string }>
+  actions: Array<{ label: string; effect: string; target_page?: string; source: string }>
+  states: Array<'loading' | 'empty' | 'success' | 'error' | string>
+  trace_refs: string[]
+}
+```
+
+**禁止 schema**：
+
+```json
+[{"id":"home","title":"首页"}]
+```
+
+只有 `id/title` 的页面数组视为路由壳，不得进入模板渲染。
+
+### 0.5.2 Route-to-Content 渲染合约
+
+每个 route/page 必须渲染以下 6 个区域，且至少 5 个区域有可见内容：
+
+1. `hero/scenario`：用户场景与本页核心任务。
+2. `facts`：字段、实体、数据卡片或表格。
+3. `rules`：`<p class="rule" data-trace-ref="...">`。
+4. `acceptances`：`<ul class="acceptance" data-trace-ref="...">`。
+5. `workbench`：至少一个表单 / 表格 / 列表 / 卡片组，内容来自 `fields` 或 `facts`。
+6. `actions`：至少一个绑定 JS/React/Vue 事件的按钮，effect 是跳转、状态切换、提交、筛选、展开、错误恢复之一。
+
+空字符串、`TODO`、`敬请期待`、`占位`、只有标题、只有菜单，全部判定为 Failure。
+
+### 0.5.3 简单模式页面工厂（Vue/React/Plain HTML 均可照抄）
+
+```javascript
+function escapeHtml(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderTraceList(items, className, label) {
+  const safe = Array.isArray(items) && items.length ? items : ['[待确认] PMContext 未提供' + label];
+  return `<ul class="${className}" data-trace-ref="${label}">` +
+    safe.map((x, i) => `<li data-trace-ref="${label}-${i}">${escapeHtml(x)}</li>`).join('') +
+    `</ul>`;
+}
+
+function renderWorkbench(page) {
+  const fields = Array.isArray(page.fields) && page.fields.length
+    ? page.fields
+    : (page.facts || []).slice(0, 4).map((fact, i) => ({ name: `字段${i + 1}`, source: fact }));
+  return `<div class="workbench grid-2" data-trace-ref="${escapeHtml(page.heading)}-workbench">` +
+    fields.map((f, i) => `
+      <label class="field-card" data-trace-ref="${escapeHtml(f.source || page.heading)}">
+        <span>${escapeHtml(f.name)}</span>
+        <input value="${escapeHtml((f.source || '').slice(0, 24))}" aria-label="${escapeHtml(f.name)}" />
+      </label>`).join('') +
+    `</div>`;
+}
+
+function renderActions(page) {
+  const actions = Array.isArray(page.actions) && page.actions.length
+    ? page.actions
+    : [{ label: '确认并进入下一步', effect: 'show-toast', source: page.heading }];
+  return `<div class="actions">` + actions.map((a, i) => `
+    <button type="button" data-action-index="${i}" data-trace-ref="${escapeHtml(a.source || page.heading)}">
+      ${escapeHtml(a.label)}
+    </button>`).join('') + `</div>`;
+}
+
+function renderPageSection(page) {
+  return `<section id="page-${escapeHtml(page.page_id)}" data-trace-page="${escapeHtml(page.heading)}">
+    <header class="page-hero">
+      <p class="eyebrow">${escapeHtml(page.primary_job || '[待确认] 核心任务')}</p>
+      <h1>${escapeHtml(page.heading)}</h1>
+      <p>${escapeHtml(page.scenario || '[待确认] 用户场景')}</p>
+    </header>
+    <div class="facts grid-3" data-trace-ref="${escapeHtml(page.heading)}-facts">
+      ${(page.facts || ['[待确认] 关键事实']).map(x => `<article class="fact-card" data-trace-ref="${escapeHtml(x)}">${escapeHtml(x)}</article>`).join('')}
+    </div>
+    <div class="rules-block">
+      <h2>业务规则</h2>
+      ${renderTraceList(page.rules, 'rule-list', page.heading + '-rules')}
+    </div>
+    <div class="acceptance-block">
+      <h2>验收标准</h2>
+      ${renderTraceList(page.acceptances, 'acceptance', page.heading + '-acceptances')}
+    </div>
+    ${renderWorkbench(page)}
+    ${renderActions(page)}
+    <div class="state-strip" data-trace-ref="${escapeHtml(page.heading)}-states">
+      ${(page.states || ['success']).map(s => `<button type="button" class="state-chip" data-state="${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('')}
+    </div>
+  </section>`;
+}
+
+function bindPageInteractions(root = document) {
+  root.querySelectorAll('[data-action-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.closest('section')?.dataset.tracePage || '当前页';
+      window.__LAST_ACTION__ = { page, label: btn.textContent.trim(), at: new Date().toISOString() };
+      document.body.dataset.lastAction = `${page}: ${btn.textContent.trim()}`;
+      alert(`已执行：${btn.textContent.trim()}`);
+    });
+  });
+  root.querySelectorAll('.state-chip').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('section')?.setAttribute('data-active-state', btn.dataset.state));
+  });
+}
+```
+
+### 0.5.4 V1 route shell detector
+
+生成后用肉眼/脚本都可执行的检查逻辑：
+
+```javascript
+function inspectRouteShell() {
+  return Array.from(document.querySelectorAll('section[id^="page-"]')).map(sec => {
+    const traced = sec.querySelectorAll('[data-trace-ref]').length;
+    const interactive = sec.querySelectorAll('button,[onclick],[data-action-index],input,select,textarea').length;
+    const text = sec.textContent.trim();
+    const shellWords = /TODO|敬请期待|占位|coming soon|placeholder/i.test(text);
+    return { id: sec.id, traced, interactive, textLength: text.length, passed: traced >= 3 && interactive >= 1 && text.length >= 120 && !shellWords };
+  });
+}
+```
+
+`inspectRouteShell().some(x => !x.passed)` 为 true 时，禁止打 ✅；先补业务内容，或升 Scaffold。
 
 ## 一、DESIGN.md 派生 Token 协议
 
@@ -373,22 +638,30 @@ PRD Panel 展示 PMContext 中的事实/规则/验收/假设/待确认项，内�
   <!-- 文档 overlay (见第九节) -->
   <div id="prototype-content">
     <nav>
-      <a v-for="page in pages" :key="page.id" :href="'#page=' + page.id">{{ page.title }}</a>
+      <a v-for="page in pages" :key="page.page_id" :href="'#page=' + page.page_id">{{ page.heading }}</a>
     </nav>
-    <section v-for="page in pages" :key="page.id" v-show="currentPage === page.id" :id="'page-' + page.id">
-      <h1>{{ page.title }}</h1>
-      <!-- 表单/表格/列表/图表 + 交互按钮 -->
-    </section>
+    <div id="pages-root"><!-- 由 renderPageSection(PROTOTYPE_CONTENT_PLAN.pages) 注入，禁止空 section --></div>
   </div>
   <script>
+    // 必须内联第 0.5.3 节的 escapeHtml/renderPageSection/bindPageInteractions 函数
     const { createApp, ref, computed } = Vue;
     createApp({
       setup() {
-        const pages = ref({{PAGES_DATA}});
-        const currentPage = ref(location.hash.replace('#page=', '') || pages.value[0]?.id || 'home');
-        window.addEventListener('hashchange', () => { currentPage.value = location.hash.replace('#page=', '') || pages.value[0]?.id; });
+        const contentPlan = {{PROTOTYPE_CONTENT_PLAN}};
+        const pages = ref(contentPlan.pages || []);
+        const currentPage = ref(location.hash.replace('#page=', '') || pages.value[0]?.page_id || 'home');
         window.PRD_DATA = {{PRD_DATA}};
         window.DOC_DATA = {{DOC_DATA}};
+        window.PROTOTYPE_CONTENT_PLAN = contentPlan;
+        const root = document.getElementById('pages-root');
+        root.innerHTML = pages.value.map(renderPageSection).join('');
+        bindPageInteractions(root);
+        function syncRoute() {
+          const id = location.hash.replace('#page=', '') || pages.value[0]?.page_id;
+          currentPage.value = id;
+          root.querySelectorAll('section[id^="page-"]').forEach(s => { s.style.display = s.id === 'page-' + id ? '' : 'none'; });
+        }
+        window.addEventListener('hashchange', syncRoute); syncRoute();
         return { pages, currentPage };
       }
     }).mount('#prototype-content');
@@ -414,23 +687,31 @@ PRD Panel 展示 PMContext 中的事实/规则/验收/假设/待确认项，内�
 <body>
   <div id="root"></div>
   <script type="text/babel">
+    // 必须内联第 0.5.3 节的 escapeHtml/renderPageSection/bindPageInteractions 函数
     const { useState, useEffect } = React;
-    const pages = {{PAGES_DATA}};
+    const contentPlan = {{PROTOTYPE_CONTENT_PLAN}};
+    const pages = contentPlan.pages || [];
+    window.PROTOTYPE_CONTENT_PLAN = contentPlan;
     window.PRD_DATA = {{PRD_DATA}};
     window.DOC_DATA = {{DOC_DATA}};
     const App = () => {
-      const [page, setPage] = useState(location.hash.replace('#page=', '') || pages[0]?.id || 'home');
+      const [page, setPage] = useState(location.hash.replace('#page=', '') || pages[0]?.page_id || 'home');
       useEffect(() => {
-        const onHash = () => setPage(location.hash.replace('#page=', '') || pages[0]?.id);
-        window.addEventListener('hashchange', onHash);
-        return () => window.removeEventListener('hashchange', onHash);
+        const root = document.getElementById('pages-root');
+        bindPageInteractions(root);
+        const sync = () => {
+          const id = location.hash.replace('#page=', '') || pages[0]?.page_id;
+          setPage(id);
+          root.querySelectorAll('section[id^=\"page-\"]').forEach(s => { s.style.display = s.id === 'page-' + id ? '' : 'none'; });
+        };
+        window.addEventListener('hashchange', sync); sync();
+        return () => window.removeEventListener('hashchange', sync);
       }, []);
       return (
         <div id="prototype-content">
-          <nav>{pages.map(p => <a key={p.id} href={'#page=' + p.id}>{p.title}</a>)}</nav>
-          {pages.filter(p => p.id === page).map(p => (
-            <section key={p.id} id={'page-' + p.id}><h1>{p.title}</h1>{/* 内容 */}</section>
-          ))}
+          <nav>{pages.map(p => <a key={p.page_id} href={'#page=' + p.page_id}>{p.heading}</a>)}</nav>
+          <div id="pages-root" dangerouslySetInnerHTML={{__html: pages.map(renderPageSection).join('')}} />
+          {/* useEffect 中必须调用 bindPageInteractions(document.getElementById('pages-root'))，并按 hash 隐藏/显示 section，禁止空 section */}
         </div>
       );
     };
@@ -455,23 +736,27 @@ PRD Panel 展示 PMContext 中的事实/规则/验收/假设/待确认项，内�
 </head>
 <body>
   <div id="prototype-content">
-    <nav>
-      <a href="#page=home">首页</a>
-      <a href="#page=detail">详情</a>
-    </nav>
-    <section id="page-home"><h1>首页</h1><!-- 交互 --></section>
-    <section id="page-detail"><h1>详情</h1><!-- 交互 --></section>
+    <nav id="prototype-nav"></nav>
+    <div id="pages-root"></div>
   </div>
   <script>
+    // 必须内联第 0.5.3 节的 escapeHtml/renderPageSection/bindPageInteractions 函数
+    window.PROTOTYPE_CONTENT_PLAN = {{PROTOTYPE_CONTENT_PLAN}};
     window.PRD_DATA = {{PRD_DATA}};
     window.DOC_DATA = {{DOC_DATA}};
-    // L3: hash 路由 + section 切换 + 表单交互
+    const pages = window.PROTOTYPE_CONTENT_PLAN.pages || [];
+    document.getElementById('prototype-nav').innerHTML = pages.map(p => `<a href="#page=${p.page_id}">${escapeHtml(p.heading)}</a>`).join('');
+    document.getElementById('pages-root').innerHTML = pages.map(renderPageSection).join('');
+    bindPageInteractions(document.getElementById('pages-root'));
+    // L3: hash 路由 + section 切换 + 表单交互，section 已由 content plan 渲染
     function showPage(id) {
-      document.querySelectorAll('section[id^="page-"]').forEach(s => s.style.display = s.id === 'page-' + id ? '' : 'none');
+      const fallback = pages[0]?.page_id || 'home';
+      const pageId = id || fallback;
+      document.querySelectorAll('section[id^="page-"]').forEach(s => s.style.display = s.id === 'page-' + pageId ? '' : 'none');
     }
-    const initial = location.hash.replace('#page=', '') || 'home';
+    const initial = location.hash.replace('#page=', '') || pages[0]?.page_id || 'home';
     showPage(initial);
-    window.addEventListener('hashchange', () => showPage(location.hash.replace('#page=', '') || 'home'));
+    window.addEventListener('hashchange', () => showPage(location.hash.replace('#page=', '') || pages[0]?.page_id));
   </script>
 </body>
 </html>
@@ -1289,7 +1574,7 @@ V3 → V2 → V1 各级均失败后输出：
 | Scaffold 模式没有 package.json / vite.config.ts 就输出 `.tsx` 文件 | 与工程脚手架承诺不符，用户拿到的是不可运行的碎片 |
 | 简单模式和 Scaffold 模式共用同一套 Design Token 模板 | 两模式 token 引入方式不同（inline vs CSS file + Tailwind），混用导致 Scaffold 工程出现 CDN script tag |
 | V3 验收失败后直接跳过不降级（静默改打 ✅） | 与降级链契约矛盾，应诚实降级 |
-| 简单模式只输出路由骨架不渲染页面内容（空壳） | 违反 L3 底线，等于交付未实施的需求，判定 Failure |
+| 简单模式只输出路由骨架不渲染页面内容（空壳） | 违反 L3 底线，等于交付未实施的需求，判定 Failure；必须从 `prototype-content-plan.json` 渲染 `data-trace-ref` 业务元素 |
 | 页面覆盖率 < PMContext 页面数仍打 ✅ | 系统性撒谎，PM 拿到缺页原型 |
 | 每页业务元素 < 5 且未标注原因 | 页面等于空壳，必须降级并记入信息缺口 |
 | 增量迭代时全量重生成原型覆盖已开发页面 | 摧毁用户迭代成果，等于不支持增量 |
@@ -1307,7 +1592,8 @@ V3 → V2 → V1 各级均失败后输出：
 |--------|------|------|
 | `{{PROJECT_NAME}}` | PMContext 标题 | 原型标题 |
 | `{{PROJECT_KEBAB}}` | PMContext 标题 kebab-case | package.json name |
-| `{{COLOR_*}}` | DESIGN.md / 默认 | 派生 token 值 |
+| `{{COLOR_*}}` | DESIGN.md / `prototype-design-profile.json` / 默认 | 派生 token 值 |
+| `{{DESIGN_PROFILE}}` | `prototype-design-profile.json` | Design Read、风格家族、三拨盘、layout/interaction patterns |
 | `{{PAGES_DATA}}` | PMContext 页面定义 | JS/TS 数组，含页面 title/字段/规则/验收 |
 | `{{PRD_DATA}}` | PMContext + PRD 文件 | PRD Panel 数据（含 source 字段供 D1 展开） |
 | `{{DOC_DATA}}` | PMContext + DESIGN.md 原文 | 文档 overlay 数据 |
@@ -1320,7 +1606,7 @@ V3 → V2 → V1 各级均失败后输出：
 2. 执行 Step 0 技术栈决策：
    - 简单模式 → 检测/推荐 Vue3/React/Plain（CDN）
    - Scaffold 模式 → 固定 React + TS + Vite + Tailwind v4
-3. 执行 DESIGN.md 扫描 → 派生 token 表（第一节协议）
+3. 执行 design-style 编译 → 写 `prototype-design-profile.json`，再执行 DESIGN.md 扫描 → 派生 token 表（第一节协议）
 4. 根据模式选择对应模板节：
    - 简单模式 → 第六节（6.1/6.2/6.3 按技术栈选）
    - Scaffold 模式 → 逐文件生成第七节各文件
@@ -1334,18 +1620,30 @@ V3 → V2 → V1 各级均失败后输出：
 
 ## 十三、质量清单（分模式）
 
+### 13.0 Pencil MCP 模式
+
+- [ ] ✅ 已检测到可用 Pencil MCP，且具备 create/update 与 export/persist 能力
+- [ ] ✅ `docs/pm-context/sketch/pencil/pencil-prototype-manifest.json` 存在
+- [ ] ✅ manifest `pages` 覆盖 PMContext 页面 heading，screen 数 ≥ 页面数
+- [ ] ✅ manifest `interactions` 覆盖关键 state/flow edge；未覆盖项显式标 `[待确认]`
+- [ ] ✅ manifest `components` 中规则/验收均有来源锚点
+- [ ] ✅ manifest `exports` 至少包含一个本地路径或远端 artifact id
+- [ ] ✅ manifest `design_profile` 指向 `docs/pm-context/sketch/prototype-design-profile.json`
+- [ ] ✅ manifest `style_family` / `ue_coverage` 存在，且 UE 覆盖不足项标 `[待确认]`
+- [ ] ✅ MCP 失败时 manifest `status=fallback-local` 且本地 Simple/Scaffold fallback 已完成
+
 ### 13.1 简单模式（CDN HTML）— V1 硬校验
 
 以下为 V1 硬校验，不满足禁止打 ✅，必须降级并列出缺失：
 
 - [ ] ✅ **页面覆盖率闸**：原型内 `<section>`（或路由目标页）数量 **≥ PMContext `## <页面>` heading 数**。每个 PMContext 页面必须有对应可导航目标页
-- [ ] ✅ **每页内容密度闸**：每个页面 `<section>` 内**非导航业务元素**（表单项 / 表格 / 列表 / 卡片 / 按钮，排除顶栏与菜单）节点数 **≥ 5**。不足 5 个须标注原因
-- [ ] ✅ **交互底线闸（L3）**：每个 `<section>` 至少 1 个绑定 JS 事件的交互元素；hash 路由的每个目标页必须存在对应 section（不得指向空锚点）
+- [ ] ✅ **每页内容密度闸**：每个页面 `<section>` 内**非导航业务元素**（表单项 / 表格 / 列表 / 卡片 / 按钮，排除顶栏与菜单）节点数 **≥ 5**，其中至少 3 个带 `data-trace-ref`。不足 5 个须标注原因
+- [ ] ✅ **交互底线闸（L3）**：每个 `<section>` 至少 1 个绑定 JS 事件的交互元素；hash 路由的每个目标页必须存在对应 section（不得指向空锚点）；`inspectRouteShell()` 必须全部 passed
 - [ ] ✅ **PMContext 映射闸**：每个页面的「规则 / 验收」必须在对应页面渲染出可见元素（规则→`p.rule`，验收→`ul.acceptance`），不得只渲染标题
 - [ ] ✅ 单 HTML < 280KB（超限自动拆分懒加载，见 6.4）
 - [ ] ✅ 双击可打开（无跨域/CORS 问题）
 - [ ] ✅ 使用 CDN 框架（检测/推荐的版本，不写 `latest`）
-- [ ] ✅ Design Token CSS 变量（无裸 `#hex`，来自 DESIGN.md 或默认）
+- [ ] ✅ Design Token CSS 变量（无裸 `#hex`，来自 DESIGN.md + prototype-design-profile 或默认）
 - [ ] ✅ 5 档响应式断点（手写 `@media`）
 - [ ] ✅ Device Toolbar 三端切换（1440/820/393）
 - [ ] ✅ PRD Panel 展示批注（D1 可展开 PMContext 原文）
@@ -1359,6 +1657,7 @@ V3 → V2 → V1 各级均失败后输出：
    - 页面覆盖率: 已实现 <M> / PMContext <N> 个页面
    - 每页交互元素计数: [页面A: x, 页面B: y, ...]
    - 未达标页面: <列表 或 无>
+   - 路由空壳检测: <通过 / 失败，失败页列表>
 ```
 
 ### 13.2 Scaffold 模式（Vite 工程）
@@ -1366,7 +1665,7 @@ V3 → V2 → V1 各级均失败后输出：
 - [ ] ✅ 目录结构对齐 7.1（含 package.json / vite.config.ts / tsconfig.json）
 - [ ] ✅ package.json 包含所有必要依赖（React 19 + Vite 6 + Tailwind v4 + TS 5.7）
 - [ ] ✅ Vite + React + TS + Tailwind v4 配置完整
-- [ ] ✅ Design Token 在 `style.css` 中（`@import "tailwindcss";` 之后）
+- [ ] ✅ Design Token + prototype-design-profile 在 `style.css` 中（`@import "tailwindcss";` 之后）
 - [ ] ✅ 5 档断点（Tailwind 响应式前缀 `sm:`/`md:`/`lg:`/`xl:`/`2xl:`）
 - [ ] ✅ Device Toolbar + PRD Panel + DocOverlay 三组件完整
 - [ ] ✅ 多页 hash 路由（`useHashPage` hook，对齐 Axhub）
@@ -1379,6 +1678,7 @@ V3 → V2 → V1 各级均失败后输出：
 ### 13.3 通用基础检查
 
 - [ ] ✅ 技术栈决策有依据（新项目推荐 / 老项目扫描 `package.json`）
+- [ ] ✅ `prototype-design-profile.json` 存在并被当前实现模式消费
 - [ ] ✅ 所有页面/组件对应 PMContext 中的实体/关系，无法对应标 `[假设]`
 - [ ] ✅ UTF-8 编码，中文字符正常显示
 - [ ] ✅ Electron 或移动端适配标注已添加（如适用）

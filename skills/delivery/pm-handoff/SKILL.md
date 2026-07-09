@@ -3,8 +3,6 @@ name: pm-handoff
 description: 把当前 PMSkill 会话压缩成交接文档——PMContext 状态 + 已完成产物 + 未完成项 + 条件触发式下一步建议（触发条件+动作+前置检查，借鉴 condition-based-waiting）+ 关键决策 + 知识转移（决策非显性理由+可推翻条件+ZPD 能力差距，借鉴 teach）+ 9 项质量自检，供下一个 Agent 接续。Use when the user asks to handoff or continue in another session, mentions 交接、handoff、切换会话、continue later、session handoff、换 agent、接续工作、上下文压缩、compact session、知识转移、knowledge transfer、条件触发、condition-based trigger.
 metadata:
   internal: true
-metadata:
-  internal: true
 ---
 
 # /pm-handoff

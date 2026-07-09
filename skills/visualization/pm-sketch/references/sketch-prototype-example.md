@@ -1,10 +1,10 @@
-# 草图 + HTML 原型联动产出示例
+# 草图 + 交互原型联动产出示例
 
-> 本文件是 `/pm-sketch` 的 Level 3 渐进披露资源。展示从 PMContext 到 4 类草图 + HTML 原型的完整产出，覆盖简单模式和 Scaffold 模式。
+> 本文件是 `/pm-sketch` 的 Level 3 渐进披露资源。展示从 PMContext 到 5 类草图 + 交互原型的完整产出，覆盖 Pencil MCP、简单模式和 Scaffold 模式。
 
 ---
 
-## 示例一：简单模式（单 HTML）
+## 示例一：简单模式（单 HTML，无 Pencil MCP 时）
 
 ### 输入：PMContext 片段（质量看板）
 
@@ -49,6 +49,7 @@ docs/pm-context/sketch/
 ├── state.md        # 状态机：待评估→已评估→已优化
 ├── flow.md         # 质量评估流程：选择 skill→评分→查看短板
 ├── wireframe.md    # 线框：3 页布局表格
+├── journey.md      # 客户旅程：跨页面/状态用户动线
 └── prototype.html  # 高保真交互原型（单页 HTML，< 280KB，含 Device Toolbar + PRD Panel）
 ```
 
@@ -79,7 +80,7 @@ stateDiagram-v2
   已评估 --> [*]: 达标关闭
 ```
 
-### HTML 原型特性（prototype.html）
+### 交互原型特性（prototype.html）
 
 - ✅ Device Toolbar：Desktop（1440px）/ Tablet（820px）/ Mobile（393px）三端切换
 - ✅ PRD Panel：展示 PMContext 事实、规则、验收条目的侧边栏
@@ -90,7 +91,7 @@ stateDiagram-v2
 
 ---
 
-## 示例二：Scaffold 模式（Vite 工程）
+## 示例二：Scaffold 模式（Vite 工程，无 Pencil MCP 时）
 
 ### 输入：PMContext 片段（企业采购管理系统）
 
@@ -237,7 +238,7 @@ npm run typecheck  # tsc --noEmit
 
 - [Mermaid stateDiagram-v2 docs](https://mermaid.js.org/syntax/stateDiagram.html)
 - [Mermaid flowchart docs](https://mermaid.js.org/syntax/flowchart.html)
-- [HTML 原型设计原则](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
+- [交互原型设计原则](https://www.productcompass.pm/p/the-extended-opportunity-solution-tree)
 - [完整模板集](prototype-templates.md)
 
 ## 实战提示

@@ -1,20 +1,25 @@
 [
   {
     "id": 1,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 我想做个会员体系重构 --auto",
     "files": [],
     "expected_behavior": [
       "解析 $ARGUMENTS 得到需求描述「会员体系重构」和 --auto 标志",
       "依次调用 /pm-collect → /pm-refine 完成 PMContext 沉淀",
-      "审计门不暂停，自动推进到 /pm-prd --auto → /pm-sketch --prototype --auto",
+      "审计门不暂停，自动推进到 /pm-premortem → /pm-prd --auto → /pm-stories --auto → /pm-sketch --prototype --auto --no-fallback → /pm-summary --auto",
       "最终输出一站式报告含置信度分布 + 信息缺口清单 + 产出物清单",
-      "子 skill 失败不回滚已落盘部分，失败项单独标注"
+      "子 skill 失败不回滚已落盘部分，失败项单独标注",
+      "全链路结束后生成 SUMMARY-需求/交付/可视化/验证 + INDEX 五份汇总文档"
     ]
   },
   {
     "id": 2,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 做个数据大屏，参考 https://example.com/spec",
     "files": [],
     "expected_behavior": [
@@ -27,7 +32,9 @@
   },
   {
     "id": 3,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need",
     "files": [],
     "expected_behavior": [
@@ -38,7 +45,9 @@
   },
   {
     "id": 4,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 会员体系 --collect-only --refine-only",
     "files": [],
     "expected_behavior": [
@@ -49,7 +58,9 @@
   },
   {
     "id": 5,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 做个东西 --auto",
     "files": [],
     "expected_behavior": [
@@ -61,7 +72,9 @@
   },
   {
     "id": 6,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 做个东西 --auto\n自主",
     "files": [],
     "expected_behavior": [
@@ -73,7 +86,9 @@
   },
   {
     "id": 7,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 我需要一个面向中小电商卖家的库存同步工具，解决多平台库存手动对账易出错问题，目标月内上线 MVP 支持淘宝/拼多多自动同步 --auto",
     "files": [],
     "expected_behavior": [
@@ -84,22 +99,31 @@
   },
   {
     "id": 8,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 增加「积分商城」页面",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "读取 PMContext 发现「积分商城」无对应 heading → 判为新增型",
       "追加新 ## 积分商城 段（走 collect→refine 只针对新段）",
       "已有段（用户登录 / 会员权益）字节级不变，保持 Frozen",
       "新段初始标 [假设]/[待确认] 直至确认",
-      "不静默跳过也不得整份重写"
+      "不静默跳过也不得整份重写",
+      "PMContext delta 落盘后触发 Downstream Fan-out：刷新 PRD/stories/sketch prototype/summary，除非显式 --context-only"
     ]
   },
   {
     "id": 9,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need --update §会员权益 年付改为季付",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "识别 --update §会员权益 指向已确认段 → 判为调整型",
       "仅「会员权益」段显式解冻重跑 refine",
@@ -110,9 +134,13 @@
   },
   {
     "id": 10,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 修改会员权益年付定价",
-    "files": ["fixtures/pm-context.md"],
+    "files": [
+      "fixtures/pm-context.md"
+    ],
     "expected_behavior": [
       "读取 PMContext 发现「会员权益」为已确认段",
       "无 --update 标志 → 提示「该需求命中已确认段 §会员权益，如需修改请用 /pm-need --update §会员权益 <调整内容>」",
@@ -122,7 +150,9 @@
   },
   {
     "id": 11,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 我想做个会员体系重构 --auto",
     "files": [],
     "expected_behavior": [
@@ -130,12 +160,15 @@
       "打印产物完整性体检块（含 PMContext / 过程文档 M/预期 N / 结果文档 / 缺失清单 四行）",
       "PMContext（docs/pm-context/pm-context.md）存在且非空",
       ".loop/ 路径不再被写入（已迁移至 process/）",
-      "重跑时 process/ 旧文件归档到 process/.archive/<timestamp>/ 而非 rm 删除"
+      "重跑时 process/ 旧文件归档到 process/.archive/<timestamp>/ 而非 rm 删除",
+      "全链路末尾调用 /pm-summary --auto，汇总层只读覆盖刷新，不改原产物"
     ]
   },
   {
     "id": 12,
-    "skills": ["pm-need"],
+    "skills": [
+      "pm-need"
+    ],
     "query": "/pm-need 缺过程文档的场景（人为删一个 process 文件后跑 --auto）",
     "files": [],
     "expected_behavior": [
@@ -143,6 +176,23 @@
       "体检块缺失清单列出具体缺失文件名",
       "不静默打完成标记，提示 PM 是哪个 Skill 未落盘 + 重跑命令",
       "PMContext 缺失时体检报 🔴 并提示「Sole Entity 缺失，链路中断，请重跑 /pm-need」"
+    ]
+  },
+  {
+    "id": 13,
+    "skills": [
+      "pm-need"
+    ],
+    "query": "/pm-need 增加「数据看板」页面（已有 PMContext + 已有 prototype/ 目录）",
+    "files": [
+      "fixtures/pm-context.md"
+    ],
+    "expected_behavior": [
+      "Argument-first 增量路由先解析用户输入，不能只扫现有 [待确认]/[假设]/[冲突] 标记",
+      "读取现有 heading 后发现「数据看板」不存在 → 判为新增型并追加新 ## 数据看板 段",
+      "已有已确认段字节级 Frozen，不整份重写",
+      "触发 Downstream Fan-out：/pm-prd --auto --incremental → /pm-stories --auto --incremental → /pm-sketch --prototype --auto --incremental --no-fallback → /pm-summary --auto",
+      "最终报告列出 PMContext delta、原型新增页面、汇总文档刷新状态；若用户加 --context-only 才跳过下游刷新"
     ]
   }
 ]

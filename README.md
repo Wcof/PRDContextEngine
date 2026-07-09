@@ -7,7 +7,7 @@
 
 > 面向 Agent 环境的产品经理 Skill 工具箱。
 
-从模糊想法或用户诉求出发，经一条命令完成全链路沉淀：**PMContext（唯一源）→ PRD（给 AI + 给人）→ 可视化草图 + HTML 可交互原型**。
+从模糊想法或用户诉求出发，经一条命令完成全链路沉淀：**PMContext（唯一源）→ PRD（给 AI + 给人）→ 可视化草图 + 可交互原型 → 主题汇总文档**。
 
 ---
 
@@ -18,12 +18,12 @@ PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **52 个 Skil
 ### 核心特性
 
 - **单一数据源**：PMContext 是唯一 Entity，PRD 与草图均为其下游 View，下游 Skill 读取一个文件即可获得全貌。
-- **全链路自动化**：一条命令完成 collect → refine → PRD → 用户故事 → 原型，支持零确认 `--auto` 模式。
+- **全链路自动化**：一条命令完成 collect → refine → PRD → 用户故事 → 原型 → 主题汇总，支持零确认 `--auto` 模式。
 - **双形态 PRD**：面向 AI 的可执行 PRD（含 Agent Context）与面向人类的评审友好 PRD。
 - **技术栈硬约束**：PMContext §8 声明前端框架（Vue/React/Next/Nuxt/Svelte/Angular/Electron 或 Vite+TypeScript）即升格为硬契约——pm-aiprd 转写「技术栈契约」段，pm-sketch Step -0.5 硬触发 Scaffold 模式，防 Agent 偷懒自降级到 HTML 壳子。
-- **增量更新自判**：`/pm-need` 入口扫产物目录自动判 0→1 vs 增量——PMContext 空 = 全链路，非空 = 仅扫 `[待确认]` `[假设]` `[冲突]` 标记段重跑，已确认段 Frozen 不动，合并走 `/pm-conflict-resolver` 内联调。
+- **增量更新自判**：`/pm-need` 入口扫产物目录自动判 0→1 vs 增量——PMContext 空 = 全链路，非空 = Argument-first 判断新增/调整/补全；已确认段 Frozen 不动，合并走 `/pm-conflict-resolver`，并默认 Fan-out 刷新 PRD/故事/原型/汇总。
 - **渐进披露**：Level 1/2/3 三层加载，按需引用，控制 Token 开销。
-- **可追溯性**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯。
+- **可追溯性 + 视觉质量**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯；原型页面必须带 `data-trace-page` / `data-trace-ref`，并先写 `prototype-content-plan.json` + `prototype-design-profile.json`，防止只出路由空壳和默认丑模板。
 - **配置可循**：`/pm-setup` 落 `.pmskill-setup.stamp` 凭据，下游 Skill 读 `## PMSkill` 块取产物目录，块与 stamp 互校，不硬编码路径。
 
 ---
@@ -52,14 +52,14 @@ npx skills@latest add Wcof/PMSkill --all
 ### 4. 分步执行
 
 ```text
-/pm-need              # 收集材料 → refine 追问 → 审计门（PMContext 空 = 0→1 全链路；非空 = 增量仅扫标记段）
-/pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 用户故事 → 原型
-/pm-need --update §8  # 定点增量：仅重跑指定段，其余 Frozen
+/pm-need              # 收集材料 → refine 追问 → 审计门（PMContext 空 = 0→1；非空 = Argument-first 增量）
+/pm-need --auto       # 收集材料 → refine 自主推断 → PRD → 用户故事 → 原型 → 汇总文档
+/pm-need --update §8  # 定点增量：仅重跑指定段，其余 Frozen，并刷新下游 View
 /pm-prd               # 从 PMContext 生成 PRD（给 AI + 给人）
 /pm-prd --auto        # 零确认：直接出 PRD
 /pm-stories           # 从 PMContext 生成用户故事/功能清单（3C + INVEST）
 /pm-sketch            # 生成全部草图
-/pm-sketch --prototype # 生成草图 + HTML 可交互原型（PMContext §8 含前端框架声明时硬触发 Scaffold）
+/pm-sketch --prototype # 生成草图 + 可交互原型（先写 content-plan + design-profile；有 Pencil MCP 优先用 MCP；§8 前端框架声明硬触发 Scaffold）
 ```
 
 ---
@@ -76,9 +76,9 @@ npx skills@latest add Wcof/PMSkill --all
 /pm-prd  /pm-premortem       /pm-stories        /pm-sketch --prototype
   │           │                    │                          │
   ▼           ▼                    ▼                          ▼
-prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
+prd/*.md  premortem.md       stories.md        sketch/*.md + prototype + SUMMARY/*.md
                                                   (简单模式: 单文件)
-                                                  (Scaffold: prototype/ 工程)
+                                                  (Scaffold: prototype/ 工程) + SUMMARY-*.md / INDEX.md
 ```
 
 ### ⚠️ pm-sketch 产出定位
@@ -87,14 +87,14 @@ prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
 
 ### 增量迭代使用说明
 
-PMSkill 支持增量迭代，无需每次全量重做：
+PMSkill 支持增量迭代，无需每次全量重做。0→1 后再次运行 `/pm-need <增量需求>` 时，默认会刷新下游 PRD/故事/原型/汇总；仅 `--context-only` 才只改 PMContext：
 
 | 场景 | 命令 | 行为 |
 |------|------|------|
-| 新增功能/页面 | `/pm-need 增加「XXX」页面` | 自动判为新增型，追加新 `## <页面>` 段，已有段 Frozen 不动 |
+| 新增功能/页面 | `/pm-need 增加「XXX」页面` | Argument-first 判为新增型，追加新 `## <页面>` 段，已有段 Frozen，不动并 Fan-out 刷新 PRD/故事/原型/汇总 |
 | 调整已确认需求 | `/pm-need --update §<页面名> <调整内容>` | 仅该段显式解冻重跑，其余 Frozen |
-| 补充信息缺口 | `/pm-need 补充<具体缺口>` | 走补全型，仅扫标记段重跑 |
-| 新增页面后更新原型 | `/pm-sketch --prototype` | 目标已有时自动进增量原型模式，仅生成新页面，不覆盖已有页 |
+| 补充信息缺口 | `/pm-need 补充<具体缺口>` | 走补全型，仅扫标记段重跑，完成后刷新下游 View |
+| 新增页面后更新原型 | `/pm-sketch --prototype` | 目标已有时自动进增量原型模式，仅生成新页面，不覆盖已有页；若旧原型是路由空壳则先补实业务内容 |
 | 强制全量重生成 | `/pm-sketch --prototype --rebuild` | 覆盖已有原型 |
 
 ---
@@ -113,7 +113,7 @@ PMSkill 支持增量迭代，无需每次全量重做：
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动；`--auto` 零确认直达 PRD + 原型；**入口自判 0→1 vs 增量**（PMContext 空 = 全链路，非空 = 仅扫标记段，已确认段 Frozen） |
+| `/pm-need` | user-invoked | 🏆 主入口：collect → refine → audit 全自动；`--auto` 零确认直达 PRD + 原型 + 汇总；**入口自判 0→1 vs 增量**（PMContext 空 = 全链路，非空 = Argument-first 增量，默认刷新下游 View） |
 | `/pm-collect` | model-invoked | 主动深扫描（代码 / git / URL / 知识库），4 源去重 |
 | `/pm-refine` | model-invoked | 8 维度推断（P0 用户场景 / 边界 / 冲突 → P1 优先级 / 术语 / 摩擦力 → P2 技术约束 / 度量） |
 | `/pm-interview` | model-invoked | 结构化用户访谈脚本（JTBD + The Mom Test） |
@@ -167,13 +167,13 @@ PMSkill 支持增量迭代，无需每次全量重做：
 |---|---|---|
 | `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
 | `/pm-conflict-resolver` | model-invoked | 局部退火——节点报错时只对报错上下文+上游节点 JSON 做最小差分修复，不重写全局 PMContext |
-| `/pm-summary` | user-invoked | 把已落盘的散件产出按阅读主题汇总成几份大文档（需求/交付/可视化/验证 + 总索引），原产物不动只叠加拼装，幂等可重刷 |
+| `/pm-summary` | user-invoked / auto-finalizer | 把已落盘的散件产出按阅读主题汇总成几份大文档（需求/交付/可视化/验证 + 总索引），原产物不动只叠加拼装，`/pm-need --auto` 与增量 Fan-out 默认调用 |
 
 ### Visualization — 可视化
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + HTML 原型（`--prototype`，双模式 —— 简单模式 CDN 单 HTML / Scaffold 模式 React+TS+Vite+Tailwind v4 工程） |
+| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + 交互原型（`--prototype` 先写 `prototype-content-plan.json` 防空壳，优先 Pencil MCP；无 MCP 时回退简单模式 CDN 单 HTML / Scaffold 模式 React+TS+Vite+Tailwind v4 工程） |
 | `/pm-wireframe` | model-invoked | 界面线框图 |
 | `/pm-ia` | model-invoked | 信息架构图 |
 | `/pm-state` | model-invoked | 状态机图 |
@@ -184,10 +184,10 @@ PMSkill 支持增量迭代，无需每次全量重做：
 
 ## 调用规则
 
-- **user-invoked**：仅由人类触发（`disable-model-invocation: true`），可调用 model-invoked 子 skill。
-- **model-invoked**：可由 Agent 自主触发或由 user-invoked 编排调用。
-- user-invoked **不可**调用另一个 user-invoked skill。
-- 所有 user-invoked 技能均支持 `--auto` 零确认参数。
+- **Human-only Entry**：斜杠菜单可见，且 `disable-model-invocation: true`，仅由人类主动触发；当前为 `/pm-setup`、`/pm-need`。
+- **Hybrid Entry**：斜杠菜单可见，但不设 `disable-model-invocation`，既可由人类单独 `/触发`，也可被 `/pm-need --auto` 等链路编排调用；当前为 `/pm-prd`、`/pm-premortem`、`/pm-sketch`、`/pm-summary`。
+- **Engine Skill**：`metadata.internal: true`，默认隐藏，由 Agent 按语义 `use_skill` 调起，或在内部 skill 显式安装时按名调用。
+- Human-only Entry 不得调用另一个 Human-only Entry；Hybrid Entry 和 Engine 可作为自动化链路节点，也必须支持单 skill 直接调用时的前置检查与空产物提示。
 
 ---
 
@@ -205,7 +205,7 @@ docs/pm-context/
     04-refine-tradeoff.md      ← 决策表（选了什么/为什么/代价）
     05-premortem-risk.md       ← 风险清单 + Tiger 三分 + 行动计划
     06-*-delivery.md           ← 各交付 Skill 的交付物与追溯
-    06-sketch-*.md             ← 4 个子草图 Skill 的图元追溯
+    06-sketch-*.md             ← 5 个子草图 Skill 的图元追溯
     conflict-log.json          ← 局部退火差分修复日志
     .archive/<timestamp>/      ← 重跑归档区（不进版本库）
   .cache/                ← 纯技术缓存（断点续跑 JSON 分片，不进版本库，重跑时清空）
@@ -218,6 +218,8 @@ docs/pm-context/
     state.md             ← 状态机图
     flow.md              ← 流程图
     journey.md           ← 客户旅程图（跨页面/跨状态的用户动线）
+    prototype-content-plan.json ← 原型内容计划（防路由空壳，所有模式先生成）
+    prototype-design-profile.json ← 原型视觉/UE profile（防默认丑模板，Pencil/Simple/Scaffold 共用）
     prototype.html       ← HTML 可交互原型（--prototype 简单模式，单文件）
     prototype/           ← HTML 可交互原型（--prototype 复杂模式，前端 bundle）
       index.html         ← 入口壳（双击可打开基础版）
@@ -230,10 +232,10 @@ docs/pm-context/
   SUMMARY-交付.md        ← 汇总：交付主题（pm-summary 生成，可选）
   SUMMARY-可视化.md      ← 汇总：可视化主题（pm-summary 生成，可选）
   SUMMARY-验证.md        ← 汇总：验证与复盘主题（pm-summary 生成，可选）
-  INDEX.md               ← 总索引（pm-summary 生成，可选）
+  INDEX.md               ← 总索引（pm-summary 生成，auto 链路默认刷）
 ```
 
-> 汇总文档（`SUMMARY-*.md` / `INDEX.md`）由 `/pm-summary` 把散件产出按阅读主题拼装成几份大文档，原产物不动只叠加，幂等可重刷。PM 想一份读全某主题时用 `/pm-summary`，找具体原文走总索引回锚点。
+> 汇总文档（`SUMMARY-*.md` / `INDEX.md`）由 `/pm-summary` 把散件产出按阅读主题拼装成几份大文档，原产物不动只叠加，幂等可重刷。`/pm-need --auto` 与增量 Fan-out 默认刷新；PM 也可手动 `/pm-summary` 补刷，找具体原文走总索引回锚点。
 
 ---
 
@@ -322,7 +324,7 @@ bash evals/run-evals.sh --live
 | **纯 Claude API** | ❌ 仅认 name/description | ❌ 编排字段被忽略 | ❌ | ⚠️ Skill 按独立能力触发，链路需手动串 | ❌ 沙箱无网络 |
 
 纯 API 环境下降级表现：
-- 46 个 Engine Skill 因 `metadata.internal` 被忽略，全部对 API �可见（噪音增加）
+- 46 个 Engine Skill 因 `metadata.internal` 被忽略，全部对 API 可见（噪音增加）
 - 编排字段（`disable-model-invocation`、`use_skill`）被忽略，Skill 按独立能力触发，`/pm-need --auto` 链路需 PM 手动串联各 Skill
 - 沙箱无网络、不能装包，`/pm-collect` 的 URL 抓取/联网扫描降级为「仅扫描已提供材料 + 对话上下文」，不静默假装抓取成功
 
@@ -332,7 +334,7 @@ bash evals/run-evals.sh --live
 
 ## 常见问题
 
-**PMContext 可以更新吗？** 可以。`/pm-need` 入口扫产物目录自判——PMContext 空 = 0→1 全链路；非空 = 增量模式，仅扫 `[待确认]` `[假设]` `[冲突]` 标记段重跑 collect/refine，已确认段 Frozen 不动，合并走 `/pm-conflict-resolver` 内联调。`/pm-need --update §8` 定点增量指定段。
+**PMContext 可以更新吗？** 可以。`/pm-need` 入口扫产物目录自判——PMContext 空 = 0→1 全链路；非空 = 增量模式，先按本次输入做 Argument-first 路由：新增型追加 heading，调整型需 `--update` 解冻，补全型才扫 `[待确认]` `[假设]` `[冲突]` 标记段。增量成功后默认刷新 PRD/故事/原型/汇总；`--context-only` 才只改 PMContext。
 
 **斜杠菜单看不到某些 skill？** 46 个 Engine Skill 标了 `metadata.internal: true`，默认隐藏由 AI 按语义 `use_skill` 调起。`INSTALL_INTERNAL_SKILLS=1 npx skills add Wcof/PMSkill --list` 可显式列出；或 `--skill <name>` 按名取。
 

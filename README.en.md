@@ -1,28 +1,28 @@
 # PMSkill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-5%20visible%20%2F%2051%20total-blue.svg)](#skill-list)
+[![Skills](https://img.shields.io/badge/Skills-6%20visible%20%2F%2052%20total-blue.svg)](#skill-list)
 [![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](.github/workflows/ci.yml)
 [![Spec](https://img.shields.io/badge/Anthropic-Agent%20Skills-orange.svg)](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
 > A Skill toolkit for product managers working in Agents.
 
-From fuzzy ideas or user requests, a single command completes the full pipeline: **PMContext (sole source) → PRD (for AI + for human) → visual sketches + interactive HTML prototype**.
+From fuzzy ideas or user requests, a single command completes the full pipeline: **PMContext (sole source) → PRD (for AI + for human) → visual sketches + interactive prototype → summary docs**.
 
 ---
 
 ## Overview
 
-PMSkill encapsulates the core workflows of product managers in Agent environments into **51 Skills** — 5 User-facing (visible in the slash menu, triggered by humans) + 46 Engine (invoked by AI via `use_skill`, hidden by default). Covering requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
+PMSkill encapsulates the core workflows of product managers in Agent environments into **52 Skills** — 6 User-facing (visible in the slash menu, triggered by humans) + 46 Engine (invoked by AI via `use_skill`, hidden by default). Covering requirement discovery, delivery, and visualization. All Skills follow the [Anthropic Agent Skills specification](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview), using YAML frontmatter progressive disclosure and third-person trigger descriptions.
 
 ### Key Features
 
 - **Single Source of Truth**: PMContext is the sole Entity; PRD and sketches are its downstream Views. Downstream Skills read one file to obtain the full picture.
-- **Full-Pipeline Automation**: A single command completes collect → refine → PRD → prototype, with a zero-confirmation `--auto` mode.
+- **Full-Pipeline Automation**: A single command completes collect → refine → PRD → prototype → summary, with a zero-confirmation `--auto` mode.
 - **Dual-Form PRD**: An executable PRD for AI (with Agent Context) and a review-friendly PRD for humans.
-- **Tech-Stack Awareness**: HTML prototypes auto-adapt to the project's actual tech stack and work offline.
+- **Tech-Stack Awareness + Anti-Shell Prototype Gate**: prototypes honor declared tech-stack constraints and must render business content from `prototype-content-plan.json / prototype-design-profile.json`, not just routes.
 - **Progressive Disclosure**: Three-level loading (Level 1/2/3) with on-demand references to control token cost.
-- **Traceability**: Risks are marked inline (`[待确认]` / `[假设]` / `[冲突]`) with single-level traceability.
+- **Traceability**: Risks are marked inline (`[待确认]` / `[假设]` / `[冲突]`) with single-level traceability; prototype pages carry `data-trace-page` and `data-trace-ref` links back to PMContext.
 
 ---
 
@@ -51,11 +51,11 @@ npx skills@latest add Wcof/PMSkill --all
 
 ```text
 /pm-need              # Collect → refine Q&A → audit gate
-/pm-need --auto       # Collect → refine auto-inference → PRD → prototype
+/pm-need --auto       # Collect → refine auto-inference → PRD → prototype → summary docs
 /pm-prd               # Generate PRD from PMContext (for AI + for human)
 /pm-prd --auto        # Zero-confirmation: produce PRD directly
 /pm-sketch            # Generate all sketches
-/pm-sketch --prototype # Generate sketches + interactive HTML prototype
+/pm-sketch --prototype # Generate sketches + interactive prototype with content plan anti-shell gate
 ```
 
 ---
@@ -72,9 +72,9 @@ Fuzzy ideas / user requests
 /pm-prd  /pm-premortem       /pm-stories        /pm-sketch --prototype
   │           │                    │                          │
   ▼           ▼                    ▼                          ▼
-prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
+prd/*.md  premortem.md       stories.md        sketch/*.md + prototype + SUMMARY-*.md
                                                   (Simple: single file)
-                                                  (Scaffold: prototype/ directory)
+                                                  (Scaffold: prototype/ directory) + INDEX.md
 ```
 
 ### ⚠️ pm-sketch Output Positioning
@@ -83,14 +83,14 @@ prd/*.md  premortem.md       stories.md        sketch/*.md + prototype.html
 
 ### Incremental Iteration Usage
 
-PMSkill supports incremental iteration without full regeneration each time:
+PMSkill supports incremental iteration without full regeneration each time. When PMContext exists, `/pm-need <increment>` uses Argument-first routing and defaults to downstream Fan-out (PRD/stories/prototype/summary); use `--context-only` to skip downstream views:
 
 | Scenario | Command | Behavior |
 |----------|---------|----------|
-| New feature/page | `/pm-need Add "XXX" page` | Auto-detected as "add" type, appends new `## <page>` section, existing sections stay Frozen |
+| New feature/page | `/pm-need Add "XXX" page` | Argument-first add type, appends new `## <page>` section, existing sections stay Frozen, then refreshes downstream views |
 | Adjust confirmed requirement | `/pm-need --update §<page-name> <changes>` | Only that section is thawed and rerun, others remain Frozen |
-| Fill information gap | `/pm-need Fill <specific gap>` | "Complete" type: only scans marked sections |
-| Update prototype after adding page | `/pm-sketch --prototype` | Auto-enters incremental mode when target exists, only generates new pages without overwriting existing ones |
+| Fill information gap | `/pm-need Fill <specific gap>` | Complete type: only scans marked sections, then refreshes downstream views |
+| Update prototype after adding page | `/pm-sketch --prototype` | Auto-enters incremental mode when target exists, only generates new pages without overwriting existing ones; repairs route shells before appending |
 | Force full regeneration | `/pm-sketch --prototype --rebuild` | Overwrites existing prototype (requires confirmation outside --auto) |
 
 ---
@@ -107,7 +107,7 @@ PMSkill supports incremental iteration without full regeneration each time:
 
 | Skill | Invocation | Purpose |
 |---|---|---|
-| `/pm-need` | user-invoked | Main entry: collect → refine → audit; `--auto` zero-confirm straight to PRD + prototype |
+| `/pm-need` | user-invoked | Main entry: collect → refine → audit; `--auto` zero-confirm straight to PRD + prototype + summary; incremental mode uses Argument-first routing + Fan-out |
 | `/pm-collect` | model-invoked | Deep scan (code / git / URL / knowledge base), 4-source deduplication |
 | `/pm-refine` | model-invoked | 8-dimension inference (P0 user scenarios / boundaries / conflicts → P1 priority / terminology / friction → P2 tech constraints / metrics) |
 | `/pm-interview` | model-invoked | Structured user interview script (JTBD + The Mom Test) |
@@ -161,12 +161,13 @@ PMSkill supports incremental iteration without full regeneration each time:
 |---|---|---|
 | `/pm-legal` | model-invoked | Product compliance docs (NDA / privacy policy / compliance gap analysis) |
 | `/pm-conflict-resolver` | model-invoked | Local annealing — on node failure, do minimal diff repair on error context + upstream node JSON only, no global PMContext rewrite |
+| `/pm-summary` | user-invoked / auto-finalizer | Read-only rollup into SUMMARY-需求/交付/可视化/验证 + INDEX; auto-called at the end of `/pm-need --auto` and incremental Fan-out |
 
 ### Visualization — Visualization
 
 | Skill | Invocation | Purpose |
 |---|---|---|
-| `/pm-sketch` | model-invoked | Main entry: all sketches + HTML prototype (`--prototype`, dual-mode — Simple CDN single HTML / Scaffold React+TS+Vite+Tailwind v4 project) |
+| `/pm-sketch` | model-invoked | Main entry: all sketches + prototype (`--prototype` first writes `prototype-content-plan.json`; Pencil MCP preferred; otherwise Simple CDN single HTML or Scaffold React+TS+Vite+Tailwind v4) |
 | `/pm-wireframe` | model-invoked | UI wireframe |
 | `/pm-ia` | model-invoked | Information architecture diagram |
 | `/pm-state` | model-invoked | State machine diagram |
@@ -211,7 +212,8 @@ docs/pm-context/
     state.md             ← State machine
     flow.md              ← Flowchart
     journey.md           ← Customer journey map (cross-page/cross-state user flow)
-    prototype.html       ← Interactive HTML prototype (--prototype mode)
+    prototype-content-plan.json ← Prototype content plan anti-shell contract
+    prototype.html       ← Interactive HTML prototype (--prototype Simple mode)
 ```
 
 ---
@@ -311,11 +313,11 @@ Supports all skills-compatible runtimes: Claude Code, Codex, Cursor, Trae, OpenC
 
 ## FAQ
 
-**Can PMContext be updated?** Yes. PMContext is a living document. Re-invoking `/pm-refine` infers only the new parts and incrementally updates.
+**Can PMContext be updated?** Yes. Re-invoking `/pm-need <increment>` with an existing PMContext uses Argument-first incremental routing, preserves Frozen confirmed sections, and by default refreshes PRD/stories/prototype/summary. Use `--context-only` to skip downstream views.
 
 **Can I skip collect and go straight to refine?** Yes. Both `/pm-collect` and `/pm-refine` can be called independently.
 
-**What's the difference between `--auto` and normal mode?** Normal mode pauses at the audit gate after producing PMContext for PM confirmation; `--auto` lands everything in one pass and produces a one-stop report for post-hoc audit.
+**What's the difference between `--auto` and normal mode?** Normal mode pauses at the audit gate after producing PMContext for PM confirmation; `--auto` lands everything in one pass, refreshes summary docs, and produces a one-stop report for post-hoc audit.
 
 **Which Agents are supported?** All skills-compatible runtimes; the install command auto-adapts.
 

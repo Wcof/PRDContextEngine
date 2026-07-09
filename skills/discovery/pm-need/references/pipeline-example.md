@@ -50,7 +50,7 @@ Paper Tiger 2 个 / Elephant 1 个
 - **Human PRD**（`prd/human-prd.md`）：决策理由表 + "为什么现在做"背景 + 追溯清单
 
 ### 草图产物
-- **HTML 原型**（`sketch/prototype.html`）：会员中心 + 付费方案对比 + 续费流程交互
+- **交互原型**（`sketch/prototype.html / prototype/ / pencil/`）：会员中心 + 付费方案对比 + 续费流程交互
 - **Mermaid 草图**：wireframe.md / ia.md / state.md / flow.md
 
 ### 一站式报告
@@ -62,7 +62,7 @@ Paper Tiger 2 个 / Elephant 1 个
 - refine: 8 个推断维度
 - premortem: 3 个 Tiger / 2 个 Paper Tiger / 1 个 Elephant
 - PRD: ai-prd.md + human-prd.md
-- 原型: prototype.html + 4 个 Mermaid 草图
+- 原型: prototype.html / prototype/ / pencil/ + 5 个 Mermaid 草图
 
 ### 置信度
 - 事实: 60%

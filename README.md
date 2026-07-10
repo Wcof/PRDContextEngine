@@ -22,8 +22,10 @@ PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **52 个 Skil
 - **双形态 PRD**：面向 AI 的可执行 PRD（含 Agent Context）与面向人类的评审友好 PRD。
 - **技术栈硬约束**：PMContext §8 声明前端框架（Vue/React/Next/Nuxt/Svelte/Angular/Electron 或 Vite+TypeScript）即升格为硬契约——pm-aiprd 转写「技术栈契约」段，pm-sketch Step -0.5 硬触发 Scaffold 模式，防 Agent 偷懒自降级到 HTML 壳子。
 - **增量更新自判**：`/pm-need` 入口扫产物目录自动判 0→1 vs 增量——PMContext 空 = 全链路，非空 = Argument-first 判断新增/调整/补全；已确认段 Frozen 不动，合并走 `/pm-conflict-resolver`，并默认 Fan-out 刷新 PRD/故事/原型/汇总。
-- **渐进披露**：Level 1/2/3 三层加载，按需引用，控制 Token 开销。
-- **可追溯性 + 视觉质量**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯；原型页面必须带 `data-trace-page` / `data-trace-ref`，并先写 `prototype-content-plan.json` + `prototype-design-profile.json`，防止只出路由空壳和默认丑模板。
+- **PMSkill Runtime Capsule**：每个 subagent/Task/parallel agent 必须注入 `CONTEXT.md`/Agent 规则、`SKILL.md+PINNED.md`、产物目录/stamp、输入输出契约、硬门与失败策略；子 agent 不继承父会话记忆，不依赖软性口头描述。
+- **设计事实源解析门**：`--prototype` 模式先扫描用户项目的 `--design <path>`、`docs/design/**`、`Designs/**`、`design-system/**` 等目录，解析具体的 token、组件契约、布局蓝图、品牌规范，回退时才使用内置 `references/design-style.md`；产出 `design-source-manifest.json` 锁定 concrete token 值与组件尺寸。
+- **视觉可见性审计门**：`--prototype` 模式生成后必须写 `visual-audit-report.json`，确定性验收文字/背景对比（≥4.5:1）、可点击元素可见性、focus ring、状态色可读性；`status=failed` 不得打 ✅，Pencil 模式需回退本地或提示人工验收。
+- **可追溯性 + 视觉质量**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯；原型页面必须带 `data-trace-page` / `data-trace-ref`，并先写 `prototype-content-plan.json` + `prototype-design-profile.json` + `design-source-manifest.json` + `visual-audit-report.json`，防止只出路由空壳、默认丑模板或颜色不可见。
 - **配置可循**：`/pm-setup` 落 `.pmskill-setup.stamp` 凭据，下游 Skill 读 `## PMSkill` 块取产物目录，块与 stamp 互校，不硬编码路径。
 
 ---
@@ -59,7 +61,7 @@ npx skills@latest add Wcof/PMSkill --all
 /pm-prd --auto        # 零确认：直接出 PRD
 /pm-stories           # 从 PMContext 生成用户故事/功能清单（3C + INVEST）
 /pm-sketch            # 生成全部草图
-/pm-sketch --prototype # 生成草图 + 可交互原型（先写 content-plan + design-profile；有 Pencil MCP 优先用 MCP；§8 前端框架声明硬触发 Scaffold）
+/pm-sketch --prototype # 生成草图 + 可交互原型（先写 content-plan + design-profile + design-source-manifest；有 Pencil MCP 优先用 MCP 严格设计系统模式；§8 前端框架声明硬触发 Scaffold；生成后运行视觉可见性审计）
 ```
 
 ---
@@ -79,11 +81,12 @@ npx skills@latest add Wcof/PMSkill --all
 prd/*.md  premortem.md       stories.md        sketch/*.md + prototype + SUMMARY/*.md
                                                   (简单模式: 单文件)
                                                   (Scaffold: prototype/ 工程) + SUMMARY-*.md / INDEX.md
+                                                  (+ design-source-manifest.json + visual-audit-report.json)
 ```
 
 ### ⚠️ pm-sketch 产出定位
 
-`/pm-sketch --prototype` 产出为**前端原型（mock）**，纯前端实现，不输出后端 API、数据 schema 或生产代码。Scaffold 模式为可运行 React + TS + Vite + Tailwind v4 工程，L4 交互（角色/权限/四态/错误恢复），但仍是**原型级可点 mock**，非生产实现。
+`/pm-sketch --prototype` 产出为**前端原型（mock）**，纯前端实现，不输出后端 API、数据 schema 或生产代码。Scaffold 模式为可运行 React + TS + Vite + Tailwind v4 工程，L4 交互（角色/权限/四态/错误恢复），但仍是**原型级可点 mock**，非生产实现。原型生成前自动执行设计事实源解析（产出 `design-source-manifest.json` 锁 concrete token）与视觉可见性审计（产出 `visual-audit-report.json` 验对比度/焦点/状态色），保证结构可见而不只是结构存在。
 
 ### 增量迭代使用说明
 
@@ -129,7 +132,7 @@ PMSkill 支持增量迭代，无需每次全量重做。0→1 后再次运行 `/
 | `/pm-assumption` | model-invoked | 风险假设识别与最便宜测试 |
 | `/pm-northstar` | model-invoked | 北极星指标深化 |
 | `/pm-ideation` | model-invoked | 方案发散（optimize + explore） |
-| `/pm-parallel` | model-invoked | 并行 agent 分派 |
+| `/pm-parallel` | model-invoked | 并行 agent 分派（注入 PMSkill Runtime Capsule + prototype capsule，子 agent 不继承会话记忆，返回 capsule_ack） |
 | `/pm-skillauthor` | model-invoked | TDD 范式撰写 skill |
 | `/pm-pestle` | model-invoked | PESTLE 宏观环境分析（六维 × 影响×概率矩阵） |
 
@@ -173,7 +176,7 @@ PMSkill 支持增量迭代，无需每次全量重做。0→1 后再次运行 `/
 
 | Skill | 调用方式 | 作用 |
 |---|---|---|
-| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + 交互原型（`--prototype` 先写 `prototype-content-plan.json` 防空壳，优先 Pencil MCP；无 MCP 时回退简单模式 CDN 单 HTML / Scaffold 模式 React+TS+Vite+Tailwind v4 工程） |
+| `/pm-sketch` | model-invoked | 🏆 主入口：输出全部草图 + 交互原型（`--prototype` 先写 `prototype-content-plan.json` 防空壳 + `design-source-manifest.json` 锁 concrete token + `visual-audit-report.json` 审计；优先 Pencil MCP 严格设计系统模式；无 MCP 时回退简单模式 CDN 单 HTML / Scaffold 模式 React+TS+Vite+Tailwind v4 工程） |
 | `/pm-wireframe` | model-invoked | 界面线框图 |
 | `/pm-ia` | model-invoked | 信息架构图 |
 | `/pm-state` | model-invoked | 状态机图 |
@@ -220,6 +223,8 @@ docs/pm-context/
     journey.md           ← 客户旅程图（跨页面/跨状态的用户动线）
     prototype-content-plan.json ← 原型内容计划（防路由空壳，所有模式先生成）
     prototype-design-profile.json ← 原型视觉/UE profile（防默认丑模板，Pencil/Simple/Scaffold 共用）
+    design-source-manifest.json ← 设计事实源清单（锁定 concrete token 值 + 组件契约 + 对比度契约）
+    visual-audit-report.json ← 视觉可见性审计报告（对比度/可点击可见性/focus ring/状态色）
     prototype.html       ← HTML 可交互原型（--prototype 简单模式，单文件）
     prototype/           ← HTML 可交互原型（--prototype 复杂模式，前端 bundle）
       index.html         ← 入口壳（双击可打开基础版）
@@ -250,6 +255,7 @@ PMSkill/
 │   ├── visualization/       ← 可视化
 │   └── utility/             ← 工具类
 ├── evals/                   ← 评估集（场景 + rubric + 夹具）
+├── scripts/                 ← 辅助脚本（视觉审计等确定性验收工具）
 ├── docs/
 │   ├── adr/                 ← 架构决定记录
 │   └── pm-context/          ← 运行时产物目录

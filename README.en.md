@@ -161,7 +161,7 @@ PMSkill supports incremental iteration without full regeneration each time. When
 |---|---|---|
 | `/pm-legal` | model-invoked | Product compliance docs (NDA / privacy policy / compliance gap analysis) |
 | `/pm-conflict-resolver` | model-invoked | Local annealing — on node failure, do minimal diff repair on error context + upstream node JSON only, no global PMContext rewrite |
-| `/pm-summary` | user-invoked / auto-finalizer | Read-only rollup into SUMMARY-需求/交付/可视化/验证 + INDEX; auto-called at the end of `/pm-need --auto` and incremental Fan-out |
+| `/pm-summary` | hybrid / auto-finalizer | Read-only rollup into SUMMARY-需求/交付/可视化/验证 + INDEX; auto-called at the end of `/pm-need --auto` and incremental Fan-out |
 
 ### Visualization — Visualization
 
@@ -253,7 +253,7 @@ Following the "build evals before docs" principle, each skill has ≥3 evaluatio
 ```bash
 bash evals/run-evals.sh --dry-run                 # Structural validation (CI-reproducible)
 bash evals/run-evals.sh --dry-run --skill pm-prd  # Single skill
-bash evals/run-evals.sh --live                    # Live model scoring (requires claude/codex CLI)
+bash evals/run-evals.sh --live                    # Not implemented; exits 2 instead of reporting a false score
 ```
 
 See [evals/README.md](evals/README.md) for details.
@@ -283,13 +283,13 @@ bash evals/run-evals.sh --dry-run
 # Single skill
 bash evals/run-evals.sh --dry-run --skill pm-prd
 
-# Live model scoring (requires claude/codex CLI)
+# Live model scoring (not implemented; fails closed with exit 2)
 bash evals/run-evals.sh --live
 ```
 
 ### CI
 
-GitHub Actions (`.github/workflows/ci.yml`) runs `--dry-run` structural validation on every Pull Request.
+GitHub Actions (`.github/workflows/ci.yml`) runs repository validation, runtime Hook unit tests, and eval `--dry-run` validation on every Pull Request.
 
 ---
 

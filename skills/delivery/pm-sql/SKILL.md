@@ -1,6 +1,6 @@
 ---
 name: pm-sql
-description: 从 PMContext 与自然语言问题生成多方言 SQL 查询——schema 读取 + 业务问题转查询逻辑 + 方言适配（BigQuery/PostgreSQL/MySQL/Snowflake）+ 性能优化建议 + 结果验证脚本，每查询附 PMContext 度量定义追溯。Use when the user asks for SQL query or data report, mentions SQL、查询、query、数据库、database、BigQuery、PostgreSQL、MySQL、Snowflake、数据报表、data report、业务问题转查询、natural language to SQL.
+description: Use when the user asks for SQL query or data report, mentions SQL、查询、query、数据库、database、BigQuery、PostgreSQL、MySQL、Snowflake、数据报表、data report、业务问题转查询、natural language to SQL.
 metadata:
   internal: true
 ---

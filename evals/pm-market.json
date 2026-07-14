@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-market-normal",
+    "skills": ["pm-market"],
+    "query": "请基于已有 PMContext 生成 TAM/SAM/SOM、竞品与用户分层分析。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成 TAM/SAM/SOM、竞品与用户分层分析"]
+  },
+  {
+    "id": "pm-market-missing-input",
+    "skills": ["pm-market"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少可信市场数据时保留公式并标待确认", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-market-counterexample",
+    "skills": ["pm-market"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得伪造市场规模或竞品数据"]
+  }
+]

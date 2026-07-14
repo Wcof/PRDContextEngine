@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-ost-normal",
+    "skills": ["pm-ost"],
+    "query": "请基于已有 PMContext 生成结果、机会、方案、实验四层 OST。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成结果、机会、方案、实验四层 OST"]
+  },
+  {
+    "id": "pm-ost-missing-input",
+    "skills": ["pm-ost"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少期望结果时停止扩展下游节点", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-ost-counterexample",
+    "skills": ["pm-ost"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把功能直接冒充用户机会"]
+  }
+]

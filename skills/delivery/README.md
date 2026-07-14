@@ -4,14 +4,15 @@
 
 ## User-invoked
 
-- **[pm-prd](./pm-prd/SKILL.md)** — 从 PMContext 生成 PRD 文档（给 AI 和给人两种形态）。
-- **[pm-handoff](./pm-handoff/SKILL.md)** — 把当前 PMSkill 会话压缩成交接文档，供下一个 Agent 接续。
+无。
 
 ## Model-invoked
 
+- **[pm-prd](./pm-prd/SKILL.md)**（Hybrid）— 从 PMContext 生成 PRD 文档（给 AI 和给人两种形态）。
+- **[pm-handoff](./pm-handoff/SKILL.md)** — 把当前 PMSkill 会话压缩成交接文档，供下一个 Agent 接续。
 - **[pm-aiprd](./pm-aiprd/SKILL.md)** — 从 PMContext 生成给 AI 执行的 PRD。
 - **[pm-humanprd](./pm-humanprd/SKILL.md)** — 从 PMContext 生成给人阅读的 PRD。
-- **[pm-premortem](./pm-premortem/SKILL.md)** — 从 PMContext 假设上线失败倒推风险，产出 Tiger/Paper Tiger/Elephant 三分 + 行动计划。
+- **[pm-premortem](./pm-premortem/SKILL.md)**（Hybrid）— 从 PMContext 假设上线失败倒推风险，产出 Tiger/Paper Tiger/Elephant 三分 + 行动计划。
 - **[pm-stories](./pm-stories/SKILL.md)** — 从 PMContext 生成用户故事——3C 框架 + INVEST 准则 + 验收标准。
 - **[pm-gtm](./pm-gtm/SKILL.md)** — 从 PMContext 生成 GTM 策略——Beachhead 四准则 + ICP 画像 + 渠道矩阵 + 信息阶梯 + 发布时间线。
 - **[pm-experiment](./pm-experiment/SKILL.md)** — 从 PMContext 生成假设验证闭环——8 类风险假设 + Impact×Risk 矩阵 + XYZ 假设 + pretotype 含 skin-in-the-game。
@@ -29,3 +30,4 @@
 - **[pm-meeting](./pm-meeting/SKILL.md)** — 会议纪要结构化——日期/参与者/决策/行动项（owner+截止）/未决问题。
 - **[pm-roadmap](./pm-roadmap/SKILL.md)** — output→outcome roadmap 转换——Enable/so that 格式 + 度量 + 替代方案考量。
 - **[pm-battlecard](./pm-battlecard/SKILL.md)** — 竞品作战卡——对比表+优势+反制+异议话术+地雷问题+赢/输模式。
+- **[pm-stakeholder](./pm-stakeholder/SKILL.md)** — 从 PMContext 生成干系人地图与分层沟通计划。

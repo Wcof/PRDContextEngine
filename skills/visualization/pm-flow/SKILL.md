@@ -1,6 +1,6 @@
 ---
 name: pm-flow
-description: 从 PMContext 生成流程图——Mermaid flowchart，步骤 + 判断分支 + 异常路径，循环必配退出条件。Use when the user asks for flowchart or process flow, mentions 流程图、flowchart、业务流程、process、步骤、分支、异常路径、流程可视化.
+description: Use when the user asks for flowchart or process flow, mentions 流程图、flowchart、业务流程、process、步骤、分支、异常路径、流程可视化.
 metadata:
   internal: true
 ---

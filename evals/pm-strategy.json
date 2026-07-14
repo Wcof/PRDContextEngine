@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-strategy-normal",
+    "skills": ["pm-strategy"],
+    "query": "请基于已有 PMContext 按问题选择战略框架并交叉验证。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "按问题选择战略框架并交叉验证"]
+  },
+  {
+    "id": "pm-strategy-missing-input",
+    "skills": ["pm-strategy"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少外部证据时标假设与待确认", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-strategy-counterexample",
+    "skills": ["pm-strategy"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得堆叠框架却不给战略选择和取舍"]
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-retro-normal",
+    "skills": ["pm-retro"],
+    "query": "请基于已有 PMContext 生成结构化回顾、主题与可执行行动项。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成结构化回顾、主题与可执行行动项"]
+  },
+  {
+    "id": "pm-retro-missing-input",
+    "skills": ["pm-retro"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少迭代材料时列出所需输入", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-retro-counterexample",
+    "skills": ["pm-retro"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把无 owner、截止和度量的建议称为行动项"]
+  }
+]

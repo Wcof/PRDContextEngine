@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-journey-normal",
+    "skills": ["pm-journey"],
+    "query": "请基于已有 PMContext 生成七阶段客户旅程与情绪、触点、机会。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成七阶段客户旅程与情绪、触点、机会"]
+  },
+  {
+    "id": "pm-journey-missing-input",
+    "skills": ["pm-journey"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少旅程事实时以假设或待确认标注", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-journey-counterexample",
+    "skills": ["pm-journey"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得只画页面导航而不表达跨阶段体验"]
+  }
+]

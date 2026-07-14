@@ -1,6 +1,6 @@
 ---
 name: pm-market
-description: 从 PMContext 生成市场分析套件——TAM/SAM/SOM 市场规模（自上而下+自下而上双算法交叉验证）+ 竞品矩阵（直接/间接/替代三层，差异化机会标注）+ 用户反馈情感分析（segments×sentiment×JTBD×满意度）+ 用户分层（行为/JTBD/需求聚类，≥3 层可行动）。Use when the user asks for market analysis or competitive landscape, mentions 市场分析、TAM、SAM、SOM、竞品分析、market analysis.
+description: Use when the user asks for market analysis or competitive landscape, mentions 市场分析、TAM、SAM、SOM、竞品分析、market analysis.
 metadata:
   internal: true
 ---

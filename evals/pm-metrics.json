@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-metrics-normal",
+    "skills": ["pm-metrics"],
+    "query": "请基于已有 PMContext 定义北极星与输入指标星座。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "定义北极星与输入指标星座"]
+  },
+  {
+    "id": "pm-metrics-missing-input",
+    "skills": ["pm-metrics"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少价值事件或数据口径时标待确认", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-metrics-counterexample",
+    "skills": ["pm-metrics"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得选择无法归因或不可行动的虚荣指标"]
+  }
+]

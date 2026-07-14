@@ -1,6 +1,6 @@
 ---
 name: pm-prioritize
-description: 从 PMContext 对需求/功能/机会做优先级排序——6 框架参考库（Opportunity Score/ICE/RICE/Kano/MoSCoW/WSJF）按场景推荐 + 单框架评分表 + 四象限可视化 + 排序结果追溯 PMContext。Use when the user asks to prioritize features or backlog, mentions 优先级、prioritize、RICE、ICE、Kano、MoSCoW、WSJF、Opportunity Score、需求排序、backlog 排序、功能优先级、四象限、priority matrix.
+description: Use when the user asks to prioritize features or backlog, mentions 优先级、prioritize、RICE、ICE、Kano、MoSCoW、WSJF、Opportunity Score、需求排序、backlog 排序、功能优先级、四象限、priority matrix.
 metadata:
   internal: true
 ---

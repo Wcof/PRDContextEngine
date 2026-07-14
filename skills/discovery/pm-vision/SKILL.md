@@ -1,6 +1,6 @@
 ---
 name: pm-vision
-description: 从 PMContext 生成产品愿景与利益相关者地图——鼓舞式愿景陈述（情感+可实现+方向）+ 10 年/3 年/1 年阶梯 + Stakeholder 权力/利益网格 + 每象限沟通策略 + 沟通计划。Use when the user asks for product vision or stakeholder management, mentions 产品愿景、product vision、vision statement、愿景陈述、利益相关者、stakeholder、stakeholder map、权力利益网格、power interest grid、沟通计划、communication plan、对齐、align stakeholders、战略方向.
+description: Use when the user asks for product vision or stakeholder management, mentions 产品愿景、product vision、vision statement、愿景陈述、利益相关者、stakeholder、stakeholder map、权力利益网格、power interest grid、沟通计划、communication plan、对齐、align stakeholders、战略方向.
 metadata:
   internal: true
 ---

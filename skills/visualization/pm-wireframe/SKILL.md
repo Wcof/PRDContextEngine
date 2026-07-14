@@ -1,6 +1,6 @@
 ---
 name: pm-wireframe
-description: 从 PMContext 生成界面线框图——Mermaid 导航图表达页面间跳转，Markdown 表格表达每页组件布局与数据来源。Use when the user asks for wireframe or page layout, mentions 线框图、页面布局、wireframe、导航流、组件布局、界面草图、UI 结构.
+description: Use when the user asks for wireframe or page layout, mentions 线框图、页面布局、wireframe、导航流、组件布局、界面草图、UI 结构.
 metadata:
   internal: true
 ---

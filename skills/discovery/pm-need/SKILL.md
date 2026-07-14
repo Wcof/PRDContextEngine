@@ -1,6 +1,6 @@
 ---
 name: pm-need
-description: 从模糊想法或用户诉求出发，收集材料并推断澄清，沉淀成 PMContext，停在审计门等 PM 确认。支持 --auto 零确认模式一键全链路直达 PRD 与原型。Use when starting a new product requirement, or the user mentions 需求分析、pm-need、产品需求、一键全链路、从想法到PRD、需求梳理、auto discovery.
+description: Use when starting a new product requirement, or the user mentions 需求分析、pm-need、产品需求、一键全链路、从想法到PRD、需求梳理、auto discovery.
 disable-model-invocation: true
 ---
 
@@ -15,7 +15,7 @@ disable-model-invocation: true
 - **正常模式**：collect → **refine 追问模式**（逐维向 PM 提问确认）→ 🛑 审计门 →（可选）PRD/草图
 - **零确认模式**（`--auto`）：collect → **refine 自主推断模式**（PM 零介入）→ 审计门不暂停 → PRD → 原型
 
-PM 的核心干预点是 refine 追问过程中的逐维回答。`--auto` 零确认模式下 PM 不介入。
+PM 的核心干预点是 refine 追问过程中的逐维回答。`--auto` 模式下 PM 零介入。
 
 ## Purpose
 
@@ -133,7 +133,7 @@ rm -rf <产物目录>.cache/ && mkdir -p <产物目录>.cache/
 
 🔴 CHECKPOINT：生成任何 PMContext JSON 之前，先对输入需求做熵检。
 
-**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在，读取其 `pmcontext_exists` 字段——为 `true` 且本次**非增量模式**时提示"已有 PMContext，本次将覆盖走 0→1 全链路"并等确认；为 `false` 或 stamp 缺失则继续。stamp 与 `## PMSkill` 块的 setup 状态行互校，不一致时以 stamp 为准（机器可读优先）。**增量模式**下 stamp 仅作旁证，不触发覆盖确认——入口已自动判增量。
+**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在，读取其 `pmcontext_exists` 字段。为 `true` 时入口应判为增量；只有用户显式 `--force-new` 才走覆盖式 0→1：正常模式等确认，`--auto` 直接归档旧过程产物后继续，绝不暂停或追问。为 `false` 或 stamp 缺失则继续。stamp 与 `## PMSkill` 块的 setup 状态行互校，不一致时以 stamp 为准（机器可读优先）。**增量模式**下 stamp 仅作旁证，不触发覆盖确认。
 
 
 **高熵判定**（命中任意一条即为高熵）：
@@ -144,8 +144,8 @@ rm -rf <产物目录>.cache/ && mkdir -p <产物目录>.cache/
 **处理分支**：
 | 触发条件 | 动作 | 兜底 |
 |---|---|---|
-| 高熵 且 已配置知识库 / 有 @背景材料 | 静默读取补熵后继续 auto | 读取为空→转「举手」 |
-| 高熵 且 无任何背景源 | 🔴 举手：暂停生成，反问「请补充知识库链接或背景材料，或回复『自主』」 | 用户回「自主」→降级纯推断，未知维度全标 [待确认] 记入信息缺口 |
+| 高熵 且 已配置知识库 / 有 @背景材料 | 静默读取补熵后继续 auto | 读取为空→转纯推断 |
+| 高熵 且 无任何背景源 | 继续纯推断，不向 PM 提问；未知维度全标 `[待确认]`、低置信度并记入信息缺口 | 在最终报告显著列出证据缺口 |
 | 低熵 | 直接全速 auto，不打扰用户 | — |
 
 ### 节点路由（--auto）
@@ -177,7 +177,7 @@ rm -rf <产物目录>.cache/ && mkdir -p <产物目录>.cache/
 
 #### 正常模式（追问模式）
 
-Agent 对每个维度先尝试从材料推断，推断不了的项转为**逐一向 PM 提问**，每个问题附三段式推荐答案：
+Agent 对每个维度先从材料形成推荐结论，再对 **8 个维度逐一向 PM 提问确认**；材料明确时确认推荐结论，材料不足时确认低置信度建议。每个问题附三段式推荐答案：
 ```
 推荐: <一句话答案> | 依据: <材料来源> | 备选: <1 个其它可能>
 ```
@@ -355,7 +355,7 @@ PMContext delta
 | URL 抓取失败静默跳过 | 关键材料缺失导致 PMContext 质量下降 |
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | `--auto` 遇子 skill 失败就全链路回滚 | 已生成部分仍落盘，失败项单独标注 |
-| 🔴 高熵输入且无背景源时，禁止直接生成 PMContext JSON（避免带病执行导致后期大面积返工） | 高熵无背景源必须先举手，否则下游 PRD/草图基于带病 PMContext 大面积返工 |
+| `--auto` 高熵输入时暂停或向 PM 提问 | 破坏 PM 零介入契约；应继续纯推断并把未知项标 `[待确认]`、低置信度 |
 | 0→1 后再次 `/pm-need 增加页面` 只改 PMContext、不刷新原型 | 会造成用户感知“无法继续增量迭代”，必须默认 Downstream Fan-out，除非 `--context-only` |
 | 增量路由先扫标记再看用户输入 | 无标记的已完成项目会被误判为无事可做；必须 Argument-first |
 
@@ -386,6 +386,16 @@ PMContext delta
 ```
 
 **🔴 STOP 规则**：任一 🔴 → **不得打完成标记**，提示 PM 是哪个 Skill 未落盘，并指出重跑命令（如「缺 `process/05-premortem-risk.md` → 重跑 `/pm-premortem`」）。PMContext 缺失为最高优先 🔴，须立即提示「Sole Entity 缺失，链路中断，请重跑 `/pm-need`」。
+
+### 确定性完成门（Hook）
+
+`--auto` 全链路的产物完整性体检后、宣告完成前必须执行：
+
+```bash
+python3 hooks/post_generation.py --skill pm-need --artifact-root <产物目录> --auto
+```
+
+Hook 非零退出时，输出其 JSON findings，保持未完成状态并给出对应重跑命令；禁止用自然语言自检覆盖 Hook 结果。正常模式停在人工审计门，不运行此完成 Hook。
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: pm-ia
-description: 从 PMContext 生成信息架构图——Mermaid graph，节点为实体/页面，边为导航/包含/引用关系，按业务域 subgraph 分组。Use when the user asks for information architecture or entity relationships, mentions 信息架构、IA、entity relationship、实体关系、数据结构、站点地图、sitemap.
+description: Use when the user asks for information architecture or entity relationships, mentions 信息架构、IA、entity relationship、实体关系、数据结构、站点地图、sitemap.
 metadata:
   internal: true
 ---

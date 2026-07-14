@@ -4,7 +4,7 @@
 # 用法：
 #   bash evals/run-evals.sh --dry-run
 #   bash evals/run-evals.sh --dry-run --skill pm-prd
-#   bash evals/run-evals.sh --live   # 当前 live 仍降级为结构校验
+#   bash evals/run-evals.sh --live   # 当前显式报错，禁止伪装成真实模型跑分
 
 set -euo pipefail
 
@@ -20,7 +20,7 @@ usage() {
 PMSkill 评估运行器
 用法: bash evals/run-evals.sh [--dry-run|--live] [--skill <name>]
   --dry-run    只做结构校验（默认）
-  --live       调用 Agent CLI 跑真实 query（当前降级为 dry-run）
+  --live       真实模型跑分（当前未实现，返回退出码 2）
   --skill <n>  只跑指定 skill（如 pm-prd）
   -h, --help   显示本帮助
 EOF
@@ -43,12 +43,8 @@ if ! command -v python3 >/dev/null 2>&1; then
 fi
 
 if [[ "$MODE" == "live" ]]; then
-  if ! command -v claude >/dev/null 2>&1 && ! command -v codex >/dev/null 2>&1; then
-    echo "⚠ 未找到 claude/codex CLI，自动降级为 --dry-run" >&2
-  else
-    echo "⚠ --live 真实模型跑分尚未接入，当前执行结构校验" >&2
-  fi
-  MODE="dry-run"
+  echo "ERROR: --live is not implemented; refusing to report structural checks as model evaluation" >&2
+  exit 2
 fi
 
 python3 - "$EVALS_DIR" "$RESULTS_TSV" "$RESULTS_JSON" "$MODE" "$SKILL_FILTER" <<'PY'

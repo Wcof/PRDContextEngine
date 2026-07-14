@@ -1,6 +1,6 @@
 ---
 name: pm-sketch
-description: 从 PMContext 生成全部草图（线框/信息架构/状态机/流程图/客户旅程）+ 交互原型（--prototype）。若 runtime 提供 Pencil MCP，优先用 Pencil MCP 生成/更新原型系统；否则回退原有 Simple/Scaffold 技术栈。支持 --auto 零确认模式与单图模式（--wireframe/--ia/--state/--flow）。Use when generating sketches or prototypes from PMContext, or the user mentions 草图、sketch、线框、原型、可视化、prototype、交互原型、Mermaid、Pencil MCP.
+description: Use when generating sketches or prototypes from PMContext, or the user mentions 草图、sketch、线框、原型、可视化、prototype、交互原型、Mermaid、Pencil MCP.
 ---
 
 # /pm-sketch
@@ -27,9 +27,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 
 ## Instructions
 
-读取 `<产物目录>/pm-context.md`（先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准"。若不存在：
-- 如果有 `$ARGUMENTS` → 自动调用 `/pm-need $ARGUMENTS` 全链路后回到草图生成
-- 如果没有 → 🔴 STOP：提示先运行 `/pm-need`
+读取 `<产物目录>/pm-context.md`（先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`，块不存在回退默认 `docs/pm-context/`）。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准"。若不存在或为空，一律 🔴 STOP：提示用户先运行 `/pm-need`。本 Hybrid Entry 不得自动调用 Human-only Entry。
 
 - [ ] PMContext 已读取且非空
 - [ ] 页面定义/状态转移/流程步骤/实体关系全部提取
@@ -78,12 +76,12 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 /pm-sketch --prototype --no-mcp     → 跳过 Pencil MCP 检查，强制走原有本地技术栈（Simple/Scaffold）
 /pm-sketch --prototype --dark      → 暗色主题（覆盖 prefers-color-scheme 检测，仅 --prototype 模式下有效）
 /pm-sketch --prototype --design <path> → 指定 DESIGN.md 路径（视觉事实源，默认扫描 docs/design/DESIGN.md）
-/pm-sketch --prototype --auto      → 自动模式：pm-need → premortem → PRD → 原型 零确认一气呵成
+/pm-sketch --prototype --auto      → 对已有 PMContext 生成原型，跳过审计等待
 /pm-sketch --wireframe             → 只出线框图
 /pm-sketch --ia                    → 只出信息架构图
 /pm-sketch --state                 → 只出状态机图
 /pm-sketch --flow                  → 只出流程图
-/pm-sketch <需求描述>              → 自动模式：从需求描述开始全链路到草图
+/pm-sketch <需求描述>              → 不接受裸需求作为 PMContext；缺 PMContext 时提示用户先运行 /pm-need
 ```
 
 ## 流程
@@ -117,7 +115,7 @@ PMContext 已沉淀页面定义、状态转移、流程步骤。本 skill 将这
 - 禁止在图中使用同义词列中的禁用名（如禁用 "End User"，必须用 "User"）
 - Entity Dictionary 是子 Skill 的**前置依赖**，不读字典直接绘图=违规
 
-若 PMContext 不存在且 `$ARGUMENTS` 不为空 → 自动调用 `/pm-need $ARGUMENTS` → 完成后继续。
+若 PMContext 不存在或为空 → STOP 并提示用户先运行 `/pm-need`；不得从本 Skill 反向调用 Human-only Entry。
 
 ### 2. 生成草图
 
@@ -178,6 +176,83 @@ Run 五个子 Skill（按依赖顺序）：
 
 输出：`✅ 原型内容编译: 页面 <N> / 规则 <R> / 验收 <A> / 动作 <K> | 未映射 <M>`。若 N=0 或任一页面完全无规则/验收/动作，禁止进入实现，先回修 PMContext 或把缺口标 `[待确认]`。
 
+**Step -0.88：设计事实源解析门（--prototype 模式专用，先于设计风格编译门）**
+
+目标：把用户项目里的真实设计规范解析成可执行约束，避免 `prototype-design-profile.json` 只由模型临场发挥，导致 Pencil/原型风格漂移。
+
+**扫描优先级**：
+1. `$ARGUMENTS` 中 `--design <path>` 显式指定的文件/目录。
+2. `docs/design/DESIGN.md`。
+3. `docs/design/**`、`docs/designs/**`、`Designs/**`、`design-system/**`、`style-guide/**` 中的 `*.md` / `*.json` / `*.css` / `*.ts` / `*.tsx` / `*.html` / Figma 导出文件。
+4. 根级 `DESIGN.md`、`design-tokens.json`、`tokens.json`、`theme.*`、`tailwind.config.*`。
+5. 都不存在时才允许回退 `references/design-style.md` 默认规范，并在 manifest 标 `[假设]`。
+
+若用户本轮明确要求“使用 Designs / 设计规范 / 原型系统规范”，但上述扫描没有命中任何事实源：
+- 非 `--auto`：🔴 STOP，提示补充设计规范路径或加 `--allow-default-design`。
+- `--auto`：不得假装生效；写 `design-source-manifest.json`，`status=missing-explicit-design-source`，并在最终报告中把视觉可信度标为低。
+
+**必须写入** `<产物目录>/sketch/design-source-manifest.json`：
+
+```json
+{
+  "mode": "design-source-manifest",
+  "sources": [{"path": "<path>", "type": "tokens|component-spec|layout|brand|style-guide", "hash": "<sha256>"}],
+  "resolved_tokens": {
+    "color_bg": "<concrete value>",
+    "color_surface": "<concrete value>",
+    "color_text": "<concrete value>",
+    "color_text_secondary": "<concrete value>",
+    "color_text_muted": "<concrete value>",
+    "color_on_primary": "<concrete value>",
+    "color_accent": "<concrete value>",
+    "color_border": "<concrete value>",
+    "color_success": "<concrete value>",
+    "color_on_success": "<concrete value with >=4.5 contrast>",
+    "color_warning": "<concrete value>",
+    "color_on_warning": "<concrete value with >=4.5 contrast>",
+    "color_danger": "<concrete value>",
+    "color_on_danger": "<concrete value with >=4.5 contrast>",
+    "radius_sm": "<px/rem>",
+    "radius_md": "<px/rem>",
+    "space_unit": "<px>",
+    "font_family": "<name>",
+    "font_size_body": "<px/rem>"
+  },
+  "component_contract": {
+    "button": {"height": "<px>", "radius": "<token>", "states": ["default", "hover", "disabled", "loading"]},
+    "card": {"padding": "<token>", "border": "<token>", "shadow": "<token>"},
+    "table": {"row_height": "<px>", "density": "<compact|regular>", "states": ["empty", "loading", "error"]},
+    "form": {"label_position": "<top|left>", "error_style": "<rule>"},
+    "navigation": {"width": "<px>", "active_state": "<rule>"},
+    "modal_drawer": {"width": "<px/%>", "overlay": "<rule>"}
+  },
+  "token_digest": "<sha256 of resolved_tokens + component_contract>",
+  "visual_contrast_contract": {
+    "min_text_contrast": 4.5,
+    "min_large_text_contrast": 3.0,
+    "min_ui_contrast": 3.0,
+    "required_pairs": [
+      ["color_text", "color_bg"],
+      ["color_text", "color_surface"],
+      ["color_text_secondary", "color_bg"],
+      ["color_text_muted", "color_bg"],
+      ["color_on_primary", "color_accent"],
+      ["color_border", "color_bg"],
+      ["navigation.active_text", "navigation.active_bg"],
+      ["table.text", "table.row_bg"],
+      ["color_on_success", "color_success"],
+      ["color_on_warning", "color_warning"],
+      ["color_on_danger", "color_danger"]
+    ]
+  },
+  "status": "resolved | fallback-default | missing-explicit-design-source"
+}
+```
+
+后续 `prototype-design-profile.json`、Pencil MCP brief、Simple CSS、Scaffold `style.css` 都必须消费此 manifest；不得另起一套颜色/圆角/组件尺寸。
+
+输出：`✅ 设计事实源: <resolved/fallback/missing> | sources <N> | token_digest <hash>`。
+
 **Step -0.85：设计风格编译门（--prototype 模式专用，先于 Pencil MCP/本地实现跑）**
 
 目标：把 PMContext 与 DESIGN.md 编译成稳定的视觉与 UE 契约，降低模型输出“普通、丑、套模板、空卡片”的概率。此门内置 `references/design-style.md`，参考 anti-slop frontend skill 的“先读场景再定风格”思想，但面向 PMSkill 的多页产品原型，不依赖外部 repo 或联网。
@@ -191,14 +266,33 @@ Run 五个子 Skill（按依赖顺序）：
   "style_family": "Enterprise Calm | AI Native Dark | Data Cockpit | Premium Consumer | Trust First | Developer Tool",
   "secondary_style": "<最多一个辅助风格，没有则为空>",
   "dials": {"design_variance": 1, "motion_intensity": 1, "visual_density": 1},
+  "design_source_manifest": "sketch/design-source-manifest.json",
+  "token_digest": "<same as design-source-manifest.token_digest>",
   "tokens": {
     "theme": "light | dark | auto",
     "accent": "<单一主强调色语义名>",
-    "radius_scale": "<sm-md | md-lg | sharp>",
-    "shadow_style": "<flat | soft | layered>",
+    "color_bg": "<concrete value>",
+    "color_surface": "<concrete value>",
+    "color_text": "<concrete value>",
+    "color_text_secondary": "<concrete value>",
+    "color_text_muted": "<concrete value>",
+    "color_on_primary": "<concrete value>",
+    "color_accent": "<concrete value>",
+    "color_border": "<concrete value>",
+    "color_success": "<concrete value>",
+    "color_on_success": "<concrete value>",
+    "color_warning": "<concrete value>",
+    "color_on_warning": "<concrete value>",
+    "color_danger": "<concrete value>",
+    "color_on_danger": "<concrete value>",
+    "radius_sm": "<px/rem>",
+    "radius_md": "<px/rem>",
+    "spacing_unit": "<px>",
+    "font_family": "<name>",
     "type_scale": "<compact-product | editorial | data-dense>",
-    "spacing_scale": "<4px | 8px | 12px grid>"
+    "visual_contrast_contract": "<copy or reference design-source-manifest.visual_contrast_contract>"
   },
+  "component_contract": "<copy or reference design-source-manifest.component_contract>",
   "layout_patterns": ["<每类页面采用的布局骨架>"],
   "interaction_patterns": ["<反馈/错误恢复/审计/抽屉/命令面板等 UE 模式>"],
   "anti_patterns_banned": ["empty route shell", "random purple glow", "fake screenshot div"]
@@ -209,14 +303,52 @@ Run 五个子 Skill（按依赖顺序）：
 - 必须先输出一行 Design Read，再生成任何原型代码或 Pencil MCP brief。
 - 主风格家族只能有一个，辅助风格最多一个；禁止一页一个风格。
 - 三个拨盘必须有 1-10 数值，并与产品类型/用户场景对应。
-- `prototype-design-profile.json` 必须被三种实现消费：
-  - Pencil MCP：作为 brief 输入，并写入 manifest 的 `design_profile`、`style_family`、`ue_coverage` 字段。
-  - Simple：作为 `:root` / `[data-theme=dark]` token 和页面布局选择来源。
-  - Scaffold：作为 `src/style.css` token、页面组件布局、motion/reduced-motion 策略来源。
+- `prototype-design-profile.json` 必须从 `design-source-manifest.json` 派生，且被三种实现消费：
+  - Pencil MCP：作为 brief 输入，并写入 manifest 的 `design_profile`、`design_source_manifest`、`token_digest`、`component_coverage`、`design_violation_count`、`style_family`、`ue_coverage` 字段。
+  - Simple：作为 `:root` / `[data-theme=dark]` 具体 token、组件尺寸、页面布局选择来源。
+  - Scaffold：作为 `src/style.css` token、组件布局、motion/reduced-motion 策略来源。
+- 若 profile 只有抽象 `style_family`，没有 concrete token 与 component contract，判为无效 profile，禁止进入 Pencil MCP。
 - 视觉增强不得覆盖追溯要求：每页仍必须从 `prototype-content-plan.json` 渲染规则/验收/动作，并保留 `data-trace-ref` 或 manifest source。
 - 禁止默认审美：随机紫蓝渐变、全页毛玻璃、三张等宽空卡、假截图矩形、只有标题图标的一句话卡片。
 
 输出：`✅ 设计风格: <style_family> | 拨盘 <variance>/<motion>/<density> | profile: <产物目录>/sketch/prototype-design-profile.json`。
+
+**Step -0.82：视觉可见性审计门（--prototype 模式专用，先于 Pencil MCP/本地实现最终验收）**
+
+目标：补上“人眼一看就是错，但模型自检说通过”的缺口。典型问题包括：字体颜色和背景色相同/接近、按钮/链接可点击但不可见、表格文字落在同色行背景上、禁用态/hover 态把文字吃掉。此门是**确定性验收**，不是让模型主观评价“好不好看”。
+
+**必须写入** `<产物目录>/sketch/visual-audit-report.json`：
+
+```json
+{
+  "mode": "visual-audit",
+  "status": "passed | failed | needs-manual-review",
+  "source": "Pencil export | prototype.html | prototype/",
+  "token_digest": "<same as design-source-manifest.token_digest>",
+  "checks": {
+    "token_contrast_pairs": {"passed": 0, "failed": 0},
+    "interactive_visibility": {"passed": 0, "failed": 0},
+    "state_visibility": {"passed": 0, "failed": 0},
+    "focus_visible": {"passed": 0, "failed": 0},
+    "empty_clickable_overlay": {"passed": 0, "failed": 0}
+  },
+  "findings": [
+    {"severity": "error|warn", "code": "LOW_CONTRAST|INVISIBLE_INTERACTIVE|MISSING_FOCUS", "target": "<screen/page/component>", "detail": "<具体问题>"}
+  ],
+  "repair_actions": ["<已执行的修复，如提升 text token、替换按钮 on-primary、补 focus ring>"]
+}
+```
+
+**硬门规则**：
+- 文字对比：正文/表单/表格/导航文字与背景对比不得低于 4.5:1；大号标题/装饰性弱文本不得低于 3:1；边框/焦点环/图标等 UI 元素不得低于 3:1。
+- 必查色对：`color_text × color_bg`、`color_text × color_surface`、`color_text_secondary × color_bg`、`color_text_muted × color_bg`、`color_on_primary × color_accent`、`color_border × color_bg`、导航激活态文字×背景、表格文字×行背景、错误/成功/警告状态文字×状态背景。
+- 必查可点击元素：`button`、`a[href]`、`[role=button]`、`input/select/textarea`、菜单项、表格操作项。任何可点击元素若 `color≈background`、`opacity < 0.2`、`display/visibility` 隐藏但仍占交互区域、或无可见 focus ring，判 Failure。
+- Simple/Scaffold 本地模式必须运行 `scripts/visual_audit_prototype.py --token-digest <design-source-manifest.token_digest> <prototype.html|prototype/>`；脚本直接输出 Hook 兼容的 `visual-audit-report.json`。若有 Playwright/headless 能力，进一步读取 computed style 与截图，不只看源代码 token。
+- V1 静态审计输入的 required color token 必须先归一化为 `#hex` / `rgb(a)`；无法解析的 `oklch()`、命名色或未解析 `var()` 按 fail-closed 处理，不得计为通过。
+- Pencil MCP 模式必须要求 MCP 导出可审计 artifact；若只能返回不可解析远端 id，则 `visual-audit-report.json.status=needs-manual-review`，不得打 `passed`，应本地 fallback 或在最终报告中明确“视觉验收未通过自动审计”。
+- 自动修复顺序：先调整 token（文字/背景/on-primary/border），再调整组件状态，最后才允许修改布局；不得通过删除文字、隐藏元素、降低 opacity 来规避审计。
+
+输出：`✅ 视觉审计: passed | ❌ failed <N> | ⚠️ needs-manual-review（report: <产物目录>/sketch/visual-audit-report.json）`。
 
 **Step -0.75：Pencil MCP 实现门（--prototype 模式专用，先于 Step -0.5 跑）**
 
@@ -233,7 +365,8 @@ Run 五个子 Skill（按依赖顺序）：
 
 **Pencil MCP 命中后的执行协议**：
 - 仍然先生成 5 类 Mermaid 草图与 Entity Dictionary；Pencil MCP 只替代 `--prototype` 的原型实现，不替代 PMContext、PRD、草图追溯。
-- 将以下输入打包给 Pencil MCP：`prototype-content-plan.json`、`prototype-design-profile.json`、PMContext 页面清单、Entity Dictionary、状态/流程/旅程摘要、PRD_DATA、DOC_DATA、DESIGN.md token、`[假设]`/`[待确认]`/`[冲突]` 标记。
+- 将以下输入打包给 Pencil MCP：`prototype-content-plan.json`、`prototype-design-profile.json`、`design-source-manifest.json`、`visual-audit-report.json` 的契约、PMContext 页面清单、Entity Dictionary、状态/流程/旅程摘要、PRD_DATA、DOC_DATA、DESIGN.md/Designs 事实源、`[假设]`/`[待确认]`/`[冲突]` 标记。
+- Pencil brief 必须使用**严格设计系统模式**：逐页指定 layout blueprint，逐组件指定 button/table/form/card/navigation/modal 的 token、尺寸、状态，不允许 MCP 自由换主题、随机配色、重设圆角、套默认玻璃/紫色渐变。
 - 用 Pencil MCP 创建或更新原型系统，要求每个 PMContext 页面至少一个可导航 screen，每条关键状态转移至少一个可点交互，每条规则/验收有可见表达。
 - 导出或保存到 `<产物目录>/sketch/pencil/`；若 MCP 返回远端 artifact id，也必须写本地 manifest，不得只在对话里报一个 id。
 - 写 `<产物目录>/sketch/pencil/pencil-prototype-manifest.json`：
@@ -242,9 +375,14 @@ Run 五个子 Skill（按依赖顺序）：
 {
   "mode": "pencil-mcp",
   "server": "<detected pencil mcp server/tool>",
-  "inputs": ["pm-context.md", "entity-dictionary.md", "prd/ai-prd.md", "prd/human-prd.md", "docs/design/DESIGN.md?", "sketch/prototype-content-plan.json", "sketch/prototype-design-profile.json"],
+  "inputs": ["pm-context.md", "entity-dictionary.md", "prd/ai-prd.md", "prd/human-prd.md", "docs/design/DESIGN.md?", "sketch/prototype-content-plan.json", "sketch/prototype-design-profile.json", "sketch/design-source-manifest.json", "sketch/visual-audit-report.json"],
   "design_profile": "sketch/prototype-design-profile.json",
+  "design_source_manifest": "sketch/design-source-manifest.json",
+  "token_digest": "<sha256>",
   "style_family": "<selected style family>",
+  "component_coverage": {"button": true, "card": true, "table": true, "form": true, "navigation": true, "modal_drawer": true},
+  "design_violation_count": 0,
+  "visual_audit": {"status": "passed | failed | needs-manual-review", "report": "sketch/visual-audit-report.json", "contrast_failures": 0, "invisible_interactive_count": 0},
   "ue_coverage": {"primary_cta_pages": 0, "state_feedback_pages": 0, "rule_visible_pages": 0, "error_recovery_pages": 0},
   "pages": [{"pmcontext_heading": "<heading>", "screen_id": "<pencil-screen-id>", "trace_uuid": "<UUID>"}],
   "components": [{"name": "<component>", "source": "<PMContext rule/acceptance>"}],
@@ -260,7 +398,9 @@ Run 五个子 Skill（按依赖顺序）：
 - 交互覆盖率：关键 flow/state edge 均有可点路径或 manifest 中说明 `[待确认]`。
 - 规则/验收映射：每页规则/验收要么在 screen 中可见，要么在 manifest 中列为 `[待确认]`，不得只画空壳。
 - 导出/持久化：必须有本地文件路径或远端 artifact id，并写入 manifest。
-- 失败诚实：MCP 调用失败、缺导出能力、页面覆盖不足且无法修复 → 输出原因并继续 Step -0.5 / Step -1 本地 fallback，不得打 Pencil 成功标。
+- 设计一致性：manifest `token_digest` 必须等于 `design-source-manifest.json`；`component_coverage` 必须覆盖 button/card/table/form/navigation/modal_drawer；`design_violation_count` 必须为 0 或列出可解释豁免。
+- 视觉可见性：manifest 必须引用 `visual-audit-report.json`；`visual_audit.status` 必须为 `passed`，或在不可自动审计时标 `needs-manual-review` 并触发本地 fallback/人工验收提示；`contrast_failures`、`invisible_interactive_count` 必须为 0 才能打 ✅。
+- 失败诚实：MCP 调用失败、缺导出能力、页面覆盖不足、设计一致性不足且无法修复 → 输出原因并继续 Step -0.5 / Step -1 本地 fallback，不得打 Pencil 成功标。
 
 输出：`✅ Pencil MCP: 命中 <server/tool> → 使用 MCP 原型 | ⚠️ 未命中/不可用/失败 <原因> → 使用本地技术栈`
 
@@ -380,7 +520,8 @@ Pencil MCP 模式硬校验（不满足禁止打 ✅，必须本地 fallback 或�
 - ✅ manifest 中 `pages` 覆盖 PMContext 页面 heading；screen 数 ≥ 页面数
 - ✅ manifest 中 `interactions` 覆盖关键 state/flow edge，未覆盖项标 `[待确认]`
 - ✅ manifest 中 `exports` 至少包含一个本地路径或远端 artifact id
-- ✅ manifest 中 `design_profile` 指向 `sketch/prototype-design-profile.json`，且记录 `style_family` / `ue_coverage`
+- ✅ manifest 中 `design_profile` 指向 `sketch/prototype-design-profile.json`，`design_source_manifest` 指向 `sketch/design-source-manifest.json`，且记录 `token_digest` / `style_family` / `component_coverage` / `design_violation_count` / `visual_audit` / `ue_coverage`
+- ✅ `visual_audit.status=passed` 且 `contrast_failures=0`、`invisible_interactive_count=0`；否则不得打 Pencil 成功标
 - ✅ `[假设]` / `[待确认]` / `[冲突]` 在 screen 或 manifest 中显式标注
 - ✅ 未命中/失败时已回退本地 Simple/Scaffold，不静默停在半成品
 
@@ -397,7 +538,8 @@ Pencil MCP 模式硬校验（不满足禁止打 ✅，必须本地 fallback 或�
 - ✅ PRD Panel 展示 PMContext 批注（D1 可展开原文）
 - ✅ 文档 overlay 可展开查看 PMContext / DESIGN.md
 - ✅ 暗色主题适配
-- ✅ V1 自检通过：反空壳体检（见下方输出块）
+- ✅ `visual-audit-report.json` 存在且 `status=passed`，无低对比文字、无不可见可点击元素
+- ✅ V1 自检通过：反空壳体检 + 视觉可见性体检（见下方输出块）
 
 **V1 反空壳自检输出块**（`--auto` 也必须打印，即使不暂停）：
 ```
@@ -406,6 +548,11 @@ Pencil MCP 模式硬校验（不满足禁止打 ✅，必须本地 fallback 或�
    - 每页交互元素计数: [页面A: x, 页面B: y, ...]
    - 未达标页面: <列表 或 无>
    - 路由空壳检测: <通过 / 失败，失败页列表>
+✅ 视觉可见性体检:
+   - 对比度失败: <0 或失败列表>
+   - 不可见可点击元素: <0 或失败列表>
+   - Focus 可见性: <通过 / 失败>
+   - visual-audit-report: <路径>
 ```
 
 Scaffold 模式：
@@ -418,6 +565,7 @@ Scaffold 模式：
 - ✅ L4 交互：角色/权限/四态/错误恢复
 - ✅ `index.tsx` 顶部含中文 `@name` 注释
 - ✅ README.md 含启动命令
+- ✅ `visual-audit-report.json` 存在且 `status=passed`，V3 下优先使用 headless computed style / screenshot 审计
 - ✅ V2/V3 验收通过或诚实降级
 
 **验收级别判定（Acceptance Tier，正交于复杂度判断）**：
@@ -452,6 +600,7 @@ Scaffold 模式：
 生成后自动输出：
 - `✅ 原型实现: <Pencil MCP | 本地 Simple | 本地 Scaffold>（<依据 / fallback 原因>）`
 - `✅ 设计风格: <style_family>（profile: docs/pm-context/sketch/prototype-design-profile.json）`
+- `✅ 视觉审计: <passed | failed | needs-manual-review>（report: docs/pm-context/sketch/visual-audit-report.json）`
 - `✅ 技术栈: <名称>（<依据>）`（Pencil MCP 模式下写 `Pencil MCP` 与检测到的 server/tool）
 - `✅ 交互原型已生成: <Pencil MCP: docs/pm-context/sketch/pencil/ | 简单模式: docs/pm-context/sketch/prototype.html | Scaffold 模式: docs/pm-context/sketch/prototype/>`
 - `✅ 验收: <V1 自检通过 | V2 验收通过 | V3 验收通过 | ⚠️ 未验收，错误清单见 ...>`（仅 --prototype 模式）
@@ -489,8 +638,8 @@ Scaffold 模式：
 
 ## 零确认模式（--auto）
 
-当通过 `--auto` 或直接 `$ARGUMENTS` 调用时：
-1. 若 PMContext 不存在 → 自动 run `/pm-need --auto $ARGUMENTS`
+当对已有 PMContext 通过 `--auto` 调用时：
+1. 读取已有 PMContext；不存在或为空则 STOP
 2. 自动生成全部草图 + 交互原型
 3. 直接落盘完成，不等待确认
 4. 输出产物清单 + 置信度摘要
@@ -511,7 +660,7 @@ Scaffold 模式：
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
 | `<产物目录>/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
-| PMContext 不存在但有 `$ARGUMENTS` 或 `--auto` | 自动调用 `/pm-need --auto $ARGUMENTS`（**仅当本次未被 pm-need 编排时**——即未收到 `--no-fallback` 标）生成 PMContext，结束后回到草图生成 | pm-need 失败则 STOP 并提示失败原因 |
+| PMContext 不存在或为空 | STOP 并提示用户先运行 `/pm-need <需求>` | 不生成草图，不自动调用 Human-only Entry |
 | PMContext 中无页面/实体定义 | 跳过 wireframe/ia，只生成 state/flow（若有规则线索）；顶部加 `⚠️ 跳过 N 个图：PMContext 缺页面/实体定义` | 不阻塞，记入信息缺口清单 |
 | 任一子 skill（pm-wireframe/ia/state/flow）失败 | 不阻塞其他子 skill，记录失败项到产物清单的"失败清单"章节 | 其他成功草图仍落盘 |
 | `--prototype` 模式下未检测到 Pencil MCP 或 `$ARGUMENTS` 含 `--no-mcp` | 输出未命中/跳过原因，继续 Step -0.5 / Step -1 本地技术栈判断 | 不阻塞，保持原有 Simple/Scaffold 行为 |
@@ -524,7 +673,8 @@ Scaffold 模式：
 | `--prototype` Scaffold 模式 V3 验收失败（dev server / headless / console 错误） | 按 V3 → V2 → V1 降级链降级，重试 3 次失败后输出"未验收工程 + 已知错误清单" | 不静默撒谎打 ✅，诚实标注未验收 |
 | `--prototype` Scaffold 模式 V2 验收失败（npm install / tsc / vite build） | 按错误信息修复后重试；3 次失败后降级到 V1（AI 自检）并输出错误清单 | 文件已落盘，提示用户手动 `npm install && npm run build` |
 | `--prototype` 模式下 CDN 版本不可用（如 unpkg CDN 域名被墙） | 简单模式使用备用 CDN（cdnjs / jsdelivr），或退化为 Plain HTML 兜底模板；Scaffold 模式不依赖 CDN 不受影响 | 简单模式退化为 Plain HTML 无框架版本 |
-| `--auto` 模式下 pm-need 链路失败 | STOP 并输出一站式报告含失败原因 | 已生成部分仍落盘 |
+| `--prototype` 视觉审计失败（字体/背景同色、按钮不可见、焦点不可见、状态文字不可读） | 先修 token 与组件状态，再重新运行 `scripts/visual_audit_prototype.py` 或 headless 审计 | 仍失败则标 `status=failed`，不得打 ✅，Pencil 模式回退本地 Scaffold 或提示人工验收 |
+| `--auto` 模式下 PMContext 缺失 | STOP 并提示用户先运行 Human-only `/pm-need --auto <需求>` | 不生成草图 |
 | PMContext 中 `[冲突]` 项涉及核心图元 | 图元标 `[冲突]` 不强行选定方向 | 在产物清单汇总冲突项供 PM 决策 |
 | PMContext 品牌色与 DESIGN.md 冲突 | `--color-primary` 用 DESIGN.md 值（视觉事实源优先），PMContext 值写入 `--color-primary-alt` 并标 `[冲突]` | 不强行收敛，在产物清单标注冲突项 |
 | **`--prototype` 目标已存在且未加 `--rebuild`** | 进增量原型模式，仅加新页/改动页 | 不整体覆盖 |
@@ -544,7 +694,7 @@ Scaffold 模式：
 | `--auto` 遇子 skill 失败就全链路回滚 | 其他成功部分仍落盘，失败项单独标注 |
 | 审计三元组反模式 | 见 CONTEXT.md『审计三元组反模式（共享定义）』——同义反复/空话/未阐明具体推导逻辑均判定为 Failure |
 | 检测到可用 Pencil MCP 却仍直接走本地 HTML/Scaffold（未显式 `--no-mcp`） | 违反 MCP 优先门，用户希望有 Pencil MCP 时由 MCP 实现原型系统 |
-| Pencil MCP 只返回远端 id 而不写本地 manifest | 下游无法审计输入、页面映射和 fallback 状态，约束不可验证 |
+| Pencil MCP 只返回远端 id 而不写本地 manifest | 下游无法审计输入、页面映射、token_digest、component_coverage 和 fallback 状态，约束不可验证 |
 | 未检测到 Pencil MCP 却声称“已用 MCP 生成” | 静默撒谎；看不到工具清单/能力时必须本地 fallback |
 | PMContext §8 含前端框架声明（Vue/React/Next/Nuxt/Svelte/Angular/Electron，或 Vite+TypeScript）时降级到简单模式 | Agent 偷懒自降级——AiGateway 事故就是此失守，PMContext 明写 Vue 3+Vite 却产出 HTML 壳子；Step -0.5 硬门兜底，`--simple` flag 此场景视为无效 |
 | Scaffold 模式生成后不运行验收即打 ✅ 标记完成 | 系统性撒谎——PM 拿到一个 `npm install` 都跑不起来的工程，毁信任 |
@@ -560,8 +710,20 @@ Scaffold 模式：
 | **只生成导航/路由/空 section，不从 `prototype-content-plan.json` 渲染事实/规则/验收/动作** | 用户看到的是单 HTML 壳子，不是原型系统；判定 Failure，必须回修或升 Scaffold |
 | **增量时只追加菜单项不追加页面业务内容** | 会造成“有路由没核心内容”，必须同步追加页面 section/component + data-trace + 交互动作 |
 | **未读取 `references/design-style.md` 或未写 `prototype-design-profile.json` 就生成原型** | 视觉/UE 约束没有进入执行链路，模型会回到默认丑模板；判定 Failure |
-| **Pencil MCP brief 未携带 `prototype-design-profile.json`** | MCP 只收到页面清单，容易画成空壳或默认风格；必须重新调用或本地 fallback |
+| **Pencil MCP brief 未携带 `prototype-design-profile.json` / `design-source-manifest.json` / concrete token + component contract** | MCP 只收到页面清单或抽象风格，容易画成空壳、默认风格或漂移；必须重新调用或本地 fallback |
+| **字体颜色与背景色相同/接近仍通过验收** | 这是“结构存在但视觉不可见”的严重失败；必须由 `visual-audit-report.json` 捕获，不能靠模型主观自检 |
+| **按钮/链接有点击区域但文字或图标不可见** | 用户会以为空白页面或空按钮；判定 Failure，必须修复对比度、状态色和 focus ring |
 | **为了好看删掉规则/验收/状态/trace** | 审美不能覆盖产品事实源；必须保留追溯与可见规则 |
+
+## 确定性完成门（Hook）
+
+`--prototype` 的 Pencil / Simple / Scaffold 实现与各自验收完成后、宣告完成前必须执行：
+
+```bash
+python3 hooks/post_generation.py --skill pm-sketch --artifact-root <产物目录>
+```
+
+Hook 非零退出时，输出其 JSON findings，保持未完成状态并修复后重跑；不得用 V1/V2/V3 自述结果覆盖 Hook 结果。
 
 ---
 

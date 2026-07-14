@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-release-normal",
+    "skills": ["pm-release"],
+    "query": "请基于已有 PMContext 生成发布说明、测试场景与就绪证据。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成发布说明、测试场景与就绪证据"]
+  },
+  {
+    "id": "pm-release-missing-input",
+    "skills": ["pm-release"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少新鲜验证证据时标未就绪", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-release-counterexample",
+    "skills": ["pm-release"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得在测试或构建未验证时宣告可发布"]
+  }
+]

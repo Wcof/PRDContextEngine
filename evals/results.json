@@ -1,7 +1,7 @@
 {
   "mode": "dry-run",
-  "total": 116,
-  "pass": 116,
+  "total": 179,
+  "pass": 179,
   "partial": 0,
   "fail": 0,
   "scenarios": [
@@ -52,6 +52,30 @@
       "expected_count": 3,
       "status": "PASS",
       "note": "3 条 expected_behavior"
+    },
+    {
+      "skill": "pm-align",
+      "scenario_id": "pm-align-normal",
+      "query": "请基于已有 PMContext 审计实现与需求意图差距。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-align",
+      "scenario_id": "pm-align-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-align",
+      "scenario_id": "pm-align-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
     },
     {
       "skill": "pm-assumption",
@@ -198,6 +222,30 @@
       "note": "3 条 expected_behavior"
     },
     {
+      "skill": "pm-experiment",
+      "scenario_id": "pm-experiment-normal",
+      "query": "请基于已有 PMContext 为高风险假设设计最便宜实验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-experiment",
+      "scenario_id": "pm-experiment-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-experiment",
+      "scenario_id": "pm-experiment-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
       "skill": "pm-flow",
       "scenario_id": "1",
       "query": "画支付流程",
@@ -220,6 +268,78 @@
       "expected_count": 3,
       "status": "PASS",
       "note": "3 条 expected_behavior"
+    },
+    {
+      "skill": "pm-grill",
+      "scenario_id": "pm-grill-normal",
+      "query": "请基于已有 PMContext 对 PMContext 的承重假设做红队压力测试",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-grill",
+      "scenario_id": "pm-grill-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-grill",
+      "scenario_id": "pm-grill-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-gtm",
+      "scenario_id": "pm-gtm-normal",
+      "query": "请基于已有 PMContext 生成 beachhead、ICP、渠道与发布节奏",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-gtm",
+      "scenario_id": "pm-gtm-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-gtm",
+      "scenario_id": "pm-gtm-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-handoff",
+      "scenario_id": "pm-handoff-normal",
+      "query": "请基于已有 PMContext 生成可供下一 Agent 接续的交接文档。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-handoff",
+      "scenario_id": "pm-handoff-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-handoff",
+      "scenario_id": "pm-handoff-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
     },
     {
       "skill": "pm-humanprd",
@@ -294,6 +414,102 @@
       "note": "2 条 expected_behavior"
     },
     {
+      "skill": "pm-interview",
+      "scenario_id": "pm-interview-normal",
+      "query": "请基于已有 PMContext 基于 PMContext 生成 Mom Test",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-interview",
+      "scenario_id": "pm-interview-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-interview",
+      "scenario_id": "pm-interview-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-journey",
+      "scenario_id": "pm-journey-normal",
+      "query": "请基于已有 PMContext 生成七阶段客户旅程与情绪、触点、机会。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-journey",
+      "scenario_id": "pm-journey-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-journey",
+      "scenario_id": "pm-journey-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-legal",
+      "scenario_id": "pm-legal-normal",
+      "query": "请基于已有 PMContext 生成带法务复核标记的合规文档。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-legal",
+      "scenario_id": "pm-legal-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-legal",
+      "scenario_id": "pm-legal-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-market",
+      "scenario_id": "pm-market-normal",
+      "query": "请基于已有 PMContext 生成 TAM/SAM/SOM、竞品与用户分层分析",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-market",
+      "scenario_id": "pm-market-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-market",
+      "scenario_id": "pm-market-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
       "skill": "pm-meeting",
       "scenario_id": "1",
       "query": "60 分钟会议转录，出结构化纪要",
@@ -313,6 +529,30 @@
       "skill": "pm-meeting",
       "scenario_id": "3",
       "query": "行动项没说谁负责",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-metrics",
+      "scenario_id": "pm-metrics-normal",
+      "query": "请基于已有 PMContext 定义北极星与输入指标星座。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-metrics",
+      "scenario_id": "pm-metrics-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-metrics",
+      "scenario_id": "pm-metrics-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
       "expected_count": 2,
       "status": "PASS",
       "note": "2 条 expected_behavior"
@@ -360,7 +600,7 @@
     {
       "skill": "pm-need",
       "scenario_id": "6",
-      "query": "/pm-need 做个东西 --auto 自主",
+      "query": "/pm-need 做个东西 --auto（知识库配置存在但读取为空）",
       "expected_count": 4,
       "status": "PASS",
       "note": "4 条 expected_behavior"
@@ -465,6 +705,30 @@
       "skill": "pm-okr",
       "scenario_id": "3",
       "query": "KR 信心度 95% 行吗",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-ost",
+      "scenario_id": "pm-ost-normal",
+      "query": "请基于已有 PMContext 生成结果、机会、方案、实验四层 OST。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-ost",
+      "scenario_id": "pm-ost-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-ost",
+      "scenario_id": "pm-ost-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
       "expected_count": 2,
       "status": "PASS",
       "note": "2 条 expected_behavior"
@@ -614,6 +878,54 @@
       "note": "3 条 expected_behavior"
     },
     {
+      "skill": "pm-pricing",
+      "scenario_id": "pm-pricing-normal",
+      "query": "请基于已有 PMContext 生成定价模型、竞品矩阵与 WTP 验证方案。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-pricing",
+      "scenario_id": "pm-pricing-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-pricing",
+      "scenario_id": "pm-pricing-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-prioritize",
+      "scenario_id": "pm-prioritize-normal",
+      "query": "请基于已有 PMContext 按场景选择一个框架并给出可追溯排序。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-prioritize",
+      "scenario_id": "pm-prioritize-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-prioritize",
+      "scenario_id": "pm-prioritize-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
       "skill": "pm-refine",
       "scenario_id": "1",
       "query": "把这 3 条材料推断成 PMContext --auto",
@@ -641,9 +953,9 @@
       "skill": "pm-refine",
       "scenario_id": "4",
       "query": "帮我梳理这些需求材料",
-      "expected_count": 8,
+      "expected_count": 9,
       "status": "PASS",
-      "note": "8 条 expected_behavior"
+      "note": "9 条 expected_behavior"
     },
     {
       "skill": "pm-refine",
@@ -660,6 +972,54 @@
       "expected_count": 6,
       "status": "PASS",
       "note": "6 条 expected_behavior"
+    },
+    {
+      "skill": "pm-release",
+      "scenario_id": "pm-release-normal",
+      "query": "请基于已有 PMContext 生成发布说明、测试场景与就绪证据。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-release",
+      "scenario_id": "pm-release-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-release",
+      "scenario_id": "pm-release-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-retro",
+      "scenario_id": "pm-retro-normal",
+      "query": "请基于已有 PMContext 生成结构化回顾、主题与可执行行动项。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-retro",
+      "scenario_id": "pm-retro-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-retro",
+      "scenario_id": "pm-retro-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
     },
     {
       "skill": "pm-roadmap",
@@ -886,6 +1246,30 @@
       "note": "3 条 expected_behavior"
     },
     {
+      "skill": "pm-stakeholder",
+      "scenario_id": "pm-stakeholder-normal",
+      "query": "请基于已有 PMContext 生成 Power×Interest 地图与沟通计",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-stakeholder",
+      "scenario_id": "pm-stakeholder-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-stakeholder",
+      "scenario_id": "pm-stakeholder-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
       "skill": "pm-state",
       "scenario_id": "1",
       "query": "画订单状态机",
@@ -908,6 +1292,126 @@
       "expected_count": 3,
       "status": "PASS",
       "note": "3 条 expected_behavior"
+    },
+    {
+      "skill": "pm-stories",
+      "scenario_id": "pm-stories-normal",
+      "query": "请基于已有 PMContext 生成符合 3C 与 INVEST 的可追溯用户故",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-stories",
+      "scenario_id": "pm-stories-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-stories",
+      "scenario_id": "pm-stories-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-strategy",
+      "scenario_id": "pm-strategy-normal",
+      "query": "请基于已有 PMContext 按问题选择战略框架并交叉验证。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-strategy",
+      "scenario_id": "pm-strategy-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-strategy",
+      "scenario_id": "pm-strategy-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-summary",
+      "scenario_id": "pm-summary-normal",
+      "query": "请基于已有 PMContext 只读汇总现有产物并生成索引。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-summary",
+      "scenario_id": "pm-summary-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-summary",
+      "scenario_id": "pm-summary-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-triage",
+      "scenario_id": "pm-triage-normal",
+      "query": "请基于已有 PMContext 按状态机分类并输出可独立领取的垂直切片。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-triage",
+      "scenario_id": "pm-triage-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-triage",
+      "scenario_id": "pm-triage-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-vision",
+      "scenario_id": "pm-vision-normal",
+      "query": "请基于已有 PMContext 生成愿景阶梯与利益相关者沟通策略。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-vision",
+      "scenario_id": "pm-vision-missing-input",
+      "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
+    },
+    {
+      "skill": "pm-vision",
+      "scenario_id": "pm-vision-counterexample",
+      "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+      "expected_count": 2,
+      "status": "PASS",
+      "note": "2 条 expected_behavior"
     },
     {
       "skill": "pm-wireframe",

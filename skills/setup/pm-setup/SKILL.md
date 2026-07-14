@@ -1,6 +1,6 @@
 ---
 name: pm-setup
-description: 首次使用 PMSkill 时配置项目——产物目录、语言偏好、知识库路径、Agent 规则落点。运行一次即可，后续所有 PMSkill 命令自动读取配置。Use when setting up PMSkill for the first time, or the user mentions 初始化PMSkill、pm-setup、配置项目、安装PMSkill、首次配置.
+description: Use when setting up PMSkill for the first time, or the user mentions 初始化PMSkill、pm-setup、配置项目、安装PMSkill、首次配置.
 disable-model-invocation: true
 ---
 

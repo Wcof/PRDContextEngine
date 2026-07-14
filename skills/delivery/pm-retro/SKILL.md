@@ -1,6 +1,6 @@
 ---
 name: pm-retro
-description: 从 PMContext 与迭代产物生成结构化回顾——三格式可选（Start/Stop/Continue、4Ls、Sailboat）+ 主题聚合原始反馈 + 优先级行动项（含 owner/截止/度量）+ 回灌 PMContext 经验。Use when the user asks for retrospective or sprint review, mentions 回顾、retro、retrospective、迭代复盘、sprint review、反思、action items、4Ls、Sailboat、Start Stop Continue、回顾会、复盘.
+description: Use when the user asks for retrospective or sprint review, mentions 回顾、retro、retrospective、迭代复盘、sprint review、反思、action items、4Ls、Sailboat、Start Stop Continue、回顾会、复盘.
 metadata:
   internal: true
 ---

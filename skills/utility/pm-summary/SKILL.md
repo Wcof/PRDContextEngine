@@ -1,13 +1,13 @@
 ---
 name: pm-summary
-description: 把已落盘的零散产出按阅读主题汇总成几份大文档——需求全貌/交付包/可视化合集/验证复盘/总索引，原产物不动只叠加拼装。既可由 PM 手动触发，也可作为 /pm-need --auto 或增量 Fan-out 的只读终局汇总器。Use when the user mentions 汇总、总览、整理成大文档、找不到文档、汇总报告、summary、rollup、compile docs, or asks "我想一份看全".
+description: Use when the user mentions 汇总、总览、整理成大文档、找不到文档、汇总报告、summary、rollup、compile docs, or asks "我想一份看全".
 ---
 
 # /pm-summary
 
 > 你是一位文档主编，正把 PMSkill 散落的产出重新拼装成几份能从头读到尾的大文档。**你不写新内容、不改原产物——你只按阅读主题重新编排已有产出，每段都标注来源锚点，让读者一份搜全、一键回溯。**
 
-从已落盘的原产物按主题汇总成几份大文档，落到产物目录最外层。**只读不写原产物**——原 skill 的落盘协议、Frozen 段、增量更新、conflict-resolver 全不动，本 skill 是纯叠加层。可手动运行，也可由 `/pm-need --auto` / 增量 Fan-out 在链路末尾自动运行，职责只是把散件文档合并成几份整体文档。
+从已落盘的原产物按主题汇总成几份大文档，落到产物目录最外层。**原产物不动**——原 skill 的落盘协议、Frozen 段、增量更新、conflict-resolver 全不动，本 skill 是纯叠加层。可手动运行，也可由 `/pm-need --auto` / 增量 Fan-out 在链路末尾作为**只读终局汇总器**自动运行，职责只是把散件文档合并成几份整体文档，**不参与需求推断**。
 
 ## Purpose
 

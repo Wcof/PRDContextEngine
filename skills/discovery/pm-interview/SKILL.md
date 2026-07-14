@@ -1,6 +1,6 @@
 ---
 name: pm-interview
-description: 从 PMContext 生成结构化用户访谈脚本——JTBD 探查 + The Mom Test 纪律（问过去不问未来、问生活不问想法、不 pitch），含暖场/核心探索/收尾三段式 + 记录模板。Use when the user asks for interview script or user research, mentions 访谈脚本、interview、用户访谈、user research、Mom Test、JTBD 探查、discovery research、客户访谈、qualitative research.
+description: Use when the user asks for interview script or user research, mentions 访谈脚本、interview、用户访谈、user research、Mom Test、JTBD 探查、discovery research、客户访谈、qualitative research.
 metadata:
   internal: true
 ---

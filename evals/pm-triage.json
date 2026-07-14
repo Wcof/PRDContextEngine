@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-triage-normal",
+    "skills": ["pm-triage"],
+    "query": "请基于已有 PMContext 按状态机分类并输出可独立领取的垂直切片。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "按状态机分类并输出可独立领取的垂直切片"]
+  },
+  {
+    "id": "pm-triage-missing-input",
+    "skills": ["pm-triage"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少复现或验收信息时进入 needs-info", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-triage-counterexample",
+    "skills": ["pm-triage"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把横向技术层拆分冒充 tracer-bullet issue"]
+  }
+]

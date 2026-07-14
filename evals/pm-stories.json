@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-stories-normal",
+    "skills": ["pm-stories"],
+    "query": "请基于已有 PMContext 生成符合 3C 与 INVEST 的可追溯用户故事。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成符合 3C 与 INVEST 的可追溯用户故事"]
+  },
+  {
+    "id": "pm-stories-missing-input",
+    "skills": ["pm-stories"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少 PMContext 时停止并提示前置条件", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-stories-counterexample",
+    "skills": ["pm-stories"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把技术任务伪装成无用户价值的故事"]
+  }
+]

@@ -1,6 +1,6 @@
 ---
 name: pm-northstar
-description: 在已有北极星/核心指标基础上深化——业务游戏分类（注意力/交易/生产力）+ 单一 NSM 细则（七准则校验）+ 3-5 个 Input Metrics 星座补全 + 健康指标（guardrail）+ Mermaid 指标树 + 与 KPI/OKR 关系澄清。Use when the user has initial metrics and needs deeper north star refinement, mentions 北极星指标深化、north star、NSM、input metric、指标星座、metrics constellation、健康指标、guardrail metric、OMTM、北极星框架、north star framework.
+description: Use when the user has initial metrics and needs deeper north star refinement, mentions 北极星指标深化、north star、NSM、input metric、指标星座、metrics constellation、健康指标、guardrail metric、OMTM、北极星框架、north star framework.
 metadata:
   internal: true
 ---

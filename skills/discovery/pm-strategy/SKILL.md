@@ -1,6 +1,6 @@
 ---
 name: pm-strategy
-description: 从 PMContext 生成战略分析套件——按"现状→行业→增长→商业模式"四阶选择 SWOT（现状定位）/Porter 五力（行业吸引力）/Ansoff 矩阵（增长路径）/Lean Canvas（商业模式假设）组合或全套，每框架产出追溯到 PMContext 的结构化表 + 行动建议。Use when the user asks for strategy analysis or business model, mentions 战略分析、SWOT、波特五力、strategy analysis.
+description: Use when the user asks for strategy analysis or business model, mentions 战略分析、SWOT、波特五力、strategy analysis.
 metadata:
   internal: true
 ---

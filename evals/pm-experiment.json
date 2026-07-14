@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-experiment-normal",
+    "skills": ["pm-experiment"],
+    "query": "请基于已有 PMContext 为高风险假设设计最便宜实验。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "为高风险假设设计最便宜实验"]
+  },
+  {
+    "id": "pm-experiment-missing-input",
+    "skills": ["pm-experiment"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少可验证假设时先标信息缺口", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-experiment-counterexample",
+    "skills": ["pm-experiment"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把无成功阈值的活动称为实验"]
+  }
+]

@@ -52,6 +52,10 @@ _Avoid_: 汇总报告、总览文档（弱语气已废除，按阅读主题拼�
 `/pm-sketch --prototype` 在 Pencil MCP / Simple / Scaffold 之前必须读取 `skills/visualization/pm-sketch/references/design-style.md` 并写 `sketch/prototype-design-profile.json`。该文件包含 Design Read、主风格家族、三拨盘（design_variance / motion_intensity / visual_density）、token、layout_patterns、interaction_patterns、anti_patterns_banned。Pencil MCP brief 必须携带该 profile，manifest 必须记录 `design_profile` / `style_family` / `ue_coverage`；本地 Simple/Scaffold 必须把 profile 转成 CSS token 与页面布局/UE 规则。缺 profile、套默认紫色渐变/毛玻璃/三空卡、为了好看删掉 trace 均判 Failure。
 _Avoid_: 默认审美、丑模板、毛玻璃空卡、无设计读取的原型
 
+**Runtime Completion Hook**:
+`hooks/post_generation.py` 是 `/pm-sketch --prototype` 与 `/pm-need --auto` 宣告完成前的确定性门禁。它 fail-closed 校验全链路必需产物，以及 Pencil / Simple / Scaffold 的页面覆盖、业务内容密度、`data-trace-page` / `data-trace-ref`、真实交互、视觉审计与 token digest。非零退出时必须保持未完成并修复后重跑。
+_Avoid_: 自述完成、软性检查、失败后仍打 ✅
+
 **Prototype Content Plan**:
 `/pm-sketch --prototype` 在 Pencil MCP / Simple / Scaffold 之前必须先写 `sketch/prototype-content-plan.json`，把 PMContext 页面 heading 编译成 `primary_job` / `scenario` / `facts` / `rules` / `acceptances` / `fields` / `actions` / `states`。后续原型实现只能从该内容计划渲染页面，每个 route 必须有 `data-trace-page` 和 ≥3 个 `data-trace-ref` 业务元素。只输出菜单、hash 路由、空 section、TODO/占位文字均判 Failure。
 _Avoid_: 路由壳、单 HTML 空壳、只有页面标题的原型
@@ -98,7 +102,7 @@ _Avoid_: 术语表、词汇表（弱语气已废除，边问边记是硬约定�
 | `/pm-setup` | Human-only Entry | 不作为下游节点 | 首次配置，独立运行 | User-facing |
 | `/pm-prd` | Hybrid Entry | 可被 `/pm-need --auto` 编排 | PMContext 已存在时直接生成 PRD；缺失时提示空产物 | User-facing |
 | `/pm-premortem` | Hybrid Entry | 可被 `/pm-need --auto` 编排 | PMContext 已存在时直接生成风险分析；缺失时提示空产物 | User-facing |
-| `/pm-sketch` | Hybrid Entry | 可被 `/pm-need --auto` 编排，收到 `--no-fallback` 时不得回链 `/pm-need` | PMContext 已存在时直接生成草图/原型；缺失且有 `$ARGUMENTS` 时可先走 `/pm-need` | User-facing |
+| `/pm-sketch` | Hybrid Entry | 可被 `/pm-need --auto` 编排，不得回链 Human-only `/pm-need` | PMContext 已存在时直接生成草图/原型；缺失时 STOP 并提示用户先运行 `/pm-need` | User-facing |
 | `/pm-summary` | Hybrid Entry | 交付完成后被编排做只读汇总；`/pm-need --auto` 与增量 Fan-out 默认调用 | 读取既有产物汇总，不改原产物 | User-facing |
 | `/pm-stories` | Engine Skill | 可被 `/pm-need --auto` 编排（在 pm-prd 之后、pm-sketch 之前） | 内部显式安装/按名调用 | Engine |
 | `/pm-aiprd` `/pm-humanprd` | Engine Skill | 被 pm-prd 编排 | 内部显式安装/按名调用 | Engine |

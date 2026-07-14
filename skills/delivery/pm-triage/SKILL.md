@@ -1,6 +1,6 @@
 ---
 name: pm-triage
-description: 从 PMContext 与产物把需求/缺陷/PR 分流过状态机——分类（bug/enhancement）× 状态（needs-triage/needs-info/ready-for-agent/ready-for-human/wontfix）+ 垂直切片拆 tracer-bullet issue（端到端穿所有集成层非水平层）+ 写 agent-ready brief。Use when the user asks to triage issues or break plan into issues, mentions 分流、triage、issue 分流、问题分流、状态机、needs-triage、ready-for-agent、tracer bullet、垂直切片、vertical slice、拆 issue、break into issues、agent brief、 wontfix.
+description: Use when the user asks to triage issues or break plan into issues, mentions 分流、triage、issue 分流、问题分流、状态机、needs-triage、ready-for-agent、tracer bullet、垂直切片、vertical slice、拆 issue、break into issues、agent brief、 wontfix.
 metadata:
   internal: true
 ---

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-vision-normal",
+    "skills": ["pm-vision"],
+    "query": "请基于已有 PMContext 生成愿景阶梯与利益相关者沟通策略。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成愿景阶梯与利益相关者沟通策略"]
+  },
+  {
+    "id": "pm-vision-missing-input",
+    "skills": ["pm-vision"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少愿景证据时标假设并保留审计入口", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-vision-counterexample",
+    "skills": ["pm-vision"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得输出空泛口号或伪造干系人立场"]
+  }
+]

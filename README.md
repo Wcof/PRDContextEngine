@@ -25,6 +25,7 @@ PMSkill 将产品经理在 Agent 中的核心工作流程封装为 **52 个 Skil
 - **PMSkill Runtime Capsule**：每个 subagent/Task/parallel agent 必须注入 `CONTEXT.md`/Agent 规则、`SKILL.md+PINNED.md`、产物目录/stamp、输入输出契约、硬门与失败策略；子 agent 不继承父会话记忆，不依赖软性口头描述。
 - **设计事实源解析门**：`--prototype` 模式先扫描用户项目的 `--design <path>`、`docs/design/**`、`Designs/**`、`design-system/**` 等目录，解析具体的 token、组件契约、布局蓝图、品牌规范，回退时才使用内置 `references/design-style.md`；产出 `design-source-manifest.json` 锁定 concrete token 值与组件尺寸。
 - **视觉可见性审计门**：`--prototype` 模式生成后必须写 `visual-audit-report.json`，确定性验收文字/背景对比（≥4.5:1）、可点击元素可见性、focus ring、状态色可读性；`status=failed` 不得打 ✅，Pencil 模式需回退本地或提示人工验收。
+- **运行时完成 Hook**：`hooks/post_generation.py` 在宣告完成前 fail-closed 校验 `pm-need --auto` 全链路产物，以及 Pencil / Simple / Scaffold 的页面内容、追溯、交互、视觉报告与 digest；非零退出不得标完成。
 - **可追溯性 + 视觉质量**：风险以显式标记（`[待确认]` / `[假设]` / `[冲突]`）内嵌于正文，单级追溯；原型页面必须带 `data-trace-page` / `data-trace-ref`，并先写 `prototype-content-plan.json` + `prototype-design-profile.json` + `design-source-manifest.json` + `visual-audit-report.json`，防止只出路由空壳、默认丑模板或颜色不可见。
 - **配置可循**：`/pm-setup` 落 `.pmskill-setup.stamp` 凭据，下游 Skill 读 `## PMSkill` 块取产物目录，块与 stamp 互校，不硬编码路径。
 
@@ -170,7 +171,7 @@ PMSkill 支持增量迭代，无需每次全量重做。0→1 后再次运行 `/
 |---|---|---|
 | `/pm-legal` | model-invoked | 产品合规文档（NDA / 隐私政策 / 合规差距分析） |
 | `/pm-conflict-resolver` | model-invoked | 局部退火——节点报错时只对报错上下文+上游节点 JSON 做最小差分修复，不重写全局 PMContext |
-| `/pm-summary` | user-invoked / auto-finalizer | 把已落盘的散件产出按阅读主题汇总成几份大文档（需求/交付/可视化/验证 + 总索引），原产物不动只叠加拼装，`/pm-need --auto` 与增量 Fan-out 默认调用 |
+| `/pm-summary` | hybrid / auto-finalizer | 把已落盘的散件产出按阅读主题汇总成几份大文档（需求/交付/可视化/验证 + 总索引），原产物不动只叠加拼装，`/pm-need --auto` 与增量 Fan-out 默认调用 |
 
 ### Visualization — 可视化
 
@@ -280,7 +281,7 @@ PMSkill/
 ```bash
 bash evals/run-evals.sh --dry-run                 # 结构校验（CI 可复现）
 bash evals/run-evals.sh --dry-run --skill pm-prd  # 单 skill
-bash evals/run-evals.sh --live                    # 真实模型跑分
+bash evals/run-evals.sh --live                    # 当前未实现，明确返回退出码 2
 ```
 
 详见 [evals/README.md](evals/README.md)。
@@ -306,17 +307,18 @@ cd PMSkill
 ```bash
 # 结构校验（CI 使用，无需 API key）
 bash evals/run-evals.sh --dry-run
+python3 -m unittest tests.test_post_generation_hook tests.test_repository_contract -v
 
 # 单 skill 校验
 bash evals/run-evals.sh --dry-run --skill pm-prd
 
-# 真实模型跑分（需 claude/codex CLI）
+# 真实模型跑分（当前未实现，fail-closed 返回 2）
 bash evals/run-evals.sh --live
 ```
 
 ### CI
 
-仓库配置了 GitHub Actions（`.github/workflows/ci.yml`），对每个 Pull Request 自动执行 `--dry-run` 结构校验。
+仓库配置了 GitHub Actions（`.github/workflows/ci.yml`），对每个 Pull Request 自动执行仓库结构校验、运行时 Hook 单元测试与 eval `--dry-run` 结构校验。
 
 ---
 

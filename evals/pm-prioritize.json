@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-prioritize-normal",
+    "skills": ["pm-prioritize"],
+    "query": "请基于已有 PMContext 按场景选择一个框架并给出可追溯排序。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "按场景选择一个框架并给出可追溯排序"]
+  },
+  {
+    "id": "pm-prioritize-missing-input",
+    "skills": ["pm-prioritize"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少评分输入时保留待确认而不伪造分数", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-prioritize-counterexample",
+    "skills": ["pm-prioritize"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得混用多个框架分数形成伪精确排名"]
+  }
+]

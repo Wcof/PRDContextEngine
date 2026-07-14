@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-legal-normal",
+    "skills": ["pm-legal"],
+    "query": "请基于已有 PMContext 生成带法务复核标记的合规文档。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成带法务复核标记的合规文档"]
+  },
+  {
+    "id": "pm-legal-missing-input",
+    "skills": ["pm-legal"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["司法辖区或数据范围未知时列明缺口", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-legal-counterexample",
+    "skills": ["pm-legal"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得声称输出构成正式法律意见"]
+  }
+]

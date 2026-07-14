@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-handoff-normal",
+    "skills": ["pm-handoff"],
+    "query": "请基于已有 PMContext 生成可供下一 Agent 接续的交接文档。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成可供下一 Agent 接续的交接文档"]
+  },
+  {
+    "id": "pm-handoff-missing-input",
+    "skills": ["pm-handoff"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["当前会话无可交接状态时明确说明", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-handoff-counterexample",
+    "skills": ["pm-handoff"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得遗漏未完成项与条件触发式下一步"]
+  }
+]

@@ -199,6 +199,57 @@ Pencil MCP 返回后，manifest 必须记录：
 }
 ```
 
+## 7.5 视觉可见性与对比度协议
+
+原型系统验收不能只看“页面是否生成、元素是否存在”。如果元素存在但人眼不可见，同样判定失败。以下规则对 Pencil MCP、Simple、Scaffold 三种模式都生效：
+
+### 7.5.1 必须生成的 token
+
+设计 profile 与 design-source-manifest 至少要包含：
+
+```json
+{
+  "color_bg": "#ffffff",
+  "color_surface": "#f9fafb",
+  "color_text": "#111827",
+  "color_text_secondary": "#374151",
+  "color_text_muted": "#6b7280",
+  "color_accent": "#2563eb",
+  "color_on_primary": "#ffffff",
+  "color_border": "#d1d5db",
+  "color_success": "#10b981",
+  "color_on_success": "#052e16",
+  "color_warning": "#f59e0b",
+  "color_on_warning": "#422006",
+  "color_danger": "#ef4444",
+  "color_on_danger": "#280000"
+}
+```
+
+禁止只给 `accent: electric-blue` 这类抽象语义名。抽象语义可以存在，但必须同步解析成具体颜色值。
+供 V1 静态脚本验收的 required color token 必须归一化为 `#hex` 或 `rgb(a)`；`oklch()` 等其它格式应在写入审计输入前转换，否则按不可解析失败。
+
+### 7.5.2 必查对比关系
+
+- 正文 / 表单 / 表格 / 导航文字 vs 页面背景：≥ 4.5:1
+- 正文 / 表单 / 表格 / 导航文字 vs 卡片/表格行/二级面板背景：≥ 4.5:1
+- 大标题、弱提示、边框、图标、焦点环：≥ 3:1
+- 主按钮文字 `color_on_primary` vs 主按钮背景 `color_accent`：≥ 4.5:1
+- 错误/警告/成功状态文字 vs 状态底色：≥ 4.5:1
+
+### 7.5.3 可点击元素可见性
+
+所有 `button`、`a[href]`、`[role=button]`、菜单项、表格操作项、表单控件必须满足：
+
+- 默认态可见；hover/active/disabled/loading 至少有文字、图标、边框、背景中的一种明显区分。
+- 不能出现 `color` 与 `background` 相同或接近。
+- 不能通过 `opacity < 0.2`、`visibility:hidden`、`display:none` 或透明 overlay 保留点击区域。
+- focus ring 必须可见，且与周围背景对比 ≥ 3:1。
+
+### 7.5.4 审计产物
+
+每次生成原型都必须写 `sketch/visual-audit-report.json`。只有当 `status=passed` 且 `contrast_failures=0`、`invisible_interactive_count=0` 时，才能在最终报告中打 ✅。Pencil MCP 若无法提供可解析 artifact，只能标 `needs-manual-review`，不能伪装为已通过。
+
 ## 8. 自检清单
 
 生成完成前必须自检：
@@ -207,6 +258,8 @@ Pencil MCP 返回后，manifest 必须记录：
 - [ ] 主风格家族唯一，辅助风格不超过一个
 - [ ] 三个拨盘有明确数值且与 PMContext 场景一致
 - [ ] token 已进入对应实现模式（Pencil MCP / Simple / Scaffold）
+- [ ] 已生成 `visual-audit-report.json`，且文字/背景、按钮、导航、表格、focus ring 对比度通过
+- [ ] 没有“元素存在但人眼不可见”的按钮、链接、表单、菜单或表格操作项
 - [ ] 每页不是同一张卡片模板复制，而是按页面类型选择布局
 - [ ] 每页至少 4 类 UE 元素达标
 - [ ] 禁止默认审美未出现

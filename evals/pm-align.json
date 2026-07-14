@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-align-normal",
+    "skills": ["pm-align"],
+    "query": "请基于已有 PMContext 审计实现与需求意图差距。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "审计实现与需求意图差距"]
+  },
+  {
+    "id": "pm-align-missing-input",
+    "skills": ["pm-align"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少实现代码时停止并列出所需证据", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-align-counterexample",
+    "skills": ["pm-align"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得把无 file:line 证据的猜测写成已实现差距"]
+  }
+]

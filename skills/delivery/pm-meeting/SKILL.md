@@ -1,6 +1,6 @@
 ---
 name: pm-meeting
-description: 从会议转录/录音/笔记生成结构化会议纪要——日期/参与者/议题/关键决策/摘要要点/行动项（owner+截止）/未决问题，每决策与行动项附 PMContext 追溯。Use when the user asks for meeting notes or meeting summary, mentions 会议纪要、meeting notes、meeting summary、会议记录、meeting minutes、会议总结、action items、行动项、会议转录、transcript.
+description: Use when the user asks for meeting notes or meeting summary, mentions 会议纪要、meeting notes、meeting summary、会议记录、meeting minutes、会议总结、action items、行动项、会议转录、transcript.
 metadata:
   internal: true
 ---

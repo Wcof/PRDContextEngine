@@ -1,6 +1,6 @@
 ---
 name: pm-persona
-description: 从 PMContext 生成基于 JTBD 的用户画像——≥3 个 persona，每 persona 含 demographics+behaviors+JTBD（功能性/情感性/社会性）+未满足需求+代表性引言+反对意见，禁仅按 demographics 切片，每画像附 PMContext 追溯。Use when the user asks for persona or user profile, mentions 用户画像、persona、user profile、用户角色、JTBD persona、人物画像、目标用户、典型用户、user persona、customer persona.
+description: Use when the user asks for persona or user profile, mentions 用户画像、persona、user profile、用户角色、JTBD persona、人物画像、目标用户、典型用户、user persona、customer persona.
 metadata:
   internal: true
 ---

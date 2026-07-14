@@ -28,7 +28,10 @@ Desktop.ini
 docs/remediation-plan.md
 docs/github-project-kit.md
 docs/pm测试集.json
-.github/
+.github/*
+!.github/workflows/
+.github/workflows/*
+!.github/workflows/ci.yml
 .codex-plugin/
 .claude-plugin/
 CHANGELOG.md

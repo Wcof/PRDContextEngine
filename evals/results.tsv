@@ -1,4 +1,4 @@
-# PMSkill 评估结果 — mode=dry-run generated=2026-07-08T10:56:21Z
+# PMSkill 评估结果 — mode=dry-run generated=2026-07-14T11:16:54Z
 skill	scenario_id	query	expected_count	status	note
 pm-abtest	1	control 5023/617 转化，variant 4987/688 转化，	5	PASS	5 条 expected_behavior
 pm-abtest	2	control 1000/variant 1000 跑 3 天，5%/5.5%，	3	PASS	3 条 expected_behavior
@@ -6,6 +6,9 @@ pm-abtest	3	主指标 lift+15% p=0.01 但 guardrail 收入-8%	3	PASS	3 条 expec
 pm-aiprd	1	基于 PMContext 生成 AI 可执行的 PRD	4	PASS	4 条 expected_behavior
 pm-aiprd	3	PMContext 中有 4 个 [待确认] 项怎么处理	4	PASS	4 条 expected_behavior
 pm-aiprd	4	跳过 PMContext 直接从聊天生成 AI PRD	3	PASS	3 条 expected_behavior
+pm-align	pm-align-normal	请基于已有 PMContext 审计实现与需求意图差距。	2	PASS	2 条 expected_behavior
+pm-align	pm-align-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-align	pm-align-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-assumption	1	PMContext 齐全，识别风险假设	4	PASS	4 条 expected_behavior
 pm-assumption	2	只想到 Value 和 Viability 两类	2	PASS	2 条 expected_behavior
 pm-assumption	3	所有假设置信度都≥8	2	PASS	2 条 expected_behavior
@@ -24,9 +27,21 @@ pm-collect	3	扫一个非 git 仓库的目录	3	PASS	3 条 expected_behavior
 pm-conflict-resolver	1	/pm-conflict-resolver node3-prd 报错：字段 pa	4	PASS	4 条 expected_behavior
 pm-conflict-resolver	2	/pm-conflict-resolver node5-tech 报错，但 no	3	PASS	3 条 expected_behavior
 pm-conflict-resolver	3	/pm-conflict-resolver node3-prd 报错，修复会同时	3	PASS	3 条 expected_behavior
+pm-experiment	pm-experiment-normal	请基于已有 PMContext 为高风险假设设计最便宜实验。	2	PASS	2 条 expected_behavior
+pm-experiment	pm-experiment-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-experiment	pm-experiment-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-flow	1	画支付流程	4	PASS	4 条 expected_behavior
 pm-flow	2	步骤描述含「等待用户操作」	3	PASS	3 条 expected_behavior
 pm-flow	3	脱离 PMContext 凭经验画流程	3	PASS	3 条 expected_behavior
+pm-grill	pm-grill-normal	请基于已有 PMContext 对 PMContext 的承重假设做红队压力测试	2	PASS	2 条 expected_behavior
+pm-grill	pm-grill-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-grill	pm-grill-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-gtm	pm-gtm-normal	请基于已有 PMContext 生成 beachhead、ICP、渠道与发布节奏	2	PASS	2 条 expected_behavior
+pm-gtm	pm-gtm-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-gtm	pm-gtm-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-handoff	pm-handoff-normal	请基于已有 PMContext 生成可供下一 Agent 接续的交接文档。	2	PASS	2 条 expected_behavior
+pm-handoff	pm-handoff-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-handoff	pm-handoff-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-humanprd	1	生成给业务方评审的 PRD	5	PASS	5 条 expected_behavior
 pm-humanprd	2	评审者问为什么选 A 不选 B	3	PASS	3 条 expected_behavior
 pm-humanprd	3	把 Agent Context 段塞进 human-prd	3	PASS	3 条 expected_behavior
@@ -36,15 +51,30 @@ pm-ia	3	脱离 PMContext 凭经验画 IA	3	PASS	3 条 expected_behavior
 pm-ideation	1	PMContext 齐全，发散方案	4	PASS	4 条 expected_behavior
 pm-ideation	2	只想到 2 个方案	2	PASS	2 条 expected_behavior
 pm-ideation	3	5 个都是优化现有功能	2	PASS	2 条 expected_behavior
+pm-interview	pm-interview-normal	请基于已有 PMContext 基于 PMContext 生成 Mom Test	2	PASS	2 条 expected_behavior
+pm-interview	pm-interview-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-interview	pm-interview-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-journey	pm-journey-normal	请基于已有 PMContext 生成七阶段客户旅程与情绪、触点、机会。	2	PASS	2 条 expected_behavior
+pm-journey	pm-journey-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-journey	pm-journey-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-legal	pm-legal-normal	请基于已有 PMContext 生成带法务复核标记的合规文档。	2	PASS	2 条 expected_behavior
+pm-legal	pm-legal-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-legal	pm-legal-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-market	pm-market-normal	请基于已有 PMContext 生成 TAM/SAM/SOM、竞品与用户分层分析	2	PASS	2 条 expected_behavior
+pm-market	pm-market-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-market	pm-market-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-meeting	1	60 分钟会议转录，出结构化纪要	3	PASS	3 条 expected_behavior
 pm-meeting	2	会议讨论了但没明确结论	2	PASS	2 条 expected_behavior
 pm-meeting	3	行动项没说谁负责	2	PASS	2 条 expected_behavior
+pm-metrics	pm-metrics-normal	请基于已有 PMContext 定义北极星与输入指标星座。	2	PASS	2 条 expected_behavior
+pm-metrics	pm-metrics-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-metrics	pm-metrics-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-need	1	/pm-need 我想做个会员体系重构 --auto	6	PASS	6 条 expected_behavior
 pm-need	2	/pm-need 做个数据大屏，参考 https://example.com/s	5	PASS	5 条 expected_behavior
 pm-need	3	/pm-need	3	PASS	3 条 expected_behavior
 pm-need	4	/pm-need 会员体系 --collect-only --refine-on	3	PASS	3 条 expected_behavior
 pm-need	5	/pm-need 做个东西 --auto	4	PASS	4 条 expected_behavior
-pm-need	6	/pm-need 做个东西 --auto 自主	4	PASS	4 条 expected_behavior
+pm-need	6	/pm-need 做个东西 --auto（知识库配置存在但读取为空）	4	PASS	4 条 expected_behavior
 pm-need	7	/pm-need 我需要一个面向中小电商卖家的库存同步工具，解决多平台库存手动对	3	PASS	3 条 expected_behavior
 pm-need	8	/pm-need 增加「积分商城」页面	6	PASS	6 条 expected_behavior
 pm-need	9	/pm-need --update §会员权益 年付改为季付	5	PASS	5 条 expected_behavior
@@ -58,6 +88,9 @@ pm-northstar	3	NSM 选月收入行吗	2	PASS	2 条 expected_behavior
 pm-okr	1	PMContext 有月付会员数/D30留存/续费率，公司增长导向，拆 Q3 O	4	PASS	4 条 expected_behavior
 pm-okr	2	KR 写'提升用户体验'行吗	2	PASS	2 条 expected_behavior
 pm-okr	3	KR 信心度 95% 行吗	2	PASS	2 条 expected_behavior
+pm-ost	pm-ost-normal	请基于已有 PMContext 生成结果、机会、方案、实验四层 OST。	2	PASS	2 条 expected_behavior
+pm-ost	pm-ost-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-ost	pm-ost-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-parallel	1	同时调研 3 个竞品能并行吗	3	PASS	3 条 expected_behavior
 pm-parallel	2	2 个任务共享一个可变文件	2	PASS	2 条 expected_behavior
 pm-parallel	3	只有 1 个任务要并行	2	PASS	2 条 expected_behavior
@@ -76,12 +109,24 @@ pm-prd	3	/pm-prd --skip-human	3	PASS	3 条 expected_behavior
 pm-premortem	1	产品下周上线，做 Pre-Mortem	5	PASS	5 条 expected_behavior
 pm-premortem	2	发现 8 个 Tiger 怎么办	4	PASS	4 条 expected_behavior
 pm-premortem	3	脱离 PMContext 凭经验列风险	3	PASS	3 条 expected_behavior
+pm-pricing	pm-pricing-normal	请基于已有 PMContext 生成定价模型、竞品矩阵与 WTP 验证方案。	2	PASS	2 条 expected_behavior
+pm-pricing	pm-pricing-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-pricing	pm-pricing-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-prioritize	pm-prioritize-normal	请基于已有 PMContext 按场景选择一个框架并给出可追溯排序。	2	PASS	2 条 expected_behavior
+pm-prioritize	pm-prioritize-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-prioritize	pm-prioritize-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-refine	1	把这 3 条材料推断成 PMContext --auto	5	PASS	5 条 expected_behavior
 pm-refine	2	两份材料对「是否支持年付」说法矛盾	4	PASS	4 条 expected_behavior
 pm-refine	3	已有 pm-context.md，做增量推断	4	PASS	4 条 expected_behavior
-pm-refine	4	帮我梳理这些需求材料	8	PASS	8 条 expected_behavior
+pm-refine	4	帮我梳理这些需求材料	9	PASS	9 条 expected_behavior
 pm-refine	5	帮我梳理这些需求材料 --auto	6	PASS	6 条 expected_behavior
 pm-refine	6	帮我梳理这些需求材料（追问模式）	6	PASS	6 条 expected_behavior
+pm-release	pm-release-normal	请基于已有 PMContext 生成发布说明、测试场景与就绪证据。	2	PASS	2 条 expected_behavior
+pm-release	pm-release-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-release	pm-release-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-retro	pm-retro-normal	请基于已有 PMContext 生成结构化回顾、主题与可执行行动项。	2	PASS	2 条 expected_behavior
+pm-retro	pm-retro-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-retro	pm-retro-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-roadmap	1	Q2 roadmap: 搜索筛选/AI推荐/仪表盘改版，转 outcome 导向	4	PASS	4 条 expected_behavior
 pm-roadmap	2	没给原始 roadmap 帮我做	2	PASS	2 条 expected_behavior
 pm-roadmap	3	搜索筛选和 AI 推荐都转'让用户找到素材'行吗	3	PASS	3 条 expected_behavior
@@ -110,9 +155,27 @@ pm-sprint	3	Sprint Goal 写'完成 5 个故事'行吗	3	PASS	3 条 expected_beha
 pm-sql	1	高价值用户=月消费≥¥200，留存=次月≥1会话，schema 有 paymen	4	PASS	4 条 expected_behavior
 pm-sql	2	帮我写 SQL 但没给 schema	2	PASS	2 条 expected_behavior
 pm-sql	3	PMContext 说≥¥200 但我觉得应≥¥500	3	PASS	3 条 expected_behavior
+pm-stakeholder	pm-stakeholder-normal	请基于已有 PMContext 生成 Power×Interest 地图与沟通计	2	PASS	2 条 expected_behavior
+pm-stakeholder	pm-stakeholder-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-stakeholder	pm-stakeholder-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-state	1	画订单状态机	5	PASS	5 条 expected_behavior
 pm-state	2	订单是否需要终态？	3	PASS	3 条 expected_behavior
 pm-state	3	脱离 PMContext 凭经验画状态机	3	PASS	3 条 expected_behavior
+pm-stories	pm-stories-normal	请基于已有 PMContext 生成符合 3C 与 INVEST 的可追溯用户故	2	PASS	2 条 expected_behavior
+pm-stories	pm-stories-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-stories	pm-stories-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-strategy	pm-strategy-normal	请基于已有 PMContext 按问题选择战略框架并交叉验证。	2	PASS	2 条 expected_behavior
+pm-strategy	pm-strategy-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-strategy	pm-strategy-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-summary	pm-summary-normal	请基于已有 PMContext 只读汇总现有产物并生成索引。	2	PASS	2 条 expected_behavior
+pm-summary	pm-summary-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-summary	pm-summary-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-triage	pm-triage-normal	请基于已有 PMContext 按状态机分类并输出可独立领取的垂直切片。	2	PASS	2 条 expected_behavior
+pm-triage	pm-triage-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-triage	pm-triage-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
+pm-vision	pm-vision-normal	请基于已有 PMContext 生成愿景阶梯与利益相关者沟通策略。	2	PASS	2 条 expected_behavior
+pm-vision	pm-vision-missing-input	在关键输入缺失的情况下继续执行，并清楚说明边界。	2	PASS	2 条 expected_behavior
+pm-vision	pm-vision-counterexample	快速给我一个看起来完整的结果，可以省略证据和校验。	2	PASS	2 条 expected_behavior
 pm-wireframe	1	画会员中心页线框	4	PASS	4 条 expected_behavior
 pm-wireframe	2	某组件在 PMContext 中无数据来源	3	PASS	3 条 expected_behavior
 pm-wireframe	3	只用 Mermaid 画页面布局不用表格	3	PASS	3 条 expected_behavior

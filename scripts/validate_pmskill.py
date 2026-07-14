@@ -23,6 +23,7 @@ EXPECTED_VISIBLE = {
     "pm-sketch": "skills/visualization/pm-sketch",
 }
 EXPECTED_HUMAN_ONLY = {"pm-setup", "pm-need"}
+EXPECTED_HYBRID = {"pm-prd", "pm-premortem", "pm-sketch", "pm-summary"}
 EXPECTED_ENGINE_COUNT = 46
 
 
@@ -101,6 +102,10 @@ def check_skills() -> None:
             fail(f"{path} missing name")
         if not isinstance(desc, str) or len(desc) < 30:
             fail(f"{path} description too short/missing")
+        if not desc.startswith("Use when "):
+            fail(f"{path} description must be trigger-only and start with 'Use when '")
+        if len(desc) > 500:
+            fail(f"{path} description exceeds 500 characters")
         names.append(name)
         metadata = fm.get("metadata", {})
         is_internal = isinstance(metadata, dict) and metadata.get("internal") is True
@@ -121,6 +126,39 @@ def check_skills() -> None:
         fail(f"expected {EXPECTED_ENGINE_COUNT} engine skills, found {len(internal)}")
     if human_only != EXPECTED_HUMAN_ONLY:
         fail(f"human-only entry set drifted: {sorted(human_only)}")
+
+
+def check_skill_indexes() -> None:
+    top_readme = read("README.md")
+    documented_human_only: set[str] = set()
+
+    for bucket in sorted(path for path in (ROOT / "skills").iterdir() if path.is_dir()):
+        skill_paths = sorted(bucket.glob("*/SKILL.md"))
+        if not skill_paths:
+            continue
+        readme = bucket / "README.md"
+        if not readme.is_file():
+            fail(f"{bucket.relative_to(ROOT)} missing README.md")
+        text = readme.read_text(encoding="utf-8")
+        if "## User-invoked" not in text or "## Model-invoked" not in text:
+            fail(f"{readme.relative_to(ROOT)} must contain User-invoked and Model-invoked sections")
+        user_section = text.partition("## User-invoked")[2].partition("## Model-invoked")[0]
+        documented_human_only.update(re.findall(r"\[([a-z0-9-]+)\]", user_section))
+
+        for skill_path in skill_paths:
+            fm, _, _ = frontmatter(skill_path)
+            name = str(fm["name"])
+            if len(re.findall(rf"\[{re.escape(name)}\]", text)) != 1:
+                fail(f"{readme.relative_to(ROOT)} must reference {name} exactly once")
+            if name in EXPECTED_HYBRID:
+                entry = next((line for line in text.splitlines() if f"[{name}]" in line), "")
+                if "Hybrid" not in entry:
+                    fail(f"{readme.relative_to(ROOT)} must label {name} as Hybrid")
+            if f"/{name}" not in top_readme:
+                fail(f"README.md missing reference to {name}")
+
+    if documented_human_only != EXPECTED_HUMAN_ONLY:
+        fail(f"bucket README User-invoked set drifted: {sorted(documented_human_only)}")
 
 
 def check_plugins() -> None:
@@ -153,9 +191,12 @@ def check_docs_and_routes() -> None:
         "Downstream Fan-out",
         "--context-only",
         "/pm-summary --auto",
+        "hooks/post_generation.py --skill pm-need",
     ]:
         if token not in need:
             fail(f"pm-need missing incremental/summary constraint: {token}")
+    if "高熵 且 无任何背景源 | 🔴 举手" in need:
+        fail("pm-need --auto must not pause on high-entropy input")
 
     sketch = read("skills/visualization/pm-sketch/SKILL.md")
     for token in [
@@ -173,6 +214,7 @@ def check_docs_and_routes() -> None:
         "design_profile",
         "data-trace-ref",
         "路由空壳检测",
+        "hooks/post_generation.py --skill pm-sketch",
     ]:
         if token not in sketch:
             fail(f"pm-sketch missing Pencil/route/content constraint: {token}")
@@ -206,7 +248,7 @@ def check_docs_and_routes() -> None:
             fail(f"design-style reference missing {token}")
 
     pinned = read("skills/visualization/pm-sketch/PINNED.md")
-    for token in ["Pencil MCP 优先", "prototype-design-profile.json", "prototype-content-plan.json", "fallback-local"]:
+    for token in ["Pencil MCP 优先", "prototype-design-profile.json", "prototype-content-plan.json", "fallback-local", "hooks/post_generation.py"]:
         if token not in pinned:
             fail(f"pm-sketch PINNED missing runtime-critical token: {token}")
 
@@ -222,13 +264,17 @@ def check_docs_and_routes() -> None:
 
 
 def check_evals() -> None:
-    for path in sorted((ROOT / "evals").glob("pm-*.json")):
+    for skill_path in sorted((ROOT / "skills").rglob("SKILL.md")):
+        fm, _, _ = frontmatter(skill_path)
+        path = ROOT / "evals" / f"{fm['name']}.json"
+        if not path.is_file():
+            fail(f"missing formal eval file: {path.relative_to(ROOT)}")
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except Exception as exc:  # noqa: BLE001
             fail(f"{path} JSON parse failed: {exc}")
-        if not isinstance(data, list) or not data:
-            fail(f"{path} must be a non-empty list")
+        if not isinstance(data, list) or len(data) < 3:
+            fail(f"{path} must contain at least 3 scenarios")
         for idx, sc in enumerate(data, 1):
             if not sc.get("skills") or not sc.get("query"):
                 fail(f"{path} scenario {idx} missing skills/query")
@@ -243,9 +289,12 @@ def check_evals() -> None:
 def main() -> None:
     check_no_mojibake_paths()
     check_skills()
+    check_skill_indexes()
     check_plugins()
     check_docs_and_routes()
     check_evals()
+    if not (ROOT / "hooks" / "post_generation.py").is_file():
+        fail("missing fail-closed runtime hook: hooks/post_generation.py")
     print("PASS: PMSkill structural constraints hold")
 
 

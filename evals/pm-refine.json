@@ -43,6 +43,7 @@
     "files": ["fixtures/collect-sample.md"],
     "expected_behavior": [
       "默认进入追问模式（不是自主推断）",
+      "8 个维度全部逐维向 PM 确认；材料明确时把事实作为推荐依据，不因能查到而跳过整个维度",
       "每次只问一个问题，不一次抛出多个问题",
       "每个问题附三段式推荐答案（推荐/依据/备选）",
       "每完成一个精炼维度（或每 2-4 个问题）增量落盘 PMContext 已确认项",
@@ -63,7 +64,7 @@
       "8 维推断全覆盖，推断不了的标 [待确认] 记入信息缺口",
       "产出落盘路径为 `process/02-refine-model.md / 03-refine-options.md / 04-refine-tradeoff.md`",
       "不新增 `process/refine-discuss-*.md`",
-      "审计门展示完整置信度分布（追问模式无 PM 参与）"
+      "审计门展示完整置信度分布（自主模式无 PM 参与）"
     ]
   },
   {

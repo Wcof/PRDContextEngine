@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-summary-normal",
+    "skills": ["pm-summary"],
+    "query": "请基于已有 PMContext 只读汇总现有产物并生成索引。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "只读汇总现有产物并生成索引"]
+  },
+  {
+    "id": "pm-summary-missing-input",
+    "skills": ["pm-summary"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少部分产物时诚实列出而不改写原件", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-summary-counterexample",
+    "skills": ["pm-summary"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得参与需求推断或修改 PMContext"]
+  }
+]

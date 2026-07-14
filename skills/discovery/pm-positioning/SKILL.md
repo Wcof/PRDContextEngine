@@ -1,6 +1,6 @@
 ---
 name: pm-positioning
-description: 从 PMContext 生成价值主张（6 段式 JTBD 模板：Who/Why/What before/How/What after/Alternatives）+ 定位陈述（Geoffrey Moore 模板）+ 与竞品差异化矩阵，每段附 PMContext 追溯。Use when the user asks for value proposition or positioning, mentions 价值主张、value proposition、value prop、定位、positioning、定位陈述、positioning statement、差异化、differentiation、JTBD value、为什么选我们.
+description: Use when the user asks for value proposition or positioning, mentions 价值主张、value proposition、value prop、定位、positioning、定位陈述、positioning statement、差异化、differentiation、JTBD value、为什么选我们.
 metadata:
   internal: true
 ---

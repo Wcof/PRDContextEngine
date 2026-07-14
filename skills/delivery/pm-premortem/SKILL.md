@@ -1,6 +1,6 @@
 ---
 name: pm-premortem
-description: 从 PMContext 假设上线失败并倒推风险，产出 Tiger（真实风险）/Paper Tiger（过虑）/Elephant（未讨论）三分 + 行动计划，与假设清单交叉检查。Use when preparing for launch, stress-testing a plan, or the user mentions Pre-Mortem、风险分析、risk analysis、上线前、压力测试、Tiger、行动计划、launch readiness.
+description: Use when preparing for launch, stress-testing a plan, or the user mentions Pre-Mortem、风险分析、risk analysis、上线前、压力测试、Tiger、行动计划、launch readiness.
 ---
 
 # /pm-premortem

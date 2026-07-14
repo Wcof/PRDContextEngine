@@ -1,6 +1,6 @@
 ---
 name: pm-sprint
-description: 从 PMContext 与 backlog 规划迭代（sprint）——容量估算（人数×可用×历史速率-20%buffer）+ 故事选取（DoR 校验）+ 依赖映射 + 风险识别 + 单句 Sprint Goal，每故事附 PMContext 追溯。Use when the user asks for sprint planning or iteration planning, mentions 迭代规划、sprint、sprint plan、迭代计划、容量估算、capacity、story selection、依赖、dependencies、sprint goal、velocity、DoR.
+description: Use when the user asks for sprint planning or iteration planning, mentions 迭代规划、sprint、sprint plan、迭代计划、容量估算、capacity、story selection、依赖、dependencies、sprint goal、velocity、DoR.
 metadata:
   internal: true
 ---

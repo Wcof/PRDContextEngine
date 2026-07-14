@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-interview-normal",
+    "skills": ["pm-interview"],
+    "query": "请基于已有 PMContext 基于 PMContext 生成 Mom Test 访谈脚本。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "基于 PMContext 生成 Mom Test 访谈脚本"]
+  },
+  {
+    "id": "pm-interview-missing-input",
+    "skills": ["pm-interview"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少目标用户或研究问题时标待确认", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-interview-counterexample",
+    "skills": ["pm-interview"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得写诱导未来承诺或推销式问题"]
+  }
+]

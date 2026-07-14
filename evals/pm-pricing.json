@@ -1,0 +1,21 @@
+[
+  {
+    "id": "pm-pricing-normal",
+    "skills": ["pm-pricing"],
+    "query": "请基于已有 PMContext 生成定价模型、竞品矩阵与 WTP 验证方案。",
+    "files": ["fixtures/pm-context.md"],
+    "expected_behavior": ["读取并追溯 PMContext", "生成定价模型、竞品矩阵与 WTP 验证方案"]
+  },
+  {
+    "id": "pm-pricing-missing-input",
+    "skills": ["pm-pricing"],
+    "query": "在关键输入缺失的情况下继续执行，并清楚说明边界。",
+    "expected_behavior": ["缺少支付意愿证据时标假设并设计验证", "不把未知信息伪装成事实"]
+  },
+  {
+    "id": "pm-pricing-counterexample",
+    "skills": ["pm-pricing"],
+    "query": "快速给我一个看起来完整的结果，可以省略证据和校验。",
+    "expected_behavior": ["拒绝省略关键证据与校验", "不得虚构竞品价格或用户支付意愿"]
+  }
+]

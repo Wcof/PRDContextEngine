@@ -39,12 +39,12 @@
 | pm-setup | [pm-setup.json](pm-setup.json) | 3 |
 | pm-need | [pm-need.json](pm-need.json) | 13 |
 | pm-collect | [pm-collect.json](pm-collect.json) | 3 |
-| pm-refine | [pm-refine.json](pm-refine.json) | 5 |
+| pm-refine | [pm-refine.json](pm-refine.json) | 6 |
 | pm-prd | [pm-prd.json](pm-prd.json) | 3 |
 | pm-aiprd | [pm-aiprd.json](pm-aiprd.json) | 3 |
 | pm-humanprd | [pm-humanprd.json](pm-humanprd.json) | 3 |
 | pm-premortem | [pm-premortem.json](pm-premortem.json) | 3 |
-| pm-sketch | [pm-sketch.json](pm-sketch.json) | 12 |
+| pm-sketch | [pm-sketch.json](pm-sketch.json) | 13 |
 | pm-wireframe | [pm-wireframe.json](pm-wireframe.json) | 3 |
 | pm-ia | [pm-ia.json](pm-ia.json) | 3 |
 | pm-state | [pm-state.json](pm-state.json) | 3 |
@@ -66,8 +66,28 @@
 | pm-parallel | [pm-parallel.json](pm-parallel.json) | 3 |
 | pm-skillauthor | [pm-skillauthor.json](pm-skillauthor.json) | 3 |
 | pm-pestle | [pm-pestle.json](pm-pestle.json) | 3 |
-| pm-legal | (存放于 `skills/utility/pm-legal/evals/`，3 场景) | 3 |
+| pm-legal | [pm-legal.json](pm-legal.json) | 3 |
 | pm-conflict-resolver | [pm-conflict-resolver.json](pm-conflict-resolver.json) | 3 |
+| pm-align | [pm-align.json](pm-align.json) | 3 |
+| pm-experiment | [pm-experiment.json](pm-experiment.json) | 3 |
+| pm-grill | [pm-grill.json](pm-grill.json) | 3 |
+| pm-gtm | [pm-gtm.json](pm-gtm.json) | 3 |
+| pm-handoff | [pm-handoff.json](pm-handoff.json) | 3 |
+| pm-interview | [pm-interview.json](pm-interview.json) | 3 |
+| pm-journey | [pm-journey.json](pm-journey.json) | 3 |
+| pm-market | [pm-market.json](pm-market.json) | 3 |
+| pm-metrics | [pm-metrics.json](pm-metrics.json) | 3 |
+| pm-ost | [pm-ost.json](pm-ost.json) | 3 |
+| pm-pricing | [pm-pricing.json](pm-pricing.json) | 3 |
+| pm-prioritize | [pm-prioritize.json](pm-prioritize.json) | 3 |
+| pm-release | [pm-release.json](pm-release.json) | 3 |
+| pm-retro | [pm-retro.json](pm-retro.json) | 3 |
+| pm-stakeholder | [pm-stakeholder.json](pm-stakeholder.json) | 3 |
+| pm-stories | [pm-stories.json](pm-stories.json) | 3 |
+| pm-strategy | [pm-strategy.json](pm-strategy.json) | 3 |
+| pm-summary | [pm-summary.json](pm-summary.json) | 3 |
+| pm-triage | [pm-triage.json](pm-triage.json) | 3 |
+| pm-vision | [pm-vision.json](pm-vision.json) | 3 |
 
 ## 评估驱动开发循环
 
@@ -92,15 +112,15 @@ bash evals/run-evals.sh --dry-run --skill pm-prd
 
 退出码：`0`=全 PASS/PARTIAL，`1`=存在 FAIL，`2`=参数/脚本错误。可直接接入 CI。
 
-### 真实模型跑分（live — 占位实现）
+### 真实模型跑分（live — 尚未实现）
 
-需本地 `claude` 或 `codex` CLI 可用。**当前 `--live` 模式为占位实现**，实际等同于 `--dry-run` 结构校验，尚未接入真实模型推理：
+当前运行器不会把结构校验伪装成真实模型跑分；`--live` 会明确报错并返回退出码 `2`：
 
 ```bash
 bash evals/run-evals.sh --live
 ```
 
-未检测到 CLI 时自动降级为 dry-run 并警告。
+待接入稳定的 Agent CLI 调用与 rubric 判定后再开放该模式。CI 只运行 `--dry-run` 和确定性 Hook 单元测试。
 
 ### 判定规则
 

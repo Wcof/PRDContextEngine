@@ -1,6 +1,6 @@
 ---
 name: pm-prd
-description: 从 PMContext 生成 PRD 文档——AI PRD（可执行规则版）和 Human PRD（评审叙事版）双形态。支持 --auto 零确认、--skip-ai / --skip-human 单形态输出。Use when generating PRD from PMContext, or the user mentions 生成PRD、prd、需求文档、产品规格、ai-prd、human-prd、双形态PRD.
+description: Use when generating PRD from PMContext, or the user mentions 生成PRD、prd、需求文档、产品规格、ai-prd、human-prd、双形态PRD.
 ---
 
 # /pm-prd
@@ -19,9 +19,7 @@ PMContext 已沉淀了事实/假设/冲突/待确认的结构化上下文。PRD 
 
 ### 1. 读取 PMContext
 
-先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`（块不存在回退默认 `docs/pm-context/`），从 `<产物目录>/pm-context.md` 读取。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准，建议重跑 setup 更新 stamp"。若不存在：
-- 有 `$ARGUMENTS` → 调用 `/pm-need $ARGUMENTS`，完成后回到本流程
-- 无 `$ARGUMENTS` → 🔴 STOP：输出"未找到 PMContext，先运行 `/pm-need <需求>`"
+先读 Agent 规则文件中 `## PMSkill` 块取 `产物目录`（块不存在回退默认 `docs/pm-context/`），从 `<产物目录>/pm-context.md` 读取。**stamp 互校**：若 `<产物目录>/.pmskill-setup.stamp` 存在且 `pmcontext_exists: false`，提示"stamp 显示 PMContext 未生成但文件已存在——以文件为准，建议重跑 setup 更新 stamp"。若不存在或为空，一律 🔴 STOP：输出"未找到 PMContext，先由用户运行 `/pm-need <需求>`"。本 Hybrid Entry 不得自动调用 Human-only Entry。
 
 - [ ] PMContext 已读取且非空
 - [ ] 概述/页面定义/全局约束/假设清单/风险项/信息缺口全部提取
@@ -64,9 +62,9 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 
 ## 零确认模式（--auto）
 
-当通过 `/pm-prd <需求描述>` 或 `/pm-need --auto` 调用时：
-1. 自动 run `/pm-collect` + `/pm-refine` 生成 PMContext
-2. 自动 run `/pm-aiprd` + `/pm-humanprd` 生成 PRD
+当通过 `/pm-need --auto` 编排，或用户对已有 PMContext 调用 `/pm-prd --auto` 时：
+1. 读取已有 PMContext，不自行收集或精炼需求
+2. run `/pm-aiprd` + `/pm-humanprd` 生成 PRD
 3. 输出审计摘要后**不等待确认**，直接落盘完成
 4. 输出摘要包含置信度分布 + 信息缺口，供 PM 事后审计
 
@@ -74,8 +72,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---------|---------|-----------|
-| `<产物目录>/pm-context.md` 不存在 且无 `$ARGUMENTS` | **🔴 STOP**：输出"未找到 PMContext，先运行 `/pm-need <需求>`" | 不阻塞，提示后退出 |
-| PMContext 不存在但有 `$ARGUMENTS` | 自动调用 `/pm-need $ARGUMENTS` 生成 PMContext，结束后回到 PRD 生成 | pm-need 失败则 STOP 并提示失败原因 |
+| `<产物目录>/pm-context.md` 不存在或为空 | **🔴 STOP**：输出"未找到 PMContext，请由用户先运行 `/pm-need <需求>`" | 不生成 PRD，不自动调用 Human-only Entry |
 | pm-aiprd 生成失败 | 单独输出 human-prd，标注 `ai-prd 生成失败: <原因>` | 不阻塞，提示用户单独重跑 `/pm-aiprd` |
 | pm-humanprd 生成失败 | 单独输出 ai-prd，标注 `human-prd 生成失败: <原因>` | 不阻塞，提示用户单独重跑 `/pm-humanprd` |
 | `--auto` 模式下任一子 skill 失败 | 不暂停，记录失败项到一站式报告的"失败清单"章节 | 其他子 skill 结果仍落盘 |
@@ -107,7 +104,7 @@ Run `/pm-humanprd` — 生成 `docs/pm-context/prd/human-prd.md`
 
 **实战铁律**（落盘前对照）：
 
-- **优先跑 `--auto`**：PMContext 不存在时自动链路远比手动快
+- **`--auto` 只跳过审计等待**：仍要求 PMContext 已存在；需要从需求起步时由用户调用 `/pm-need --auto`
 - **审计摘要要读**：黑名单把 `[待确认]` 写成确定项是最高频错误
 
 ### Further Reading

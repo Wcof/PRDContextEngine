@@ -14,6 +14,7 @@
 | 验收级别 | MCP 质量门（页面覆盖/交互覆盖/导出持久化） | V1（AI 自检 + 体积检查） | V2 / V3（按 Acceptance Tier） |
 | 文档预览 | manifest 记录 PMContext/DESIGN/PRD 输入；MCP 支持则生成文档 screen | 内联 overlay（E1） | DocOverlay 组件（E1 + 可选 E2） |
 | 视觉/UE | brief 必须携带 `prototype-design-profile.json` | `:root` token + 页面布局骨架来自 design profile | `src/style.css` token + 组件布局/动效策略来自 design profile |
+| 视觉可见性审计 | manifest 引用 `visual-audit-report.json`；不可解析时 `needs-manual-review` | 运行 `scripts/visual_audit_prototype.py prototype.html`，失败不得打 ✅ | V2/V3 运行静态 + headless computed style / screenshot 审计，失败不得打 ✅ |
 
 Pencil MCP 模式是 `--prototype` 的优先实现通道；未命中、用户显式 `--no-mcp`、MCP 缺导出/持久化能力或调用失败时，回退到原有 Simple/Scaffold 本地实现。Simple/Scaffold 共享的公共组件：Design Token、Device Toolbar、PRD Panel、文档 overlay、Toast / Modal。简单模式内联实现，Scaffold 模式拆为独立 React 组件。
 
@@ -63,6 +64,35 @@ type PrototypeDesignProfile = {
 - 假截图/假图表没有真实可点交互或 trace
 - 为了视觉效果删掉 PMContext 规则/验收/状态
 
+### -1.4 Visual Audit Report（视觉可见性数据契约）
+
+所有模式必须生成 `docs/pm-context/sketch/visual-audit-report.json`，用于捕获“代码里有元素，但用户看不见”的问题。
+
+```ts
+type VisualAuditReport = {
+  mode: 'visual-audit'
+  status: 'passed' | 'failed' | 'needs-manual-review'
+  source: 'Pencil export' | 'prototype.html' | 'prototype/'
+  token_digest: string
+  checks: {
+    token_contrast_pairs: { passed: number; failed: number }
+    interactive_visibility: { passed: number; failed: number }
+    state_visibility: { passed: number; failed: number }
+    focus_visible: { passed: number; failed: number }
+    empty_clickable_overlay: { passed: number; failed: number }
+  }
+  findings: Array<{ severity: 'error' | 'warn'; code: string; target: string; detail: string }>
+  repair_actions: string[]
+}
+```
+
+最低门槛：
+
+- `--color-text` / `--color-text-secondary` 对 `--color-bg`、`--color-bg-secondary`、`--color-bg-tertiary` 必须可读。
+- `--color-on-primary` 对 `--color-primary` 必须可读。
+- 所有 `button`、`a[href]`、`[role=button]`、表格操作项和菜单项必须有可见文字/图标/边框/焦点态。
+- 任何“字体颜色与背景色相同/接近”“点击区域存在但视觉空白”的问题，判定为 Failure。
+
 ---
 
 ## 零、Pencil MCP Manifest 模板
@@ -84,6 +114,7 @@ type PrototypeDesignProfile = {
   ],
   "design_profile": "docs/pm-context/sketch/prototype-design-profile.json",
   "style_family": "<selected style family>",
+  "visual_audit": {"status": "passed | failed | needs-manual-review", "report": "docs/pm-context/sketch/visual-audit-report.json", "contrast_failures": 0, "invisible_interactive_count": 0},
   "ue_coverage": {
     "primary_cta_pages": 0,
     "state_feedback_pages": 0,
@@ -132,6 +163,7 @@ type PrototypeDesignProfile = {
   "inputs": ["docs/pm-context/pm-context.md"],
   "design_profile": "docs/pm-context/sketch/prototype-design-profile.json",
   "style_family": "<selected style family>",
+  "visual_audit": {"status": "passed | failed | needs-manual-review", "report": "docs/pm-context/sketch/visual-audit-report.json", "contrast_failures": 0, "invisible_interactive_count": 0},
   "ue_coverage": {},
   "pages": [],
   "components": [],
@@ -308,8 +340,11 @@ DESIGN.md 采用与 Axhub-Make `theme-guide.md` 对齐的结构，字段 → CSS
 | `colors.surface-2` | `--color-bg-tertiary` | `#f3f4f6` |
 | `colors.hairline` | `--color-border` | `#e5e7eb` |
 | `colors.success` | `--color-success` | `#10b981` |
+| `colors.on-success` | `--color-on-success` | `#052e16` |
 | `colors.warning` | `--color-warning` | `#f59e0b` |
+| `colors.on-warning` | `--color-on-warning` | `#422006` |
 | `colors.danger` | `--color-danger` | `#ef4444` |
+| `colors.on-danger` | `--color-on-danger` | `#280000` |
 | `colors.info` | `--color-info` | `#3b82f6` |
 | `colors.accent` | `--color-accent` | `#f59e0b` |
 | `spacing.xxs` | `--space-xs` | `4px` |
@@ -357,8 +392,11 @@ PMContext 品牌色与 DESIGN.md 不一致时：
 
   /* 语义色 */
   --color-success: #10b981;
+  --color-on-success: #052e16;
   --color-warning: #f59e0b;
+  --color-on-warning: #422006;
   --color-danger: #ef4444;
+  --color-on-danger: #280000;
   --color-info: #3b82f6;
 
   /* 中性色 */
@@ -943,8 +981,11 @@ createRoot(document.getElementById('root')!).render(
   --color-primary-dark: {{COLOR_PRIMARY_DARK}};
   --color-accent: {{COLOR_ACCENT}};
   --color-success: {{COLOR_SUCCESS}};
+  --color-on-success: {{COLOR_ON_SUCCESS}};
   --color-warning: {{COLOR_WARNING}};
+  --color-on-warning: {{COLOR_ON_WARNING}};
   --color-danger: {{COLOR_DANGER}};
+  --color-on-danger: {{COLOR_ON_DANGER}};
   --color-info: {{COLOR_INFO}};
   --color-text: {{COLOR_TEXT}};
   --color-text-secondary: {{COLOR_TEXT_SECONDARY}};
@@ -1670,7 +1711,9 @@ V3 → V2 → V1 各级均失败后输出：
 - [ ] ✅ Device Toolbar + PRD Panel + DocOverlay 三组件完整
 - [ ] ✅ 多页 hash 路由（`useHashPage` hook，对齐 Axhub）
 - [ ] ✅ L4 交互：角色切换 + 权限分支 + 错误恢复 + 加载/空/成功/失败四态
-- [ ] ✅ 所有 `<section>` 对应 PMContext 页面定义
+- [ ] ✅ 所有 route/page 对应 PMContext 页面定义，页面根节点带 `data-trace-page="<PMContext heading>"`
+- [ ] ✅ 每页至少 3 个业务元素带 `data-trace-ref`，指向 `prototype-content-plan.json` 的 facts/rules/acceptances/actions 来源
+- [ ] ✅ 每页至少 5 个非导航业务元素、1 个真实交互；`TODO` / `敬请期待` / `占位` / 只有标题或菜单均判定为**路由空壳**并阻断完成
 - [ ] ✅ `index.tsx` 顶部含中文 `@name` 注释
 - [ ] ✅ `README.md` 含本地启动命令
 - [ ] ✅ V2/V3 验收通过或诚实降级（输出错误清单，不静默撒谎）
@@ -1702,3 +1745,20 @@ V3 → V2 → V1 各级均失败后输出：
 ### 14.3 R3 移动端手势（仅 Scaffold 模式 + PMContext 含移动端角色）
 
 启用 swipe / pull-to-refresh / bottom tab 时，在对应页面组件中引入手势库（如 `@use-gesture/react`），并在 `package.json` 中声明依赖。简单模式不实现 R3。
+
+
+## 十四、视觉可见性审计脚本
+
+本仓库提供 `scripts/visual_audit_prototype.py` 作为本地确定性兜底。Simple 模式生成后必须运行：
+
+```bash
+python scripts/visual_audit_prototype.py --token-digest <design-source-manifest.token_digest> docs/pm-context/sketch/prototype.html > docs/pm-context/sketch/visual-audit-report.json
+```
+
+Scaffold 模式生成后必须运行：
+
+```bash
+python scripts/visual_audit_prototype.py --token-digest <design-source-manifest.token_digest> docs/pm-context/sketch/prototype > docs/pm-context/sketch/visual-audit-report.json
+```
+
+若脚本返回非 0，说明至少存在一处低对比或不可见交互元素；必须先修 token / 组件状态 / focus ring，再重新验收。该脚本是 V1 兜底，V3 场景应额外用 headless browser 读取 computed style 与截图，防止 class 合成后出现不可见状态。

@@ -1,6 +1,6 @@
 ---
 name: pm-okr
-description: 从 PMContext 拆解 OKR——定性 Objective（鼓舞+方向+时间窗）+ 3 个定量 Key Results（可测、60-70% 信心、对齐公司战略）+ 三套候选对比 + KR 与 KPI/NSM 关系澄清，每 KR 附 PMContext 度量追溯。Use when the user asks for OKR or quarterly goals, mentions OKR、目标与关键结果、Objective、Key Results、季度目标、quarterly goals、KR、战略对齐、stretch goals、ambitious goals.
+description: Use when the user asks for OKR or quarterly goals, mentions OKR、目标与关键结果、Objective、Key Results、季度目标、quarterly goals、KR、战略对齐、stretch goals、ambitious goals.
 metadata:
   internal: true
 ---
